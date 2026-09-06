@@ -298,7 +298,7 @@ export default function RedistribusiPage() {
             </div>
             <Penjelas
               judul="Cara membaca tabel ini"
-              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri."
+              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. Kolom 'Biaya' memuat ongkos angkut rute itu, dengan jarak tempuhnya dalam kilometer di baris bawahnya."
             />
             <div className="mt-3">
               <Penjelas

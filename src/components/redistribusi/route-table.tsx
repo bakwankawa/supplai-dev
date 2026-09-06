@@ -10,10 +10,13 @@ import { jelaskanStatus } from "@/lib/redistribusi/status"
 import { ton, persen, SKALA_PERSEN_PASAR, takaranLabel } from "@/lib/redistribusi/format"
 import { ChevronsUpDown } from "lucide-react";
 
-type SortKey = "from" | "to" | "volumeTon" | "distance" | "cost" | "priority" | "persenPasar" | "kecukupanPersen";
+/** No "distance": the distance is a sub-line of the Biaya cell now, not a
+ *  column of its own, so there is nothing for a distance sort to reorder.
+ *  Leaving the member in would keep an unreachable branch alive in the
+ *  comparator. */
+type SortKey = "from" | "to" | "volumeTon" | "cost" | "priority" | "persenPasar" | "kecukupanPersen";
 
 const PRIORITY_ORDER: Record<RedistributionRoute["priority"], number> = { high: 0, medium: 1, low: 2 };
-const COMMODITY_LABELS: Record<string, string> = { beras: "Beras", "bawang-merah": "Bawang Merah", "cabai-rawit": "Cabai Rawit", "minyak-goreng": "Minyak Goreng" };
 
 interface RouteTableProps {
   routes: RedistributionRoute[];
@@ -89,7 +92,14 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
   };
 
   return (
-    <div className="rounded-xl border border-slate-200 overflow-hidden bg-white">
+    // No overflow-hidden here. <Table> already renders its own
+    // `overflow-x-auto` container, and this wrapper's overflow-hidden — there
+    // for the rounded corners — clipped that container instead of letting it
+    // scroll, so the last columns were simply cut off. The corners survive
+    // without it because the summary paragraph, not the header row, sits at
+    // the top of this box. The table declares a min width so the scrollbar
+    // engages rather than the columns squeezing.
+    <div className="rounded-xl border border-slate-200 bg-white">
       {(() => {
         const terukur = routes.filter((r) => r.dasarTakaran === "terukur").length;
         return (
@@ -97,11 +107,14 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
             <span className="font-bold text-slate-700">{terukur} dari {routes.length} rute</span>{" "}
             volumenya ditetapkan dari kebutuhan terukur. Sisanya dibatasi aturan sisi asal
             yang kami tetapkan sendiri, bukan yang kami ukur — makin agresif posturnya,
-            makin besar bagian yang diasumsikan.
+            makin besar bagian yang diasumsikan.{" "}
+            <span className="text-slate-400">
+              Pada layar sempit tabel ini digeser ke samping untuk mencapai kolom Biaya dan Prioritas.
+            </span>
           </p>
         );
       })()}
-      <Table className="text-xs">
+      <Table className="text-xs min-w-[860px]">
         <TableHeader className="bg-slate-50">
           <TableRow className="hover:bg-transparent">
             {(["from", "to"] as const).map((col) => (
@@ -130,7 +143,7 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
               className="cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
             >
               <div className="flex items-center gap-1">
-                % pasar tujuan <span className="font-normal text-slate-400">(skala 0–5%)</span>
+                % pasar tujuan
                 <ChevronsUpDown className={`w-3 h-3 ${sortKey === "persenPasar" ? "text-[#006c4a]" : "text-slate-300"}`} />
               </div>
             </TableHead>
@@ -144,14 +157,14 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
                 <ChevronsUpDown className={`w-3 h-3 ${sortKey === "kecukupanPersen" ? "text-[#006c4a]" : "text-slate-300"}`} />
               </div>
             </TableHead>
-            {(["distance", "cost", "priority"] as const).map((col) => (
+            {([["cost", "Biaya"], ["priority", "Prioritas"]] as const).map(([col, judul]) => (
               <TableHead
                 key={col}
                 onClick={() => toggleSort(col)}
                 className="cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
               >
-                <div className="flex items-center gap-1 capitalize">
-                  {col === "cost" ? "Est. Biaya" : col}
+                <div className="flex items-center gap-1">
+                  {judul}
                   <ChevronsUpDown className={`w-3 h-3 ${sortKey === col ? "text-[#006c4a]" : "text-slate-300"}`} />
                 </div>
               </TableHead>
@@ -196,8 +209,10 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
               <TableCell className="text-right tabular-nums text-slate-600 font-bold">
                 {persen(route.kecukupanPersen, 1)}
               </TableCell>
-              <TableCell className="font-medium text-slate-500">{formatNumber(route.distance)} km</TableCell>
-              <TableCell className="font-mono font-bold text-slate-800">{formatRupiah(route.cost)}</TableCell>
+              <TableCell className="tabular-nums" title={`Jarak ${route.from} ke ${route.to}: ${formatNumber(route.distance)} km`}>
+                <div className="font-mono font-bold text-slate-800">{formatRupiah(route.cost)}</div>
+                <div className="text-[10px] text-slate-400">{formatNumber(route.distance)} km</div>
+              </TableCell>
               <TableCell>
                 {route.priority === "high" && <Badge className="bg-rose-500 hover:bg-rose-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Tinggi</Badge>}
                 {route.priority === "medium" && <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Sedang</Badge>}
