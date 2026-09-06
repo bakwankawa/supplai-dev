@@ -25,7 +25,7 @@
   },
   {
    "title": "VOL. REDISTRIBUSI",
-   "value": "3200",
+   "value": "2276",
    "statusText": "REKOMENDASI",
    "statusType": "surplus",
    "subtext": "Ton",
@@ -52,7 +52,7 @@
   {
    "title": "Match",
    "id": "RUTE AKTIF",
-   "value": "27",
+   "value": "72",
    "label": "ROUTES",
    "type": "match",
    "color": "rose"

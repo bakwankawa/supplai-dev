@@ -1,910 +1,4712 @@
 {
- "beras": {
-  "summary": {
-   "totalRoutes": 9,
-   "totalVolume": 800,
-   "activeRoutes": "9 → 1",
-   "estimatedCost": 2490229468
+ "konservatif": {
+  "beras": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
+   },
+   "provinces": [],
+   "routes": []
   },
-  "provinces": [
-   {
-    "id": "nusa-tenggara-barat",
-    "name": "Nusa Tenggara Barat",
-    "status": "surplus",
-    "stock": 186
+  "bawang-merah": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "nusa-tenggara-timur",
-    "name": "Nusa Tenggara Timur",
-    "status": "surplus",
-    "stock": 159
+   "provinces": [],
+   "routes": []
+  },
+  "bawang-putih": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "sulawesi-barat",
-    "name": "Sulawesi Barat",
-    "status": "surplus",
-    "stock": 106
+   "provinces": [],
+   "routes": []
+  },
+  "daging-ayam": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "di-yogyakarta",
-    "name": "DI Yogyakarta",
-    "status": "surplus",
-    "stock": 92
+   "provinces": [],
+   "routes": []
+  },
+  "telur-ayam": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "bali",
-    "name": "Bali",
-    "status": "surplus",
-    "stock": 84
+   "provinces": [],
+   "routes": []
+  },
+  "minyak-goreng": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "sulawesi-selatan",
-    "name": "Sulawesi Selatan",
-    "status": "surplus",
-    "stock": 79
+   "provinces": [],
+   "routes": []
+  },
+  "all": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 komoditas",
+    "estimatedCost": 0
    },
-   {
-    "id": "jawa-timur",
-    "name": "Jawa Timur",
-    "status": "surplus",
-    "stock": 57
-   },
-   {
-    "id": "kepulauan-riau",
-    "name": "Kepulauan Riau",
-    "status": "surplus",
-    "stock": 25
-   },
-   {
-    "id": "jawa-barat",
-    "name": "Jawa Barat",
-    "status": "surplus",
-    "stock": 11
-   },
-   {
-    "id": "kalimantan-utara",
-    "name": "Kalimantan Utara",
-    "status": "deficit",
-    "stock": 800
-   }
-  ],
-  "routes": [
-   {
-    "from": "Bali",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 84,
-    "distance": 1303,
-    "cost": 274281929,
-    "priority": "low"
-   },
-   {
-    "from": "DI Yogyakarta",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 92,
-    "distance": 1444,
-    "cost": 333088914,
-    "priority": "low"
-   },
-   {
-    "from": "Jawa Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 11,
-    "distance": 1552,
-    "cost": 43565929,
-    "priority": "low"
-   },
-   {
-    "from": "Jawa Timur",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 57,
-    "distance": 1311,
-    "cost": 188387905,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 25,
-    "distance": 1496,
-    "cost": 95021689,
-    "priority": "low"
-   },
-   {
-    "from": "Nusa Tenggara Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 186,
-    "distance": 1295,
-    "cost": 601531361,
-    "priority": "low"
-   },
-   {
-    "from": "Nusa Tenggara Timur",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 159,
-    "distance": 1497,
-    "cost": 595380646,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 106,
-    "distance": 702,
-    "cost": 185251124,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Selatan",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 79,
-    "distance": 881,
-    "cost": 173719971,
-    "priority": "low"
-   }
-  ]
+   "provinces": [],
+   "routes": []
+  }
  },
- "bawang-merah": {
-  "summary": {
-   "totalRoutes": 0,
-   "totalVolume": 0,
-   "activeRoutes": "0 → 0",
-   "estimatedCost": 0
+ "seimbang": {
+  "beras": {
+   "summary": {
+    "totalRoutes": 1,
+    "totalVolume": 57,
+    "activeRoutes": "1 → 1",
+    "estimatedCost": 100692943
+   },
+   "provinces": [
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 57
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 57
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 57,
+     "distance": 702,
+     "cost": 100692943,
+     "priority": "low",
+     "volumeTon": 57.41,
+     "persenPasar": 1.298,
+     "postur": "seimbang",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.2
+    }
+   ]
   },
-  "provinces": [],
-  "routes": []
+  "bawang-merah": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
+   },
+   "provinces": [],
+   "routes": []
+  },
+  "bawang-putih": {
+   "summary": {
+    "totalRoutes": 10,
+    "totalVolume": 88,
+    "activeRoutes": "2 → 9",
+    "estimatedCost": 300717863
+   },
+   "provinces": [
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 53
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 36
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 1
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 5
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "deficit",
+     "stock": 5
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 7
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 9
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 10
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 40
+    }
+   ],
+   "routes": [
+    {
+     "from": "Kalimantan Barat",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 4,
+     "distance": 787,
+     "cost": 8040424,
+     "priority": "low",
+     "volumeTon": 4.08,
+     "persenPasar": 0.237,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 36,
+     "distance": 862,
+     "cost": 76679920,
+     "priority": "low",
+     "volumeTon": 35.6,
+     "persenPasar": 2.066,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 7,
+     "distance": 1972,
+     "cost": 36586027,
+     "priority": "low",
+     "volumeTon": 7.42,
+     "persenPasar": 3.359,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 29.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 2551,
+     "cost": 30529260,
+     "priority": "low",
+     "volumeTon": 4.79,
+     "persenPasar": 2.431,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 69.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 1489,
+     "cost": 19110535,
+     "priority": "low",
+     "volumeTon": 5.13,
+     "persenPasar": 2.569,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 32.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2374,
+     "cost": 35826122,
+     "priority": "low",
+     "volumeTon": 6.04,
+     "persenPasar": 1.904,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 166.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 1669,
+     "cost": 37013046,
+     "priority": "low",
+     "volumeTon": 8.87,
+     "persenPasar": 2.027,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 263.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 925,
+     "cost": 2540592,
+     "priority": "low",
+     "volumeTon": 1.1,
+     "persenPasar": 0.911,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 199.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 837,
+     "cost": 11905687,
+     "priority": "low",
+     "volumeTon": 5.69,
+     "persenPasar": 0.874,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 265.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 10,
+     "distance": 1765,
+     "cost": 42486250,
+     "priority": "low",
+     "volumeTon": 9.63,
+     "persenPasar": 1.042,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 290.7
+    }
+   ]
+  },
+  "daging-ayam": {
+   "summary": {
+    "totalRoutes": 12,
+    "totalVolume": 268,
+    "activeRoutes": "5 → 8",
+    "estimatedCost": 464871943
+   },
+   "provinces": [
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 94
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 56
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 40
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 39
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 39
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "deficit",
+     "stock": 4
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 8
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 13
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 18
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 25
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 29
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 153
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 757,
+     "cost": 55744474,
+     "priority": "low",
+     "volumeTon": 29.46,
+     "persenPasar": 0.887,
+     "postur": "seimbang",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 38.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 17,
+     "distance": 917,
+     "cost": 39901478,
+     "priority": "low",
+     "volumeTon": 17.41,
+     "persenPasar": 0.467,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 23.7
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 8,
+     "distance": 191,
+     "cost": 3736680,
+     "priority": "low",
+     "volumeTon": 7.83,
+     "persenPasar": 0.824,
+     "postur": "seimbang",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 310.1
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 962,
+     "cost": 32007186,
+     "priority": "low",
+     "volumeTon": 13.3,
+     "persenPasar": 0.37,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 12,
+     "distance": 424,
+     "cost": 12677724,
+     "priority": "low",
+     "volumeTon": 11.96,
+     "persenPasar": 0.332,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 1037,
+     "cost": 33200501,
+     "priority": "low",
+     "volumeTon": 12.8,
+     "persenPasar": 0.31,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 73.2
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 4,
+     "distance": 370,
+     "cost": 3801046,
+     "priority": "low",
+     "volumeTon": 4.11,
+     "persenPasar": 0.297,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 436.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 815,
+     "cost": 54407807,
+     "priority": "low",
+     "volumeTon": 26.69,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 1326,
+     "cost": 89611536,
+     "priority": "low",
+     "volumeTon": 27.02,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 90,
+     "distance": 308,
+     "cost": 68952053,
+     "priority": "low",
+     "volumeTon": 89.6,
+     "persenPasar": 0.21,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 10,
+     "distance": 1670,
+     "cost": 40072834,
+     "priority": "low",
+     "volumeTon": 9.6,
+     "persenPasar": 0.023,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 18,
+     "distance": 669,
+     "cost": 30758624,
+     "priority": "low",
+     "volumeTon": 18.4,
+     "persenPasar": 0.576,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 81.4
+    }
+   ]
+  },
+  "telur-ayam": {
+   "summary": {
+    "totalRoutes": 13,
+    "totalVolume": 612,
+    "activeRoutes": "3 → 11",
+    "estimatedCost": 1376375026
+   },
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 495
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 112
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "surplus",
+     "stock": 5
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 8
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 11
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 14
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "deficit",
+     "stock": 30
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "deficit",
+     "stock": 33
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 49
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "deficit",
+     "stock": 55
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 61
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 75
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 113
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 163
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 61,
+     "distance": 1043,
+     "cost": 158760293,
+     "priority": "low",
+     "volumeTon": 60.87,
+     "persenPasar": 3.642,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.6
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 14,
+     "distance": 1633,
+     "cost": 58204764,
+     "priority": "low",
+     "volumeTon": 14.26,
+     "persenPasar": 2.667,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 113,
+     "distance": 487,
+     "cost": 137891829,
+     "priority": "low",
+     "volumeTon": 113.22,
+     "persenPasar": 2.476,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 26.1
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 1741,
+     "cost": 23151137,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 2924,
+     "cost": 38900917,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 153758501,
+     "priority": "low",
+     "volumeTon": 30.0,
+     "persenPasar": 2.622,
+     "postur": "seimbang",
+     "epsilon": 0.916,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 89.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 33,
+     "distance": 455,
+     "cost": 37237052,
+     "priority": "low",
+     "volumeTon": 32.72,
+     "persenPasar": 2.214,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 10.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 49,
+     "distance": 1471,
+     "cost": 180596358,
+     "priority": "low",
+     "volumeTon": 49.11,
+     "persenPasar": 2.05,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 39.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 8,
+     "distance": 3169,
+     "cost": 63459797,
+     "priority": "low",
+     "volumeTon": 8.01,
+     "persenPasar": 2.036,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 55.6
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 414,
+     "cost": 77473839,
+     "priority": "low",
+     "volumeTon": 74.79,
+     "persenPasar": 1.934,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.7
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 809,
+     "cost": 74725101,
+     "priority": "low",
+     "volumeTon": 36.93,
+     "persenPasar": 0.435,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 126,
+     "distance": 868,
+     "cost": 273907448,
+     "priority": "low",
+     "volumeTon": 126.29,
+     "persenPasar": 1.486,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 55,
+     "distance": 716,
+     "cost": 98307991,
+     "priority": "low",
+     "volumeTon": 54.95,
+     "persenPasar": 1.627,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 14.2
+    }
+   ]
+  },
+  "minyak-goreng": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
+   },
+   "provinces": [],
+   "routes": []
+  },
+  "all": {
+   "summary": {
+    "totalRoutes": 36,
+    "totalVolume": 1025,
+    "activeRoutes": "4 komoditas",
+    "estimatedCost": 2242657775
+   },
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 495
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 108
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 96
+    },
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 94
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 37
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 35
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 26
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 3
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 7
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 10
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 12
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 13
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 25
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 29
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 40
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 61
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 72
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 73
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 88
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 113
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 153
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 163
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 57,
+     "distance": 702,
+     "cost": 100692943,
+     "priority": "low",
+     "volumeTon": 57.41,
+     "persenPasar": 1.298,
+     "postur": "seimbang",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.2
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 4,
+     "distance": 787,
+     "cost": 8040424,
+     "priority": "low",
+     "volumeTon": 4.08,
+     "persenPasar": 0.237,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 36,
+     "distance": 862,
+     "cost": 76679920,
+     "priority": "low",
+     "volumeTon": 35.6,
+     "persenPasar": 2.066,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 7,
+     "distance": 1972,
+     "cost": 36586027,
+     "priority": "low",
+     "volumeTon": 7.42,
+     "persenPasar": 3.359,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 29.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 2551,
+     "cost": 30529260,
+     "priority": "low",
+     "volumeTon": 4.79,
+     "persenPasar": 2.431,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 69.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 1489,
+     "cost": 19110535,
+     "priority": "low",
+     "volumeTon": 5.13,
+     "persenPasar": 2.569,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 32.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2374,
+     "cost": 35826122,
+     "priority": "low",
+     "volumeTon": 6.04,
+     "persenPasar": 1.904,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 166.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 1669,
+     "cost": 37013046,
+     "priority": "low",
+     "volumeTon": 8.87,
+     "persenPasar": 2.027,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 263.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 925,
+     "cost": 2540592,
+     "priority": "low",
+     "volumeTon": 1.1,
+     "persenPasar": 0.911,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 199.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 837,
+     "cost": 11905687,
+     "priority": "low",
+     "volumeTon": 5.69,
+     "persenPasar": 0.874,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 265.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 10,
+     "distance": 1765,
+     "cost": 42486250,
+     "priority": "low",
+     "volumeTon": 9.63,
+     "persenPasar": 1.042,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 290.7
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 757,
+     "cost": 55744474,
+     "priority": "low",
+     "volumeTon": 29.46,
+     "persenPasar": 0.887,
+     "postur": "seimbang",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 38.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 17,
+     "distance": 917,
+     "cost": 39901478,
+     "priority": "low",
+     "volumeTon": 17.41,
+     "persenPasar": 0.467,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 23.7
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 8,
+     "distance": 191,
+     "cost": 3736680,
+     "priority": "low",
+     "volumeTon": 7.83,
+     "persenPasar": 0.824,
+     "postur": "seimbang",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 310.1
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 962,
+     "cost": 32007186,
+     "priority": "low",
+     "volumeTon": 13.3,
+     "persenPasar": 0.37,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 12,
+     "distance": 424,
+     "cost": 12677724,
+     "priority": "low",
+     "volumeTon": 11.96,
+     "persenPasar": 0.332,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 1037,
+     "cost": 33200501,
+     "priority": "low",
+     "volumeTon": 12.8,
+     "persenPasar": 0.31,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 73.2
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 4,
+     "distance": 370,
+     "cost": 3801046,
+     "priority": "low",
+     "volumeTon": 4.11,
+     "persenPasar": 0.297,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 436.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 815,
+     "cost": 54407807,
+     "priority": "low",
+     "volumeTon": 26.69,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 1326,
+     "cost": 89611536,
+     "priority": "low",
+     "volumeTon": 27.02,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 90,
+     "distance": 308,
+     "cost": 68952053,
+     "priority": "low",
+     "volumeTon": 89.6,
+     "persenPasar": 0.21,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 10,
+     "distance": 1670,
+     "cost": 40072834,
+     "priority": "low",
+     "volumeTon": 9.6,
+     "persenPasar": 0.023,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 18,
+     "distance": 669,
+     "cost": 30758624,
+     "priority": "low",
+     "volumeTon": 18.4,
+     "persenPasar": 0.576,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 81.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 61,
+     "distance": 1043,
+     "cost": 158760293,
+     "priority": "low",
+     "volumeTon": 60.87,
+     "persenPasar": 3.642,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.6
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 14,
+     "distance": 1633,
+     "cost": 58204764,
+     "priority": "low",
+     "volumeTon": 14.26,
+     "persenPasar": 2.667,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 113,
+     "distance": 487,
+     "cost": 137891829,
+     "priority": "low",
+     "volumeTon": 113.22,
+     "persenPasar": 2.476,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 26.1
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 1741,
+     "cost": 23151137,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 2924,
+     "cost": 38900917,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 153758501,
+     "priority": "low",
+     "volumeTon": 30.0,
+     "persenPasar": 2.622,
+     "postur": "seimbang",
+     "epsilon": 0.916,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 89.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 33,
+     "distance": 455,
+     "cost": 37237052,
+     "priority": "low",
+     "volumeTon": 32.72,
+     "persenPasar": 2.214,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 10.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 49,
+     "distance": 1471,
+     "cost": 180596358,
+     "priority": "low",
+     "volumeTon": 49.11,
+     "persenPasar": 2.05,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 39.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 8,
+     "distance": 3169,
+     "cost": 63459797,
+     "priority": "low",
+     "volumeTon": 8.01,
+     "persenPasar": 2.036,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 55.6
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 414,
+     "cost": 77473839,
+     "priority": "low",
+     "volumeTon": 74.79,
+     "persenPasar": 1.934,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.7
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 809,
+     "cost": 74725101,
+     "priority": "low",
+     "volumeTon": 36.93,
+     "persenPasar": 0.435,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 126,
+     "distance": 868,
+     "cost": 273907448,
+     "priority": "low",
+     "volumeTon": 126.29,
+     "persenPasar": 1.486,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 55,
+     "distance": 716,
+     "cost": 98307991,
+     "priority": "low",
+     "volumeTon": 54.95,
+     "persenPasar": 1.627,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 14.2
+    }
+   ]
+  }
  },
- "bawang-putih": {
-  "summary": {
-   "totalRoutes": 5,
-   "totalVolume": 800,
-   "activeRoutes": "2 → 4",
-   "estimatedCost": 2815788301
+ "aman_pangan": {
+  "beras": {
+   "summary": {
+    "totalRoutes": 1,
+    "totalVolume": 59,
+    "activeRoutes": "1 → 1",
+    "estimatedCost": 103767404
+   },
+   "provinces": [
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 59
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 59
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 59,
+     "distance": 702,
+     "cost": 103767404,
+     "priority": "medium",
+     "volumeTon": 59.16,
+     "persenPasar": 1.337,
+     "postur": "aman_pangan",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.0
+    }
+   ]
   },
-  "provinces": [
-   {
-    "id": "kepulauan-riau",
-    "name": "Kepulauan Riau",
-    "status": "surplus",
-    "stock": 517
+  "bawang-merah": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "kalimantan-barat",
-    "name": "Kalimantan Barat",
-    "status": "surplus",
-    "stock": 283
+   "provinces": [],
+   "routes": []
+  },
+  "bawang-putih": {
+   "summary": {
+    "totalRoutes": 10,
+    "totalVolume": 113,
+    "activeRoutes": "2 → 9",
+    "estimatedCost": 411064860
    },
-   {
-    "id": "kalimantan-utara",
-    "name": "Kalimantan Utara",
-    "status": "deficit",
-    "stock": 44
+   "provinces": [
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 77
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 36
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 2
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 9
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 12
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 14
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 23
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 35
+    }
+   ],
+   "routes": [
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 35,
+     "distance": 862,
+     "cost": 74521393,
+     "priority": "medium",
+     "volumeTon": 34.6,
+     "persenPasar": 2.008,
+     "postur": "aman_pangan",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 1972,
+     "cost": 31896784,
+     "priority": "low",
+     "volumeTon": 6.47,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 33.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2551,
+     "cost": 36780755,
+     "priority": "low",
+     "volumeTon": 5.77,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 57.6
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 1489,
+     "cost": 23551366,
+     "priority": "low",
+     "volumeTon": 6.32,
+     "persenPasar": 3.166,
+     "postur": "aman_pangan",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 26.7
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 2374,
+     "cost": 55089239,
+     "priority": "low",
+     "volumeTon": 9.28,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 107.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 14,
+     "distance": 1669,
+     "cost": 57798632,
+     "priority": "low",
+     "volumeTon": 13.85,
+     "persenPasar": 3.166,
+     "postur": "aman_pangan",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 168.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 2,
+     "distance": 925,
+     "cost": 5094600,
+     "priority": "low",
+     "volumeTon": 2.2,
+     "persenPasar": 1.827,
+     "postur": "aman_pangan",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 99.3
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 12,
+     "distance": 837,
+     "cost": 24428361,
+     "priority": "low",
+     "volumeTon": 11.68,
+     "persenPasar": 1.794,
+     "postur": "aman_pangan",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 129.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 22,
+     "distance": 1765,
+     "cost": 96099449,
+     "priority": "low",
+     "volumeTon": 21.78,
+     "persenPasar": 2.357,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 122.9
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 2317,
+     "cost": 5804282,
+     "priority": "low",
+     "volumeTon": 1.0,
+     "persenPasar": 0.108,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 122.9
+    }
+   ]
+  },
+  "daging-ayam": {
+   "summary": {
+    "totalRoutes": 12,
+    "totalVolume": 426,
+    "activeRoutes": "5 → 8",
+    "estimatedCost": 561906222
    },
-   {
-    "id": "kalimantan-timur",
-    "name": "Kalimantan Timur",
-    "status": "deficit",
-    "stock": 90
+   "provinces": [
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 205
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 86
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 56
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 40
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 39
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "deficit",
+     "stock": 7
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 11
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 21
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 23
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 23
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 36
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 41
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 265
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 23,
+     "distance": 757,
+     "cost": 42839348,
+     "priority": "medium",
+     "volumeTon": 22.64,
+     "persenPasar": 0.682,
+     "postur": "aman_pangan",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 50.2
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 23,
+     "distance": 917,
+     "cost": 53015990,
+     "priority": "medium",
+     "volumeTon": 23.13,
+     "persenPasar": 0.621,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 17.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 11,
+     "distance": 191,
+     "cost": 5083210,
+     "priority": "medium",
+     "volumeTon": 10.65,
+     "persenPasar": 1.121,
+     "postur": "aman_pangan",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 227.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 2,
+     "distance": 841,
+     "cost": 3200960,
+     "priority": "medium",
+     "volumeTon": 1.52,
+     "persenPasar": 0.042,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 39,
+     "distance": 424,
+     "cost": 41332858,
+     "priority": "medium",
+     "volumeTon": 38.98,
+     "persenPasar": 1.084,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 21,
+     "distance": 1037,
+     "cost": 54738355,
+     "priority": "medium",
+     "volumeTon": 21.11,
+     "persenPasar": 0.51,
+     "postur": "aman_pangan",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 44.4
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 7,
+     "distance": 370,
+     "cost": 6532764,
+     "priority": "medium",
+     "volumeTon": 7.06,
+     "persenPasar": 0.51,
+     "postur": "aman_pangan",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 254.2
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 65,
+     "distance": 815,
+     "cost": 132729479,
+     "priority": "medium",
+     "volumeTon": 65.12,
+     "persenPasar": 0.153,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 2,
+     "distance": 1670,
+     "cost": 8799756,
+     "priority": "medium",
+     "volumeTon": 2.11,
+     "persenPasar": 0.005,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 198,
+     "distance": 308,
+     "cost": 152001644,
+     "priority": "medium",
+     "volumeTon": 197.53,
+     "persenPasar": 0.463,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 669,
+     "cost": 48283031,
+     "priority": "medium",
+     "volumeTon": 28.88,
+     "persenPasar": 0.905,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 41.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 7,
+     "distance": 756,
+     "cost": 13348826,
+     "priority": "medium",
+     "volumeTon": 7.07,
+     "persenPasar": 0.221,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 41.6
+    }
+   ]
+  },
+  "telur-ayam": {
+   "summary": {
+    "totalRoutes": 13,
+    "totalVolume": 652,
+    "activeRoutes": "3 → 11",
+    "estimatedCost": 1425818773
    },
-   {
-    "id": "maluku-utara",
-    "name": "Maluku Utara",
-    "status": "deficit",
-    "stock": 308
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 525
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 117
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "surplus",
+     "stock": 10
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 9
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 10
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 12
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "deficit",
+     "stock": 30
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "deficit",
+     "stock": 34
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 37
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 53
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "deficit",
+     "stock": 75
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 89
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 106
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 197
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 1043,
+     "cost": 96869863,
+     "priority": "medium",
+     "volumeTon": 37.14,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 33.8
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 12,
+     "distance": 1633,
+     "cost": 48502505,
+     "priority": "medium",
+     "volumeTon": 11.88,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 24.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 106,
+     "distance": 487,
+     "cost": 128776034,
+     "priority": "low",
+     "volumeTon": 105.73,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 27.9
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 10,
+     "distance": 1741,
+     "cost": 43649064,
+     "priority": "low",
+     "volumeTon": 10.03,
+     "persenPasar": 2.134,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 108.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 0,
+     "distance": 2924,
+     "cost": 3017795,
+     "priority": "low",
+     "volumeTon": 0.41,
+     "persenPasar": 0.088,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 108.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 152036543,
+     "priority": "low",
+     "volumeTon": 29.67,
+     "persenPasar": 2.593,
+     "postur": "aman_pangan",
+     "epsilon": 0.916,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 90.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 34,
+     "distance": 455,
+     "cost": 38903062,
+     "priority": "low",
+     "volumeTon": 34.18,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.3
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 53,
+     "distance": 1471,
+     "cost": 195712359,
+     "priority": "low",
+     "volumeTon": 53.22,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.3
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 9,
+     "distance": 3169,
+     "cost": 69265815,
+     "priority": "low",
+     "volumeTon": 8.74,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 50.9
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 89,
+     "distance": 414,
+     "cost": 92623121,
+     "priority": "low",
+     "volumeTon": 89.41,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 17.3
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 28,
+     "distance": 809,
+     "cost": 56748855,
+     "priority": "low",
+     "volumeTon": 28.05,
+     "persenPasar": 0.33,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 168,
+     "distance": 868,
+     "cost": 365439671,
+     "priority": "low",
+     "volumeTon": 168.5,
+     "persenPasar": 1.983,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 716,
+     "cost": 134274087,
+     "priority": "low",
+     "volumeTon": 75.06,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.4
+    }
+   ]
+  },
+  "minyak-goreng": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "dki-jakarta",
-    "name": "DKI Jakarta",
-    "status": "deficit",
-    "stock": 359
-   }
-  ],
-  "routes": [
-   {
-    "from": "Kepulauan Riau",
-    "to": "DKI Jakarta",
-    "commodity": "bawang-putih",
-    "volume": 359,
-    "distance": 862,
-    "cost": 772581293,
-    "priority": "low"
+   "provinces": [],
+   "routes": []
+  },
+  "all": {
+   "summary": {
+    "totalRoutes": 36,
+    "totalVolume": 1250,
+    "activeRoutes": "4 komoditas",
+    "estimatedCost": 2502557259
    },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Maluku Utara",
-    "commodity": "bawang-putih",
-    "volume": 115,
-    "distance": 2580,
-    "cost": 740097020,
-    "priority": "low"
-   },
-   {
-    "from": "Kalimantan Barat",
-    "to": "Maluku Utara",
-    "commodity": "bawang-putih",
-    "volume": 193,
-    "distance": 1972,
-    "cost": 951193144,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Kalimantan Utara",
-    "commodity": "bawang-putih",
-    "volume": 44,
-    "distance": 1496,
-    "cost": 164370356,
-    "priority": "low"
-   },
-   {
-    "from": "Kalimantan Barat",
-    "to": "Kalimantan Timur",
-    "commodity": "bawang-putih",
-    "volume": 90,
-    "distance": 837,
-    "cost": 187546487,
-    "priority": "low"
-   }
-  ]
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 525
+    },
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 205
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 110
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 98
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 88
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 34
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 26
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 2
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 13
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 15
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 19
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 23
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 23
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 25
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 35
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 37
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 41
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 73
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 101
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 106
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 110
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 197
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 265
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 59,
+     "distance": 702,
+     "cost": 103767404,
+     "priority": "medium",
+     "volumeTon": 59.16,
+     "persenPasar": 1.337,
+     "postur": "aman_pangan",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.0
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 35,
+     "distance": 862,
+     "cost": 74521393,
+     "priority": "medium",
+     "volumeTon": 34.6,
+     "persenPasar": 2.008,
+     "postur": "aman_pangan",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 1972,
+     "cost": 31896784,
+     "priority": "low",
+     "volumeTon": 6.47,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 33.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2551,
+     "cost": 36780755,
+     "priority": "low",
+     "volumeTon": 5.77,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 57.6
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 1489,
+     "cost": 23551366,
+     "priority": "low",
+     "volumeTon": 6.32,
+     "persenPasar": 3.166,
+     "postur": "aman_pangan",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 26.7
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 2374,
+     "cost": 55089239,
+     "priority": "low",
+     "volumeTon": 9.28,
+     "persenPasar": 2.928,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 107.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 14,
+     "distance": 1669,
+     "cost": 57798632,
+     "priority": "low",
+     "volumeTon": 13.85,
+     "persenPasar": 3.166,
+     "postur": "aman_pangan",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 168.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 2,
+     "distance": 925,
+     "cost": 5094600,
+     "priority": "low",
+     "volumeTon": 2.2,
+     "persenPasar": 1.827,
+     "postur": "aman_pangan",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 99.3
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 12,
+     "distance": 837,
+     "cost": 24428361,
+     "priority": "low",
+     "volumeTon": 11.68,
+     "persenPasar": 1.794,
+     "postur": "aman_pangan",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 129.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 22,
+     "distance": 1765,
+     "cost": 96099449,
+     "priority": "low",
+     "volumeTon": 21.78,
+     "persenPasar": 2.357,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 122.9
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 2317,
+     "cost": 5804282,
+     "priority": "low",
+     "volumeTon": 1.0,
+     "persenPasar": 0.108,
+     "postur": "aman_pangan",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 122.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 23,
+     "distance": 757,
+     "cost": 42839348,
+     "priority": "medium",
+     "volumeTon": 22.64,
+     "persenPasar": 0.682,
+     "postur": "aman_pangan",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 50.2
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 23,
+     "distance": 917,
+     "cost": 53015990,
+     "priority": "medium",
+     "volumeTon": 23.13,
+     "persenPasar": 0.621,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 17.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 11,
+     "distance": 191,
+     "cost": 5083210,
+     "priority": "medium",
+     "volumeTon": 10.65,
+     "persenPasar": 1.121,
+     "postur": "aman_pangan",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 227.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 2,
+     "distance": 841,
+     "cost": 3200960,
+     "priority": "medium",
+     "volumeTon": 1.52,
+     "persenPasar": 0.042,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 39,
+     "distance": 424,
+     "cost": 41332858,
+     "priority": "medium",
+     "volumeTon": 38.98,
+     "persenPasar": 1.084,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 21,
+     "distance": 1037,
+     "cost": 54738355,
+     "priority": "medium",
+     "volumeTon": 21.11,
+     "persenPasar": 0.51,
+     "postur": "aman_pangan",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 44.4
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 7,
+     "distance": 370,
+     "cost": 6532764,
+     "priority": "medium",
+     "volumeTon": 7.06,
+     "persenPasar": 0.51,
+     "postur": "aman_pangan",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 254.2
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 65,
+     "distance": 815,
+     "cost": 132729479,
+     "priority": "medium",
+     "volumeTon": 65.12,
+     "persenPasar": 0.153,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 2,
+     "distance": 1670,
+     "cost": 8799756,
+     "priority": "medium",
+     "volumeTon": 2.11,
+     "persenPasar": 0.005,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 198,
+     "distance": 308,
+     "cost": 152001644,
+     "priority": "medium",
+     "volumeTon": 197.53,
+     "persenPasar": 0.463,
+     "postur": "aman_pangan",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 28.3
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 669,
+     "cost": 48283031,
+     "priority": "medium",
+     "volumeTon": 28.88,
+     "persenPasar": 0.905,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 41.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 7,
+     "distance": 756,
+     "cost": 13348826,
+     "priority": "medium",
+     "volumeTon": 7.07,
+     "persenPasar": 0.221,
+     "postur": "aman_pangan",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 41.6
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 1043,
+     "cost": 96869863,
+     "priority": "medium",
+     "volumeTon": 37.14,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 33.8
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 12,
+     "distance": 1633,
+     "cost": 48502505,
+     "priority": "medium",
+     "volumeTon": 11.88,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 24.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 106,
+     "distance": 487,
+     "cost": 128776034,
+     "priority": "low",
+     "volumeTon": 105.73,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 27.9
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 10,
+     "distance": 1741,
+     "cost": 43649064,
+     "priority": "low",
+     "volumeTon": 10.03,
+     "persenPasar": 2.134,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 108.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 0,
+     "distance": 2924,
+     "cost": 3017795,
+     "priority": "low",
+     "volumeTon": 0.41,
+     "persenPasar": 0.088,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 108.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 152036543,
+     "priority": "low",
+     "volumeTon": 29.67,
+     "persenPasar": 2.593,
+     "postur": "aman_pangan",
+     "epsilon": 0.916,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 90.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 34,
+     "distance": 455,
+     "cost": 38903062,
+     "priority": "low",
+     "volumeTon": 34.18,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.3
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 53,
+     "distance": 1471,
+     "cost": 195712359,
+     "priority": "low",
+     "volumeTon": 53.22,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.3
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 9,
+     "distance": 3169,
+     "cost": 69265815,
+     "priority": "low",
+     "volumeTon": 8.74,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 50.9
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 89,
+     "distance": 414,
+     "cost": 92623121,
+     "priority": "low",
+     "volumeTon": 89.41,
+     "persenPasar": 2.313,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 17.3
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 28,
+     "distance": 809,
+     "cost": 56748855,
+     "priority": "low",
+     "volumeTon": 28.05,
+     "persenPasar": 0.33,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 168,
+     "distance": 868,
+     "cost": 365439671,
+     "priority": "low",
+     "volumeTon": 168.5,
+     "persenPasar": 1.983,
+     "postur": "aman_pangan",
+     "epsilon": 0.817,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 36.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 716,
+     "cost": 134274087,
+     "priority": "low",
+     "volumeTon": 75.06,
+     "persenPasar": 2.222,
+     "postur": "aman_pangan",
+     "epsilon": 0.785,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 10.4
+    }
+   ]
+  }
  },
- "daging-ayam": {
-  "summary": {
-   "totalRoutes": 5,
-   "totalVolume": 800,
-   "activeRoutes": "4 → 4",
-   "estimatedCost": 893249242
+ "default": {
+  "beras": {
+   "summary": {
+    "totalRoutes": 1,
+    "totalVolume": 57,
+    "activeRoutes": "1 → 1",
+    "estimatedCost": 100692943
+   },
+   "provinces": [
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 57
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 57
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 57,
+     "distance": 702,
+     "cost": 100692943,
+     "priority": "low",
+     "volumeTon": 57.41,
+     "persenPasar": 1.298,
+     "postur": "seimbang",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.2
+    }
+   ]
   },
-  "provinces": [
-   {
-    "id": "sulawesi-barat",
-    "name": "Sulawesi Barat",
-    "status": "surplus",
-    "stock": 368
+  "bawang-merah": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "gorontalo",
-    "name": "Gorontalo",
-    "status": "surplus",
-    "stock": 194
-   },
-   {
-    "id": "lampung",
-    "name": "Lampung",
-    "status": "surplus",
-    "stock": 134
-   },
-   {
-    "id": "sulawesi-tenggara",
-    "name": "Sulawesi Tenggara",
-    "status": "surplus",
-    "stock": 104
-   },
-   {
-    "id": "kalimantan-timur",
-    "name": "Kalimantan Timur",
-    "status": "deficit",
-    "stock": 129
-   },
-   {
-    "id": "jawa-barat",
-    "name": "Jawa Barat",
-    "status": "deficit",
-    "stock": 134
-   },
-   {
-    "id": "sulawesi-utara",
-    "name": "Sulawesi Utara",
-    "status": "deficit",
-    "stock": 194
-   },
-   {
-    "id": "nusa-tenggara-barat",
-    "name": "Nusa Tenggara Barat",
-    "status": "deficit",
-    "stock": 343
-   }
-  ],
-  "routes": [
-   {
-    "from": "Sulawesi Tenggara",
-    "to": "Nusa Tenggara Barat",
-    "commodity": "daging-ayam",
-    "volume": 104,
-    "distance": 757,
-    "cost": 196764638,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Nusa Tenggara Barat",
-    "commodity": "daging-ayam",
-    "volume": 239,
-    "distance": 653,
-    "cost": 389985470,
-    "priority": "low"
-   },
-   {
-    "from": "Gorontalo",
-    "to": "Sulawesi Utara",
-    "commodity": "daging-ayam",
-    "volume": 194,
-    "distance": 191,
-    "cost": 92490996,
-    "priority": "low"
-   },
-   {
-    "from": "Lampung",
-    "to": "Jawa Barat",
-    "commodity": "daging-ayam",
-    "volume": 134,
-    "distance": 308,
-    "cost": 103458099,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Kalimantan Timur",
-    "commodity": "daging-ayam",
-    "volume": 129,
-    "distance": 343,
-    "cost": 110550041,
-    "priority": "low"
-   }
-  ]
- },
- "telur-ayam": {
-  "summary": {
-   "totalRoutes": 8,
-   "totalVolume": 800,
-   "activeRoutes": "3 → 6",
-   "estimatedCost": 1379178716
+   "provinces": [],
+   "routes": []
   },
-  "provinces": [
-   {
-    "id": "sumatera-selatan",
-    "name": "Sumatera Selatan",
-    "status": "surplus",
-    "stock": 609
+  "bawang-putih": {
+   "summary": {
+    "totalRoutes": 10,
+    "totalVolume": 88,
+    "activeRoutes": "2 → 9",
+    "estimatedCost": 300717863
    },
-   {
-    "id": "bengkulu",
-    "name": "Bengkulu",
-    "status": "surplus",
-    "stock": 183
-   },
-   {
-    "id": "bali",
-    "name": "Bali",
-    "status": "surplus",
-    "stock": 9
-   },
-   {
-    "id": "sumatera-utara",
-    "name": "Sumatera Utara",
-    "status": "deficit",
-    "stock": 95
-   },
-   {
-    "id": "kalimantan-barat",
-    "name": "Kalimantan Barat",
-    "status": "deficit",
-    "stock": 99
-   },
-   {
-    "id": "sumatera-barat",
-    "name": "Sumatera Barat",
-    "status": "deficit",
-    "stock": 113
-   },
-   {
-    "id": "kepulauan-riau",
-    "name": "Kepulauan Riau",
-    "status": "deficit",
-    "stock": 129
-   },
-   {
-    "id": "riau",
-    "name": "Riau",
-    "status": "deficit",
-    "stock": 144
-   },
-   {
-    "id": "kalimantan-tengah",
-    "name": "Kalimantan Tengah",
-    "status": "deficit",
-    "stock": 221
-   }
-  ],
-  "routes": [
-   {
-    "from": "Bali",
-    "to": "Kalimantan Tengah",
-    "commodity": "telur-ayam",
-    "volume": 9,
-    "distance": 696,
-    "cost": 15139115,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kalimantan Tengah",
-    "commodity": "telur-ayam",
-    "volume": 212,
-    "distance": 1043,
-    "cost": 553140939,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Riau",
-    "commodity": "telur-ayam",
-    "volume": 144,
-    "distance": 487,
-    "cost": 175680409,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kepulauan Riau",
-    "commodity": "telur-ayam",
-    "volume": 129,
-    "distance": 455,
-    "cost": 146752133,
-    "priority": "low"
-   },
-   {
-    "from": "Bengkulu",
-    "to": "Sumatera Barat",
-    "commodity": "telur-ayam",
-    "volume": 113,
-    "distance": 414,
-    "cost": 116722999,
-    "priority": "low"
-   },
-   {
-    "from": "Bengkulu",
-    "to": "Sumatera Utara",
-    "commodity": "telur-ayam",
-    "volume": 70,
-    "distance": 809,
-    "cost": 141499360,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Sumatera Utara",
-    "commodity": "telur-ayam",
-    "volume": 25,
-    "distance": 868,
-    "cost": 53810551,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kalimantan Barat",
-    "commodity": "telur-ayam",
-    "volume": 99,
-    "distance": 716,
-    "cost": 176433211,
-    "priority": "low"
-   }
-  ]
- },
- "minyak-goreng": {
-  "summary": {
-   "totalRoutes": 0,
-   "totalVolume": 0,
-   "activeRoutes": "0 → 0",
-   "estimatedCost": 0
+   "provinces": [
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 53
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 36
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 1
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 5
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "deficit",
+     "stock": 5
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 6
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 7
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 9
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 10
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 40
+    }
+   ],
+   "routes": [
+    {
+     "from": "Kalimantan Barat",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 4,
+     "distance": 787,
+     "cost": 8040424,
+     "priority": "low",
+     "volumeTon": 4.08,
+     "persenPasar": 0.237,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 36,
+     "distance": 862,
+     "cost": 76679920,
+     "priority": "low",
+     "volumeTon": 35.6,
+     "persenPasar": 2.066,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 7,
+     "distance": 1972,
+     "cost": 36586027,
+     "priority": "low",
+     "volumeTon": 7.42,
+     "persenPasar": 3.359,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 29.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 2551,
+     "cost": 30529260,
+     "priority": "low",
+     "volumeTon": 4.79,
+     "persenPasar": 2.431,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 69.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 1489,
+     "cost": 19110535,
+     "priority": "low",
+     "volumeTon": 5.13,
+     "persenPasar": 2.569,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 32.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2374,
+     "cost": 35826122,
+     "priority": "low",
+     "volumeTon": 6.04,
+     "persenPasar": 1.904,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 166.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 1669,
+     "cost": 37013046,
+     "priority": "low",
+     "volumeTon": 8.87,
+     "persenPasar": 2.027,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 263.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 925,
+     "cost": 2540592,
+     "priority": "low",
+     "volumeTon": 1.1,
+     "persenPasar": 0.911,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 199.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 837,
+     "cost": 11905687,
+     "priority": "low",
+     "volumeTon": 5.69,
+     "persenPasar": 0.874,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 265.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 10,
+     "distance": 1765,
+     "cost": 42486250,
+     "priority": "low",
+     "volumeTon": 9.63,
+     "persenPasar": 1.042,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 290.7
+    }
+   ]
   },
-  "provinces": [],
-  "routes": []
- },
- "all": {
-  "summary": {
-   "totalRoutes": 27,
-   "totalVolume": 3200,
-   "activeRoutes": "4 komoditas",
-   "estimatedCost": 7578445727
+  "daging-ayam": {
+   "summary": {
+    "totalRoutes": 12,
+    "totalVolume": 268,
+    "activeRoutes": "5 → 8",
+    "estimatedCost": 464871943
+   },
+   "provinces": [
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 94
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 56
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 40
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 39
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 39
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "deficit",
+     "stock": 4
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 8
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 13
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 18
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 25
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 29
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 153
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 757,
+     "cost": 55744474,
+     "priority": "low",
+     "volumeTon": 29.46,
+     "persenPasar": 0.887,
+     "postur": "seimbang",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 38.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 17,
+     "distance": 917,
+     "cost": 39901478,
+     "priority": "low",
+     "volumeTon": 17.41,
+     "persenPasar": 0.467,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 23.7
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 8,
+     "distance": 191,
+     "cost": 3736680,
+     "priority": "low",
+     "volumeTon": 7.83,
+     "persenPasar": 0.824,
+     "postur": "seimbang",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 310.1
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 962,
+     "cost": 32007186,
+     "priority": "low",
+     "volumeTon": 13.3,
+     "persenPasar": 0.37,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 12,
+     "distance": 424,
+     "cost": 12677724,
+     "priority": "low",
+     "volumeTon": 11.96,
+     "persenPasar": 0.332,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 1037,
+     "cost": 33200501,
+     "priority": "low",
+     "volumeTon": 12.8,
+     "persenPasar": 0.31,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 73.2
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 4,
+     "distance": 370,
+     "cost": 3801046,
+     "priority": "low",
+     "volumeTon": 4.11,
+     "persenPasar": 0.297,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 436.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 815,
+     "cost": 54407807,
+     "priority": "low",
+     "volumeTon": 26.69,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 1326,
+     "cost": 89611536,
+     "priority": "low",
+     "volumeTon": 27.02,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 90,
+     "distance": 308,
+     "cost": 68952053,
+     "priority": "low",
+     "volumeTon": 89.6,
+     "persenPasar": 0.21,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 10,
+     "distance": 1670,
+     "cost": 40072834,
+     "priority": "low",
+     "volumeTon": 9.6,
+     "persenPasar": 0.023,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 18,
+     "distance": 669,
+     "cost": 30758624,
+     "priority": "low",
+     "volumeTon": 18.4,
+     "persenPasar": 0.576,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 81.4
+    }
+   ]
   },
-  "provinces": [
-   {
-    "id": "sumatera-selatan",
-    "name": "Sumatera Selatan",
-    "status": "surplus",
-    "stock": 609
+  "telur-ayam": {
+   "summary": {
+    "totalRoutes": 13,
+    "totalVolume": 612,
+    "activeRoutes": "3 → 11",
+    "estimatedCost": 1376375026
    },
-   {
-    "id": "sulawesi-barat",
-    "name": "Sulawesi Barat",
-    "status": "surplus",
-    "stock": 474
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 495
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 112
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "surplus",
+     "stock": 5
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 8
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 11
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 14
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "deficit",
+     "stock": 30
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "deficit",
+     "stock": 33
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 49
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "deficit",
+     "stock": 55
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 61
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 75
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 113
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 163
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 61,
+     "distance": 1043,
+     "cost": 158760293,
+     "priority": "low",
+     "volumeTon": 60.87,
+     "persenPasar": 3.642,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.6
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 14,
+     "distance": 1633,
+     "cost": 58204764,
+     "priority": "low",
+     "volumeTon": 14.26,
+     "persenPasar": 2.667,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 113,
+     "distance": 487,
+     "cost": 137891829,
+     "priority": "low",
+     "volumeTon": 113.22,
+     "persenPasar": 2.476,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 26.1
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 1741,
+     "cost": 23151137,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 2924,
+     "cost": 38900917,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 153758501,
+     "priority": "low",
+     "volumeTon": 30.0,
+     "persenPasar": 2.622,
+     "postur": "seimbang",
+     "epsilon": 0.916,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 89.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 33,
+     "distance": 455,
+     "cost": 37237052,
+     "priority": "low",
+     "volumeTon": 32.72,
+     "persenPasar": 2.214,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 10.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 49,
+     "distance": 1471,
+     "cost": 180596358,
+     "priority": "low",
+     "volumeTon": 49.11,
+     "persenPasar": 2.05,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 39.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 8,
+     "distance": 3169,
+     "cost": 63459797,
+     "priority": "low",
+     "volumeTon": 8.01,
+     "persenPasar": 2.036,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 55.6
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 414,
+     "cost": 77473839,
+     "priority": "low",
+     "volumeTon": 74.79,
+     "persenPasar": 1.934,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.7
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 809,
+     "cost": 74725101,
+     "priority": "low",
+     "volumeTon": 36.93,
+     "persenPasar": 0.435,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 126,
+     "distance": 868,
+     "cost": 273907448,
+     "priority": "low",
+     "volumeTon": 126.29,
+     "persenPasar": 1.486,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 55,
+     "distance": 716,
+     "cost": 98307991,
+     "priority": "low",
+     "volumeTon": 54.95,
+     "persenPasar": 1.627,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 14.2
+    }
+   ]
+  },
+  "minyak-goreng": {
+   "summary": {
+    "totalRoutes": 0,
+    "totalVolume": 0,
+    "activeRoutes": "0 → 0",
+    "estimatedCost": 0
    },
-   {
-    "id": "kepulauan-riau",
-    "name": "Kepulauan Riau",
-    "status": "surplus",
-    "stock": 413
+   "provinces": [],
+   "routes": []
+  },
+  "all": {
+   "summary": {
+    "totalRoutes": 36,
+    "totalVolume": 1025,
+    "activeRoutes": "4 komoditas",
+    "estimatedCost": 2242657775
    },
-   {
-    "id": "gorontalo",
-    "name": "Gorontalo",
-    "status": "surplus",
-    "stock": 194
-   },
-   {
-    "id": "kalimantan-barat",
-    "name": "Kalimantan Barat",
-    "status": "surplus",
-    "stock": 184
-   },
-   {
-    "id": "bengkulu",
-    "name": "Bengkulu",
-    "status": "surplus",
-    "stock": 183
-   },
-   {
-    "id": "nusa-tenggara-timur",
-    "name": "Nusa Tenggara Timur",
-    "status": "surplus",
-    "stock": 159
-   },
-   {
-    "id": "lampung",
-    "name": "Lampung",
-    "status": "surplus",
-    "stock": 134
-   },
-   {
-    "id": "sulawesi-tenggara",
-    "name": "Sulawesi Tenggara",
-    "status": "surplus",
-    "stock": 104
-   },
-   {
-    "id": "bali",
-    "name": "Bali",
-    "status": "surplus",
-    "stock": 93
-   },
-   {
-    "id": "di-yogyakarta",
-    "name": "DI Yogyakarta",
-    "status": "surplus",
-    "stock": 92
-   },
-   {
-    "id": "sulawesi-selatan",
-    "name": "Sulawesi Selatan",
-    "status": "surplus",
-    "stock": 79
-   },
-   {
-    "id": "jawa-timur",
-    "name": "Jawa Timur",
-    "status": "surplus",
-    "stock": 57
-   },
-   {
-    "id": "sumatera-utara",
-    "name": "Sumatera Utara",
-    "status": "deficit",
-    "stock": 95
-   },
-   {
-    "id": "sumatera-barat",
-    "name": "Sumatera Barat",
-    "status": "deficit",
-    "stock": 113
-   },
-   {
-    "id": "jawa-barat",
-    "name": "Jawa Barat",
-    "status": "deficit",
-    "stock": 123
-   },
-   {
-    "id": "riau",
-    "name": "Riau",
-    "status": "deficit",
-    "stock": 144
-   },
-   {
-    "id": "nusa-tenggara-barat",
-    "name": "Nusa Tenggara Barat",
-    "status": "deficit",
-    "stock": 157
-   },
-   {
-    "id": "sulawesi-utara",
-    "name": "Sulawesi Utara",
-    "status": "deficit",
-    "stock": 194
-   },
-   {
-    "id": "kalimantan-timur",
-    "name": "Kalimantan Timur",
-    "status": "deficit",
-    "stock": 219
-   },
-   {
-    "id": "kalimantan-tengah",
-    "name": "Kalimantan Tengah",
-    "status": "deficit",
-    "stock": 221
-   },
-   {
-    "id": "maluku-utara",
-    "name": "Maluku Utara",
-    "status": "deficit",
-    "stock": 308
-   },
-   {
-    "id": "dki-jakarta",
-    "name": "DKI Jakarta",
-    "status": "deficit",
-    "stock": 359
-   },
-   {
-    "id": "kalimantan-utara",
-    "name": "Kalimantan Utara",
-    "status": "deficit",
-    "stock": 844
-   }
-  ],
-  "routes": [
-   {
-    "from": "Bali",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 84,
-    "distance": 1303,
-    "cost": 274281929,
-    "priority": "low"
-   },
-   {
-    "from": "DI Yogyakarta",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 92,
-    "distance": 1444,
-    "cost": 333088914,
-    "priority": "low"
-   },
-   {
-    "from": "Jawa Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 11,
-    "distance": 1552,
-    "cost": 43565929,
-    "priority": "low"
-   },
-   {
-    "from": "Jawa Timur",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 57,
-    "distance": 1311,
-    "cost": 188387905,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 25,
-    "distance": 1496,
-    "cost": 95021689,
-    "priority": "low"
-   },
-   {
-    "from": "Nusa Tenggara Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 186,
-    "distance": 1295,
-    "cost": 601531361,
-    "priority": "low"
-   },
-   {
-    "from": "Nusa Tenggara Timur",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 159,
-    "distance": 1497,
-    "cost": 595380646,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 106,
-    "distance": 702,
-    "cost": 185251124,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Selatan",
-    "to": "Kalimantan Utara",
-    "commodity": "beras",
-    "volume": 79,
-    "distance": 881,
-    "cost": 173719971,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "DKI Jakarta",
-    "commodity": "bawang-putih",
-    "volume": 359,
-    "distance": 862,
-    "cost": 772581293,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Maluku Utara",
-    "commodity": "bawang-putih",
-    "volume": 115,
-    "distance": 2580,
-    "cost": 740097020,
-    "priority": "low"
-   },
-   {
-    "from": "Kalimantan Barat",
-    "to": "Maluku Utara",
-    "commodity": "bawang-putih",
-    "volume": 193,
-    "distance": 1972,
-    "cost": 951193144,
-    "priority": "low"
-   },
-   {
-    "from": "Kepulauan Riau",
-    "to": "Kalimantan Utara",
-    "commodity": "bawang-putih",
-    "volume": 44,
-    "distance": 1496,
-    "cost": 164370356,
-    "priority": "low"
-   },
-   {
-    "from": "Kalimantan Barat",
-    "to": "Kalimantan Timur",
-    "commodity": "bawang-putih",
-    "volume": 90,
-    "distance": 837,
-    "cost": 187546487,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Tenggara",
-    "to": "Nusa Tenggara Barat",
-    "commodity": "daging-ayam",
-    "volume": 104,
-    "distance": 757,
-    "cost": 196764638,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Nusa Tenggara Barat",
-    "commodity": "daging-ayam",
-    "volume": 239,
-    "distance": 653,
-    "cost": 389985470,
-    "priority": "low"
-   },
-   {
-    "from": "Gorontalo",
-    "to": "Sulawesi Utara",
-    "commodity": "daging-ayam",
-    "volume": 194,
-    "distance": 191,
-    "cost": 92490996,
-    "priority": "low"
-   },
-   {
-    "from": "Lampung",
-    "to": "Jawa Barat",
-    "commodity": "daging-ayam",
-    "volume": 134,
-    "distance": 308,
-    "cost": 103458099,
-    "priority": "low"
-   },
-   {
-    "from": "Sulawesi Barat",
-    "to": "Kalimantan Timur",
-    "commodity": "daging-ayam",
-    "volume": 129,
-    "distance": 343,
-    "cost": 110550041,
-    "priority": "low"
-   },
-   {
-    "from": "Bali",
-    "to": "Kalimantan Tengah",
-    "commodity": "telur-ayam",
-    "volume": 9,
-    "distance": 696,
-    "cost": 15139115,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kalimantan Tengah",
-    "commodity": "telur-ayam",
-    "volume": 212,
-    "distance": 1043,
-    "cost": 553140939,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Riau",
-    "commodity": "telur-ayam",
-    "volume": 144,
-    "distance": 487,
-    "cost": 175680409,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kepulauan Riau",
-    "commodity": "telur-ayam",
-    "volume": 129,
-    "distance": 455,
-    "cost": 146752133,
-    "priority": "low"
-   },
-   {
-    "from": "Bengkulu",
-    "to": "Sumatera Barat",
-    "commodity": "telur-ayam",
-    "volume": 113,
-    "distance": 414,
-    "cost": 116722999,
-    "priority": "low"
-   },
-   {
-    "from": "Bengkulu",
-    "to": "Sumatera Utara",
-    "commodity": "telur-ayam",
-    "volume": 70,
-    "distance": 809,
-    "cost": 141499360,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Sumatera Utara",
-    "commodity": "telur-ayam",
-    "volume": 25,
-    "distance": 868,
-    "cost": 53810551,
-    "priority": "low"
-   },
-   {
-    "from": "Sumatera Selatan",
-    "to": "Kalimantan Barat",
-    "commodity": "telur-ayam",
-    "volume": 99,
-    "distance": 716,
-    "cost": 176433211,
-    "priority": "low"
-   }
-  ]
+   "provinces": [
+    {
+     "id": "sumatera-selatan",
+     "name": "Sumatera Selatan",
+     "status": "surplus",
+     "stock": 495
+    },
+    {
+     "id": "bengkulu",
+     "name": "Bengkulu",
+     "status": "surplus",
+     "stock": 108
+    },
+    {
+     "id": "sulawesi-barat",
+     "name": "Sulawesi Barat",
+     "status": "surplus",
+     "stock": 96
+    },
+    {
+     "id": "lampung",
+     "name": "Lampung",
+     "status": "surplus",
+     "stock": 94
+    },
+    {
+     "id": "kalimantan-barat",
+     "name": "Kalimantan Barat",
+     "status": "surplus",
+     "stock": 37
+    },
+    {
+     "id": "gorontalo",
+     "name": "Gorontalo",
+     "status": "surplus",
+     "stock": 35
+    },
+    {
+     "id": "sulawesi-tenggara",
+     "name": "Sulawesi Tenggara",
+     "status": "surplus",
+     "stock": 26
+    },
+    {
+     "id": "kepulauan-riau",
+     "name": "Kepulauan Riau",
+     "status": "surplus",
+     "stock": 3
+    },
+    {
+     "id": "maluku-utara",
+     "name": "Maluku Utara",
+     "status": "deficit",
+     "stock": 7
+    },
+    {
+     "id": "nusa-tenggara-timur",
+     "name": "Nusa Tenggara Timur",
+     "status": "deficit",
+     "stock": 10
+    },
+    {
+     "id": "bali",
+     "name": "Bali",
+     "status": "deficit",
+     "stock": 12
+    },
+    {
+     "id": "papua-barat",
+     "name": "Papua Barat",
+     "status": "deficit",
+     "stock": 13
+    },
+    {
+     "id": "maluku",
+     "name": "Maluku",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "sulawesi-utara",
+     "name": "Sulawesi Utara",
+     "status": "deficit",
+     "stock": 17
+    },
+    {
+     "id": "kalimantan-selatan",
+     "name": "Kalimantan Selatan",
+     "status": "deficit",
+     "stock": 25
+    },
+    {
+     "id": "nusa-tenggara-barat",
+     "name": "Nusa Tenggara Barat",
+     "status": "deficit",
+     "stock": 29
+    },
+    {
+     "id": "dki-jakarta",
+     "name": "DKI Jakarta",
+     "status": "deficit",
+     "stock": 40
+    },
+    {
+     "id": "kalimantan-tengah",
+     "name": "Kalimantan Tengah",
+     "status": "deficit",
+     "stock": 61
+    },
+    {
+     "id": "kalimantan-utara",
+     "name": "Kalimantan Utara",
+     "status": "deficit",
+     "stock": 72
+    },
+    {
+     "id": "kalimantan-timur",
+     "name": "Kalimantan Timur",
+     "status": "deficit",
+     "stock": 73
+    },
+    {
+     "id": "sumatera-barat",
+     "name": "Sumatera Barat",
+     "status": "deficit",
+     "stock": 88
+    },
+    {
+     "id": "riau",
+     "name": "Riau",
+     "status": "deficit",
+     "stock": 113
+    },
+    {
+     "id": "jawa-barat",
+     "name": "Jawa Barat",
+     "status": "deficit",
+     "stock": 153
+    },
+    {
+     "id": "sumatera-utara",
+     "name": "Sumatera Utara",
+     "status": "deficit",
+     "stock": 163
+    }
+   ],
+   "routes": [
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "beras",
+     "volume": 57,
+     "distance": 702,
+     "cost": 100692943,
+     "priority": "low",
+     "volumeTon": 57.41,
+     "persenPasar": 1.298,
+     "postur": "seimbang",
+     "epsilon": 0.625,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 9.2
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 4,
+     "distance": 787,
+     "cost": 8040424,
+     "priority": "low",
+     "volumeTon": 4.08,
+     "persenPasar": 0.237,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kepulauan Riau",
+     "to": "DKI Jakarta",
+     "commodity": "bawang-putih",
+     "volume": 36,
+     "distance": 862,
+     "cost": 76679920,
+     "priority": "low",
+     "volumeTon": 35.6,
+     "persenPasar": 2.066,
+     "postur": "seimbang",
+     "epsilon": 0.744,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 9.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku Utara",
+     "commodity": "bawang-putih",
+     "volume": 7,
+     "distance": 1972,
+     "cost": 36586027,
+     "priority": "low",
+     "volumeTon": 7.42,
+     "persenPasar": 3.359,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 29.5
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Papua Barat",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 2551,
+     "cost": 30529260,
+     "priority": "low",
+     "volumeTon": 4.79,
+     "persenPasar": 2.431,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 69.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Gorontalo",
+     "commodity": "bawang-putih",
+     "volume": 5,
+     "distance": 1489,
+     "cost": 19110535,
+     "priority": "low",
+     "volumeTon": 5.13,
+     "persenPasar": 2.569,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 32.9
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Maluku",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 2374,
+     "cost": 35826122,
+     "priority": "low",
+     "volumeTon": 6.04,
+     "persenPasar": 1.904,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 166.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sulawesi Utara",
+     "commodity": "bawang-putih",
+     "volume": 9,
+     "distance": 1669,
+     "cost": 37013046,
+     "priority": "low",
+     "volumeTon": 8.87,
+     "persenPasar": 2.027,
+     "postur": "seimbang",
+     "epsilon": 1.173,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 263.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Utara",
+     "commodity": "bawang-putih",
+     "volume": 1,
+     "distance": 925,
+     "cost": 2540592,
+     "priority": "low",
+     "volumeTon": 1.1,
+     "persenPasar": 0.911,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 199.0
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Kalimantan Timur",
+     "commodity": "bawang-putih",
+     "volume": 6,
+     "distance": 837,
+     "cost": 11905687,
+     "priority": "low",
+     "volumeTon": 5.69,
+     "persenPasar": 0.874,
+     "postur": "seimbang",
+     "epsilon": 0.715,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 265.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Nusa Tenggara Timur",
+     "commodity": "bawang-putih",
+     "volume": 10,
+     "distance": 1765,
+     "cost": 42486250,
+     "priority": "low",
+     "volumeTon": 9.63,
+     "persenPasar": 1.042,
+     "postur": "seimbang",
+     "epsilon": 1.085,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 290.7
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Nusa Tenggara Barat",
+     "commodity": "daging-ayam",
+     "volume": 29,
+     "distance": 757,
+     "cost": 55744474,
+     "priority": "low",
+     "volumeTon": 29.46,
+     "persenPasar": 0.887,
+     "postur": "seimbang",
+     "epsilon": 0.382,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 38.6
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Bali",
+     "commodity": "daging-ayam",
+     "volume": 17,
+     "distance": 917,
+     "cost": 39901478,
+     "priority": "low",
+     "volumeTon": 17.41,
+     "persenPasar": 0.467,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 23.7
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Sulawesi Utara",
+     "commodity": "daging-ayam",
+     "volume": 8,
+     "distance": 191,
+     "cost": 3736680,
+     "priority": "low",
+     "volumeTon": 7.83,
+     "persenPasar": 0.824,
+     "postur": "seimbang",
+     "epsilon": 0.628,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 310.1
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 962,
+     "cost": 32007186,
+     "priority": "low",
+     "volumeTon": 13.3,
+     "persenPasar": 0.37,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Kalimantan Selatan",
+     "commodity": "daging-ayam",
+     "volume": 12,
+     "distance": 424,
+     "cost": 12677724,
+     "priority": "low",
+     "volumeTon": 11.96,
+     "persenPasar": 0.332,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 45.4
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Sumatera Barat",
+     "commodity": "daging-ayam",
+     "volume": 13,
+     "distance": 1037,
+     "cost": 33200501,
+     "priority": "low",
+     "volumeTon": 12.8,
+     "persenPasar": 0.31,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 73.2
+    },
+    {
+     "from": "Lampung",
+     "to": "Bengkulu",
+     "commodity": "daging-ayam",
+     "volume": 4,
+     "distance": 370,
+     "cost": 3801046,
+     "priority": "low",
+     "volumeTon": 4.11,
+     "persenPasar": 0.297,
+     "postur": "seimbang",
+     "epsilon": 0.286,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 436.8
+    },
+    {
+     "from": "Kalimantan Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 815,
+     "cost": 54407807,
+     "priority": "low",
+     "volumeTon": 26.69,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Barat",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 27,
+     "distance": 1326,
+     "cost": 89611536,
+     "priority": "low",
+     "volumeTon": 27.02,
+     "persenPasar": 0.063,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Lampung",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 90,
+     "distance": 308,
+     "cost": 68952053,
+     "priority": "low",
+     "volumeTon": 89.6,
+     "persenPasar": 0.21,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Sulawesi Tenggara",
+     "to": "Jawa Barat",
+     "commodity": "daging-ayam",
+     "volume": 10,
+     "distance": 1670,
+     "cost": 40072834,
+     "priority": "low",
+     "volumeTon": 9.6,
+     "persenPasar": 0.023,
+     "postur": "seimbang",
+     "epsilon": 0.348,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 48.9
+    },
+    {
+     "from": "Gorontalo",
+     "to": "Kalimantan Timur",
+     "commodity": "daging-ayam",
+     "volume": 18,
+     "distance": 669,
+     "cost": 30758624,
+     "priority": "low",
+     "volumeTon": 18.4,
+     "persenPasar": 0.576,
+     "postur": "seimbang",
+     "epsilon": 0.631,
+     "dasarTakaran": "diasumsikan",
+     "kecukupanPersen": 81.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Tengah",
+     "commodity": "telur-ayam",
+     "volume": 61,
+     "distance": 1043,
+     "cost": 158760293,
+     "priority": "low",
+     "volumeTon": 60.87,
+     "persenPasar": 3.642,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.6
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Utara",
+     "commodity": "telur-ayam",
+     "volume": 14,
+     "distance": 1633,
+     "cost": 58204764,
+     "priority": "low",
+     "volumeTon": 14.26,
+     "persenPasar": 2.667,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Riau",
+     "commodity": "telur-ayam",
+     "volume": 113,
+     "distance": 487,
+     "cost": 137891829,
+     "priority": "low",
+     "volumeTon": 113.22,
+     "persenPasar": 2.476,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 26.1
+    },
+    {
+     "from": "Bali",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 1741,
+     "cost": 23151137,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Maluku",
+     "commodity": "telur-ayam",
+     "volume": 5,
+     "distance": 2924,
+     "cost": 38900917,
+     "priority": "low",
+     "volumeTon": 5.32,
+     "persenPasar": 1.132,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 106.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sulawesi Tenggara",
+     "commodity": "telur-ayam",
+     "volume": 30,
+     "distance": 2050,
+     "cost": 153758501,
+     "priority": "low",
+     "volumeTon": 30.0,
+     "persenPasar": 2.622,
+     "postur": "seimbang",
+     "epsilon": 0.916,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 89.1
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kepulauan Riau",
+     "commodity": "telur-ayam",
+     "volume": 33,
+     "distance": 455,
+     "cost": 37237052,
+     "priority": "low",
+     "volumeTon": 32.72,
+     "persenPasar": 2.214,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 10.7
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Timur",
+     "commodity": "telur-ayam",
+     "volume": 49,
+     "distance": 1471,
+     "cost": 180596358,
+     "priority": "low",
+     "volumeTon": 49.11,
+     "persenPasar": 2.05,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 39.4
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Papua Barat",
+     "commodity": "telur-ayam",
+     "volume": 8,
+     "distance": 3169,
+     "cost": 63459797,
+     "priority": "low",
+     "volumeTon": 8.01,
+     "persenPasar": 2.036,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 55.6
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Barat",
+     "commodity": "telur-ayam",
+     "volume": 75,
+     "distance": 414,
+     "cost": 77473839,
+     "priority": "low",
+     "volumeTon": 74.79,
+     "persenPasar": 1.934,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 20.7
+    },
+    {
+     "from": "Bengkulu",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 37,
+     "distance": 809,
+     "cost": 74725101,
+     "priority": "low",
+     "volumeTon": 36.93,
+     "persenPasar": 0.435,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Sumatera Utara",
+     "commodity": "telur-ayam",
+     "volume": 126,
+     "distance": 868,
+     "cost": 273907448,
+     "priority": "low",
+     "volumeTon": 126.29,
+     "persenPasar": 1.486,
+     "postur": "seimbang",
+     "epsilon": 0.817,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 44.2
+    },
+    {
+     "from": "Sumatera Selatan",
+     "to": "Kalimantan Barat",
+     "commodity": "telur-ayam",
+     "volume": 55,
+     "distance": 716,
+     "cost": 98307991,
+     "priority": "low",
+     "volumeTon": 54.95,
+     "persenPasar": 1.627,
+     "postur": "seimbang",
+     "epsilon": 0.785,
+     "dasarTakaran": "terukur",
+     "kecukupanPersen": 14.2
+    }
+   ]
+  }
  }
 }

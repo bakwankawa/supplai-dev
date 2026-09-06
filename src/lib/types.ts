@@ -59,6 +59,8 @@ export interface RedistributionProvince {
   stock: number
 }
 
+export type Postur = "konservatif" | "seimbang" | "aman_pangan"
+
 export interface RedistributionRoute {
   from: string
   to: string
@@ -67,6 +69,19 @@ export interface RedistributionRoute {
   distance: number
   cost: number
   priority: "high" | "medium" | "low"
+  /** Tonnes, to two decimals. Routes are tens of tonnes under population-based
+   *  sizing, so the rounded `volume` above is too coarse to compare. */
+  volumeTon: number
+  /** Shipment as a share of the destination's monthly consumption. This is the
+   *  number that shows the plan is not over-subsidising. */
+  persenPasar: number
+  postur: Postur
+  epsilon: number
+  /** "terukur" where the volume came from measured consumption; "diasumsikan"
+   *  where a declared heuristic was used. */
+  dasarTakaran: "terukur" | "diasumsikan"
+  /** How much of the computed requirement real intervention actually covers. */
+  kecukupanPersen: number
 }
 
 export interface RedistributionResponse {
@@ -74,6 +89,11 @@ export interface RedistributionResponse {
   provinces: RedistributionProvince[]
   routes: RedistributionRoute[]
 }
+
+export type RedistributionByPostur = Record<
+  Postur | "default",
+  Record<string, RedistributionResponse>
+>
 
 export interface Alert {
   id: string

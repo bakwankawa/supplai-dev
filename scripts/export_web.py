@@ -183,7 +183,17 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        "volume": round(float(r.volume_ton)),
                        "distance": round(float(r.jarak_km)),
                        "cost": round(float(r.biaya_rp)),
-                       "priority": PRIO_MAP.get(r.urgensi, "low")})
+                       "priority": PRIO_MAP.get(r.urgensi, "low"),
+                       # Population-based sizing. `volume` above stays rounded
+                       # for the existing display; volumeTon keeps the precision
+                       # the new figures need — routes are tens of tonnes now,
+                       # not hundreds, so rounding to integer loses real signal.
+                       "volumeTon": round(float(r.volume_ton), 2),
+                       "persenPasar": round(float(r.persen_pasar), 3),
+                       "postur": str(r.postur),
+                       "epsilon": round(float(r.epsilon), 3),
+                       "dasarTakaran": str(r.dasar_takaran),
+                       "kecukupanPersen": round(float(r.kecukupan_persen), 1)})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -203,30 +213,38 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
 
 def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
     plan_meta = meta.get("plan_meta", {})
+    posturs = meta.get("postur_tersedia", ["seimbang"])
     out = {}
-    for wfp, (cid, _d, _u) in COMMODITY_ID.items():
-        sub = flows[flows.komoditas == wfp] if not flows.empty else flows
-        # A commodity the solver found nothing to move still gets an entry.
-        # Skipping it let the front-end's `data[commodity] ?? data["all"]`
-        # fall through to the aggregate, so selecting Bawang Merah displayed
-        # Beras routes under a Bawang Merah heading.
-        out[cid] = _response_for(sub, cid, plan_meta.get(wfp, {}))
-    with_routes = [r for r in out.values() if r["routes"]]
-    all_routes = [rt for resp in with_routes for rt in resp["routes"]]
-    all_net = {}
-    for resp in with_routes:
-        for p in resp["provinces"]:
-            sign = 1 if p["status"] == "surplus" else -1
-            all_net[p["name"]] = all_net.get(p["name"], 0) + sign * p["stock"]
-    out["all"] = {
-        "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
-                    "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
-                    "activeRoutes": f"{len(with_routes)} komoditas",
-                    "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes)},
-        "provinces": [{"id": slug(n), "name": n,
-                       "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
-                      for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],
-        "routes": all_routes}
+    for postur in posturs:
+        by_postur = (flows[flows.postur == postur]
+                     if not flows.empty and "postur" in flows.columns else flows)
+        per_kom = {}
+        for wfp, (cid, _d, _u) in COMMODITY_ID.items():
+            sub = by_postur[by_postur.komoditas == wfp] if not by_postur.empty else by_postur
+            # A commodity the solver found nothing to move still gets an entry.
+            # Skipping it let the front-end's `data[commodity] ?? data["all"]`
+            # fall through to the aggregate, so selecting Bawang Merah displayed
+            # Beras routes under a Bawang Merah heading.
+            per_kom[cid] = _response_for(sub, cid, plan_meta.get(f"{wfp}|{postur}", {}))
+        with_routes = [r for r in per_kom.values() if r["routes"]]
+        all_routes = [rt for resp in with_routes for rt in resp["routes"]]
+        all_net = {}
+        for resp in with_routes:
+            for p in resp["provinces"]:
+                sign = 1 if p["status"] == "surplus" else -1
+                all_net[p["name"]] = all_net.get(p["name"], 0) + sign * p["stock"]
+        per_kom["all"] = {
+            "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
+                        "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
+                        "activeRoutes": f"{len(with_routes)} komoditas",
+                        "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes)},
+            "provinces": [{"id": slug(n), "name": n,
+                           "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
+                          for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],
+            "routes": all_routes}
+        out[postur] = per_kom
+    # The dashboard's default view reads the balanced posture.
+    out["default"] = out.get("seimbang", next(iter(out.values())))
     return out
 
 
@@ -377,7 +395,8 @@ def main(argv=None) -> int:
     assert alerts["alerts"], "no alerts produced"
     assert all(a["severity"] in {"kritis", "tinggi", "sedang", "rendah"}
                for a in alerts["alerts"])
-    assert "all" in redist and redist["all"]["routes"], "redistribution missing routes"
+    assert "default" in redist and redist["default"]["all"]["routes"], \
+        "redistribution missing routes"
     assert len(executive["topMetrics"]) == 4 and len(executive["shortcutCards"]) == 4
     for m in executive["topMetrics"]:
         assert re.fullmatch(r"\d+(\.\d+)?[^0-9.-]*", m["value"]), \

@@ -113,19 +113,42 @@ def test_build_redistribution():
         "biaya_rp": [2.85e9, 9e8], "harga_asal": [14000, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
         "urgensi": ["Warning", "Info"], "hemat_rp": [-1e8, -4e7],
+        # Columns added by the population-sizing work (Tasks 8-9).
+        "postur": ["seimbang", "seimbang"],
+        "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
+        "persen_pasar": [2.5, 1.0],
+        "epsilon": [0.385, 0.385],
+        "epsilon_sumber": ["nasional", "nasional"],
+        "volume_ci_bawah": [450.0, 180.0],
+        "volume_ci_atas": [550.0, 220.0],
+        "dasar_takaran": ["terukur", "terukur"],
+        "kecukupan_persen": [12.0, 12.0],
     })
-    meta = {"plan_meta": {"Beras Medium": {"status": "ok", "total_ton": 700.0,
-            "total_biaya": 3.75e9, "n_rute": 2, "n_sumber": 2, "n_tujuan": 1}}}
+    meta = {
+        "postur_tersedia": ["konservatif", "seimbang", "aman_pangan"],
+        "plan_meta": {"Beras Medium|seimbang": {
+            "status": "ok", "total_ton": 700.0, "total_biaya": 3.75e9,
+            "n_rute": 2, "n_sumber": 2, "n_tujuan": 1}},
+    }
     res = ew.build_redistribution(flows, meta)
-    beras = res["beras"]
+    assert set(res) == {"konservatif", "seimbang", "aman_pangan", "default"}
+    assert res["default"] == res["seimbang"]
+
+    beras = res["seimbang"]["beras"]
     assert beras["summary"]["totalRoutes"] == 2
     assert beras["summary"]["totalVolume"] == 700
     r0 = next(r for r in beras["routes"] if r["from"] == "Jawa Timur")
     assert r0["priority"] == "medium" and r0["commodity"] == "beras"
+    assert r0["volumeTon"] == 500.0 and r0["dasarTakaran"] == "terukur"
     provs = {p["name"]: p for p in beras["provinces"]}
     assert provs["Jawa Timur"]["status"] == "surplus"
     assert provs["Papua"]["status"] == "deficit" and provs["Papua"]["stock"] == 700
-    assert "all" in res
+    assert "all" in res["seimbang"]
+
+    # A posture that produced no routes still gets an entry, with empty lists —
+    # the UI must be able to say "this posture ships nothing" rather than fall
+    # through to another posture's numbers.
+    assert res["konservatif"]["beras"]["routes"] == []
 
 
 def test_build_timeseries_history_then_forecast():
@@ -171,3 +194,24 @@ def test_headline_mape_and_exec_values_parser_safe():
     for v in vals:
         assert _re.fullmatch(r"\d+(\.\d+)?[^0-9.-]*", v), f"unsafe value {v!r}"
     assert any("%" in v for v in vals)
+
+
+def test_redistribution_is_keyed_by_posture():
+    import json, subprocess, sys
+    subprocess.run([sys.executable, "scripts/export_web.py"], check=True)
+    data = json.load(open("src/data/generated/redistribution.json"))
+    assert {"konservatif", "seimbang", "aman_pangan", "default"} <= set(data)
+    assert data["default"] == data["seimbang"]
+
+
+def test_redistribution_routes_carry_sizing_fields():
+    import json
+    data = json.load(open("src/data/generated/redistribution.json"))
+    routes = data["default"]["all"]["routes"]
+    assert routes, "no routes exported"
+    r = routes[0]
+    for field in ["volumeTon", "persenPasar", "postur", "epsilon",
+                  "dasarTakaran", "kecukupanPersen"]:
+        assert field in r, f"missing {field}"
+    assert 0 <= r["persenPasar"] <= 100
+    assert r["postur"] == "seimbang"
