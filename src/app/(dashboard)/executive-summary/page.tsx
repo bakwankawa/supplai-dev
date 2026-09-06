@@ -21,6 +21,8 @@ import {
 // IMPOR HOOK API REAL & TYPE
 import { useApi } from "@/hooks/use-api";
 import { AlertResponse } from "@/lib/types";
+import { Narasi } from "@/components/ui/narasi";
+import { narasiEksekutif } from "@/data/narasi";
 
 import {
   ResponsiveContainer,
@@ -184,6 +186,25 @@ export default function ExecutiveSummaryPage() {
 
       {/* ================= TOP METRICS CARDS INTEGRATION ================= */}
       <TopCards />
+
+      {/* ================= GENERATED EXECUTIVE NARRATION (MACHINE-WRITTEN) =================
+          The ninth of the nine generated narratives. It was built, verified and
+          shipped in narasi.json and then rendered nowhere, so the product
+          claimed nine and showed eight. It describes the balanced-posture
+          redistribution plan, which is why it is labelled as such rather than
+          left to read as a summary of the alerts above it. `narasiEksekutif` is
+          null when generation failed verification twice; nothing renders then. */}
+      {narasiEksekutif && (
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Truck className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-sm font-bold text-slate-800">
+              Ringkasan rencana redistribusi — postur Seimbang
+            </h3>
+          </div>
+          <Narasi teks={narasiEksekutif} />
+        </div>
+      )}
 
       {/* ================= CENTER MONITORING GRID ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
