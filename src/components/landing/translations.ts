@@ -135,9 +135,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Predict",
     "SupplAI Predict"
   ],
-  "Mengintegrasikan data PIHPS BI, Panel Bapanas, cuaca BMKG, dan data produksi Kementan untuk memproyeksikan pergerakan harga pokok 1–3 bulan ke depan.": [
-    "Mengolah data harga, cuaca, dan produksi pangan dari PIHPS BI, Bapanas, BMKG, serta Kementerian Pertanian untuk menyusun proyeksi harga satu hingga tiga bulan.",
-    "Processes food price, weather, and production data from PIHPS BI, Bapanas, BMKG, and the Ministry of Agriculture to develop one- to three-month price forecasts."
+  "Mengolah panel harga bulanan WFP/HDX — kompilasi BPS dan PIHPS/Bank Indonesia — bersama rujukan statis resmi seperti konsumsi per kapita, populasi, dan elastisitas harga, untuk memproyeksikan pergerakan harga pokok 1–3 bulan ke depan.": [
+    "Mengolah panel harga bulanan WFP Food Prices for Indonesia (HDX), kompilasi BPS dan PIHPS/Bank Indonesia, bersama rujukan statis resmi berupa konsumsi per kapita, populasi provinsi, dan elastisitas harga, untuk menyusun proyeksi harga satu hingga tiga bulan.",
+    "Processes the monthly WFP Food Prices for Indonesia panel (HDX), compiled from BPS and PIHPS/Bank Indonesia, together with static published references for per-capita consumption, provincial population, and price elasticities, to produce one- to three-month price forecasts."
   ],
   "LightGBM + LSTM Engine": [
     "Model LightGBM dan LSTM",
@@ -487,13 +487,13 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI menggunakan model LightGBM dan LSTM untuk mempelajari pola harga antarwilayah dan antarwaktu. Hasil proyeksi satu hingga tiga bulan disertai ukuran galat historis pada dasbor sebagai bahan evaluasi pengguna.",
     "SupplAI uses LightGBM and LSTM models to learn price patterns across regions and over time. One- to three-month forecasts are accompanied by historical error metrics on the dashboard to support user evaluation."
   ],
-  "Dari mana saja sumber integrasi data yang diolah oleh sistem?": [
+  "Dari mana saja sumber data yang diolah oleh sistem?": [
     "Apa saja sumber data yang digunakan?",
     "Which data sources are used?"
   ],
-  "Sistem kami mengintegrasikan data hulu secara otomatis melalui API resmi milik PIHPS Bank Indonesia (harga pasar), Panel Harga Bapanas (pasokan nasional), prakiraan cuaca ekstrim BMKG, serta data proyeksi panen dari Kementan.": [
-    "Sumber data mencakup harga pangan PIHPS Bank Indonesia dan Bapanas, informasi cuaca BMKG, serta data produksi Kementerian Pertanian. Cakupan dan periode pembaruan mengikuti ketersediaan data pada sistem.",
-    "Data sources include food prices from PIHPS Bank Indonesia and Bapanas, weather information from BMKG, and production data from the Ministry of Agriculture. Coverage and update periods depend on data availability in the system."
+  "Tidak ada integrasi API dan tidak ada penarikan data otomatis. Harga berasal dari panel bulanan WFP Food Prices for Indonesia (HDX) — kompilasi BPS dan PIHPS/Bank Indonesia — yang kami olah sebagai berkas. Sisanya rujukan statis terbitan resmi, seluruhnya tercatat pada buku besar asal-usul angka di dasbor: konsumsi per kapita (Statistik Konsumsi Pangan 2024, Kementan Pusdatin, dari Susenas Maret BPS), populasi provinsi BPS, elastisitas harga dari tesis QUAIDS atas Susenas 2018, dan neraca ketersediaan dan kebutuhan nasional Bapanas. Prakiraan cuaca BMKG dan proyeksi panen Kementan tidak kami pakai.": [
+    "Sistem tidak menarik data melalui API. Harga bersumber dari panel bulanan WFP Food Prices for Indonesia (HDX), kompilasi BPS dan PIHPS/Bank Indonesia, yang diproses sebagai berkas. Rujukan lainnya bersifat statis dan terbitan resmi: konsumsi per kapita (Statistik Konsumsi Pangan 2024, Kementan Pusdatin, dari Susenas Maret BPS), populasi provinsi BPS, elastisitas harga dari tesis QUAIDS atas Susenas 2018, serta neraca ketersediaan dan kebutuhan nasional Bapanas. Seluruhnya tercatat pada buku besar asal-usul angka. Prakiraan cuaca BMKG dan proyeksi panen Kementan tidak digunakan.",
+    "The system does not pull data through any API. Prices come from the monthly WFP Food Prices for Indonesia panel (HDX), compiled from BPS and PIHPS/Bank Indonesia and processed as a file. The remaining inputs are static published references: per-capita consumption (Statistik Konsumsi Pangan 2024, Kementan Pusdatin, from BPS Susenas March), BPS provincial population, price elasticities from a QUAIDS thesis on Susenas 2018, and the Bapanas national food balance sheet. All of them appear in the honesty ledger. BMKG weather forecasts and Kementan harvest projections are not used."
   ],
   "Apakah rekomendasi rute distribusi SupplAi memperhitungkan biaya logistik?": [
     "Apakah rekomendasi distribusi mempertimbangkan biaya logistik?",

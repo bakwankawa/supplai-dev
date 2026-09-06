@@ -13,8 +13,8 @@ const faqData = [
     answer: "SupplAi menggabungkan LightGBM (gradient boosting) yang menangkap pola harga lintas wilayah dengan jaringan saraf tiruan LSTM (Long Short-Term Memory) yang mempelajari ritme pergerakan harga antarwaktu. Keduanya digabung memakai bobot per komoditas, lalu diuji melalui backtest rolling-origin pada data historis 2016–2026."
   },
   {
-    question: "Dari mana saja sumber integrasi data yang diolah oleh sistem?",
-    answer: "Sistem kami mengintegrasikan data hulu secara otomatis melalui API resmi milik PIHPS Bank Indonesia (harga pasar), Panel Harga Bapanas (pasokan nasional), prakiraan cuaca ekstrim BMKG, serta data proyeksi panen dari Kementan."
+    question: "Dari mana saja sumber data yang diolah oleh sistem?",
+    answer: "Tidak ada integrasi API dan tidak ada penarikan data otomatis. Harga berasal dari panel bulanan WFP Food Prices for Indonesia (HDX) — kompilasi BPS dan PIHPS/Bank Indonesia — yang kami olah sebagai berkas. Sisanya rujukan statis terbitan resmi, seluruhnya tercatat pada buku besar asal-usul angka di dasbor: konsumsi per kapita (Statistik Konsumsi Pangan 2024, Kementan Pusdatin, dari Susenas Maret BPS), populasi provinsi BPS, elastisitas harga dari tesis QUAIDS atas Susenas 2018, dan neraca ketersediaan dan kebutuhan nasional Bapanas. Prakiraan cuaca BMKG dan proyeksi panen Kementan tidak kami pakai."
   },
   {
     question: "Apakah rekomendasi rute distribusi SupplAi memperhitungkan biaya logistik?",

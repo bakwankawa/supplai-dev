@@ -13,7 +13,7 @@ const modulesData = [
     step: "INPUT",
     stepLabel: "Integrasi Data Multi-Sektoral",
     title: "SupplAi Predict",
-    description: "Mengintegrasikan data PIHPS BI, Panel Bapanas, cuaca BMKG, dan data produksi Kementan untuk memproyeksikan pergerakan harga pokok 1–3 bulan ke depan.",
+    description: "Mengolah panel harga bulanan WFP/HDX — kompilasi BPS dan PIHPS/Bank Indonesia — bersama rujukan statis resmi seperti konsumsi per kapita, populasi, dan elastisitas harga, untuk memproyeksikan pergerakan harga pokok 1–3 bulan ke depan.",
     icon: Database,
     imageBg: "from-brand-primary/10 to-emerald-500/5",
     mockupContent: (
