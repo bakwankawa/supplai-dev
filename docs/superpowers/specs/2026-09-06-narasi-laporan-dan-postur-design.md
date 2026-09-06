@@ -191,19 +191,30 @@ buys nothing and adds a hallucination surface to text that could simply be corre
 eight strings.
 
 **Data explanations** — "what these numbers say now" — change every retrain. These are
-generated. Fifteen targets:
+generated. Nine targets, and that is what got built:
 
 | Target | Count |
 |---|---|
 | Redistribution plans that have routes | 8 |
 | Executive summary | 1 |
-| Per commodity | 6 |
-| | **15** |
+| | **9** |
 
 Eight, not eighteen: of the 6 × 3 commodity-posture combinations, ten are empty (Bawang
 Merah and Minyak Goreng in all three postures, and the four remaining commodities under
 `konservatif`). An empty plan gets the rule-based sentence derived from its `status`, which
 is both cheaper and more precise than asking a model to describe an absence.
+
+**Corrected during reconciliation (Task 14): an earlier draft of this table also carried a
+"Per commodity" row of 6, for a stated total of 15.** That row was never built.
+`supplai/narasi.py` writes exactly two kinds of entry into `artifacts/narasi.json` —
+`redistribusi` (one per non-empty commodity × posture) and `eksekutif` — and nothing else.
+There is no per-commodity narration aggregating across postures. This is consistent with
+this plan's own self-review, Known-gap 3 ("`per_kom["all"]` narration is not built... a
+paragraph mixing six commodities' tonnages has no reader"), which argued against the
+cross-commodity aggregate specifically; the sixth target here would have been a different
+cut (one paragraph per commodity, spanning its postures) and it simply was not built either.
+Stated plainly rather than silently dropped: the product ships 9 generated narratives, not
+15, and no per-commodity narration exists in this scope.
 
 ### Where it runs
 
@@ -233,6 +244,12 @@ So the fact block carries **pre-formatted Indonesian strings**: `"1,30%"`, `"57,
 `"Rp100.692.943"`. The model copies strings rather than formatting floats. The verifier
 normalises Indonesian separators on both sides before comparing.
 
+This is now true of the honesty ledger's numbers too, not only the narration facts:
+`supplai/buku_besar.py`'s `nilai` field is built with the same `format_id` helper
+(`supplai/narasi.py`), so `"Rp2.500"` and `"284.667.253 jiwa"` reach the product already
+formatted for an Indonesian reader — no raw float crosses into either surface for the model
+or the UI to reformat and possibly misread.
+
 ### Verifier
 
 Every numeral in the generated text is extracted, normalised from Indonesian formatting,
@@ -241,6 +258,23 @@ is already formatted for the reader, so the model has nothing left to round, and
 tolerance would be standing permission to alter a figure. Unmatched → reject and
 retry once. Two failures → the narrative is **dropped** and the table renders bare. Fail
 closed. A missing paragraph is a smaller harm than a confident wrong one.
+
+The comparison is also **ASCII-digit-only and sign-aware**, added during implementation and
+not originally called out here:
+
+- A numeral written in a non-ASCII digit (Devanagari, fullwidth, etc.) is deliberately still
+  *found* by the numeral scanner — hiding it would make a wrong number invisible rather than
+  invalid — but it always fails normalisation and is rejected. An Indonesian government
+  document must never contain one, so anything outside ASCII `0-9` is treated as malformed,
+  not merely unusual.
+- A leading `-` is part of the numeral, not punctuation around it: `"-57,41"` and `"57,41"`
+  are opposite claims, and the verifier tracks the sign through normalisation rather than
+  stripping it.
+
+**An empty model reply is treated as a failed attempt, not a vacuous pass.** A reply with no
+text also has no numerals to reject, so a verifier that only checks numerals would pass it
+by default and cache it as verified prose. That case is checked explicitly and counted as a
+failure before verification runs, consuming one of the two attempts.
 
 ### Cache
 
