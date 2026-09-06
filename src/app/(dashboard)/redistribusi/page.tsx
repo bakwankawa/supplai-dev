@@ -12,6 +12,8 @@ import { SurplusPanel, MethodPanel } from "@/components/redistribusi/info-panels
 import { BukuBesarPanel } from "@/components/redistribusi/buku-besar-panel";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Narasi, Penjelas } from "@/components/ui/narasi";
+import { narasiRedistribusi } from "@/data/narasi";
 import { formatRupiah } from "@/lib/format";
 import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
 
@@ -250,6 +252,9 @@ export default function RedistribusiPage() {
         </motion.div>
       </div>
 
+      {/* ================= NARRATION (MACHINE-WRITTEN, MAY BE ABSENT) ================= */}
+      <Narasi teks={narasiRedistribusi(commodity, postur)} />
+
       {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
@@ -260,7 +265,11 @@ export default function RedistribusiPage() {
               <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
             </div>
           </div>
-          <div className="w-full overflow-x-auto">
+          <Penjelas
+            judul="Cara membaca tabel ini"
+            isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. 'Kecukupan' membandingkan kiriman ini dengan kebutuhan yang terhitung, bukan dengan seluruh kebutuhan pangan wilayah itu."
+          />
+          <div className="w-full overflow-x-auto mt-4">
             <RouteTable
               routes={routes}
               loading={loading}
@@ -286,7 +295,13 @@ export default function RedistribusiPage() {
           <Layers3 className="w-4 h-4 text-[#006c4a]" />
           <h3 className="text-lg font-bold text-slate-800">Asal-usul Angka</h3>
         </div>
-        <BukuBesarPanel />
+        <Penjelas
+          judul="Mengapa daftar ini ada"
+          isi="Angka yang tidak diketahui asalnya tidak bisa diperiksa siapa pun. Daftar ini menyebut setiap masukan perhitungan beserta sumber dan tahunnya, dan menandai mana yang kami ukur dan mana yang kami tetapkan sendiri."
+        />
+        <div className="mt-4">
+          <BukuBesarPanel />
+        </div>
       </motion.div>
     </motion.div>
   );

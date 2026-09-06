@@ -56,6 +56,7 @@ def load_artifacts(art: Path) -> dict:
         "bench_final": pq("bench_final"),
         "meta": json.loads((art / "meta.json").read_text()),
         "buku_besar": json.loads((art / "buku_besar.json").read_text()),
+        "narasi": json.loads((art / "narasi.json").read_text()),
         "final_results": json.loads((art / "final_results.json").read_text()),
     }
 
@@ -434,6 +435,7 @@ def main(argv=None) -> int:
     _write(args.out, "timeseries.json", timeseries)
     _write(args.out, "commodity_mape.json", commodity_mape)
     _write(args.out, "buku_besar.json", buku_besar)
+    _write(args.out, "narasi.json", A["narasi"])
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -463,6 +465,7 @@ def main(argv=None) -> int:
     ), "buku_besar entries are missing required fields"
     assert all(e["status"] in {"terukur", "diasumsikan"} for e in buku_besar), \
         "buku_besar status must be terukur or diasumsikan"
+    assert A["narasi"]["redistribusi"], "narasi.json has no redistribution text"
     for postur, per_kom in redist.items():
         for cid, resp in per_kom.items():
             assert resp["summary"].get("status"), f"{postur}/{cid} has no status"

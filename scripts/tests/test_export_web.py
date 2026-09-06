@@ -349,3 +349,16 @@ def test_missing_plan_meta_entry_raises():
     meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
     with pytest.raises(KeyError, match="plan_meta"):
         ew.build_redistribution(flows, meta)
+
+
+def test_narasi_loads_and_is_keyed_by_commodity_and_posture():
+    import pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    n = A["narasi"]
+    assert n["model"].startswith("gpt-"), "the model must be recorded with the text"
+    assert n["redistribusi"], "no redistribution narratives were built"
+    for key in n["redistribusi"]:
+        komoditas, _, postur = key.partition("|")
+        assert komoditas in ew.COMMODITY_ID, f"unknown commodity in narasi key: {key}"
+        assert postur in {"konservatif", "seimbang", "aman_pangan"}, key
