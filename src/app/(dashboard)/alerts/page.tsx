@@ -85,7 +85,13 @@ export default function AlertsPage() {
   ];
 
   const query = commodity ? `?commodity=${commodity}` : "";
-  const { data, loading, refetch } = useApi<AlertResponse>(`/api/alerts${query}`);
+  const { data, loading, error, refetch } = useApi<AlertResponse>(`/api/alerts${query}`);
+
+  // A failed load has no alert list in it. The cards below describe alerts
+  // that are current right now — rendering yesterday's fetch under a header
+  // that just failed to refresh would say "still true" about data that was
+  // never confirmed. See /redistribusi's `gagalMuat` for the same reasoning.
+  const gagalMuat = error ? error.message : null;
 
   useEffect(() => {
     const handleGlobalRefresh = () => refetch?.();
@@ -96,7 +102,13 @@ export default function AlertsPage() {
   const [alertsList, setAlertsList] = useState<AlertData[]>([]);
 
   useEffect(() => {
-    if (!data?.alerts) return;
+    // No payload — either nothing has arrived yet, or a refetch just failed
+    // and cleared it. Either way, stale cards from a previous successful
+    // load must not keep sitting on screen looking current.
+    if (!data?.alerts) {
+      setAlertsList([]);
+      return;
+    }
     const sevMap: Record<string, AlertData["severity"]> = {
       kritis: "CRITICAL", tinggi: "WARNING", sedang: "INFO", rendah: "INFO",
     };
@@ -168,34 +180,57 @@ export default function AlertsPage() {
         </div>
       </motion.div>
 
-      {/* ================= SUMMARY STATS ROW ================= */}
-      <motion.div variants={itemVariants} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {[
-          { label: "Alert Aktif", value: displayedAlerts.length, color: "text-rose-600", icon: Bell },
-          { label: "Alert Bulan Ini", value: data?.summary.thisMonth ?? 182, color: "text-slate-800", icon: AlertTriangle },
-          { label: "Rata-rata Respons", value: data?.summary.avgResponseTime ?? 14, color: "text-slate-800", icon: Clock, suffix: "m" },
-          { label: "Terselesaikan", value: data?.summary.resolved ?? 168, color: "text-emerald-600", icon: CheckCircle2 },
-        ].map((card, idx) => (
-          <Card key={idx} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-3xs">
-            <CardContent className="p-0 flex flex-col justify-between h-full">
-              <div className="flex items-center gap-2 text-slate-400 mb-2">
-                <card.icon className="w-4 h-4 text-emerald-700" />
-                <span className="text-xs font-bold tracking-wider uppercase font-mono">{card.label}</span>
-              </div>
-              <p className={`text-3xl font-black tracking-tight ${card.color}`}>
-                {loading ? (
-                  <span className="h-8 w-16 bg-slate-100 animate-pulse rounded inline-block" />
-                ) : (
-                  <>
-                    <AnimatedNumber value={card.value} />
-                    {card.suffix && <span className="text-sm font-normal text-slate-400 ml-0.5">{card.suffix}</span>}
-                  </>
-                )}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-      </motion.div>
+      {/* ================= LOAD FAILURE (NOT ZERO ALERTS) ================= */}
+      {gagalMuat ? (
+        <motion.div
+          variants={itemVariants}
+          className="bg-white border border-rose-200 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]"
+        >
+          <div className="flex items-center gap-2 border-b border-rose-100 pb-4 mb-4">
+            <AlertTriangle className="w-4 h-4 text-rose-600" />
+            <h3 className="text-lg font-bold text-slate-800">Daftar alert gagal dimuat</h3>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Permintaan ke <span className="font-mono">/api/alerts</span> untuk filter komoditas{" "}
+            <span className="font-bold">{commodity ?? "Semua Komoditas"}</span> tidak berhasil:{" "}
+            <span className="font-bold text-rose-700">{gagalMuat}</span>
+          </p>
+          <p className="text-xs text-slate-500 leading-relaxed mt-2">
+            Halaman ini sengaja tidak menampilkan statistik atau kartu alert sampai jawaban
+            diterima. Nol alert di sini bukan berarti tidak ada alert — artinya jawaban dari
+            server belum sampai.
+          </p>
+        </motion.div>
+      ) : (
+        /* ================= SUMMARY STATS ROW ================= */
+        <motion.div variants={itemVariants} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            { label: "Alert Aktif", value: displayedAlerts.length, color: "text-rose-600", icon: Bell },
+            { label: "Alert Bulan Ini", value: data?.summary.thisMonth ?? 182, color: "text-slate-800", icon: AlertTriangle },
+            { label: "Rata-rata Respons", value: data?.summary.avgResponseTime ?? 14, color: "text-slate-800", icon: Clock, suffix: "m" },
+            { label: "Terselesaikan", value: data?.summary.resolved ?? 168, color: "text-emerald-600", icon: CheckCircle2 },
+          ].map((card, idx) => (
+            <Card key={idx} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-3xs">
+              <CardContent className="p-0 flex flex-col justify-between h-full">
+                <div className="flex items-center gap-2 text-slate-400 mb-2">
+                  <card.icon className="w-4 h-4 text-emerald-700" />
+                  <span className="text-xs font-bold tracking-wider uppercase font-mono">{card.label}</span>
+                </div>
+                <p className={`text-3xl font-black tracking-tight ${card.color}`}>
+                  {loading ? (
+                    <span className="h-8 w-16 bg-slate-100 animate-pulse rounded inline-block" />
+                  ) : (
+                    <>
+                      <AnimatedNumber value={card.value} />
+                      {card.suffix && <span className="text-sm font-normal text-slate-400 ml-0.5">{card.suffix}</span>}
+                    </>
+                  )}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </motion.div>
+      )}
 
       {/* ================= FILTERS SECTION ================= */}
       <motion.div variants={itemVariants} className="space-y-1.5">
@@ -223,11 +258,19 @@ export default function AlertsPage() {
                   <h3 className="text-lg font-bold text-slate-800">Active Emergency Alerts</h3>
                 </div>
                 <span className="text-xs font-mono font-bold text-slate-400">
-                  Total: {displayedAlerts.length} Item
+                  {gagalMuat ? "Total: — " : `Total: ${displayedAlerts.length} Item`}
                 </span>
               </div>
 
-              {paginatedAlerts.length === 0 ? (
+              {gagalMuat ? (
+                <div className="text-center py-16 space-y-1.5">
+                  <p className="text-xs font-bold text-rose-600">Kartu alert gagal dimuat.</p>
+                  <p className="text-[11px] font-medium text-slate-500 leading-relaxed max-w-md mx-auto">
+                    {gagalMuat} Ini kegagalan pengambilan data, bukan pernyataan bahwa tidak
+                    ada alert darurat aktif.
+                  </p>
+                </div>
+              ) : paginatedAlerts.length === 0 ? (
                 <div className="text-center py-16 text-slate-400 font-medium text-xs">
                   Tidak ada alert darurat aktif untuk filter ini.
                 </div>

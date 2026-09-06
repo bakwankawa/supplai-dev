@@ -50,9 +50,16 @@ export default function HeatmapPage() {
 
   const [appliedCities, setAppliedCities] = useState<string[]>(ALL_PROVINCES);
 
-  const { data, loading, refetch } = useApi<HeatmapResponse>(
+  const { data, loading, error, refetch } = useApi<HeatmapResponse>(
     `/api/heatmap?commodity=${commodity}&range=${range}`
   );
+
+  // A failed load leaves no matrix and no ranking to show. Rendering the
+  // matrix's empty-grid skeleton or the ranking panel's "Tidak ada data" in
+  // this case would read as a measured, all-clear result rather than as a
+  // request that never came back. See /redistribusi's `gagalMuat` for the
+  // same reasoning.
+  const gagalMuat = error ? error.message : null;
 
   useEffect(() => {
     const handleGlobalRefresh = () => refetch?.();
@@ -180,6 +187,30 @@ export default function HeatmapPage() {
         </div>
       </motion.div>
 
+      {/* ================= LOAD FAILURE (NOT AN EMPTY MATRIX) ================= */}
+      {gagalMuat && (
+        <motion.div
+          variants={itemVariants}
+          className="bg-white border border-rose-200 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]"
+        >
+          <div className="flex items-center gap-2 border-b border-rose-100 pb-4 mb-4">
+            <MapPin className="w-4 h-4 text-rose-600" />
+            <h3 className="text-lg font-bold text-slate-800">Heatmap gagal dimuat</h3>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Permintaan ke <span className="font-mono">/api/heatmap</span> untuk{" "}
+            <span className="font-bold">{selectedCommodityLabel}</span> pada rentang{" "}
+            <span className="font-bold">{range} bulan</span> tidak berhasil:{" "}
+            <span className="font-bold text-rose-700">{gagalMuat}</span>
+          </p>
+          <p className="text-xs text-slate-500 leading-relaxed mt-2">
+            Matriks dan peringkat wilayah kritis di bawah ini sengaja tidak ditampilkan sampai
+            jawaban diterima. Grid kosong atau &quot;tidak ada data&quot; di sana akan terbaca
+            sebagai hasil pengukuran, padahal tidak ada pengukuran yang sampai ke sini.
+          </p>
+        </motion.div>
+      )}
+
       {/* ================= ROW 2: PETA NASIONAL ================= */}
       <motion.div variants={itemVariants} className="border border-slate-200 bg-white rounded-2xl p-2 shadow-xs">
         <NationalHeatmap selectedCommodity={commodity} />
@@ -207,7 +238,17 @@ export default function HeatmapPage() {
           </div>
 
           <div className="w-full overflow-x-auto">
-            <PriceMatrix matrix={filteredMatrix} loading={loading} />
+            {gagalMuat ? (
+              <div className="py-12 px-6 text-center space-y-1.5">
+                <p className="text-xs font-bold text-rose-600">Matriks ini gagal dimuat.</p>
+                <p className="text-[11px] font-medium text-slate-500 leading-relaxed max-w-md mx-auto">
+                  {gagalMuat} Ini kegagalan pengambilan data, bukan pernyataan bahwa harga
+                  stabil di semua wilayah.
+                </p>
+              </div>
+            ) : (
+              <PriceMatrix matrix={filteredMatrix} loading={loading} />
+            )}
           </div>
         </motion.div>
 
@@ -226,7 +267,16 @@ export default function HeatmapPage() {
                 </p>
               </div>
             </div>
-            <TopCritical data={data?.topCritical ?? []} loading={loading} />
+            {gagalMuat ? (
+              <div className="py-8 px-4 text-center space-y-1">
+                <p className="text-xs font-bold text-rose-600">Peringkat ini gagal dimuat.</p>
+                <p className="text-[11px] font-medium text-slate-500 leading-relaxed">
+                  Bukan berarti tidak ada wilayah kritis — jawaban dari server belum sampai.
+                </p>
+              </div>
+            ) : (
+              <TopCritical data={data?.topCritical ?? []} loading={loading} />
+            )}
           </div>
 
           <div className="bg-slate-50 border border-slate-200 rounded-xl p-3 flex items-start gap-2.5 mt-4">
