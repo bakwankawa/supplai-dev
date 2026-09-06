@@ -92,11 +92,22 @@ export interface RedistributionRoute {
   volumeCiAtas: number
   /** The denominator behind persenPasar: the destination's monthly consumption. */
   konsumsiTujuanTonBulan: number
+  /** The two prices the solver compared when it chose this lane. Kept here so a
+   *  report never has to recompute them from an unrelated artifact and disagree
+   *  with the plan it describes. */
+  hargaAsal: number
+  hargaTujuan: number
+  hematRp: number
 }
 
 export interface RedistributionResponse {
-  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string; estimatedCost: number
-             anggaranNasionalTon: number | null }
+  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string
+             estimatedCost: number
+             anggaranNasionalTon: number | null
+             /** The solver's own reason, e.g. "ok", "tidak perlu intervensi".
+              *  Left as a string, not a union: "solver gagal: …" carries a
+              *  variable message. */
+             status: string }
   provinces: RedistributionProvince[]
   routes: RedistributionRoute[]
 }
@@ -131,4 +142,12 @@ export interface Alert {
 export interface AlertResponse {
   summary: { active: number; thisMonth: number; avgResponseTime: number; resolved: number }
   alerts: Alert[]
+}
+
+export interface BukuBesarEntry {
+  input: string
+  nilai: string
+  sumber: string
+  tahun: string
+  status: "terukur" | "diasumsikan"
 }
