@@ -860,7 +860,7 @@ Headers, with the scale stated so the bar is readable:
 npm run dev
 ```
 
-Open `http://localhost:3000/redistribusi`. Confirm on Beras: one route, `57,41 t` with `46,43–68,39` beneath, `1,30%` with a bar about a quarter filled, a **Terukur** badge, and `9,2%` adequacy. Switch to Telur Ayam and confirm 13 routes render with a mix of badges. Stop the server.
+Open `http://localhost:3000/redistribusi`. Confirm on Beras: one route, `57,41 t` with `46,43–68,39` beneath, `1,30%` with a bar about a quarter filled, a **Terukur** badge, and `9,2%` adequacy. Switch to Telur Ayam and confirm 13 routes render, all badged **Terukur** — no commodity has a mixed column under `seimbang`; only the aggregate mixes. Stop the server.
 
 - [ ] **Step 7: Commit**
 
@@ -973,7 +973,11 @@ npm run dev
 At `http://localhost:3000/redistribusi`:
 
 1. Beras + **Seimbang** → 1 route, 57,41 t.
-2. Beras + **Aman Pangan** → volume rises; the badge should now read **Diasumsikan**.
+2. Beras + **Aman Pangan** → volume rises from `57,41 t` to `59,16 t`, and the badge stays
+   **Terukur**. It is the only route in the entire aggressive plan that does.
+2b. Telur Ayam, **Seimbang** then **Aman Pangan** → all 13 badges flip from **Terukur** to
+   **Diasumsikan**. That flip is the posture effect worth seeing: asking for more tonnage
+   pushes past what measured need supports, so the source-side heuristic starts binding.
 3. Beras + **Konservatif** → empty table reading "Wilayah berisiko tetap terdeteksi, tetapi kebutuhannya nol pada postur ini." — *not* "harga stabil atau menurun".
 4. Bawang Merah + **Seimbang** → empty table reading "Tidak ada pasangan wilayah yang dapat dibentuk."
 5. Confirm 3 and 4 show **different** text. That difference is the point of Task 3.
