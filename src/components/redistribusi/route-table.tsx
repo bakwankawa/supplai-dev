@@ -10,7 +10,7 @@ import { jelaskanStatus } from "@/lib/redistribusi/status"
 import { ton, persen, SKALA_PERSEN_PASAR, takaranLabel } from "@/lib/redistribusi/format"
 import { ChevronsUpDown } from "lucide-react";
 
-type SortKey = "from" | "to" | "volume" | "distance" | "cost" | "priority" | "persenPasar" | "kecukupanPersen";
+type SortKey = "from" | "to" | "volumeTon" | "distance" | "cost" | "priority" | "persenPasar" | "kecukupanPersen";
 
 const PRIORITY_ORDER: Record<RedistributionRoute["priority"], number> = { high: 0, medium: 1, low: 2 };
 const COMMODITY_LABELS: Record<string, string> = { beras: "Beras", "bawang-merah": "Bawang Merah", "cabai-rawit": "Cabai Rawit", "minyak-goreng": "Minyak Goreng" };
@@ -82,20 +82,27 @@ export function RouteTable({ routes, loading, status, postur, komoditas }: Route
       <Table className="text-xs">
         <TableHeader className="bg-slate-50">
           <TableRow className="hover:bg-transparent">
-            {(["from", "to", "volume"] as const).map((col) => (
+            {(["from", "to"] as const).map((col) => (
               <TableHead
                 key={col}
                 onClick={() => toggleSort(col)}
                 className="cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
               >
                 <div className="flex items-center gap-1 capitalize">
-                  {col === "from" ? "Asal" : col === "to" ? "Tujuan" : col}
-                  {/* Mengubah nama komponen di bawah ini */}
+                  {col === "from" ? "Asal" : "Tujuan"}
                   <ChevronsUpDown className={`w-3 h-3 ${sortKey === col ? "text-[#006c4a]" : "text-slate-300"}`} />
                 </div>
               </TableHead>
             ))}
-            <TableHead className="text-right font-bold text-slate-700 py-3 whitespace-nowrap">Volume</TableHead>
+            <TableHead
+              onClick={() => toggleSort("volumeTon")}
+              className="text-right cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
+            >
+              <div className="flex items-center gap-1 justify-end">
+                Volume
+                <ChevronsUpDown className={`w-3 h-3 ${sortKey === "volumeTon" ? "text-[#006c4a]" : "text-slate-300"}`} />
+              </div>
+            </TableHead>
             <TableHead
               onClick={() => toggleSort("persenPasar")}
               className="cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
@@ -123,7 +130,6 @@ export function RouteTable({ routes, loading, status, postur, komoditas }: Route
               >
                 <div className="flex items-center gap-1 capitalize">
                   {col === "cost" ? "Est. Biaya" : col}
-                  {/* Mengubah nama komponen di bawah ini */}
                   <ChevronsUpDown className={`w-3 h-3 ${sortKey === col ? "text-[#006c4a]" : "text-slate-300"}`} />
                 </div>
               </TableHead>
@@ -135,7 +141,6 @@ export function RouteTable({ routes, loading, status, postur, komoditas }: Route
             <TableRow key={i} className="hover:bg-slate-50/50 transition-colors border-b border-slate-100">
               <TableCell className="font-bold text-slate-800">{route.from}</TableCell>
               <TableCell className="font-medium text-slate-600">{route.to}</TableCell>
-              <TableCell className="font-mono font-semibold text-slate-700">{formatNumber(route.volume)} t</TableCell>
               <TableCell className="text-right tabular-nums">
                 <div className="font-bold text-slate-700">{ton(route.volumeTon)}</div>
                 <div className="text-[10px] text-slate-400">
