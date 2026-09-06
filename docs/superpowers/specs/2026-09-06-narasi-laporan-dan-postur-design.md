@@ -63,14 +63,25 @@ tonnages that are not the ones they asked for.
 | Volume | `volumeTon` | `57,41 t`, with `46,43–68,39` beneath in muted type |
 | % pasar tujuan | `persenPasar` | bar on a fixed 0–5% scale; `konsumsiTujuanTonBulan` is the denominator, shown on hover |
 | Dasar takaran | `dasarTakaran` | badge: **Terukur** / **Diasumsikan**, with a tooltip saying which rule set the volume |
-| Kecukupan | `kecukupanPersen` | percentage of the destination's requirement this shipment covers |
+| Kecukupan GPM | `kecukupanPersen` | share of the destination's measured requirement already covered by Gerakan Pangan Murah, the intervention programme already running there |
 
 The 0–5% scale is chosen against the data, not invented: across the 36 routes of
 `seimbang`, `persenPasar` runs **0,023% to 3,642%**. The old heuristic's 18,08% would run
 off this scale, which is the correct visual impression.
 
-`kecukupanPersen` ranges **4,5% to 168,1%** in `seimbang`. Values above 100% are real — the
-shipment more than covers the requirement — and must not be clamped.
+`kecukupanPersen` ranges **4,5% to 168,1%** in `seimbang`. It is **not** the coverage of the
+shipment on that row. `supplai/kebutuhan.py:Kebutuhan.kecukupan` computes it as the tonnage
+Gerakan Pangan Murah already delivers per month in the destination province, divided by the
+measured requirement — so it is a property of the destination, identical on every route
+arriving there, and it says nothing about this plan. The column is therefore labelled
+**Kecukupan GPM**, on screen and in the government report. Values above 100% are real — the
+running programme already more than covers the measured requirement — and must not be clamped.
+
+`kecukupan`'s docstring mandates three caveats that must be rendered beside the figure, and
+they are, in the on-screen `Penjelas` and in Section 02 of the government report: GPM is one
+instrument among several and CPP disbursement is far larger; the per-activity budget is a
+2027 plan applied to 2026 realisations; and GPM sells several commodities, so converting its
+budget at a single commodity's price is indicative only.
 
 ### Three things that are wrong if skipped
 

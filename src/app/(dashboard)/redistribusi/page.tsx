@@ -267,8 +267,14 @@ export default function RedistribusiPage() {
           </div>
           <Penjelas
             judul="Cara membaca tabel ini"
-            isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. 'Kecukupan' membandingkan kiriman ini dengan kebutuhan yang terhitung, bukan dengan seluruh kebutuhan pangan wilayah itu."
+            isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri."
           />
+          <div className="mt-3">
+            <Penjelas
+              judul="Kecukupan GPM bukan cakupan kiriman ini"
+              isi="Kolom 'Kecukupan GPM' tidak mengukur rute pada baris itu. Ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah — program intervensi yang memang sudah berjalan di provinsi tujuan — sehingga nilainya melekat pada tujuan, bukan pada kiriman: setiap rute yang masuk ke provinsi yang sama menunjukkan angka yang sama. Tiga peringatan melekat padanya: (1) GPM hanya satu dari beberapa instrumen, dan penyaluran Cadangan Pangan Pemerintah jauh lebih besar serta tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran."
+            />
+          </div>
           <div className="w-full overflow-x-auto mt-4">
             <RouteTable
               routes={routes}

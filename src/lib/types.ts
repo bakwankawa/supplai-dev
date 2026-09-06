@@ -80,7 +80,10 @@ export interface RedistributionRoute {
   /** "terukur" where the volume came from measured consumption; "diasumsikan"
    *  where a declared heuristic was used. */
   dasarTakaran: "terukur" | "diasumsikan"
-  /** How much of the computed requirement real intervention actually covers. */
+  /** Share of the computed requirement already covered by Gerakan Pangan
+   *  Murah, the intervention programme already running in the destination.
+   *  A property of the destination, not of this route: every route into the
+   *  same province carries the same value. */
   kecukupanPersen: number
   /** "regional" or "nasional" — a province whose regional elasticity was not
    *  statistically significant falls back to the national figure, and a reader

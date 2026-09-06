@@ -118,7 +118,7 @@ export function RouteTable({ routes, loading, status, postur, komoditas }: Route
               className="text-right cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
             >
               <div className="flex items-center gap-1 justify-end">
-                Kecukupan
+                Kecukupan GPM
                 <ChevronsUpDown className={`w-3 h-3 ${sortKey === "kecukupanPersen" ? "text-[#006c4a]" : "text-slate-300"}`} />
               </div>
             </TableHead>

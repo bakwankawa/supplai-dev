@@ -98,9 +98,10 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
     ]);
     heading("02  Rute dan takaran");
     if (a.routes.length) {
-      paragraph("Kolom \"% pasar\" adalah bagian kiriman terhadap konsumsi bulanan provinsi tujuan; kolom \"Kecukupan\" adalah bagian kebutuhan terhitung yang benar-benar tertutup kiriman ini.", 9, muted);
+      paragraph("Kolom \"% pasar\" adalah bagian kiriman terhadap konsumsi bulanan provinsi tujuan. Kolom \"Kecukupan GPM\" bukan tentang kiriman ini: ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah, program intervensi yang memang sudah berjalan di provinsi tujuan. Angka itu melekat pada tujuannya, jadi setiap rute yang masuk ke provinsi yang sama menunjukkan nilai yang sama.", 9, muted);
+      paragraph("Tiga peringatan melekat pada Kecukupan GPM dan harus dibaca bersamanya: (1) GPM hanya satu dari beberapa instrumen — penyaluran Cadangan Pangan Pemerintah jauh lebih besar dan tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran.", 9, muted);
       table(
-        ["Asal", "Tujuan", "Volume", "% pasar", "Dasar", "Kecukupan"],
+        ["Asal", "Tujuan", "Volume", "% pasar", "Dasar", "Kecukupan GPM"],
         a.routes.map((r) => [
           r.from, r.to, ton(r.volumeTon), persen(r.persenPasar),
           takaranLabel(r.dasarTakaran).teks, persen(r.kecukupanPersen),

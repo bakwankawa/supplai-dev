@@ -14,8 +14,10 @@ describe("Indonesian number formatting", () => {
   });
 
   it("keeps percentages above 100 intact", () => {
-    // kecukupanPersen reaches 168,1% — a shipment that more than covers the
-    // requirement. Clamping it would hide a real result.
+    // kecukupanPersen reaches 168,1% — a destination whose measured requirement
+    // is already more than covered by the running GPM programme. It is a
+    // property of the destination, not of any shipment. Clamping it would hide
+    // a real result.
     expect(persen(168.1, 1)).toBe("168,1%");
   });
 });
