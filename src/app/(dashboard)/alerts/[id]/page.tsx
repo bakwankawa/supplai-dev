@@ -328,7 +328,7 @@ export default function AlertDetailPage() {
     .slice(0, 5);
 
   const stepWizard = [
-    { title: "1. Analisis Prediktif", desc: "Proyeksi Tren Harga", path: `/dashboard?commodity=${alert.commodity}&trigger=alert` },
+    { title: "1. Analisis Prediktif", desc: "Proyeksi Tren Harga", path: `/dashboard?commodity=${alert.commodity}&region=${encodeURIComponent(alert.region)}&trigger=alert` },
     { title: "2. Peta Risiko Nasional", desc: "Sebaran Spasial Geografis", path: `/heatmap?commodity=${alert.commodity}&trigger=alert` },
     { title: "3. Optimasi Redistribusi", desc: "Eksekusi Rute Logistik", path: `/redistribusi?commodity=${alert.commodity}&trigger=alert` },
   ];
@@ -468,7 +468,7 @@ export default function AlertDetailPage() {
       <div className="bg-white border border-slate-200/80 rounded-2xl p-5 shadow-xs space-y-4">
         <div className="flex items-center justify-between text-xs font-bold text-slate-700">
           <span>Progres Workflow Mitigasi</span>
-          <span className="text-[11px] font-mono text-[#006c4a] uppercase bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-100">
+          <span className="text-[11px] font-mono text-[#006c4a] uppercase bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-100">
             Tahap: {stepsList[currentIndex].label}
           </span>
         </div>
@@ -562,7 +562,7 @@ export default function AlertDetailPage() {
         <div className="lg:col-span-8 space-y-6">
 
           {/* RINGKASAN MODEL */}
-          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs">
             <h3 className="text-sm font-black font-mono uppercase tracking-wider text-slate-400 mb-2.5">Ringkasan Analisis Model</h3>
             <p className="text-xs text-slate-600 font-medium leading-relaxed text-justify">
               {d.recommendation}
@@ -571,7 +571,7 @@ export default function AlertDetailPage() {
 
           {/* RUTE REDISTRIBUSI YANG DIAJUKAN (JIKA ADA) */}
           {savedLogs?.selectedRouteObj && (
-            <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+            <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-4">
               <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
                 <Truck className="w-5 h-5 text-[#006c4a]" />
                 <h3 className="text-base font-bold text-slate-800">Rute Redistribusi Diajukan</h3>
@@ -617,7 +617,7 @@ export default function AlertDetailPage() {
           )}
 
           {/* SINYAL MODEL */}
-          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <ShieldAlert className="w-5 h-5 text-[#006c4a]" />
               <h3 className="text-base font-bold text-slate-800">Sinyal Model</h3>
@@ -647,20 +647,20 @@ export default function AlertDetailPage() {
               </div>
             </div>
             <div className="flex flex-wrap gap-2 pt-1">
-              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
+              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md border ${d.diAtasHet ? "bg-rose-50 text-rose-600 border-rose-100" : "bg-emerald-50 text-emerald-600 border-emerald-100"}`}>
                 {d.diAtasHet ? "Prediksi di atas HAP/HET" : "Prediksi di bawah HAP/HET"}
               </span>
-              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
+              <span className={`text-[10px] font-bold px-2.5 py-1 rounded-md border ${d.anomaliTerkonfirmasi ? "bg-amber-50 text-amber-600 border-amber-100" : "bg-slate-50 text-slate-500 border-slate-100"}`}>
                 {d.anomaliTerkonfirmasi ? "Anomali terkonfirmasi" : "Tanpa anomali historis"}
               </span>
-              <span className="text-[10px] font-bold px-2.5 py-1 rounded-full border bg-slate-50 text-slate-500 border-slate-100">
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-md border bg-slate-50 text-slate-500 border-slate-100">
                 Model: horizon 3 bulan
               </span>
             </div>
           </div>
 
           {/* REKOMENDASI REDISTRIBUSI */}
-          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <Lightbulb className="w-5 h-5 text-emerald-600" />
               <h3 className="text-base font-bold text-slate-800">Rekomendasi Redistribusi — {commodityName}</h3>
@@ -675,7 +675,7 @@ export default function AlertDetailPage() {
                       <span className="font-bold">{r.from}</span> <ArrowRight className="inline w-3 h-3" /> <span className="font-bold">{r.to}</span>
                       <span className="text-slate-400"> · {r.distance.toLocaleString("id-ID")} km · {rupiah(r.cost)}</span>
                     </p>
-                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-full border shrink-0 ${r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
+                    <span className={`text-[9px] font-black uppercase px-2 py-0.5 rounded-md border shrink-0 ${r.priority === "high" ? "bg-rose-50 text-rose-600 border-rose-100" :
                         r.priority === "medium" ? "bg-amber-50 text-amber-600 border-amber-100" :
                           "bg-slate-50 text-slate-500 border-slate-100"
                       }`}>{r.priority}</span>
@@ -691,7 +691,7 @@ export default function AlertDetailPage() {
 
         {/* RIGHT COLUMN */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs space-y-4">
+          <div className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-xs space-y-4">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-3">
               <MapPin className="w-4 h-4 text-[#006c4a]" />
               <h3 className="text-base font-bold text-slate-800">Wilayah Lain — {commodityName}</h3>
@@ -733,7 +733,7 @@ export default function AlertDetailPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, height: 0, y: 15 }}
-            className="bg-sky-50/70 border border-sky-200 text-slate-700 rounded-[24px] p-6 shadow-sm space-y-5 relative overflow-hidden mt-6"
+            className="bg-sky-50/70 border border-sky-200 text-slate-700 rounded-2xl p-6 shadow-sm space-y-5 relative overflow-hidden mt-6"
           >
             <div className="absolute top-0 right-0 w-64 h-64 bg-sky-200/20 rounded-full blur-3xl pointer-events-none" />
             <div className="flex items-center justify-between gap-4 border-b border-sky-100 pb-4">
@@ -792,7 +792,7 @@ export default function AlertDetailPage() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ type: "spring", duration: 0.4 }}
-              className="bg-white border border-slate-200 w-full max-w-lg rounded-[24px] shadow-2xl relative z-10 overflow-hidden text-slate-800"
+              className="bg-white border border-slate-200 w-full max-w-lg rounded-2xl shadow-2xl relative z-10 overflow-hidden text-slate-800"
             >
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
                 <div className="flex items-center gap-2 text-[#006c4a]">

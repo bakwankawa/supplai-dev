@@ -95,16 +95,6 @@ export function IndonesiaMap({ provinces, routes, loading }: IndonesiaMapProps) 
 
   return (
     <div className="relative w-full">
-      {/* Animated dashed route lines CSS */}
-      <style>{`
-        @keyframes dash {
-          to { stroke-dashoffset: -20; }
-        }
-        .route-line {
-          animation: dash 1.2s linear infinite;
-        }
-      `}</style>
-
       <ComposableMap
         projection="geoMercator"
         projectionConfig={{ center: [118, -2], scale: 1050 }}

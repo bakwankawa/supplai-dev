@@ -106,7 +106,7 @@ export function PriceLineChart({ data, loading }: PriceLineChartProps) {
         />
 
         {/* Confidence interval area */}
-        <Area
+        <Area isAnimationActive={false}
           dataKey="upper"
           stroke="none"
           fill="#2563eb"
@@ -116,7 +116,7 @@ export function PriceLineChart({ data, loading }: PriceLineChartProps) {
           connectNulls={false}
           name="upper"
         />
-        <Area
+        <Area isAnimationActive={false}
           dataKey="lower"
           stroke="none"
           fill="#ffffff"
@@ -128,7 +128,7 @@ export function PriceLineChart({ data, loading }: PriceLineChartProps) {
         />
 
         {/* Actual prices */}
-        <Line
+        <Line isAnimationActive={false}
           type="monotone"
           dataKey="actual"
           stroke="#2563eb"
@@ -139,7 +139,7 @@ export function PriceLineChart({ data, loading }: PriceLineChartProps) {
         />
 
         {/* Predicted prices */}
-        <Line
+        <Line isAnimationActive={false}
           type="monotone"
           dataKey="predicted"
           stroke="#f97316"

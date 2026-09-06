@@ -45,7 +45,7 @@ export function ShortcutCards() {
           <div
             key={idx}
             onClick={() => router.push(card.path)}
-            className="border border-slate-200 bg-white p-5 rounded-[20px] flex flex-col justify-between gap-4 shadow-3xs hover:border-slate-300 hover:shadow-2xs transition-all cursor-pointer group"
+            className="border border-slate-200 bg-white p-5 rounded-2xl flex flex-col justify-between gap-4 shadow-3xs hover:border-slate-300 hover:shadow-2xs transition-all cursor-pointer group"
           >
             <div className="space-y-2">
               <div className={`p-2.5 rounded-xl border w-fit ${card.color}`}>

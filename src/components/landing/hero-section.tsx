@@ -1,75 +1,35 @@
 "use client";
 
+import { LandingText, useLandingLanguage } from "./language";
+import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { HeroVideo } from "./hero-video";
+import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
+  const { t } = useLandingLanguage();
   return (
-    <section className="relative w-full h-[95vh] flex items-center justify-start overflow-hidden">
+    <section id="hero" className="relative overflow-hidden px-5 pt-40 sm:px-8 sm:pt-44">
+      <HeroVideo />
+      <div className="relative mx-auto max-w-6xl">
+        <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
+          <h1 className="text-[clamp(2.5rem,5.7vw,4.75rem)] font-semibold leading-[1.12] tracking-[-0.045em] text-slate-900"> <LandingText text="Antisipasi harga pangan." /><br />
+            <span className="text-brand-accentDark"><LandingText text="Rencanakan langkah ke depan." /></span>
+          </h1>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-slate-500 sm:text-lg sm:leading-8"> <LandingText text="Dari prediksi harga hingga rekomendasi distribusi. SupplAI membantu bisnis dan lembaga melihat perubahan lebih awal, untuk keputusan pangan yang lebih terukur." /> </p>
+          <div className="mt-8 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+            <Link prefetch={false} href="/login" className="inline-flex h-12 w-full sm:w-48 items-center justify-center gap-3 rounded-xl bg-brand-accentDark px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-emerald-900"> <LandingText text="Buka Dashboard" /> <ArrowRight className="h-4 w-4" />
+            </Link>
+            <a href="#modules" className="inline-flex h-12 w-full sm:w-48 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white/80 px-6 py-3.5 text-sm font-semibold text-slate-700 transition-colors hover:bg-white"><LandingText text="Lihat Cara Kerja" /></a>
+          </div>
 
-      {/* BACKGROUND VIDEO (TIDAK FIXED, IKUT BERGESER SAAT DI-SCROLL) */}
-      <div className="absolute inset-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover object-center"
-        >
-          <source src="/videos/hero-plantation.mp4" type="video/mp4" />
-          Browser kamu tidak mendukung tag video.
-        </video>
-
-        {/* OVERLAY ABU-ABU GELAP (FADE) AGAR TEKS SANGAT JELAS TERBACA */}
-        <div className="absolute inset-0 bg-slate-700/55" />
-
-        {/* Soft Gradient dari Bawah */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-slate-900/20" />
-      </div>
-
-      {/* KONTAINER TEKS UTAMA */}
-      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full relative z-10 flex flex-col items-start gap-6">
-
-        <div className="max-w-3xl space-y-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-md"
-          >
-            Digitalisasi Ketahanan Pangan
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="text-slate-200 text-base md:text-xl font-medium leading-relaxed max-w-2xl drop-shadow-sm"
-          >
-            Sistem Peringatan Dini Inflasi Pangan Berbasis AI yang dapat mendeteksi harga pangan 1-3 bulan kedepan
-            guna memutus disparitas ekstrem melalui manajemen
-            distribusi cerdas.
-          </motion.p>
         </div>
 
-        {/* TOMBOL CTA UTAMA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.2 }}
-        >
-          <Link href="/login">
-            <motion.button
-              whileHover={{ scale: 1.03, backgroundColor: "#0fa574" }}
-              whileTap={{ scale: 0.98 }}
-              className="inline-flex items-center gap-2 bg-[#10b981] text-white font-bold px-6 py-3.5 rounded-xl text-base shadow-lg cursor-pointer transition-all"
-            >
-              <span>Go to Dashboard</span>
-              <span className="font-bold text-lg">→</span>
-            </motion.button>
-          </Link>
-        </motion.div>
-
+        <div id="dashboard-preview" className="relative mx-auto mt-12 max-w-6xl rounded-2xl border border-slate-300/80 bg-white/70 p-2 shadow-[0_18px_60px_-30px_rgba(6,78,59,0.3)] sm:mt-16 sm:p-3">
+          <div className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+              <Image src="/images/prediction-dashboard-preview.png" alt={t("Dashboard Prediksi Harga Komoditas SupplAI, menampilkan filter wilayah, harga acuan, hasil prediksi, MAPE, dan grafik harga.")} width={2902} height={1740} unoptimized sizes="(max-width: 1200px) 100vw, 1152px" priority className="h-auto w-full" />
+          </div>
+        </div>
       </div>
     </section>
   );

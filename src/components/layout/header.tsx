@@ -40,7 +40,9 @@ export function Header({ onToggleAgent }: HeaderProps) {
 
     useEffect(() => {
         const savedEmail = sessionStorage.getItem("userEmail") || localStorage.getItem("userEmail");
-        if (savedEmail) {
+        if (sessionStorage.getItem("authMode") === "guest") {
+            setUserDisplay({ name: "Tamu", email: "Akses tamu" });
+        } else if (savedEmail) {
             const namePart = savedEmail.includes("@") ? savedEmail.split("@")[0] : savedEmail;
             const formattedName = namePart.charAt(0).toUpperCase() + namePart.slice(1);
             setUserDisplay({
@@ -149,6 +151,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
 
     const handleAuthAction = () => {
         if (isLoggedIn) {
+            sessionStorage.removeItem("authMode");
             sessionStorage.removeItem("userEmail");
             localStorage.removeItem("userEmail");
             setIsLoggedIn(false);
@@ -192,7 +195,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
                 <button
                     onClick={triggerGlobalRefresh}
                     className="p-2 text-slate-500 hover:text-emerald-600 hover:bg-slate-100 rounded-xl transition-all cursor-pointer flex items-center justify-center"
-                    title="Universal System Refresh"
+                    title="Perbarui data"
                 >
                     <RefreshCw className={`w-4 h-4 ${isGlobalRefreshing ? "animate-spin text-emerald-600" : ""}`} />
                 </button>
@@ -383,7 +386,7 @@ export function Header({ onToggleAgent }: HeaderProps) {
                                     ) : (
                                         <>
                                             <LogIn className="w-4 h-4 text-emerald-500" />
-                                            <span className="text-emerald-600 font-medium">Masuk / Login</span>
+                                            <span className="text-emerald-600 font-medium">Masuk</span>
                                         </>
                                     )}
                                 </button>

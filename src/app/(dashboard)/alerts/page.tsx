@@ -160,7 +160,7 @@ export default function AlertsPage() {
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <div className="bg-[#E6F4EA] border border-emerald-200 rounded-full px-4 py-2 flex items-center gap-2">
+          <div className="bg-[#E6F4EA] border border-emerald-200 rounded-md px-4 py-2 flex items-center gap-2">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-600" />
@@ -180,7 +180,7 @@ export default function AlertsPage() {
           { label: "Rata-rata Respons", value: data?.summary.avgResponseTime ?? 14, color: "text-slate-800", icon: Clock, suffix: "m" },
           { label: "Terselesaikan", value: data?.summary.resolved ?? 168, color: "text-emerald-600", icon: CheckCircle2 },
         ].map((card, idx) => (
-          <Card key={idx} className="bg-white border border-slate-200 rounded-[24px] p-5 shadow-3xs">
+          <Card key={idx} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-3xs">
             <CardContent className="p-0 flex flex-col justify-between h-full">
               <div className="flex items-center gap-2 text-slate-400 mb-2">
                 <card.icon className="w-4 h-4 text-emerald-700" />
@@ -219,7 +219,7 @@ export default function AlertsPage() {
 
         {/* SISI KIRI: LIST EMERGENCY CARDS WITH PAGINATION */}
         <div className="lg:col-span-8">
-          <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-h-[520px] flex flex-col justify-between overflow-hidden">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs min-h-[520px] flex flex-col justify-between overflow-hidden">
             <div>
               <div className="flex items-center justify-between border-b border-slate-100 pb-4 mb-6">
                 <div className="flex items-center gap-2">
@@ -307,7 +307,7 @@ export default function AlertsPage() {
 
         {/* SISI KANAN: CONSOLE LOG */}
         <div className="lg:col-span-4">
-          <div className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs h-full flex flex-col justify-between space-y-6">
+          <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs h-full flex flex-col justify-between space-y-6">
             <div>
               <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
                 <div className="flex items-center gap-2">
@@ -384,7 +384,7 @@ export default function AlertsPage() {
       </motion.div>
 
       {/* ================= BOTTOM SECTION: PERFORMANCE PANEL ================= */}
-      <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs">
+      <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5 mb-5">
           <div>
             <h3 className="text-lg font-bold text-slate-800 tracking-tight">TPID Response Performance</h3>
@@ -470,7 +470,7 @@ export default function AlertsPage() {
                     </div>
                   </td>
                   <td className="py-4 px-4 text-right">
-                    <span className={`inline-block px-2.5 py-1 rounded-full text-[9px] font-black font-mono tracking-wider ${row.status === "EXEMPLARY"
+                    <span className={`inline-block px-2.5 py-1 rounded-md text-[9px] font-black font-mono tracking-wider ${row.status === "EXEMPLARY"
                       ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                       : row.status === "STANDARD"
                         ? "bg-slate-50 text-slate-700 border border-slate-200"

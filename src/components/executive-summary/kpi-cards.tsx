@@ -58,7 +58,7 @@ export function KPICards() {
           <p className="text-brand-textMuted text-xs font-medium uppercase tracking-wider">{kpi.title}</p>
           <div className="flex items-baseline gap-2 mt-2">
             <h3 className="text-2xl font-bold text-brand-textMain">{kpi.value}</h3>
-            <span className={`inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-full ${
+            <span className={`inline-flex items-center text-xs font-semibold px-2 py-0.5 rounded-md ${
               kpi.isPositive ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
             }`}>
               {kpi.isPositive ? <ArrowUpRight className="w-3 h-3 mr-0.5" /> : <ArrowDownRight className="w-3 h-3 mr-0.5" />}

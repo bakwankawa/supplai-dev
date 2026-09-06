@@ -81,7 +81,7 @@ export function RegionBarChart({ data, loading }: RegionBarChartProps) {
           tickLine={false}
         />
         <Tooltip content={<CustomTooltip />} cursor={{ fill: "#f1f5f9" }} />
-        <Bar dataKey="price" radius={[0, 4, 4, 0]} maxBarSize={24}>
+        <Bar isAnimationActive={false} dataKey="price" radius={[0, 4, 4, 0]} maxBarSize={24}>
           {sorted.map((entry, index) => (
             <Cell key={`cell-${index}`} fill={getBarColor(entry.price, avg)} />
           ))}

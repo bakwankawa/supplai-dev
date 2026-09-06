@@ -10,7 +10,8 @@ import { Popover } from "@base-ui/react/popover";
 import { commodities } from "@/data/commodities";
 import { regionalComparisonMaster } from "@/data/regional-data";
 import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
-import commodityMape from "@/data/generated/commodity_mape.json";
+import { analyzePrediction, monthLabel } from "@/lib/prediction/analysis";
+import { PredictionNarrative } from "@/components/dashboard/prediction-narrative";
 
 import {
   ResponsiveContainer,
@@ -61,8 +62,6 @@ const cardItemVariants = {
   show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 120, damping: 14 } }
 } as const;
 
-// Real per-commodity horizon-1 MAPE (rolling-origin blend), from the export.
-const COMMODITY_MAPE = commodityMape as Record<string, number>;
 
 // Date bounds derived from the real monthly data so the default window and the
 // range shortcuts stay correct across re-exports (data is a snapshot).
@@ -84,7 +83,7 @@ const transitionSmooth = { type: "spring", stiffness: 100, damping: 15 } as cons
 
 export default function PricePredictionEnginePage() {
   const searchParams = useSearchParams();
-  const reportRef = useRef<HTMLDivElement>(null);
+  const [exportError, setExportError] = useState("");
   
   const [isExporting, setIsExporting] = useState(false);
   const [searchComm, setSearchComm] = useState("");
@@ -96,6 +95,7 @@ export default function PricePredictionEnginePage() {
 
   const queryCommodity = searchParams.get("commodity");
   const hasTrigger = searchParams.get("trigger") === "alert";
+  const queryRegion = searchParams.get("region");
 
   const [commodityId, setCommodityId] = useState(() =>
     commodities.some((c) => c.id === queryCommodity) ? (queryCommodity as string) : "beras"
@@ -103,7 +103,8 @@ export default function PricePredictionEnginePage() {
 
   const [selectedRegions, setSelectedRegions] = useState<string[]>(() => {
     const names = regionalComparisonMaster.map((r) => r.region);
-    if (hasTrigger) return names.slice(0, 2);
+    const requested = names.find((name) => name === queryRegion || name.toLowerCase().replace(/\s+/g, "-") === queryRegion);
+    if (requested) return [requested];
     return [names[0] ?? "Aceh"];
   });
 
@@ -179,7 +180,7 @@ export default function PricePredictionEnginePage() {
   // disebutkan di bawah grafik supaya tidak hilang diam-diam.
   const { chartData, bulanDilewati } = useMemo(() => {
     const activeGroup = generatedTimeSeriesMaster[commodityId];
-    if (!activeGroup) return { chartData: [] as any[], bulanDilewati: [] as string[] };
+    if (!activeGroup) return { chartData: [] as Record<string, string | number | boolean>[], bulanDilewati: [] as string[] };
 
     const inRange = (reg: string) =>
       (activeGroup[reg] ?? []).filter(pt => pt.date >= startDate && pt.date <= endDate);
@@ -198,7 +199,7 @@ export default function PricePredictionEnginePage() {
     };
 
     const rows = shared.map(dStr => {
-      const row: any = { date: dStr, displayDate: labelOf(dStr) };
+      const row: Record<string, string | number | boolean> = { date: dStr, displayDate: labelOf(dStr) };
       selectedRegions.forEach(reg => {
         const found = activeGroup[reg]?.find(pt => pt.date === dStr);
         if (found) {
@@ -213,90 +214,67 @@ export default function PricePredictionEnginePage() {
     return { chartData: rows, bulanDilewati: dropped.map(labelOf) };
   }, [commodityId, selectedRegions, startDate, endDate]);
 
-  const { currentPrice, predictedPrice, priceChange, isPriceDown, avgMape } = useMemo(() => {
-    const activeGroup = generatedTimeSeriesMaster[commodityId] || {};
-    let totalToday = 0;
-    let totalFuture = 0;
-    let count = 0;
-
-    selectedRegions.forEach(reg => {
-      const regList = activeGroup[reg] || [];
-      const todayPt = regList.find(pt => pt.isToday);
-      const futurePt = regList[regList.length - 1];
-
-      if (todayPt && futurePt) {
-        totalToday += todayPt.price;
-        totalFuture += futurePt.price;
-        count++;
-      }
-    });
-
-    const divisor = count || 1;
-    const avgToday = Math.round(totalToday / divisor);
-    const avgFuture = Math.round(totalFuture / divisor);
-    const delta = avgFuture - avgToday;
-    const mape = COMMODITY_MAPE[commodityId] ?? 3.0;
-
-    return {
-      currentPrice: avgToday,
-      predictedPrice: avgFuture,
-      priceChange: delta,
-      isPriceDown: delta < 0,
-      avgMape: mape
-    };
-  }, [commodityId, selectedRegions]);
+  const analysis = useMemo(() => analyzePrediction({
+    commodityId, regions: selectedRegions, startDate, endDate,
+  }), [commodityId, selectedRegions, startDate, endDate]);
+  const { currentPrice, predictedPrice, change: priceChange, mape: avgMape } = analysis;
+  const isPriceDown = (priceChange ?? 0) < 0;
 
   const regionalBarData = useMemo(() => {
-    return regionalComparisonMaster.map(item => {
+    return regionalComparisonMaster.flatMap(item => {
       const regList = generatedTimeSeriesMaster[commodityId]?.[item.region] || [];
       const todayPt = regList.find(pt => pt.isToday);
-      return {
-        region: item.region,
-        price: todayPt ? todayPt.price : item.price
-      };
+      return todayPt ? [{ region: item.region, price: todayPt.price }] : [];
     });
   }, [commodityId]);
 
-  const handleExportPDF = () => {
+  const handleExportPDF = async () => {
     setIsExporting(true);
-    setTimeout(() => {
-      window.print();
+    setExportError("");
+    try {
+      const params = new URLSearchParams({ commodity: commodityId, start: startDate, end: endDate });
+      selectedRegions.forEach((region) => params.append("region", region));
+      const response = await fetch(`/api/prediction-report?${params}`);
+      if (!response.ok) throw new Error("Laporan belum dapat dibuat. Periksa rentang tanggal dan coba lagi.");
+      const url = URL.createObjectURL(await response.blob());
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `Laporan-Prediksi-${commodityId}-${endDate}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    } catch (error) {
+      setExportError(error instanceof Error ? error.message : "Gagal mengunduh laporan. Silakan coba lagi.");
+    } finally {
       setIsExporting(false);
-    }, 150);
+    }
   };
 
   const regionColors = ["#006c4a", "#0284c7", "#d97706"];
 
   return (
-    <div ref={reportRef} className="space-y-6 max-w-[1600px] mx-auto font-sans pb-12 printable-area px-4 sm:px-0 text-slate-800">
+    <div className="space-y-6 max-w-[1600px] mx-auto font-sans pb-12 px-4 sm:px-0 text-slate-800">
       
-      <style jsx global>{`
-        @media print {
-          body * { visibility: hidden; }
-          .printable-area, .printable-area * { visibility: visible; }
-          .printable-area { position: absolute; left: 0; top: 0; width: 100%; background: white !important; padding: 0px !important; margin: 0px !important; }
-          .no-print, button, .dropdown-portal, .date-picker-trigger, .shortcut-row { display: none !important; }
-          @page { size: A4 landscape; margin: 10mm; }
-        }
-      `}</style>
-
       {/* HEADER SECTION */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/50 pb-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black text-[#006c4a] tracking-tight">Price Prediction Engine</h1>
+          <h1 className="text-2xl sm:text-3xl font-black text-[#006c4a] tracking-tight">Prediksi Harga Komoditas</h1>
           <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
             Proyeksi harga komoditas 1–3 bulan ke depan, dibandingkan lintas provinsi.
           </p>
         </div>
         <Button 
           onClick={handleExportPDF}
-          disabled={isExporting}
+          disabled={isExporting || !startDate || !endDate || startDate > endDate}
           className="no-print flex items-center gap-2 font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-4 sm:py-5 px-5 sm:px-6 transition-all cursor-pointer shadow-sm active:scale-97 justify-center text-xs sm:text-sm w-full sm:w-auto"
         >
           <Download className="w-4 h-4" />
-          {isExporting ? "PREPARING DOCK..." : "EXPORT PDF REPORT"}
+          {isExporting ? "Menyiapkan laporan..." : "Unduh Laporan PDF"}
         </Button>
       </div>
+
+      {exportError && <p role="alert" className="rounded-xl border border-rose-200 bg-rose-50 p-3 text-sm text-rose-700">{exportError}</p>}
 
       <AnimatePresence>
         {hasTrigger && (
@@ -318,16 +296,16 @@ export default function PricePredictionEnginePage() {
         {/* PARAMETERS PANEL (KIRI) */}
         <motion.div 
           initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={transitionSmooth}
-          className="xl:col-span-3 bg-white border border-slate-200 rounded-[24px] p-4 sm:p-5 space-y-5 shadow-xs"
+          className="xl:col-span-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-5 shadow-xs"
         >
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">
             <Sliders className="w-3.5 h-3.5 text-[#006c4a]" />
-            CONTROL PARAMETERS
+            PENGATURAN PREDIKSI
           </div>
 
           {/* DROPDOWN KOMODITAS */}
           <div className="space-y-1.5 relative" ref={commDropdownRef}>
-            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">STRATEGIC COMMODITY</label>
+            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">KOMODITAS STRATEGIS</label>
             <div onClick={() => !hasTrigger && setIsCommOpen(!isCommOpen)} className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 flex items-center justify-between text-sm font-bold text-slate-700 cursor-pointer transition-all ${hasTrigger ? "bg-slate-100 cursor-not-allowed" : "hover:border-slate-300"}`}>
               <span>{currentCommodityName}</span>
               <ThinChevron />
@@ -351,9 +329,9 @@ export default function PricePredictionEnginePage() {
 
           {/* DROPDOWN KOTA */}
           <div className="space-y-1.5 relative" ref={cityDropdownRef}>
-            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">BANDINGKAN WILAYAH (MAX 3)</label>
+            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">BANDINGKAN WILAYAH (MAKS. 3)</label>
             <div onClick={() => !hasTrigger && setIsCityOpen(!isCityOpen)} className={`w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 flex items-center justify-between text-sm font-bold text-slate-700 cursor-pointer transition-all ${hasTrigger ? "bg-slate-100 cursor-not-allowed" : "hover:border-slate-300"}`}>
-              <span className="text-slate-400 font-normal text-xs sm:text-sm truncate">Tambah wilayah komparasi...</span>
+              <span className="text-slate-400 font-normal text-xs sm:text-sm truncate">Tambah wilayah pembanding...</span>
               <Plus className="w-4 h-4 text-slate-400 shrink-0" />
             </div>
             <AnimatePresence>
@@ -379,7 +357,7 @@ export default function PricePredictionEnginePage() {
             <div className="flex flex-wrap gap-1.5 pt-2">
               <AnimatePresence>
                 {selectedRegions.map((reg, idx) => (
-                  <motion.div key={reg} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-full text-xs font-bold border shadow-3xs" style={{ borderColor: regionColors[idx], backgroundColor: idx === 0 ? "#E6F4EA" : idx === 1 ? "#f0f9ff" : "#fffbeb", color: regionColors[idx] }}>
+                  <motion.div key={reg} initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 rounded-md text-xs font-bold border shadow-3xs" style={{ borderColor: regionColors[idx], backgroundColor: idx === 0 ? "#E6F4EA" : idx === 1 ? "#f0f9ff" : "#fffbeb", color: regionColors[idx] }}>
                     <span>{reg}</span>
                     {!hasTrigger && (
                       <button type="button" onClick={() => handleRemoveRegion(reg)} className="no-print hover:bg-black/5 rounded-full p-0.5 transition-colors cursor-pointer"><X className="w-3.5 h-3.5" /></button>
@@ -395,7 +373,7 @@ export default function PricePredictionEnginePage() {
             <div className="bg-slate-50 border border-slate-200/70 rounded-xl p-4 space-y-2.5 shadow-3xs">
               <div className="flex items-center gap-1.5 text-[9px] font-bold tracking-wider text-slate-400 font-mono uppercase">
                 <Info className="w-3.5 h-3.5 text-[#006c4a]" />
-                Target Scope Summary
+                Ringkasan Cakupan
               </div>
               <div className="space-y-1">
                 <span className="text-[10px] font-mono font-bold text-slate-400 block uppercase">KOMODITAS AKTIF</span>
@@ -422,43 +400,43 @@ export default function PricePredictionEnginePage() {
               <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">HARGA RATA-RATA</span>
               <h4 className="text-xl sm:text-2xl font-black tracking-tight text-slate-800 mt-1 truncate">
                 {/* PERBAIKAN 2: Mengembalikan pola pemanggilan tag tunggal self-closing bawaan */}
-                Rp <AnimatedNumber value={currentPrice} /><span className="text-[10px] sm:text-[1xs] font-mono font-normal text-slate-400 pl-0.5">/{commodities.find(c => c.id === commodityId)?.unit || "kg"}</span>
+                {currentPrice === null ? "Belum tersedia" : <>Rp <AnimatedNumber value={Math.round(currentPrice)} /></>}<span className="text-[10px] sm:text-[1xs] font-mono font-normal text-slate-400 pl-0.5">/{commodities.find(c => c.id === commodityId)?.unit || "kg"}</span>
               </h4>
-              <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium mt-1 truncate">Rata-rata saat ini</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium mt-1 truncate">{analysis.baselineDate ? monthLabel(analysis.baselineDate) : "Bulan acuan belum tersedia"}</span>
             </motion.div>
 
             <motion.div variants={cardItemVariants} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-3xs min-h-[110px] sm:min-h-[120px]">
               <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">RATA-RATA PERUBAHAN</span>
               <h4 className={`text-xl sm:text-2xl font-black tracking-tight mt-1 flex items-center gap-0.5 truncate ${isPriceDown ? "text-emerald-600" : "text-rose-600"}`}>
-                {isPriceDown ? "↓" : "↑"} Rp <AnimatedNumber value={Math.abs(priceChange)} />
+                {priceChange === null ? "Belum tersedia" : <>{isPriceDown ? "↓" : "↑"} Rp <AnimatedNumber value={Math.round(Math.abs(priceChange))} /></>}
               </h4>
               <span className={`text-[9px] sm:text-[10px] font-bold mt-1 block truncate ${isPriceDown ? "text-emerald-600" : "text-rose-600"}`}>
-                {isPriceDown ? "Suplai Aman" : "Proyeksi Naik"}
+                {analysis.direction}
               </span>
             </motion.div>
 
             <motion.div variants={cardItemVariants} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-3xs min-h-[110px] sm:min-h-[120px]">
               <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">RATA-RATA PREDIKSI</span>
               <h4 className="text-xl sm:text-2xl font-black tracking-tight text-slate-800 mt-1 truncate">
-                Rp <AnimatedNumber value={predictedPrice} /><span className="text-[10px] sm:text-xs font-mono font-normal text-slate-400 pl-0.5">/{commodities.find(c => c.id === commodityId)?.unit || "kg"}</span>
+                {predictedPrice === null ? "Belum tersedia" : <>Rp <AnimatedNumber value={Math.round(predictedPrice)} /></>}<span className="text-[10px] sm:text-xs font-mono font-normal text-slate-400 pl-0.5">/{commodities.find(c => c.id === commodityId)?.unit || "kg"}</span>
               </h4>
-              <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium mt-1 truncate">Horizon prediksi</span>
+              <span className="text-[9px] sm:text-[10px] text-slate-400 font-medium mt-1 truncate">{analysis.forecastDate ? monthLabel(analysis.forecastDate) : "Tidak ada prediksi pada rentang ini"}</span>
             </motion.div>
 
             <motion.div variants={cardItemVariants} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-3xs min-h-[110px] sm:min-h-[120px]">
-              <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">AKURASI MODEL (MAPE)</span>
+              <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">KESALAHAN HISTORIS (MAPE)</span>
               <h4 className="text-xl sm:text-2xl font-black tracking-tight text-amber-600 mt-1">
-                {(100 - avgMape).toFixed(1)}%
+                {avgMape === null ? "Belum tersedia" : `${avgMape.toLocaleString("id-ID")}%`}
               </h4>
-              <span className="text-[9px] sm:text-[10px] text-amber-600 font-bold mt-1 block truncate">Toleransi error {avgMape}%</span>
+              <span className="text-[9px] sm:text-[10px] text-amber-600 font-bold mt-1 block truncate">Evaluasi historis 1 bulan</span>
             </motion.div>
           </motion.div>
 
           {/* LINE CHART SECTION & CONTROLS TOOLBAR */}
-          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="bg-white border border-slate-200 rounded-[24px] p-4 sm:p-6 space-y-4 shadow-3xs overflow-hidden">
+          <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 space-y-4 shadow-3xs overflow-hidden">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-100 pb-4">
               <span className="text-[10px] sm:text-[11px] font-bold tracking-wider text-slate-400 font-mono uppercase flex items-center gap-1.5">
-                <span>📈</span> TRAYEKTORI HARGA 1–3 BULAN
+                <span>📈</span> PERGERAKAN HARGA 1–3 BULAN
               </span>
 
               {/* TIMELINE CONTROLS BAR WITH NEW RANGE SHORTCUTS BUTTONS */}
@@ -481,8 +459,8 @@ export default function PricePredictionEnginePage() {
                     <Popover.Portal>
                       <Popover.Positioner side="bottom" sideOffset={6} align="end" className="z-50">
                         <Popover.Popup className="bg-white border border-slate-200 rounded-xl p-4 shadow-xl font-sans space-y-2">
-                          <label className="text-[9px] font-mono font-bold text-slate-400 block">START DATE</label>
-                          <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:border-[#006c4a] font-bold"/>
+                          <label className="text-[9px] font-mono font-bold text-slate-400 block">TANGGAL MULAI</label>
+                          <input type="date" aria-label="Tanggal mulai" min={DATA_MIN} max={endDate || DATA_MAX} value={startDate} onChange={(e) => setStartDate(e.target.value)} className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:border-[#006c4a] font-bold"/>
                         </Popover.Popup>
                       </Popover.Positioner>
                     </Popover.Portal>
@@ -495,8 +473,8 @@ export default function PricePredictionEnginePage() {
                     <Popover.Portal>
                       <Popover.Positioner side="bottom" sideOffset={6} align="end" className="z-50">
                         <Popover.Popup className="bg-white border border-slate-200 rounded-xl p-4 shadow-xl font-sans space-y-2">
-                          <label className="text-[9px] font-mono font-bold text-slate-400 block">END DATE</label>
-                          <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:border-[#006c4a] font-bold"/>
+                          <label className="text-[9px] font-mono font-bold text-slate-400 block">TANGGAL AKHIR</label>
+                          <input type="date" aria-label="Tanggal akhir" min={startDate || DATA_MIN} max={DATA_MAX} value={endDate} onChange={(e) => setEndDate(e.target.value)} className="bg-slate-50 border border-slate-200 rounded px-2 py-1 text-xs outline-none focus:border-[#006c4a] font-bold"/>
                         </Popover.Popup>
                       </Popover.Positioner>
                     </Popover.Portal>
@@ -513,16 +491,18 @@ export default function PricePredictionEnginePage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
                   <XAxis dataKey="displayDate" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "9px", fontWeight: "600" }} />
                   <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString("id-ID")}`} domain={["auto", "auto"]} style={{ fontSize: "9px" }} />
-                  <RechartsTooltip formatter={(v: any) => [`Rp ${v.toLocaleString("en-US")}`]} />
+                  <RechartsTooltip formatter={(value) => [`Rp ${Number(value).toLocaleString("id-ID")}`]} />
                   <Legend iconType="circle" wrapperStyle={{ fontSize: "10px", paddingTop: "10px" }} />
-                  <ReferenceLine x={chartData.find(d => d.isToday)?.displayDate} stroke="#f43f5e" strokeDasharray="3 3" />
+                  <ReferenceLine x={chartData.find(d => d.isToday)?.displayDate as string | undefined} stroke="#f43f5e" strokeDasharray="3 3" />
                   {selectedRegions.map((reg, idx) => (
-                    <Line key={reg} type="monotone" dataKey={reg} name={reg} stroke={regionColors[idx]} strokeWidth={isMobileScreen ? 2 : 3} dot={false} />
+                    <Line isAnimationActive={false} key={reg} type="monotone" dataKey={reg} name={reg} stroke={regionColors[idx]} strokeWidth={isMobileScreen ? 2 : 3} dot={false} />
                   ))}
                 </LineChart>
               </ResponsiveContainer>
             </div>
 
+            <p className="text-xs text-slate-500">Garis merah menandai bulan acuan data terakhir. Bagian setelah bulan acuan merupakan prediksi, bukan harga yang sudah teramati.</p>
+            {!chartData.length && <p role="status" className="text-sm text-amber-700">Tidak ada data bersama pada rentang tanggal terpilih.</p>}
             {bulanDilewati.length > 0 && (
               <p className="text-[10px] text-slate-400 font-medium pt-1.5 leading-relaxed">
                 {bulanDilewati.join(", ")} tidak ditampilkan — bulan tersebut tidak tercatat di
@@ -533,15 +513,20 @@ export default function PricePredictionEnginePage() {
         </div>
       </div>
 
+      <PredictionNarrative analysis={analysis} />
+
       {/* NATIONAL BASELINE COMPLEMENT BAR CHART */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="border border-slate-200 bg-white rounded-[24px] p-4 sm:p-6 shadow-xs">
+      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="border border-slate-200 bg-white rounded-2xl p-4 sm:p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4 mb-4">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-[#006c4a]" />
-            <h3 className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Perbandingan Base Price Lintas Wilayah Nasional</h3>
+            <div>
+              <h3 className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Perbandingan Harga Acuan Antarwilayah</h3>
+              <p className="text-xs text-slate-500 mt-1">Harga terakhir yang teramati pada {analysis.baselineDate ? monthLabel(analysis.baselineDate) : "bulan acuan"}; rentang grafik di atas tidak mengubah acuan ini.</p>
+            </div>
           </div>
-          <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-slate-50 text-slate-400 border border-slate-200 self-start sm:self-auto">
-            Total Master Feed: {regionalBarData.length} Wilayah
+          <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2.5 py-1 rounded-md bg-slate-50 text-slate-400 border border-slate-200 self-start sm:self-auto">
+            Cakupan data: {regionalBarData.length} Wilayah
           </span>
         </div>
         <div className="w-full h-[240px] sm:h-[280px]">
@@ -549,9 +534,9 @@ export default function PricePredictionEnginePage() {
             <BarChart data={regionalBarData} margin={{ top: 10, right: 5, left: -20, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#f8fafc" vertical={false} />
               <XAxis dataKey="region" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "9px", fontWeight: "600" }} interval={isMobileScreen ? 1 : 0} />
-              <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString("en-US")}`} style={{ fontSize: "9px" }} />
-              <RechartsTooltip formatter={(v: any) => [`Rp ${v.toLocaleString("en-US")}`, "Harga Baseline"]} contentStyle={{ borderRadius: "12px" }} />
-              <Bar dataKey="price" fill="#006c4a" radius={[4, 4, 0, 0]} maxBarSize={isMobileScreen ? 16 : 30} />
+              <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString("id-ID")}`} style={{ fontSize: "9px" }} />
+              <RechartsTooltip formatter={(value) => [`Rp ${Number(value).toLocaleString("id-ID")}`, "Harga acuan"]} contentStyle={{ borderRadius: "var(--radius-lg)" }} />
+              <Bar isAnimationActive={false} dataKey="price" fill="#006c4a" radius={[4, 4, 0, 0]} maxBarSize={isMobileScreen ? 16 : 30} />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -105,7 +105,7 @@ export function TopCritical({ data, loading }: TopCriticalProps) {
 
               {/* Change badge */}
               <span
-                className={`flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-full ${getChangeBadgeStyle(
+                className={`flex-shrink-0 text-xs font-semibold px-2 py-0.5 rounded-md ${getChangeBadgeStyle(
                   item.change
                 )}`}
               >

@@ -1,175 +1,51 @@
 "use client";
 
+import { LandingText, LanguageToggle, useLandingLanguage } from "./language";
+
+
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { motion, AnimatePresence } from "motion/react";
-import { Globe, LayoutDashboard, Menu, X } from "lucide-react";
-import { TransitionOverlay } from "@/components/ui/transition-overlay";
+import { ArrowRight, Menu, X } from "lucide-react";
+
+const links = [
+  { name: "Cara Kerja", href: "#modules" },
+  { name: "Fitur", href: "#features" },
+  { name: "Tujuan Kami", href: "#our-goals" },
+  { name: "Hubungi Kami", href: "#contact-us" },
+];
 
 export function TopBar() {
+  const { t } = useLandingLanguage();
   const [isOpen, setIsOpen] = useState(false);
-  const [lang, setLang] = useState("ID");
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isRedirecting, setIsRedirecting] = useState(false);
-
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === "ID" ? "EN" : "ID"));
-  };
-
+  const [isAtTop, setIsAtTop] = useState(true);
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const update = () => setIsAtTop(window.scrollY < 24);
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
   }, []);
-
-  const scrollToTop = (e: React.MouseEvent) => {
-    if (pathname === "/") {
-      e.preventDefault();
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  };
-
-  const handleDashboardAccess = () => {
-    setIsOpen(false);
-    setIsRedirecting(true);
-    router.push("/login");
-  };
-
   return (
-    <>
-      <AnimatePresence mode="wait">
-        {isRedirecting && (
-          <TransitionOverlay
-            onAnimationComplete={() => {
-              router.push("/dashboard");
-            }}
-          />
-        )}
-      </AnimatePresence>
-
-      <nav
-        /* PERBAIKAN: Menghapus garis border-b saat isScrolled === false */
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm py-3"
-            : "bg-gradient-to-b from-slate-950/70 via-slate-900/30 to-transparent border-none py-5"
-          }`}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 transition-all duration-300">
-
-            {/* LOGO BRAND */}
-            <Link href="/" onClick={scrollToTop} className="flex items-center gap-3 flex-shrink-0 group cursor-pointer">
-              <img
-                src="/images/logo.png"
-                alt="supplAi Logo"
-                className="w-20 h-20 object-contain group-hover:scale-105 transition-transform"
-              />
-            </Link>
-
-            {/* MENU NAVIGASI */}
-            <div className="hidden md:flex items-center gap-8">
-              {[
-                { name: "Our Goals", href: "#our-goals" },
-                { name: "Features", href: "#features" },
-                { name: "FAQ", href: "#faq" },
-                { name: "Contact Us", href: "#contact-us" }
-              ].map((menu) => (
-                <a
-                  key={menu.name}
-                  href={menu.href}
-                  className={`text-sm font-bold transition-all duration-300 cursor-pointer ${isScrolled
-                      ? "text-slate-700 hover:text-[#10B981]"
-                      : "text-white hover:text-[#10B981] drop-shadow-sm"
-                    }`}
-                >
-                  {menu.name}
-                </a>
-              ))}
-            </div>
-
-            {/* SEBELAH KANAN */}
-            <div className="hidden md:flex items-center gap-4">
-              <motion.button
-                whileTap={{ scale: 0.95 }}
-                onClick={toggleLanguage}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold cursor-pointer transition-all duration-300 ${isScrolled
-                    ? "border-slate-200 text-slate-700 hover:bg-slate-50"
-                    : "border-white/30 text-white hover:bg-white/10 backdrop-blur-xs"
-                  }`}
-              >
-                <Globe className="w-3.5 h-3.5 text-[#10B981]" />
-                <span>{lang}</span>
-              </motion.button>
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleDashboardAccess}
-                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold cursor-pointer shadow-md bg-[#10B981] text-white hover:bg-[#0e9f6e] transition-all duration-300"
-              >
-                <LayoutDashboard className="w-3.5 h-3.5" />
-                Access to Dashboard
-              </motion.button>
-            </div>
-
-            {/* Hamburger Menu Mobile */}
-            <div className="flex md:hidden">
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={`transition-colors duration-300 ${isScrolled ? "text-slate-800" : "text-white"}`}
-              >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
-
+    <header className={`fixed inset-x-0 z-50 transition-[top,padding] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isAtTop ? "top-0" : "top-4 px-4 sm:top-5 sm:px-8"}`}>
+      <nav aria-label={t("Navigasi utama")} className={`mx-auto w-full border border-slate-200 bg-white/95 px-4 shadow-sm sm:px-8 transition-[max-width,border-radius] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none ${isAtTop ? "max-w-[100vw] rounded-none" : "max-w-6xl rounded-xl"}`}>
+        <div className="flex h-16 items-center justify-between gap-5 lg:grid lg:grid-cols-[1fr_auto_1fr]">
+          <Link href="/" prefetch={false} aria-label={t("SupplAI beranda")} className="shrink-0 justify-self-start">
+            <Image src="/images/logo.png" alt={t("SupplAI")} width={96} height={64} className="h-14 w-24 object-contain" priority />
+          </Link>
+          <div className="hidden items-center gap-5 xl:gap-7 lg:flex">
+            {links.map((link) => <a key={link.href} href={link.href} className="text-sm font-medium text-slate-500 transition-colors hover:text-emerald-800"><LandingText text={link.name} /></a>)}
+          </div>
+          <div className="ml-auto flex items-center gap-3 justify-self-end">
+            <LanguageToggle />
+            <Link href="/login" prefetch={false} className="hidden items-center gap-2 whitespace-nowrap rounded-lg bg-brand-accentDark px-4 py-2.5 text-xs font-semibold text-white hover:bg-emerald-900 lg:flex"><LandingText text="Buka Dashboard" /> <ArrowRight className="h-3.5 w-3.5" /></Link>
+            <button type="button" aria-label={isOpen ? t("Tutup menu") : t("Buka menu")} aria-expanded={isOpen} aria-controls="landing-mobile-menu" onClick={() => setIsOpen(!isOpen)} className="rounded-lg p-2 text-slate-700 lg:hidden">{isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}</button>
           </div>
         </div>
-
-        {/* Menu Mobile Panel */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className={`md:hidden overflow-hidden border-t mt-2 ${isScrolled ? "bg-white border-slate-200" : "bg-slate-900/95 backdrop-blur-md border-slate-800"
-                }`}
-            >
-              <div className="px-4 pt-2 pb-6 space-y-3 flex flex-col">
-                {["Our Goals", "Features", "FAQ", "Contact Us"].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase().replace(" ", "-")}`}
-                    onClick={() => setIsOpen(false)}
-                    className={`text-sm py-2 font-bold cursor-pointer transition-colors ${isScrolled ? "text-slate-700 hover:text-[#10B981]" : "text-white hover:text-[#10B981]"
-                      }`}
-                  >
-                    {item}
-                  </a>
-                ))}
-
-                <button
-                  onClick={handleDashboardAccess}
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-xs font-bold bg-[#10B981] text-white cursor-pointer shadow-sm w-full mt-2"
-                >
-                  <LayoutDashboard className="w-3.5 h-3.5" />
-                  Access to Dashboard
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {isOpen && <div id="landing-mobile-menu" className="flex flex-col gap-1 border-t border-slate-100 pb-4 pt-2 lg:hidden">
+          {links.map((link) => <a key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="rounded-lg px-2 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50"><LandingText text={link.name} /></a>)}
+          <Link href="/login" prefetch={false} className="mt-2 rounded-lg bg-brand-accentDark px-4 py-3 text-center text-sm font-semibold text-white"><LandingText text="Buka Dashboard" /></Link>
+        </div>}
       </nav>
-    </>
+    </header>
   );
 }

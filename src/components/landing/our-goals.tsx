@@ -1,7 +1,10 @@
 "use client";
 
+import { LandingText } from "./language";
+
+
 import { motion } from "motion/react";
-import { Gauge, BarChart3, Handshake, Database, Zap, Rocket, CheckCircle2 } from "lucide-react";
+import { Gauge, BarChart3, Handshake } from "lucide-react";
 
 export function OurGoalsSection() {
     return (
@@ -14,11 +17,8 @@ export function OurGoalsSection() {
                 <div className="space-y-12">
                     {/* Header Konten */}
                     <div className="max-w-4xl space-y-3 relative">
-                        <span className="font-mono text-xs font-bold tracking-widest text-brand-accentDark uppercase">
-                            OUR GOALS
-                        </span>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight max-w-3xl leading-tight">
-                            Mengubah pendekatan pengendalian inflasi pangan <span className="text-brand-primary">reaktif menjadi prediktif</span>.
+                        <span className="font-mono text-xs font-bold tracking-widest text-brand-accentDark uppercase"> <LandingText text="OUR GOALS" /> </span>
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight max-w-3xl leading-tight"> <LandingText text="Mengubah pendekatan pengendalian inflasi pangan" /> <span className="text-brand-primary"><LandingText text="reaktif menjadi prediktif" /></span>.
                         </h2>
                     </div>
 
@@ -35,45 +35,37 @@ export function OurGoalsSection() {
                                     <Gauge className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block">
-                                        INSIGHT PREDIKTIF
-                                    </span>
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="INSIGHT PREDIKTIF" /> </span>
                                     <div className="flex items-baseline gap-2 mt-2">
                                         <span className="text-5xl font-black tracking-tight">1-3</span>
-                                        <span className="text-xl font-medium text-brand-textMuted">Bulan</span>
+                                        <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Bulan" /></span>
                                     </div>
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
-                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
-                                    Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan.
-                                </p>
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan." /> </p>
                             </div>
                         </motion.div>
 
-                        {/* Kartu 2: Akurasi Prediksi (Warna Hijau Pekat Kontras Ditengah) */}
+                        {/* Kartu 2: Akurasi Prediksi */}
                         <motion.div
                             whileHover={{ y: -4 }}
-                            className="bg-brand-accentDark text-white rounded-2xl p-8 flex flex-col justify-between shadow-md min-h-[300px]"
+                            className="bg-brand-card border border-brand-border rounded-2xl p-8 flex flex-col justify-between shadow-sm min-h-[300px]"
                         >
                             <div className="space-y-6">
-                                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center text-brand-primary">
+                                <div className="w-12 h-12 rounded-xl bg-brand-bgSubtle flex items-center justify-center text-brand-accentDark">
                                     <BarChart3 className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-primary/90 uppercase block">
-                                        AKURASI PREDIKSI
-                                    </span>
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="AKURASI PREDIKSI" /> </span>
                                     <div className="flex items-baseline gap-2 mt-2">
-                                        <span className="text-5xl font-black tracking-tight">&lt; 10%</span>
-                                        <span className="text-xl font-medium text-brand-primary">Error</span>
+                                        <span className="text-5xl font-black tracking-tight"><LandingText text="&lt; 10%" /></span>
+                                        <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Error" /></span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="border-t border-white/10 pt-6 mt-6">
-                                <p className="text-white/80 text-sm font-light leading-relaxed">
-                                    Prediksi harga dan stok akurat di seluruh 514 kabupaten/kota di Indonesia.
-                                </p>
+                            <div className="border-t border-brand-border pt-6 mt-6">
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Prediksi harga dan stok akurat di seluruh 514 kabupaten/kota di Indonesia." /> </p>
                             </div>
                         </motion.div>
 
@@ -87,19 +79,15 @@ export function OurGoalsSection() {
                                     <Handshake className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block">
-                                        KEMITRAAN STRATEGIS
-                                    </span>
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="KEMITRAAN STRATEGIS" /> </span>
                                     <div className="flex items-baseline gap-2 mt-2">
                                         <span className="text-5xl font-black tracking-tight">335</span>
-                                        <span className="text-xl font-medium text-brand-textMuted">Triliun</span>
+                                        <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Triliun" /></span>
                                     </div>
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
-                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed">
-                                    Target potensi serapan melalui 500+ satuan TPID nasional.
-                                </p>
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Target potensi serapan melalui 500+ satuan TPID nasional." /> </p>
                             </div>
                         </motion.div>
 

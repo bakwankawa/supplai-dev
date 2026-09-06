@@ -1,0 +1,239 @@
+[
+  {
+    "path": "/alerts/ALT-001",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 51,
+    "lcp": 292,
+    "jsBytes": 672916,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7d170f5c403f9ac3.js",
+        "bytes": 12742
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=11web",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=11web",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=11web",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=11web",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=11web",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=bhgrw",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=yabzs",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1cfoy",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1d4wt",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1p5lt",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=bhgrw",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=yfw8a",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1lvrc",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=bhgrw",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1b3g3",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1j336",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=bhgrw",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1cy3y",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=iiw75",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=bhgrw",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1j36m",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1mah7",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "heading": "Bawang Putih — DKI Jakarta",
+    "idleTaskMs": 3.836000000000006,
+    "errors": []
+  }
+]

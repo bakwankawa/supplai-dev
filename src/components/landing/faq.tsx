@@ -1,5 +1,8 @@
 "use client";
 
+import { LandingText } from "./language";
+
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Plus, Minus } from "lucide-react";
@@ -32,12 +35,8 @@ export function FaqSection() {
         
         {/* SISI KIRI: Judul FAQ Statis */}
         <div className="lg:col-span-4 space-y-4">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight">
-            Frequently asked questions
-          </h2>
-          <p className="text-brand-textMuted text-sm font-normal max-w-xs">
-            Punya pertanyaan mengenai sistem kerja otomatisasi SupplAi? Temukan jawabannya di sini.
-          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight"> <LandingText text="Frequently asked questions" /> </h2>
+          <p className="text-brand-textMuted text-sm font-normal max-w-xs"> <LandingText text="Punya pertanyaan mengenai sistem kerja otomatisasi SupplAi? Temukan jawabannya di sini." /> </p>
         </div>
 
         {/* SISI KANAN: Akordeon Interaktif */}
@@ -50,7 +49,7 @@ export function FaqSection() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   className="w-full flex items-center justify-between text-left font-bold text-base md:text-lg hover:text-brand-primary transition-colors cursor-pointer group py-2"
                 >
-                  <span className="pr-4 tracking-tight">{item.question}</span>
+                  <span className="pr-4 tracking-tight"><LandingText text={item.question} /></span>
                   <div className="p-1.5 rounded-full bg-brand-bgSubtle border border-brand-border/50 text-brand-textMuted group-hover:text-brand-primary group-hover:border-brand-primary/30 flex-shrink-0 transition-all">
                     {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                   </div>
@@ -67,7 +66,7 @@ export function FaqSection() {
                       className="overflow-hidden"
                     >
                       <p className="pt-3 pb-2 text-brand-textMuted text-sm leading-relaxed max-w-3xl font-normal">
-                        {item.answer}
+                        <LandingText text={item.answer} />
                       </p>
                     </motion.div>
                   )}

@@ -104,12 +104,14 @@ export default function HeatmapPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 self-end lg:self-auto">
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
 
           {/* ================= SEARCHABLE COMMODITY DROPDOWN ================= */}
           <div className="relative min-w-[200px]" ref={dropdownRef}>
             <button
               type="button"
+              aria-label="Pilih komoditas heatmap"
+              aria-expanded={isCommodityOpen}
               onClick={() => setIsCommodityOpen(!isCommodityOpen)}
               className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#065F46] outline-none flex items-center justify-between cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all"
             >
@@ -178,12 +180,17 @@ export default function HeatmapPage() {
         </div>
       </motion.div>
 
-      {/* ================= ROW 2: DATA UTAMA (MATRIKS & WILAYAH KRITIS) ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+      {/* ================= ROW 2: PETA NASIONAL ================= */}
+      <motion.div variants={itemVariants} className="border border-slate-200 bg-white rounded-2xl p-2 shadow-xs">
+        <NationalHeatmap selectedCommodity={commodity} />
+      </motion.div>
+
+      {/* ================= ROW 3: MATRIKS, DIIKUTI WILAYAH KRITIS ================= */}
+      <div className="flex flex-col gap-6">
 
         {/* HEATMAP PRICE MATRIX (8 COLS) */}
-        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs min-w-0 overflow-hidden">
-          <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4 gap-4">
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs min-w-0 overflow-hidden">
+          <div className="flex flex-wrap justify-between items-center border-b border-slate-100 pb-4 mb-4 gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
               <h3 className="text-lg font-bold text-slate-800">Matriks Perubahan Harga per Wilayah</h3>
@@ -205,7 +212,7 @@ export default function HeatmapPage() {
         </motion.div>
 
         {/* TOP 5 CRITICAL PANEL (4 COLS) */}
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200 rounded-[24px] p-6 shadow-xs flex flex-col justify-between">
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
               <MapPin className="w-4 h-4 text-rose-600" />
@@ -231,18 +238,13 @@ export default function HeatmapPage() {
         </motion.div>
       </div>
 
-      {/* ================= ROW 3: PETA HIGH-DENSITY ================= */}
-      <motion.div variants={itemVariants} className="border border-slate-200 bg-white rounded-[24px] p-2 shadow-xs">
-        <NationalHeatmap />
-      </motion.div>
-
       {/* LAUNCH CITY FILTER MODAL */}
-      <CityFilterModal
+      {isFilterModalOpen && <CityFilterModal
         isOpen={isFilterModalOpen}
         onClose={() => setIsFilterModalOpen(false)}
         currentSelected={appliedCities}
         onApply={(selected) => setAppliedCities(selected)}
-      />
+      />}
     </motion.div>
   );
 }

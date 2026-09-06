@@ -142,7 +142,7 @@ export default function ExecutiveSummaryPage() {
         animate={{ opacity: 1, y: 0 }}
         transition={transitionSmooth}
         onClick={() => router.push("/alerts")}
-        className={`${isUrgent ? "bg-rose-50 border-rose-200 hover:bg-rose-100/60" : "bg-amber-50 border-amber-200 hover:bg-amber-100/60"} border rounded-[20px] p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-3xs cursor-pointer transition-colors group`}
+        className={`${isUrgent ? "bg-rose-50 border-rose-200 hover:bg-rose-100/60" : "bg-amber-50 border-amber-200 hover:bg-amber-100/60"} border rounded-2xl p-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-3xs cursor-pointer transition-colors group`}
       >
         <div className="flex items-start gap-3.5">
           <div className={`p-2.5 ${isUrgent ? "bg-rose-600 animate-pulse" : "bg-amber-500"} text-white rounded-xl shrink-0`}>
@@ -151,7 +151,7 @@ export default function ExecutiveSummaryPage() {
           <div>
             <h4 className={`text-sm font-black ${isUrgent ? "text-rose-900" : "text-amber-900"} tracking-tight flex items-center gap-2`}>
               {isUrgent ? "Anomali Pasokan Skala Nasional Terdeteksi" : "Pemantauan Harga Aktif"}
-              <span className={`${isUrgent ? "bg-rose-600" : "bg-amber-500"} text-white text-[9px] font-mono font-black px-1.5 py-0.5 rounded-full uppercase`}>
+              <span className={`${isUrgent ? "bg-rose-600" : "bg-amber-500"} text-white text-[9px] font-mono font-black px-1.5 py-0.5 rounded-md uppercase`}>
                 {loading ? "..." : isUrgent ? `${activeAlertsCount} Peringatan Aktif` : `${totalAlertsCount} Wilayah Dipantau`}
               </span>
             </h4>
@@ -189,7 +189,7 @@ export default function ExecutiveSummaryPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
         {/* PANEL A: MACRO COMMODITY TRACKER (GRAFIK REAL) */}
-        <div className="lg:col-span-2 border border-slate-200 bg-white rounded-[24px] p-6 flex flex-col justify-between shadow-xs min-h-[400px]">
+        <div className="lg:col-span-2 border border-slate-200 bg-white rounded-2xl p-6 flex flex-col justify-between shadow-xs min-h-[400px]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4 mb-3">
             <div className="space-y-0.5">
               <h3 className="text-base font-bold text-slate-800 flex items-center gap-2">
@@ -219,7 +219,7 @@ export default function ExecutiveSummaryPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                   <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "11px", fontWeight: "600" }} />
                   <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString()}`} style={{ fontSize: "10px", fontFamily: "monospace" }} />
-                  <RechartsTooltip formatter={(v: any) => [`Rp ${Number(v).toLocaleString("id-ID")}/kg`, "Harga Pasar"]} contentStyle={{ borderRadius: "12px" }} />
+                  <RechartsTooltip formatter={(v: any) => [`Rp ${Number(v).toLocaleString("id-ID")}/kg`, "Harga Pasar"]} contentStyle={{ borderRadius: "var(--radius-lg)" }} />
                   <Bar dataKey="price" radius={[6, 6, 0, 0]} maxBarSize={38}>
                     {komoditasOverviewData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />
@@ -232,7 +232,7 @@ export default function ExecutiveSummaryPage() {
         </div>
 
         {/* PANEL B: INTEGRATED REALTIME INCIDENT LOGS */}
-        <div className="border border-slate-200 bg-white rounded-[24px] p-6 flex flex-col shadow-xs">
+        <div className="border border-slate-200 bg-white rounded-2xl p-6 flex flex-col shadow-xs">
           <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-4">
             <div className="space-y-0.5">
               <h3 className="text-base font-bold text-slate-800 flex items-center gap-1.5">

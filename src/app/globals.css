@@ -55,13 +55,13 @@
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
   
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.5);
+  --radius-4xl: calc(var(--radius) * 3);
 }
 
 /* ================================================================= */
@@ -87,7 +87,7 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --radius: 0.75rem; /* Dicocokkan ke standar rounded-xl (0.75rem) */
+  --radius: 0.25rem; /* Basis 4px: kontrol 4–6px, kartu 8–10px, panel besar maksimal 12px. */
 }
 
 @layer base {
@@ -101,3 +101,19 @@
     @apply font-sans scroll-smooth;
   }
 }
+
+
+/* Lightweight landing visuals: static grid and one translated logo strip. */
+.hero-grid {
+  background-image: linear-gradient(#dce5df 1px, transparent 1px), linear-gradient(90deg, #dce5df 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, transparent, black 20%, transparent 95%);
+}
+.partner-track { animation: partner-scroll 32s linear infinite; }
+@keyframes partner-scroll { to { transform: translateX(-33.333333%); } }
+@media (prefers-reduced-motion: reduce) {
+  .partner-track { animation: none; width: 100%; }
+  .partner-group { flex-wrap: wrap; width: 100%; gap: 1rem; padding: 0; }
+  .partner-group[aria-hidden="true"] { display: none; }
+}
+section[id] { scroll-margin-top: 110px; }

@@ -80,7 +80,7 @@ export function AlertFilters({
   }, [searchComm]);
 
   return (
-    <div ref={containerRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white border border-slate-200 rounded-[20px] p-4 shadow-2xs relative">
+    <div ref={containerRef} className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white border border-slate-200 rounded-2xl p-4 shadow-2xs relative">
       
       {/* SEVERITY LEVEL */}
       <div className="space-y-1.5 relative">

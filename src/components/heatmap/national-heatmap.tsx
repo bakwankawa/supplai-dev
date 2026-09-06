@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState, useMemo } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { commodities } from "@/data/commodities";
-import { Sliders, Search, AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
+import { AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
 
 // Canvas coordinates for all 34 provinces, computed from each province's path
 // in /indonesia.svg (largest-landmass centroid, mapped through the same
@@ -61,33 +61,15 @@ type MapPoint = {
   coord: { x: number; y: number };
 };
 
-export function NationalHeatmap() {
+export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: string }) {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(mapRef);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
-  // States Filter & Dropdown
-  const [selectedCommodity, setSelectedCommodity] = useState("beras");
-  const [intensity, setIntensity] = useState(48);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [isCommOpen, setIsCommOpen] = useState(false);
   
   // States Modal Rekomendasi & Hover Tooltip
   const [isRecoModalOpen, setIsRecoModalOpen] = useState(false);
-  const [hoveredCity, setHoveredCity] = useState<any | null>(null);
+  const [hoveredCity, setHoveredCity] = useState<MapPoint | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function clickOutside(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) setIsCommOpen(false);
-    }
-    document.addEventListener("mousedown", clickOutside);
-    return () => document.removeEventListener("mousedown", clickOutside);
-  }, []);
-
-  const filteredCommodities = useMemo(() => {
-    return commodities.filter(c => c.name.toLowerCase().includes(searchQuery.toLowerCase()));
-  }, [searchQuery]);
 
   const currentCommodityName = useMemo(() => {
     return commodities.find(c => c.id === selectedCommodity)?.name || "Beras Medium";
@@ -125,7 +107,7 @@ export function NationalHeatmap() {
     const mouseX = ((e.clientX - rect.left) / rect.width) * canvas.width;
     const mouseY = ((e.clientY - rect.top) / rect.height) * canvas.height;
 
-    let foundCity: any = null;
+    let foundCity: MapPoint | null = null;
 
     provinceData.forEach((item) => {
       const coord = item.coord;
@@ -170,7 +152,7 @@ export function NationalHeatmap() {
       provinceData.forEach((item) => {
         const coord = item.coord;
 
-        const radius = intensity;
+        const radius = 48;
         const gradient = ctx.createRadialGradient(coord.x, coord.y, 2, coord.x, coord.y, radius);
 
         if (item.status === "CRITICAL") {
@@ -220,7 +202,8 @@ export function NationalHeatmap() {
     const baseMap = new Image();
     baseMap.onload = () => paint(baseMap);
     baseMap.src = "/indonesia.svg";
-  }, [provinceData, intensity]);
+    return () => { baseMap.onload = null; };
+  }, [provinceData]);
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto font-sans pb-4 p-2 text-slate-800">
@@ -228,9 +211,9 @@ export function NationalHeatmap() {
       {/* ================= BAR CONTROLLER ATAS & TOMBOL MODAL ================= */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/50 pb-4">
         <div>
-          <h1 className="text-3xl font-black text-[#006c4a] tracking-tight">National Supply Density Heatmap</h1>
+          <h2 className="text-xl font-bold text-[#006c4a] tracking-tight">Peta Nasional — {currentCommodityName}</h2>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
-            Realtime thermal density projection mapping logistics deficits and surplus matrices.
+            Proyeksi perubahan harga 3 bulan ke depan untuk komoditas yang dipilih di atas.
           </p>
         </div>
         
@@ -254,85 +237,22 @@ export function NationalHeatmap() {
       </div>
 
       {/* ================= MAIN INTERFACE (FULL WIDESCREEN VIEW) ================= */}
-      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-stretch w-full">
+      <div className="w-full">
         
-        {/* PANEL FILTER PARAMETER (KIRI - 3 COLS) */}
-        <div className="xl:col-span-3 bg-white border border-slate-200 rounded-[24px] p-5 space-y-5 shadow-xs flex flex-col justify-start">
-          <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">
-            <Sliders className="w-3.5 h-3.5 text-[#006c4a]" />
-            HEATMAP FILTERS
-          </div>
-
-          <div className="space-y-1.5 relative" ref={dropdownRef}>
-            <label className="text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase block">
-              TARGET MATRIC COMMODITY
-            </label>
-            <div 
-              onClick={() => setIsCommOpen(!isCommOpen)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 flex items-center justify-between text-sm font-bold text-slate-700 cursor-pointer transition-all hover:border-slate-300"
-            >
-              <span>{currentCommodityName}</span>
-              <svg className="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="m6 9 6 6 6-6"/></svg>
-            </div>
-            <AnimatePresence>
-              {isCommOpen && (
-                <div className="absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 space-y-2">
-                  <div className="relative flex items-center">
-                    <Search className="absolute left-2.5 w-3.5 h-3.5 text-slate-400" />
-                    <input 
-                      type="text" 
-                      placeholder="Cari komoditas..." 
-                      value={searchQuery} 
-                      onChange={(e) => setSearchQuery(e.target.value)} 
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs outline-none focus:border-[#006c4a] font-bold"
-                    />
-                  </div>
-                  <div className="max-h-40 overflow-y-auto space-y-0.5">
-                    {filteredCommodities.map(c => (
-                      <div 
-                        key={c.id} 
-                        onClick={() => { setSelectedCommodity(c.id); setIsCommOpen(false); setSearchQuery(""); }} 
-                        className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer ${c.id === selectedCommodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"}`}
-                      >
-                        {c.name}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-            </AnimatePresence>
-          </div>
-
-          <div className="space-y-2 pt-2">
-            <div className="flex justify-between items-center text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">
-              <span>BLUR RADIAL INTENSITY</span>
-              <span className="text-emerald-700 font-bold">{intensity}PX</span>
-            </div>
-            <input 
-              type="range" 
-              min="40" 
-              max="110" 
-              value={intensity} 
-              onChange={(e) => setIntensity(Number(e.target.value))}
-              className="w-full accent-[#006c4a] bg-slate-100 rounded-lg h-1.5 appearance-none cursor-pointer"
-            />
-          </div>
-        </div>
-
         {/* WORKSPACE PETA INDONESIA BESAR MAKSIMAL (KANAN - 9 COLS) */}
-        <div className="xl:col-span-9 bg-white border border-slate-200 rounded-[24px] p-5 shadow-xs flex flex-col relative w-full overflow-hidden">
-          <div className="w-full flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+        <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col relative w-full overflow-hidden">
+          <div className="w-full flex flex-wrap gap-3 items-center justify-between border-b border-slate-100 pb-3 mb-4">
             <span className="text-[11px] font-bold tracking-wider text-slate-400 font-mono uppercase flex items-center gap-1.5">
               <Eye className="w-4 h-4 text-[#006c4a]" />
-              LIVE HIGH-DENSITY SMOOTH WIDESCREEN MAP LAYER ENGINE
+              Sebaran harga nasional
             </span>
             <div className="flex items-center gap-2 text-[10px] font-bold font-mono text-slate-500">
-              <AlertTriangle className="w-3.5 h-3.5 text-rose-500 animate-pulse" />
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-500" />
               {criticalCount} Wilayah Status Kritis
             </div>
           </div>
           
-          <div className="w-full relative bg-slate-50 rounded-2xl border border-slate-200/40 p-2 flex justify-center items-center overflow-hidden">
+          <div ref={mapRef} className="w-full relative bg-slate-50 rounded-2xl border border-slate-200/40 flex justify-center items-center overflow-hidden">
             <canvas 
               ref={canvasRef} 
               width={1000} 
@@ -341,6 +261,26 @@ export function NationalHeatmap() {
               onMouseLeave={() => setHoveredCity(null)}
               className="rounded-xl shadow-2xs w-full h-auto cursor-crosshair"
             />
+
+            <svg
+              viewBox="0 0 1000 500"
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              aria-hidden="true"
+            >
+              <g className="motion-safe:animate-pulse" style={{ animationPlayState: isInView ? "running" : "paused" }}>
+                {provinceData.filter((point) => point.status === "CRITICAL").map((point) => (
+                  <circle
+                    key={point.region}
+                    cx={point.coord.x}
+                    cy={point.coord.y}
+                    r={11}
+                    fill="rgba(239, 68, 68, 0.25)"
+                    stroke="#ef4444"
+                    strokeWidth={2}
+                  />
+                ))}
+              </g>
+            </svg>
 
             {/* FLOATING DETAILED HOVER WIDGET */}
             <AnimatePresence>
@@ -395,7 +335,7 @@ export function NationalHeatmap() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
               transition={{ type: "spring", duration: 0.4 }}
-              className="bg-white border border-slate-200 w-full max-w-2xl rounded-[24px] shadow-2xl relative z-10 overflow-hidden text-slate-800"
+              className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative z-10 overflow-hidden text-slate-800"
             >
               {/* Modal Header */}
               <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">

@@ -11,7 +11,7 @@ interface AlertListProps {
 export function AlertList({ alerts, onDismiss }: AlertListProps) {
   if (alerts.length === 0) {
     return (
-      <div className="text-center py-12 bg-brand-bgSubtle/40 border border-dashed border-brand-border rounded-[20px]">
+      <div className="text-center py-12 bg-brand-bgSubtle/40 border border-dashed border-brand-border rounded-2xl">
         <p className="text-sm text-brand-textMuted font-medium">No active alerts match current filters.</p>
       </div>
     );

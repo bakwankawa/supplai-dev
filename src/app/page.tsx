@@ -1,7 +1,9 @@
 "use client";
 
+import { LandingLanguageProvider } from "@/components/landing/language";
 import { motion } from "motion/react";
 import { TopBar } from "@/components/landing/top-bar";
+import { PartnershipSection } from "@/components/landing/partnership";
 import { HeroSection } from "@/components/landing/hero-section";
 import { OurGoalsSection } from "@/components/landing/our-goals";
 import { ModulesSection } from "@/components/landing/modules";
@@ -28,26 +30,20 @@ const bouncyVariants = {
 
 export default function Home() {
   return (
+    <LandingLanguageProvider>
     <div className="min-h-screen bg-brand-bg text-brand-textMain overflow-x-hidden relative scroll-smooth">
 
       {/* 1. FIXED TOP BAR */}
       <TopBar />
 
-      {/* 2. HERO SECTION */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
-        variants={bouncyVariants}
-      >
-        <HeroSection />
-      </motion.div>
+      <HeroSection />
+      <PartnershipSection />
 
       {/* 3. SECTION: OUR GOALS */}
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={bouncyVariants}
       >
         <OurGoalsSection />
@@ -57,7 +53,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={bouncyVariants}
       >
         <ModulesSection />
@@ -67,7 +63,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={bouncyVariants}
       >
         <FeaturesSection />
@@ -77,7 +73,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={bouncyVariants}
       >
         <FaqSection />
@@ -87,7 +83,7 @@ export default function Home() {
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: false, amount: 0.2 }}
+        viewport={{ once: true, amount: 0.2 }}
         variants={bouncyVariants}
       >
         <ContactUsSection />
@@ -97,5 +93,6 @@ export default function Home() {
       <FooterSection />
 
     </div>
+    </LandingLanguageProvider>
   );
 }

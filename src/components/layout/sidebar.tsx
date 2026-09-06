@@ -27,11 +27,11 @@ export function Sidebar() {
   const alertBadgeCount = alertData?.alerts ? alertData.alerts.length : 0;
 
   const menuItems = [
-    { name: "Executive Summary", href: "/executive-summary", icon: LayoutDashboard },
-    { name: "Prediction", href: "/dashboard", icon: BarChart2 },
-    { name: "Heatmap", href: "/heatmap", icon: Map },
-    { name: "Redistribution", href: "/redistribusi", icon: GitCommit },
-    { name: "Alerts", href: "/alerts", icon: Bell, badge: alertBadgeCount },
+    { name: "Ringkasan Eksekutif", href: "/executive-summary", icon: LayoutDashboard },
+    { name: "Prediksi Harga", href: "/dashboard", icon: BarChart2 },
+    { name: "Peta Harga", href: "/heatmap", icon: Map },
+    { name: "Redistribusi", href: "/redistribusi", icon: GitCommit },
+    { name: "Peringatan", href: "/alerts", icon: Bell, badge: alertBadgeCount },
   ];
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export function Sidebar() {
         <div className={`flex items-center ${isCollapsed && !insideMobile ? "justify-center" : "justify-between"} px-2 pt-2`}>
           {(!isCollapsed || insideMobile) ? (
             <>
-              <Link href="/dashboard" className="flex items-center gap-3 active:scale-95 transition-transform">
+              <Link prefetch={false} href="/dashboard" className="flex items-center gap-3 active:scale-95 transition-transform">
                 <Image
                   src="/images/logo-dashboard.png" 
                   alt="SupplAi Logo"
@@ -93,7 +93,7 @@ export function Sidebar() {
             const collapsedMode = isCollapsed && !insideMobile;
 
             return (
-              <Link key={item.href} href={item.href} className="relative block group">
+              <Link prefetch={false} key={item.href} href={item.href} className="relative block group">
                 <motion.div
                   className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-colors relative z-10 cursor-pointer ${
                     collapsedMode ? "justify-center" : "justify-between"
@@ -108,7 +108,7 @@ export function Sidebar() {
                   </div>
 
                   {!collapsedMode && item.badge && (
-                    <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+                    <span className="bg-rose-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-md shadow-sm">
                       {item.badge}
                     </span>
                   )}
@@ -143,16 +143,16 @@ export function Sidebar() {
         {/* Rute /settings belum ada, jadi tautannya dilepas: Next.js mem-prefetch
             href ini di setiap halaman dasbor dan selalu menerima 404, dan
             mengekliknya membawa pengguna ke halaman tidak ditemukan. Kembalikan
-            <Link href="/settings"> begitu halamannya dibuat. */}
+            <Link prefetch={false} href="/settings"> begitu halamannya dibuat. */}
         <div className="relative block group mb-2">
           <div className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-brand-textMuted transition-colors relative z-10 ${isCollapsed && !insideMobile ? "justify-center" : ""}`}>
             <Settings className="w-5 h-5 flex-shrink-0" />
-            {(!isCollapsed || insideMobile) && <span>Settings</span>}
+            {(!isCollapsed || insideMobile) && <span>Pengaturan</span>}
           </div>
           {isCollapsed && !insideMobile && (
             <div className="absolute left-16 top-1/2 -translate-y-1/2 pointer-events-none opacity-0 scale-95 translate-x-[-10px] group-hover:opacity-100 group-hover:scale-100 group-hover:translate-x-0 transition-all duration-200 z-50 pl-2">
               <div className="bg-brand-card text-brand-textMain text-sm font-medium px-4 py-2 rounded-xl shadow-xl border border-brand-border whitespace-nowrap">
-                Settings
+                Pengaturan
               </div>
             </div>
           )}

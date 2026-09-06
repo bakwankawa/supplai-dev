@@ -3,9 +3,14 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
-import { AgentPanel } from "@/components/agent/agent-panel";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "motion/react";
 import DashboardLoading from "@/app/(dashboard)/dashboard/loading";
+
+const AgentPanel = dynamic(
+  () => import("@/components/agent/agent-panel").then((module) => module.AgentPanel),
+  { loading: () => <p className="p-4 text-sm text-slate-500">Memuat asisten…</p> }
+);
 
 export default function DashboardLayout({
   children,

@@ -176,7 +176,7 @@ export function PredictionChart({ selectedCommodity, selectedRegions }: Predicti
               <g key={index}>
                 {/* PERBAIKAN 3: CI Shade diperbaiki menggunakan array rentang data [low, high] pada properti dataKey */}
                 {index === 0 && (
-                  <Area
+                  <Area isAnimationActive={false}
                     type="monotone"
                     dataKey={(data) => [data.low_0, data.up_0]}
                     stroke="none"
@@ -186,7 +186,7 @@ export function PredictionChart({ selectedCommodity, selectedRegions }: Predicti
                 )}
 
                 {/* Garis Historis */}
-                <Line
+                <Line isAnimationActive={false}
                   type="monotone"
                   dataKey={`hist_${index}`}
                   stroke={colors.stroke}
@@ -196,7 +196,7 @@ export function PredictionChart({ selectedCommodity, selectedRegions }: Predicti
                 />
 
                 {/* Garis Prediksi */}
-                <Line
+                <Line isAnimationActive={false}
                   type="monotone"
                   dataKey={`pred_${index}`}
                   stroke={colors.stroke}

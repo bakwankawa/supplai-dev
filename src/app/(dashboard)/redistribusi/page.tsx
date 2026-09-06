@@ -215,7 +215,7 @@ export default function RedistribusiPage() {
 
       {/* ================= ROW 1: SPATIAL ALOCATION & METHOD ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between">
           <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
             <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
             <h3 className="text-lg font-bold text-slate-800">Peta Aliran Distribusi Logistik</h3>
@@ -229,14 +229,14 @@ export default function RedistribusiPage() {
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
           <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
         </motion.div>
       </div>
 
       {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
+        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
           <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
             <Route className="w-5 h-5 text-[#006c4a]" />
             <div className="flex flex-col">
@@ -249,7 +249,7 @@ export default function RedistribusiPage() {
           </div>
         </motion.div>
 
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
             <Layers3 className="w-4 h-4 text-[#006c4a]" />
             <h3 className="text-lg font-bold text-slate-800">Wilayah Produsen (Surplus)</h3>

@@ -21,6 +21,7 @@ export function AnimatedNumber({
 
   useEffect(() => {
     let startTime: number | null = null;
+    let frame = 0;
 
     const animate = (timestamp: number) => {
       if (!startTime) startTime = timestamp;
@@ -33,13 +34,14 @@ export function AnimatedNumber({
       setDisplayValue(currentValue);
 
       if (progress < 1) {
-        requestAnimationFrame(animate);
+        frame = requestAnimationFrame(animate);
       } else {
         setDisplayValue(value);
       }
     };
 
-    requestAnimationFrame(animate);
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
   }, [value, duration]);
 
   return (

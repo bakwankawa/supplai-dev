@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useRef } from "react"
-import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion"
+import { motion, useMotionValue, useTransform, animate, useInView } from "motion/react"
 
 export function StatsCounter({
   value,

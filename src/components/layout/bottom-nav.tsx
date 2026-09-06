@@ -55,7 +55,7 @@ export function BottomNav() {
               <div className="relative">
                 <Icon size={20} />
                 {item.badge != null && (
-                  <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center leading-none">
+                  <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-md bg-red-500 text-white text-[10px] font-bold flex items-center justify-center leading-none">
                     {item.badge}
                   </span>
                 )}

@@ -18,7 +18,7 @@ export function TopCards() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: idx * 0.1, ease: "easeOut" }}
-            className="bg-brand-card border border-brand-border rounded-[24px] p-6 flex flex-col justify-between min-h-[180px] relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]"
+            className="bg-brand-card border border-brand-border rounded-2xl p-6 flex flex-col justify-between min-h-[180px] relative overflow-hidden shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]"
           >
             {/* Bagian Atas Card */}
             <div className="flex justify-between items-start">
@@ -29,7 +29,7 @@ export function TopCards() {
                 initial={{ scale: 0.8, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
                 transition={{ delay: (idx * 0.1) + 0.3 }}
-                className={`text-[10px] font-bold px-2 py-0.5 rounded-full font-mono ${
+                className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-mono ${
                   item.statusType === "positive" ? "text-rose-600 bg-rose-50" :
                   item.statusType === "stable" ? "text-emerald-600 bg-emerald-50 border border-emerald-200" :
                   item.statusType === "surplus" ? "text-teal-600 bg-teal-50" : "text-brand-textMain bg-brand-bgSubtle"

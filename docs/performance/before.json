@@ -1,0 +1,1672 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "longTasks": 2,
+    "longTaskMs": 1240,
+    "lcp": 1656,
+    "jsBytes": 188297,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/images/logo.png",
+        "bytes": 52536
+      },
+      {
+        "url": "http://localhost:3100/images/logos/bi.png",
+        "bytes": 21010
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/images/logos/bapanas.png",
+        "bytes": 12147
+      },
+      {
+        "url": "http://localhost:3100/images/logos/bmkg.png",
+        "bytes": 5416
+      },
+      {
+        "url": "http://localhost:3100/images/logos/kementan.png",
+        "bytes": 16172
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/8325b21fab79bb51.js",
+        "bytes": 7602
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a02d3e616b8ca74b.js",
+        "bytes": 12268
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/images/contact-us.png",
+        "bytes": 894091
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=1r34m",
+        "bytes": 653
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=1r34m",
+        "bytes": 628
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=1pn8p",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=nn07o",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=ivliq",
+        "bytes": 791
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=1pn8p",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=15qaw",
+        "bytes": 1044
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=1f8nk",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=21zia",
+        "bytes": 766
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/0535ddd028dc95f9.js",
+        "bytes": 7958
+      }
+    ],
+    "heading": "Digitalisasi Ketahanan Pangan",
+    "idleTaskMs": 249.43899999999996,
+    "errors": []
+  },
+  {
+    "path": "/login",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 69,
+    "lcp": 68,
+    "jsBytes": 188297,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/images/logo-dashboard.png",
+        "bytes": 67662
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/0535ddd028dc95f9.js",
+        "bytes": 7958
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=17yrj",
+        "bytes": 653
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=17yrj",
+        "bytes": 628
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=m8m8p",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=4c4j4",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=12sxf",
+        "bytes": 1044
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=ewzey",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/login?_rsc=1m1bk",
+        "bytes": 766
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=m8m8p",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/?_rsc=9c17x",
+        "bytes": 791
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/8325b21fab79bb51.js",
+        "bytes": 7602
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a02d3e616b8ca74b.js",
+        "bytes": 12268
+      }
+    ],
+    "idleTaskMs": 0.25999999999998247,
+    "errors": []
+  },
+  {
+    "path": "/executive-summary",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 133,
+    "lcp": 320,
+    "jsBytes": 660474,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1tcgo",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1tcgo",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1tcgo",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1tcgo",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1tcgo",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1intx",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1qzrj",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=vfc2r",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1obnh",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1mnia",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1intx",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=dr1ug",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1a5y5",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1intx",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=sq4pa",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1nd1f",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1intx",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=icx2x",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=rieyp",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1intx",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=cryvm",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=zdkms",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      }
+    ],
+    "heading": "Executive Summary",
+    "idleTaskMs": 4.271000000000025,
+    "errors": []
+  },
+  {
+    "path": "/dashboard",
+    "status": 200,
+    "longTasks": 4,
+    "longTaskMs": 371,
+    "lcp": 368,
+    "jsBytes": 660474,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=18t7j",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=18t7j",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=18t7j",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=18t7j",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=18t7j",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=oh8t4",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=585va",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1yeh9",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1wwh5",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=73s64",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=oh8t4",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=uw677",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=wwez4",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=oh8t4",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=okv1r",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=tu8v6",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=oh8t4",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=16sqo",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=16vtn",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=oh8t4",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=4tmb0",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=qp1xe",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "heading": "Price Prediction Engine",
+    "idleTaskMs": 3.427000000000069,
+    "errors": []
+  },
+  {
+    "path": "/heatmap",
+    "status": 200,
+    "longTasks": 3,
+    "longTaskMs": 257,
+    "lcp": 1136,
+    "jsBytes": 660474,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/heatmap?commodity=beras&range=12",
+        "bytes": 35719
+      },
+      {
+        "url": "http://localhost:3100/indonesia.svg",
+        "bytes": 38835
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1hv6m",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1hv6m",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1hv6m",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1hv6m",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1hv6m",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1b703",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=ds4h9",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=nhsvi",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=jrwq9",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=pnjnn",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1b703",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=f8mqr",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=4vcfu",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1b703",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=10d7t",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=5boiz",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1b703",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1qst7",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=wzpw5",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1b703",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=np0yl",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=17l2k",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "heading": "Heatmap Prediksi Harga per Wilayah",
+    "idleTaskMs": 14.22699999999999,
+    "errors": []
+  },
+  {
+    "path": "/alerts",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 102,
+    "lcp": 288,
+    "jsBytes": 660474,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=n2jpx",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=n2jpx",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=n2jpx",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=n2jpx",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=n2jpx",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=gesyz",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1swl0",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1kl86",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1qxmu",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=od9bt",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=gesyz",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=hlflk",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=10nik",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=gesyz",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=zgdy4",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=s2232",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=gesyz",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=3ywe0",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=i4ss9",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=gesyz",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=ob4ec",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=7owx2",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "heading": "Alerts",
+    "idleTaskMs": 24.43200000000001,
+    "errors": []
+  },
+  {
+    "path": "/alerts/1",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 99,
+    "lcp": 264,
+    "jsBytes": 672916,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7d170f5c403f9ac3.js",
+        "bytes": 12742
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1e5ry",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1e5ry",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1e5ry",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1e5ry",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1e5ry",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1734q",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=5wttr",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=16bqo",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1pnhy",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=16k6e",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1734q",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1i1kj",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1v0ot",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1734q",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=14xr3",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=aynm8",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1734q",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1ov0s",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=lfzvk",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1734q",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1cy5i",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1u1lu",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "idleTaskMs": 3.2829999999999804,
+    "errors": []
+  },
+  {
+    "path": "/redistribusi",
+    "status": 200,
+    "longTasks": 1,
+    "longTaskMs": 99,
+    "lcp": 564,
+    "jsBytes": 660474,
+    "resources": [
+      {
+        "url": "http://localhost:3100/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2",
+        "bytes": 40780
+      },
+      {
+        "url": "http://localhost:3100/_next/static/media/c47649aa31f9e140-s.p.7e59dfd6.woff2",
+        "bytes": 34964
+      },
+      {
+        "url": "http://localhost:3100/_next/image?url=%2Fimages%2Flogo-dashboard.png&w=96&q=75",
+        "bytes": 4060
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/034d41b0dfaff872.css",
+        "bytes": 1222
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a241b500bf929023.css",
+        "bytes": 20682
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1f30118281dc6a99.js",
+        "bytes": 7409
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/1627bf2f54f2038d.js",
+        "bytes": 9230
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/turbopack-174482bc8ff802f3.js",
+        "bytes": 4317
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7659e979e0836629.js",
+        "bytes": 30936
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f13b96d8d40daf54.js",
+        "bytes": 70408
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ff1a16fafef87110.js",
+        "bytes": 582
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/483effa74d32093a.js",
+        "bytes": 7735
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bca392fee1bba8eb.js",
+        "bytes": 7585
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a59d70836921ba08.js",
+        "bytes": 5305
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/7b7599f480954eee.js",
+        "bytes": 40261
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/87b5004ced3a9c9f.js",
+        "bytes": 54733
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f58ded8cc6fa4468.js",
+        "bytes": 10776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/343150e4f97cda12.js",
+        "bytes": 39251
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/alerts",
+        "bytes": 8867
+      },
+      {
+        "url": "http://localhost:3100/api/redistribution?commodity=beras",
+        "bytes": 2378
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1vp6t",
+        "bytes": 655
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1vp6t",
+        "bytes": 659
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1vp6t",
+        "bytes": 656
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1vp6t",
+        "bytes": 654
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=1vp6t",
+        "bytes": 664
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=7qdvs",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1f170",
+        "bytes": 1215
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=h3e0y",
+        "bytes": 1244
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=l4zvu",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/alerts?_rsc=1rzzo",
+        "bytes": 810
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=7qdvs",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=zv6rw",
+        "bytes": 562
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
+        "bytes": 39126
+      },
+      {
+        "url": "http://localhost:3100/redistribusi?_rsc=1ktpn",
+        "bytes": 811
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/94c6055192c56e9b.js",
+        "bytes": 4776
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bf501f99b82c6080.js",
+        "bytes": 10917
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/2764dbe4d15005cd.js",
+        "bytes": 10736
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=7qdvs",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=1vn58",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/heatmap?_rsc=zr6a0",
+        "bytes": 849
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=7qdvs",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=zy0kj",
+        "bytes": 623
+      },
+      {
+        "url": "http://localhost:3100/dashboard?_rsc=1m3dg",
+        "bytes": 871
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fb9ca62684e91dcf.js",
+        "bytes": 7478
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f2c1cae804744d60.js",
+        "bytes": 10564
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/fe0552d4d599bf9d.js",
+        "bytes": 10778
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/bc34e93208c88fc7.js",
+        "bytes": 24832
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/5dc69833eadaacca.js",
+        "bytes": 36027
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=7qdvs",
+        "bytes": 855
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=nd12s",
+        "bytes": 562
+      },
+      {
+        "url": "http://localhost:3100/executive-summary?_rsc=zml0z",
+        "bytes": 812
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/f9975ec670ec22c4.js",
+        "bytes": 11042
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ca72da541b4f6aa1.js",
+        "bytes": 114128
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/df0e6a5e5e68ee35.js",
+        "bytes": 15974
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/a91e9802204cb540.js",
+        "bytes": 15508
+      },
+      {
+        "url": "http://localhost:3100/_next/static/chunks/ce9a894d72bc0181.js",
+        "bytes": 114095
+      }
+    ],
+    "heading": "Optimasi Redistribusi Pangan",
+    "idleTaskMs": 2.6040000000000507,
+    "errors": []
+  }
+]
