@@ -212,8 +212,16 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
 
 
 def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
-    plan_meta = meta.get("plan_meta", {})
-    posturs = meta.get("postur_tersedia", ["seimbang"])
+    # No silent defaults: a meta.json without these keys means the pipeline did
+    # not run the posture loop, and quietly exporting a single posture with
+    # empty summaries would hide that.
+    if "plan_meta" not in meta or "postur_tersedia" not in meta:
+        raise KeyError(
+            "meta.json lacks 'plan_meta' and/or 'postur_tersedia' — rerun "
+            "rebuild_plan.py or train.py before exporting."
+        )
+    plan_meta = meta["plan_meta"]
+    posturs = meta["postur_tersedia"]
     out = {}
     for postur in posturs:
         by_postur = (flows[flows.postur == postur]

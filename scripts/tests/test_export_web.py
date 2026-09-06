@@ -137,6 +137,11 @@ def test_build_redistribution():
     beras = res["seimbang"]["beras"]
     assert beras["summary"]["totalRoutes"] == 2
     assert beras["summary"]["totalVolume"] == 700
+    # Comes from plan_meta's n_sumber/n_tujuan, which have no row-derived
+    # fallback — so this is the assertion that actually proves the
+    # f"{komoditas}|{postur}" lookup hit. The other summary values happen to
+    # equal what the code computes from the rows when the lookup misses.
+    assert beras["summary"]["activeRoutes"] == "2 → 1"
     r0 = next(r for r in beras["routes"] if r["from"] == "Jawa Timur")
     assert r0["priority"] == "medium" and r0["commodity"] == "beras"
     assert r0["volumeTon"] == 500.0 and r0["dasarTakaran"] == "terukur"
