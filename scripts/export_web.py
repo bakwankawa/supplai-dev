@@ -289,7 +289,6 @@ def headline_mape_h1(bench_final: pd.DataFrame, final_results: dict) -> float:
 
 def build_executive(A: dict) -> dict:
     mape = headline_mape_h1(A["bench_final"], A["final_results"])
-    acc = 100 - mape
     avg_chg = float(A["forecast"]["perubahan_persen"].mean())
     # flows and plan_meta carry three postures since the population-sizing work.
     # Aggregating without filtering counts the balanced plan and the food-security
@@ -307,7 +306,11 @@ def build_executive(A: dict) -> dict:
                           if k.endswith(f"|{postur_utama}")))
     arah = "TURUN" if avg_chg < 0 else "NAIK"
     top = [
-        {"title": "AKURASI PREDIKSI", "value": f"{acc:.1f}%", "statusText": "STABIL",
+        # MAPE is a backtest error, not a probability of being right. Presenting
+        # 100-MAPE as "accuracy" invites reading 96.1% as a 96% chance the
+        # forecast is correct. Matches the Prediction page's wording exactly.
+        {"title": "KESALAHAN HISTORIS (MAPE)", "value": f"{mape:.2f}%",
+         "statusText": "EVALUASI 1 BULAN",
          "statusType": "stable", "chartType": "line-green"},
         {"title": "PERUBAHAN HARGA 3 BLN", "value": f"{abs(avg_chg):.1f}%",
          "statusText": arah, "statusType": "neutral",
@@ -318,8 +321,8 @@ def build_executive(A: dict) -> dict:
          "statusType": "surplus", "subtext": "Ton", "chartType": "bars"},
     ]
     shortcuts = [
-        {"title": "Predict", "id": "AKURASI", "value": f"{acc:.1f}%",
-         "label": f"MAPE {mape:.1f}%", "type": "predict", "color": "emerald"},
+        {"title": "Predict", "id": "MAPE", "value": f"{mape:.2f}%",
+         "label": "Evaluasi historis 1 bln", "type": "predict", "color": "emerald"},
         {"title": "Heatmap", "id": "PROVINSI", "value": "34", "label": "DIPANTAU",
          "type": "heatmap", "color": "blue"},
         {"title": "Match", "id": "RUTE AKTIF", "value": f"{n_routes}", "label": "ROUTES",

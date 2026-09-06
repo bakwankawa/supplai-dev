@@ -1,9 +1,9 @@
 {
  "topMetrics": [
   {
-   "title": "AKURASI PREDIKSI",
-   "value": "96.1%",
-   "statusText": "STABIL",
+   "title": "KESALAHAN HISTORIS (MAPE)",
+   "value": "3.94%",
+   "statusText": "EVALUASI 1 BULAN",
    "statusType": "stable",
    "chartType": "line-green"
   },
@@ -35,9 +35,9 @@
  "shortcutCards": [
   {
    "title": "Predict",
-   "id": "AKURASI",
-   "value": "96.1%",
-   "label": "MAPE 3.9%",
+   "id": "MAPE",
+   "value": "3.94%",
+   "label": "Evaluasi historis 1 bln",
    "type": "predict",
    "color": "emerald"
   },

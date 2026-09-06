@@ -211,6 +211,19 @@ def _exec_fixture():
             "alerts": alerts, "flows": pd.DataFrame(), "meta": {}}
 
 
+def test_executive_never_presents_mape_as_accuracy():
+    """100 - MAPE reads as a probability of being right. It is not: MAPE is a
+    backtest error. The Prediction page already says "KESALAHAN HISTORIS";
+    the Executive Summary must not contradict it."""
+    ex = ew.build_executive(_exec_fixture())
+    titles = [m["title"] for m in ex["topMetrics"]]
+    assert "KESALAHAN HISTORIS (MAPE)" in titles
+    assert not any("AKURASI" in t.upper() for t in titles), titles
+    kartu = next(m for m in ex["topMetrics"] if m["title"] == "KESALAHAN HISTORIS (MAPE)")
+    # The value must be the error itself, not its complement.
+    assert float(kartu["value"].rstrip("%")) < 50, kartu["value"]
+
+
 def test_executive_totals_describe_one_posture_only():
     """flows and plan_meta hold three postures. Summing across them reports the
     balanced plan plus the food-security plan as if both would run — the tile
