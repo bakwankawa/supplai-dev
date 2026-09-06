@@ -201,6 +201,49 @@ def test_headline_mape_and_exec_values_parser_safe():
     assert any("%" in v for v in vals)
 
 
+def _exec_fixture():
+    bf = pd.DataFrame({"h": [1], "komoditas": ["Beras Medium"], "actual": [100.0],
+                       "lgbm": [100.0], "lstm": [100.0], "qnt": [100.0]})
+    fr = {"bobot": {"Beras Medium": [1 / 3, 1 / 3, 1 / 3]}}
+    forecast = pd.DataFrame({"perubahan_persen": [0.0]})
+    alerts = pd.DataFrame({"severity": []})
+    return {"bench_final": bf, "final_results": fr, "forecast": forecast,
+            "alerts": alerts, "flows": pd.DataFrame(), "meta": {}}
+
+
+def test_executive_totals_describe_one_posture_only():
+    """flows and plan_meta hold three postures. Summing across them reports the
+    balanced plan plus the food-security plan as if both would run — the tile
+    read 2,276 t against a balanced plan of 1,026 t."""
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium"] * 2,
+        "dari": ["Bali", "Bali"], "ke": ["Papua", "Papua"],
+        "volume_ton": [100.0, 300.0], "jarak_km": [3000.0, 3000.0],
+        "biaya_rp": [9e8, 9e8], "harga_asal": [14950, 14950],
+        "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
+        "urgensi": ["Info", "Info"], "hemat_rp": [-4e7, -4e7],
+        "postur": ["seimbang", "aman_pangan"],
+        "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
+        "persen_pasar": [0.5, 1.5], "epsilon": [0.385, 0.385],
+        "epsilon_sumber": ["nasional", "nasional"],
+        "volume_ci_bawah": [90.0, 270.0], "volume_ci_atas": [110.0, 330.0],
+        "dasar_takaran": ["terukur", "terukur"],
+        "kecukupan_persen": [12.0, 12.0],
+    })
+    meta = {
+        "postur_tersedia": ["konservatif", "seimbang", "aman_pangan"],
+        "plan_meta": {
+            "Beras Medium|seimbang": {"status": "ok", "total_ton": 100.0},
+            "Beras Medium|aman_pangan": {"status": "ok", "total_ton": 300.0},
+            "Beras Medium|konservatif": {"status": "tidak perlu intervensi"},
+        },
+    }
+    A = dict(_exec_fixture(), flows=flows, meta=meta)
+    ex = ew.build_executive(A)
+    vol = next(m for m in ex["topMetrics"] if m["title"] == "VOL. REDISTRIBUSI")
+    assert vol["value"] == "100", f"summed across postures: {vol['value']}"
+
+
 def test_redistribution_is_keyed_by_posture():
     import json, subprocess, sys
     subprocess.run([sys.executable, "scripts/export_web.py"], check=True)

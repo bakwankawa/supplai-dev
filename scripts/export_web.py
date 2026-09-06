@@ -291,11 +291,20 @@ def build_executive(A: dict) -> dict:
     mape = headline_mape_h1(A["bench_final"], A["final_results"])
     acc = 100 - mape
     avg_chg = float(A["forecast"]["perubahan_persen"].mean())
-    n_routes = len(A["flows"])
+    # flows and plan_meta carry three postures since the population-sizing work.
+    # Aggregating without filtering counts the balanced plan and the food-security
+    # plan as if both would be executed — this tile read 2,276 t where the balanced
+    # plan is 1,026 t. Report the posture the dashboard actually shows.
+    tersedia = A["meta"].get("postur_tersedia", ["seimbang"])
+    postur_utama = "seimbang" if "seimbang" in tersedia else tersedia[0]
+    flows_utama = (A["flows"][A["flows"]["postur"] == postur_utama]
+                   if "postur" in A["flows"].columns else A["flows"])
+    n_routes = len(flows_utama)
     n_alerts = len(A["alerts"])
     n_series = len(A["forecast"])
     total_ton = round(sum(v.get("total_ton", 0)
-                          for v in A["meta"].get("plan_meta", {}).values()))
+                          for k, v in A["meta"].get("plan_meta", {}).items()
+                          if k.endswith(f"|{postur_utama}")))
     arah = "TURUN" if avg_chg < 0 else "NAIK"
     top = [
         {"title": "AKURASI PREDIKSI", "value": f"{acc:.1f}%", "statusText": "STABIL",
