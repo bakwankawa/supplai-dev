@@ -4,9 +4,10 @@ import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { commodities } from "@/data/commodities";
-import type { RedistributionResponse } from "@/lib/types";
+import type { RedistributionResponse, Postur } from "@/lib/types";
 import { IndonesiaMap } from "@/components/redistribusi/indonesia-map";
 import { RouteTable } from "@/components/redistribusi/route-table";
+import { PostureSwitch } from "@/components/redistribusi/posture-switch";
 import { SurplusPanel, MethodPanel } from "@/components/redistribusi/info-panels";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -39,6 +40,7 @@ const itemVariants = {
 
 export default function RedistribusiPage() {
   const [commodity, setCommodity] = useState("beras");
+  const [postur, setPostur] = useState<Postur>("seimbang");
   const [searchComm, setSearchComm] = useState("");
   const [isCommOpen, setIsCommOpen] = useState(false);
   const commDropdownRef = useRef<HTMLDivElement>(null);
@@ -61,10 +63,9 @@ export default function RedistribusiPage() {
     return commodities.find(c => c.id === commodity)?.name ?? "Beras Medium";
   }, [commodity]);
 
-  // PERBAIKAN 1: Menambahkan asersi tipe manual pada kembalian hook untuk memastikan Turbopack mengenali fungsi 'refetch'
-  const { data, loading, refetch } = useApi<RedistributionResponse>(
-    `/api/redistribution?commodity=${commodity}`
-  ) as { data: RedistributionResponse | null; loading: boolean; refetch: () => void };
+  const { data, loading } = useApi<RedistributionResponse>(
+    `/api/redistribution?commodity=${commodity}&postur=${postur}`
+  );
 
   const summary = data?.summary;
   const provinces = data?.provinces ?? [];
@@ -86,6 +87,9 @@ export default function RedistribusiPage() {
           <p className="text-sm text-slate-400 font-medium mt-0.5">
             Rekomendasi pergerakan logistik domestik dari wilayah surplus menuju wilayah defisit secara efisien.
           </p>
+          <div className="mt-3">
+            <PostureSwitch value={postur} onChange={setPostur} />
+          </div>
         </div>
 
         <div className="flex items-center gap-3 self-end lg:self-auto lg:mt-1">
@@ -249,7 +253,7 @@ export default function RedistribusiPage() {
               routes={routes}
               loading={loading}
               status={summary?.status ?? "kosong"}
-              postur="seimbang"
+              postur={postur}
               komoditas={currentCommodityName}
             />
           </div>
