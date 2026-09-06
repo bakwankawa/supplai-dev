@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest"
+import { bukuBesar } from "@/data/buku-besar"
 import { commodities } from "@/data/commodities"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
@@ -37,5 +38,16 @@ describe("createRedistribusiReport", () => {
     expect(a.totalRute).toBe(13)
     expect(a.menutup).toBe(9)
     expect(a.totalRute - a.menutup).toBe(4)
+  })
+
+  /** The trader framing rests entirely on an assumed freight rate, so the
+   *  ledger row declaring it as assumed is part of the report, not an extra.
+   *  report.ts throws without it; this pins the row it looks for, so a rename
+   *  upstream fails here with a name rather than at a reader's desk. */
+  it("keeps the freight ledger row the trader report is required to print", () => {
+    const ongkos = bukuBesar.filter((e) => e.input.toLowerCase().startsWith("ongkos angkut"))
+    expect(ongkos).toHaveLength(1)
+    expect(ongkos[0].status).toBe("diasumsikan")
+    expect(() => createRedistribusiReport(analisis("telur-ayam", "seimbang"), "pedagang")).not.toThrow()
   })
 })

@@ -162,11 +162,21 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada selisih harga yang dapat diuji terhadap ongkos angkut.");
     heading("03  Batasan");
     paragraph(a.catatanPedagang);
+    // Mandatory, not best-effort. The freight rate is assumed and it carries
+    // the whole trader framing, so the row declaring that has to print. Skipping
+    // it silently meant an upstream rename would drop it while the size-only
+    // PDF test still passed — the report would simply stop admitting that its
+    // central number was never measured.
     const ongkos = bukuBesar.find((e) => e.input.toLowerCase().startsWith("ongkos angkut"));
-    if (ongkos) {
-      paragraph("Baris buku besar untuk tarif angkut yang dipakai seluruh perhitungan di atas:", 9, muted);
-      table(LEDGER_HEAD, [ledgerRow(ongkos)], LEDGER_WIDTH);
+    if (!ongkos) {
+      throw new Error(
+        "Buku besar tidak memuat baris 'Ongkos angkut ...'. Tarif angkut adalah " +
+        "angka yang diasumsikan dan menopang seluruh kerangka pedagang; laporan " +
+        "tidak boleh terbit tanpa baris yang menyatakannya.",
+      );
     }
+    paragraph("Baris buku besar untuk tarif angkut yang dipakai seluruh perhitungan di atas:", 9, muted);
+    table(LEDGER_HEAD, [ledgerRow(ongkos)], LEDGER_WIDTH);
   }
 
   const pages = doc.getNumberOfPages();

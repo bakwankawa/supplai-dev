@@ -235,7 +235,7 @@ offline, no API key exists in production, and the cost is paid once rather than 
 
 ### Model
 
-`gpt-5.4-mini-2026-03-17`, pinned to the snapshot. A one-off build of 15 short narratives
+`gpt-5.4-mini-2026-03-17`, pinned to the snapshot. A one-off build of 9 short narratives
 costs almost nothing — a smoke test ran one at 141 total tokens — so there is no reason to
 economise on quality here. `gpt-5.4-nano` stays reserved for any live per-request path, if
 one is ever added.
@@ -336,10 +336,18 @@ machine-generated. A reader must never have to guess which sentences a model wro
 
 1. **The freight figure is assumed.** Rp2.500/ton/km carries the whole trader framing. It
    is `diasumsikan` in the ledger and must be stated wherever the framing appears.
-2. **Prices for the trader gap come from the heatmap's latest non-future point**, which is a
-   provincial average, not a wholesale quote a trader could transact at.
-3. **15 narratives is small enough to review by hand.** If the target set grows, the
+2. **Prices for the trader gap are provincial averages, not wholesale quotes.** They come
+   from `flows.parquet`'s own `harga_asal` and `harga_tujuan` — the figures the solver used
+   when it chose the route, as Part 2 states — and not from the heatmap. The substance of
+   the risk is unchanged by that correction: a provincial average is still not a price a
+   trader could transact at.
+3. **9 narratives is small enough to review by hand.** If the target set grows, the
    verifier becomes the only thing standing between the product and a confident error —
    and it only checks numerals, not causal claims.
 4. **Static explainers rot silently.** They are correct on the day they are written and
    nothing fails when the feature changes underneath them.
+5. **A number written as a word passes the verifier untouched.** The verifier extracts
+   numerals; "seribu ton" and "dua puluh persen" contain none, so there is nothing to
+   compare against the fact block and the check succeeds vacuously. Nothing in the pipeline
+   catches it. The mitigation is the prompt, which hands the model pre-formatted strings and
+   asks it to copy them, plus a human reading each of the nine narratives before release.
