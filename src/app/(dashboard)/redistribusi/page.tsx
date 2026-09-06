@@ -245,7 +245,13 @@ export default function RedistribusiPage() {
             </div>
           </div>
           <div className="w-full overflow-x-auto">
-            <RouteTable routes={routes} loading={loading} />
+            <RouteTable
+              routes={routes}
+              loading={loading}
+              status={summary?.status ?? "kosong"}
+              postur="seimbang"
+              komoditas={currentCommodityName}
+            />
           </div>
         </motion.div>
 

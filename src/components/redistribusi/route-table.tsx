@@ -4,8 +4,9 @@ import { useState } from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
-import type { RedistributionRoute } from "@/lib/types"
+import type { RedistributionRoute, Postur } from "@/lib/types"
 import { formatRupiah, formatNumber } from "@/lib/format"
+import { jelaskanStatus } from "@/lib/redistribusi/status"
 import { ChevronsUpDown } from "lucide-react";
 
 type SortKey = "from" | "to" | "volume" | "distance" | "cost" | "priority";
@@ -16,9 +17,12 @@ const COMMODITY_LABELS: Record<string, string> = { beras: "Beras", "bawang-merah
 interface RouteTableProps {
   routes: RedistributionRoute[];
   loading: boolean;
+  status: string;
+  postur: Postur;
+  komoditas: string;
 }
 
-export function RouteTable({ routes, loading }: RouteTableProps) {
+export function RouteTable({ routes, loading, status, postur, komoditas }: RouteTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>("priority");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -32,17 +36,15 @@ export function RouteTable({ routes, loading }: RouteTableProps) {
     );
   }
 
-  // An empty plan is a result, not a gap: the solver found no province whose
-  // price is forecast to rise while already sitting above the national median,
-  // so there is nothing to redistribute. Saying that plainly beats a blank slot
-  // that reads like missing data.
+  // An empty plan is a result, not a gap — and there is more than one way to
+  // get one. The solver says which; we show that rather than guessing.
   if (routes.length === 0) {
+    const { judul, alasan } = jelaskanStatus(status, postur, komoditas);
     return (
       <div className="py-12 px-6 text-center space-y-1.5">
-        <p className="text-xs font-bold text-slate-500">Tidak ada rute yang perlu direkomendasikan.</p>
+        <p className="text-xs font-bold text-slate-500">{judul}</p>
         <p className="text-[11px] font-medium text-slate-400 leading-relaxed max-w-md mx-auto">
-          Model memproyeksikan harga komoditas ini stabil atau menurun di seluruh wilayah pantauan,
-          sehingga tidak ada wilayah defisit yang perlu dipasok.
+          {alasan}
         </p>
       </div>
     );
