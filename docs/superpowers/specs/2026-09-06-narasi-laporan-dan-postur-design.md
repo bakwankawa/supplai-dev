@@ -236,7 +236,9 @@ normalises Indonesian separators on both sides before comparing.
 ### Verifier
 
 Every numeral in the generated text is extracted, normalised from Indonesian formatting,
-and matched against the fact block within a rounding tolerance. Unmatched → reject and
+and matched against the fact block. **Exact copy, no rounding tolerance** — the fact block
+is already formatted for the reader, so the model has nothing left to round, and a
+tolerance would be standing permission to alter a figure. Unmatched → reject and
 retry once. Two failures → the narrative is **dropped** and the table renders bare. Fail
 closed. A missing paragraph is a smaller harm than a confident wrong one.
 
