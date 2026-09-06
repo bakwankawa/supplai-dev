@@ -14,7 +14,8 @@ import type { RedistributionProvince, RedistributionRoute } from "@/lib/types"
 // World atlas TopoJSON — we filter to Indonesia (numeric 360)
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 
-// Province centroids (lat, lng) keyed by province name as in redistribution data
+// Province centroids [longitude, latitude], sourced from artifacts/centroids.parquet
+// (the same centroids the model uses to compute shipping distances)
 const PROVINCE_COORDS: Record<string, [number, number]> = {
   "Jawa Timur":        [112.75,  -7.5],
   "Jawa Barat":        [107.6,   -6.9],
@@ -27,13 +28,25 @@ const PROVINCE_COORDS: Record<string, [number, number]> = {
   "Papua":             [138.0,   -4.5],
   "Papua Barat":       [134.0,   -1.3],
   "Maluku":            [128.5,   -3.5],
-  "NTT":               [122.5,  -10.0],
+  "Nusa Tenggara Timur": [122.23, -9.52],
   "Sulawesi Tengah":   [119.9,   -1.4],
   "Kalimantan Barat":  [110.2,    0.0],
   "Papua Selatan":     [140.2,   -8.0],
   "Maluku Utara":      [127.5,    1.5],
-  "NTB":               [116.5,   -8.6],
+  "Nusa Tenggara Barat": [116.92, -8.54],
   "Sulawesi Utara":    [124.8,    1.3],
+  "Bengkulu":           [102.29,  -3.81],
+  "DKI Jakarta":        [106.86,  -6.26],
+  "Gorontalo":          [123.05,   0.56],
+  "Kalimantan Tengah":  [113.51,  -2.35],
+  "Kalimantan Timur":   [117.14,  -0.56],
+  "Kalimantan Utara":   [117.49,   3.09],
+  "Kepulauan Riau":     [104.18,   1.02],
+  "Riau":               [101.79,   0.61],
+  "Sulawesi Barat":     [118.98,  -3.04],
+  "Sulawesi Tenggara":  [122.56,  -4.67],
+  "Sumatera Barat":     [100.37,  -0.61],
+  "Sumatera Utara":      [98.74,   2.54],
 }
 
 interface TooltipState {
