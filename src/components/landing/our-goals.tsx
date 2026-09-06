@@ -65,7 +65,7 @@ export function OurGoalsSection() {
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
-                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Prediksi harga dan stok akurat di seluruh 514 kabupaten/kota di Indonesia." /> </p>
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Prediksi harga enam komoditas pokok di 34 provinsi, dengan horizon tiga bulan." /> </p>
                             </div>
                         </motion.div>
 

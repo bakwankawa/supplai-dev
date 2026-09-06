@@ -22,7 +22,7 @@ const faqData = [
   },
   {
     question: "Bagaimana cara instansi daerah (TPID) menerima alarm dari Early Warning System?",
-    answer: "Begitu model mendeteksi anomali lonjakan harga di atas Harga Eceran Tertinggi (HET), Alert Center akan langsung menyiarkan push-notification otomatis serta draf laporan analisis tindakan cepat via dashboard khusus dan jalur komunikasi instan."
+    answer: "Pengguna dapat meninjau komoditas dan wilayah yang melewati ambang pemantauan melalui pusat peringatan pada dasbor. Ringkasan analisis dan laporan prediksi mendukung verifikasi kondisi serta koordinasi tindak lanjut."
   }
 ];
 

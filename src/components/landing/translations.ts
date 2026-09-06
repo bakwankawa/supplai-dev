@@ -107,9 +107,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Galat",
     "Error"
   ],
-  "Prediksi harga dan stok akurat di seluruh 514 kabupaten/kota di Indonesia.": [
-    "Sasaran galat prediksi untuk pengembangan model. Kinerja aktual ditampilkan pada dasbor sesuai komoditas dan wilayah.",
-    "A forecast error target for model development. Actual performance is shown on the dashboard for each commodity and region."
+  "Prediksi harga enam komoditas pokok di 34 provinsi, dengan horizon tiga bulan.": [
+    "Prediksi harga enam komoditas pokok di 34 provinsi, dengan horizon tiga bulan.",
+    "Price forecasts for six staple commodities across 34 provinces, three months ahead."
   ],
   "KEMITRAAN STRATEGIS": [
     "POTENSI KEMITRAAN",
@@ -263,21 +263,21 @@ export const translations: Record<string, readonly [string, string]> = {
     "Tren Harga Beras Premium Nasional",
     "National Premium Rice Price Trend"
   ],
-  "14 Days Window": [
-    "Periode 14 Hari",
-    "14-Day Period"
+  "Horizon 3 Bulan": [
+    "Horizon 3 Bulan",
+    "3-Month Horizon"
   ],
   "Harga Hari Ini": [
     "Harga Saat Ini",
     "Current Price"
   ],
-  "Prediksi H+7": [
-    "Prediksi H+7",
-    "7-Day Forecast"
+  "Prediksi 1 Bulan": [
+    "Prediksi 1 Bulan",
+    "1-Month Forecast"
   ],
-  "Prediksi H+14": [
-    "Prediksi H+14",
-    "14-Day Forecast"
+  "Prediksi 3 Bulan": [
+    "Prediksi 3 Bulan",
+    "3-Month Forecast"
   ],
   "16/03 (Hari Ini)": [
     "16/03 (Saat Ini)",
@@ -431,9 +431,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Sistem Peringatan Dini Harga Pangan",
     "Food Price Early Warning System"
   ],
-  "Pusat peringatan otomatis yang langsung mengirimkan alarm push-notification sesaat sebelum harga pasar melampaui ambang batas aman nasional.": [
-    "Pemantauan perubahan harga terhadap ambang yang ditetapkan untuk membantu instansi mengidentifikasi risiko dan menyiapkan tindak lanjut.",
-    "Monitors price changes against defined thresholds to help institutions identify risks and prepare follow-up actions."
+  "Pusat peringatan yang menandai pergerakan harga terhadap pita persentil historis tiap komoditas, lengkap dengan alasan dan tingkat keyakinannya.": [
+    "Pusat peringatan yang menandai pergerakan harga terhadap pita persentil historis tiap komoditas, lengkap dengan alasan dan tingkat keyakinannya.",
+    "An alert centre that flags price movements against each commodity's own historical percentile bands, with the reason and confidence behind each one."
   ],
   "Alert Broadcast Center": [
     "Pusat Peringatan",
@@ -447,17 +447,17 @@ export const translations: Record<string, readonly [string, string]> = {
     "Lonjakan Harga Terdeteksi",
     "Price Spike Detected"
   ],
-  "Komoditas Bawang Merah di Kluster Wilayah Cirebon melampaui HAP sebesar 14.2%.": [
-    "Harga bawang merah di wilayah Cirebon melampaui harga acuan sebesar 14,2%.",
-    "Shallot prices in Cirebon exceed the reference price by 14.2%."
+  "Bawang Putih di DKI Jakarta diproyeksikan naik 10,3% dalam tiga bulan.": [
+    "Bawang Putih di DKI Jakarta diproyeksikan naik 10,3% dalam tiga bulan.",
+    "Garlic in DKI Jakarta is projected to rise 10.3% over three months."
   ],
-  "Warning Stok Beras": [
-    "Peringatan Stok Beras",
-    "Rice Stock Alert"
+  "Peringatan Harga Bawang Putih": [
+    "Peringatan Harga Bawang Putih",
+    "Garlic Price Alert"
   ],
-  "Proyeksi penurunan stok -8% H+30 di NTT.": [
-    "Proyeksi penurunan stok 8% dalam 30 hari di NTT.",
-    "Projected 8% stock decline over 30 days in East Nusa Tenggara."
+  "Bawang Putih di Maluku Utara diproyeksikan naik 8,9% dalam tiga bulan.": [
+    "Bawang Putih di Maluku Utara diproyeksikan naik 8,9% dalam tiga bulan.",
+    "Garlic in Maluku Utara is projected to rise 8.9% over three months."
   ],
   "Ignore": [
     "Abaikan",
@@ -507,7 +507,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Bagaimana instansi menindaklanjuti peringatan harga?",
     "How can institutions respond to price alerts?"
   ],
-  "Begitu model mendeteksi anomali lonjakan harga di atas Harga Eceran Tertinggi (HET), Alert Center akan langsung menyiarkan push-notification otomatis serta draf laporan analisis tindakan cepat via dashboard khusus dan jalur komunikasi instan.": [
+  "Pengguna dapat meninjau komoditas dan wilayah yang melewati ambang pemantauan melalui pusat peringatan pada dasbor. Ringkasan analisis dan laporan prediksi mendukung verifikasi kondisi serta koordinasi tindak lanjut.": [
     "Pengguna dapat meninjau komoditas dan wilayah yang melewati ambang pemantauan melalui pusat peringatan pada dasbor. Ringkasan analisis dan laporan prediksi mendukung verifikasi kondisi serta koordinasi tindak lanjut.",
     "Users can review commodities and regions exceeding monitoring thresholds in the dashboard’s alert center. Analysis summaries and forecast reports support verification and coordinated follow-up."
   ],

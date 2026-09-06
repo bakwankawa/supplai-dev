@@ -21,15 +21,15 @@ const featuresData = [
                         <span className="text-[10px] font-mono font-bold text-brand-primary uppercase"><LandingText text="Analytics View" /></span>
                         <h4 className="text-xs sm:text-sm font-bold text-brand-textMain"><LandingText text="Tren Harga Beras Premium (Nasional)" /></h4>
                     </div>
-                    <span className="text-[10px] font-mono bg-brand-bgSubtle px-2 py-1 rounded-md text-brand-textMuted border border-brand-border font-semibold shrink-0"><LandingText text="14 Days Window" /></span>
+                    <span className="text-[10px] font-mono bg-brand-bgSubtle px-2 py-1 rounded-md text-brand-textMuted border border-brand-border font-semibold shrink-0"><LandingText text="Horizon 3 Bulan" /></span>
                 </div>
 
                 {/* Metrik Grid Atas */}
                 <div className="grid grid-cols-3 gap-3">
                     {[
                         { label: "Harga Hari Ini", val: "Rp14.500", diff: "0.0%", color: "text-brand-textMuted" },
-                        { label: "Prediksi H+7", val: "Rp14.850", diff: "+2.4%", color: "text-amber-600" },
-                        { label: "Prediksi H+14", val: "Rp15.200", diff: "+4.8%", color: "text-rose-600" }
+                        { label: "Prediksi 1 Bulan", val: "Rp14.850", diff: "+2.4%", color: "text-amber-600" },
+                        { label: "Prediksi 3 Bulan", val: "Rp15.200", diff: "+4.8%", color: "text-rose-600" }
                     ].map((card) => (
                         <div key={card.label} className="p-2 sm:p-3 bg-brand-bgSubtle rounded-xl border border-brand-border space-y-0.5">
                             <span className="text-[10px] text-brand-textMuted font-medium block truncate"><LandingText text={card.label} /></span>
@@ -232,7 +232,7 @@ const featuresData = [
         id: "ews",
         tabLabel: "Alerts",
         title: "Early Warning System & Broadcast Alert Center",
-        desc: "Pusat peringatan otomatis yang langsung mengirimkan alarm push-notification sesaat sebelum harga pasar melampaui ambang batas aman nasional.",
+        desc: "Pusat peringatan yang menandai pergerakan harga terhadap pita persentil historis tiap komoditas, lengkap dengan alasan dan tingkat keyakinannya.",
         icon: Bell,
         mockup: (
             <div className="w-full h-[380px] bg-white p-3 sm:p-6 rounded-2xl border border-brand-border flex flex-col justify-between shadow-sm">
@@ -247,7 +247,7 @@ const featuresData = [
                         </div>
                         <div className="space-y-1 text-xs">
                             <p className="font-bold text-brand-textMain"><LandingText text="Anomali Lonjakan Harga Terdeteksi" /></p>
-                            <p className="text-brand-textMuted leading-relaxed"><LandingText text="Komoditas Bawang Merah di Kluster Wilayah Cirebon melampaui HAP sebesar 14.2%." /></p>
+                            <p className="text-brand-textMuted leading-relaxed"><LandingText text="Bawang Putih di DKI Jakarta diproyeksikan naik 10,3% dalam tiga bulan." /></p>
                         </div>
                     </div>
                     <div className="border border-amber-100 bg-amber-50/30 rounded-xl p-3 flex gap-3 items-start">
@@ -255,8 +255,8 @@ const featuresData = [
                             <ShieldAlert className="w-3.5 h-3.5" />
                         </div>
                         <div className="space-y-0.5 text-[11px]">
-                            <p className="font-bold text-brand-textMain"><LandingText text="Warning Stok Beras" /></p>
-                            <p className="text-brand-textMuted leading-relaxed"><LandingText text="Proyeksi penurunan stok -8% H+30 di NTT." /></p>
+                            <p className="font-bold text-brand-textMain"><LandingText text="Peringatan Harga Bawang Putih" /></p>
+                            <p className="text-brand-textMuted leading-relaxed"><LandingText text="Bawang Putih di Maluku Utara diproyeksikan naik 8,9% dalam tiga bulan." /></p>
                         </div>
                     </div>
                 </div>
