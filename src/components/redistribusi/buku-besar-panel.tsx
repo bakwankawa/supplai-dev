@@ -16,7 +16,7 @@ export function BukuBesarPanel() {
         berasal dari sumber yang dapat diperiksa; sisanya kami tetapkan sendiri dan
         ditandai demikian.
       </p>
-      <div className="space-y-2 max-h-[420px] overflow-y-auto pr-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
         {bukuBesar.map((e) => (
           <div key={e.input} className="rounded-xl border border-slate-100 bg-slate-50 p-3 space-y-1">
             <div className="flex items-start justify-between gap-2">

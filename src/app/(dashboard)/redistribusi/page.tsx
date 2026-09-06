@@ -239,8 +239,8 @@ export default function RedistribusiPage() {
         </motion.div>
       </div>
 
-      {/* ================= ROW 2: ROUTE TABLE, SURPLUS LIST & LEDGER ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-[repeat(16,minmax(0,1fr))] gap-6 items-start">
+      {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
           <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
             <Route className="w-5 h-5 text-[#006c4a]" />
@@ -267,15 +267,16 @@ export default function RedistribusiPage() {
           </div>
           <SurplusPanel provinces={surplusProvinces} />
         </motion.div>
-
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <Layers3 className="w-4 h-4 text-[#006c4a]" />
-            <h3 className="text-lg font-bold text-slate-800">Asal-usul Angka</h3>
-          </div>
-          <BukuBesarPanel />
-        </motion.div>
       </div>
+
+      {/* ================= ROW 3: HONESTY LEDGER (FULL WIDTH) ================= */}
+      <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+          <Layers3 className="w-4 h-4 text-[#006c4a]" />
+          <h3 className="text-lg font-bold text-slate-800">Asal-usul Angka</h3>
+        </div>
+        <BukuBesarPanel />
+      </motion.div>
     </motion.div>
   );
 }
