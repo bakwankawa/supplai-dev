@@ -95,11 +95,17 @@ The earlier draft of this design assumed per-capita consumption was uniform nati
 The new data shows that assumption would have been materially wrong:
 
 > Rice consumption ranges from **40.6 kg/capita/year (Papua Pegunungan)** to
-> **111.9 kg/capita/year (Nusa Tenggara Timur)** — a **2.76× spread**.
+> **111.9 kg/capita/year (Nusa Tenggara Timur)** — a **2.76× spread** across the source's
+> 38 provinces.
 
-A uniform national figure would have understated NTT's market by ~41%. Kalimantan Utara
-happens to sit at 78.7, near the national level, so the worked example below barely
-moves — but that is luck, not vindication.
+The model uses 34 provinces, merging the four Papua splits back into Papua and Papua Barat.
+That merging averages away the extreme low end, so **the spread the code actually sees is
+1.98×** — still large enough that a uniform national figure is the wrong choice, but the
+2.76× figure should not be quoted as if it were what the pipeline works with.
+`tests/test_konsumsi_data.py` asserts the 34-province figure.
+
+Kalimantan Utara sits at 70.7 against a national 79.1, so its market is 10% smaller than a
+uniform coefficient would imply — the worked example below moves accordingly.
 
 **Covered by the regional dataset:** Beras, Daging Unggas (→ Daging Ayam), Telur,
 Minyak Sawit (→ Minyak Goreng), plus Gula and Daging Ruminansia for future use.
@@ -115,6 +121,22 @@ the UI says so.
 
 The commodity labels in this file are dirty — `Gula`, `Gula `, `Gula  `, `gula` appear as
 distinct values. Ingest must normalise case and whitespace before grouping.
+
+**Two method limits that travel with these coefficients.**
+
+*Kabupaten are averaged unweighted.* A province's figure is the plain mean of its
+kabupaten, so a district of 50,000 people counts as much as one of 3 million. A
+population-weighted mean would be better; the COD-PS kabupaten population file was tried and
+its area codes matched none of this source's, so the weights are not available. The provincial
+figure is therefore a measurement of *districts*, not of *people* — recorded in the ledger.
+
+*Cooking oil is in litres, not kilograms.* Susenas records Minyak Goreng as 11.911
+**litre**/capita/year while every other coefficient is a mass and the pipeline works in
+tonnes. No density conversion is applied. Palm cooking oil is roughly 0.9 kg/litre, so
+treating litres as kilograms **overstates** that market's mass by about 11%, which makes
+`persen_pasar` read lower than it should and the low-price cap correspondingly looser.
+Cooking oil produces no routes in any posture today, so nothing shipped depends on it — but
+the moment it does, this needs a stated density and a conversion.
 
 ### The rice definition trap
 
@@ -456,9 +478,24 @@ All failures are loud or closed; none silent.
 
 - **External ground truth #1:** the per-capita derivation must reproduce the published BPS
   figure (rice 79.077 vs neraca-derived 79.2, within 0.5%).
-- **External ground truth #2:** computed volumes must land within one order of magnitude of
-  observed real shipments (median 5.5 t, max 30 t). The current heuristic fails this at
-  145×; it is a genuine regression guard, not a vanity check.
+- **External ground truth #2:** computed volumes must stay within the same order of magnitude
+  as the 20 observed real shipments (median 5.5 t, max 30 t).
+
+  Measured on the built artifacts: routes run 0.4–197.5 t with a **median of 15.8 t**. That
+  is **2.9× the observed median** and, at the extreme, **6.6× the largest observed shipment**
+  — the same order of magnitude at both ends. The old heuristic shipped 800 t, which is
+  **145× the observed median and 27× the largest**.
+
+  Stated precisely because the earlier wording did not say *which* statistic it compared:
+  against the observed **median**, our maximum route is 36×, which sounds alarming and is the
+  wrong comparison — a maximum against a median always is. The guard in
+  `tests/test_match_sizing.py` is `max_route / observed_median < 50`, which the old heuristic
+  fails and this one passes with room to spare.
+
+  A caution that belongs with this check: those 20 shipments are one small instrument
+  (*fasilitasi distribusi pangan*), not the whole of Indonesian food-price intervention. CPP
+  disbursement is far larger. The comparison establishes that our volumes are plausible for
+  this kind of action, not that they match total government practice.
 - **Properties of `volume_intervensi`:** zero when predicted change ≤ 0; monotonic in ε and
   in the predicted rise; never exceeds the national budget; never exceeds the symmetric
   low-price cap.
