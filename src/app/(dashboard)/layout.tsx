@@ -3,21 +3,14 @@
 import { useState, useEffect } from "react";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Header } from "@/components/layout/header";
-import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "motion/react";
 import DashboardLoading from "@/app/(dashboard)/dashboard/loading";
-
-const AgentPanel = dynamic(
-  () => import("@/components/agent/agent-panel").then((module) => module.AgentPanel),
-  { loading: () => <p className="p-4 text-sm text-slate-500">Memuat asisten…</p> }
-);
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isAgentOpen, setIsAgentOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
@@ -40,7 +33,7 @@ export default function DashboardLayout({
 
       {/* Konten Utama */}
       <div className="flex flex-col flex-1 h-full overflow-hidden">
-        <Header onToggleAgent={() => setIsAgentOpen(!isAgentOpen)} />
+        <Header />
 
         <main className="flex-1 overflow-y-auto p-6 bg-slate-50/50">
           <AnimatePresence mode="wait">
@@ -68,23 +61,6 @@ export default function DashboardLayout({
           </AnimatePresence>
         </main>
       </div>
-
-      {/* Panel Kanan (Chat Agent) dengan Animasi Masuk/Keluar */}
-      <AnimatePresence>
-        {isAgentOpen && (
-          <motion.div
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 400, opacity: 1 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            className="border-l border-slate-200 bg-white h-full shadow-2xl overflow-hidden flex-shrink-0"
-          >
-            <div className="w-[400px] h-full">
-              <AgentPanel onClose={() => setIsAgentOpen(false)} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

@@ -3,15 +3,11 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { Search, Bell, User, LogOut, LogIn, Bot, RefreshCw, AlertTriangle, ArrowRight, ChevronLeft, ArrowUpRight, Menu } from "lucide-react";
+import { Search, Bell, User, LogOut, LogIn, RefreshCw, AlertTriangle, ArrowRight, ChevronLeft, ArrowUpRight, Menu } from "lucide-react";
 
 // Import hook API & tipe yang sama dengan Alert Center
 import { useApi } from "@/hooks/use-api";
 import { AlertResponse } from "@/lib/types";
-
-interface HeaderProps {
-    onToggleAgent: () => void;
-}
 
 // Tipe data internal untuk notifikasi di Header
 interface HeaderNotification {
@@ -24,7 +20,7 @@ interface HeaderNotification {
     slug: string;
 }
 
-export function Header({ onToggleAgent }: HeaderProps) {
+export function Header() {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [activeView, setActiveView] = useState<"list" | "detail">("list");
@@ -339,14 +335,6 @@ export function Header({ onToggleAgent }: HeaderProps) {
                         )}
                     </AnimatePresence>
                 </div>
-
-                {/* Tombol Agent Chat */}
-                <button
-                    onClick={onToggleAgent}
-                    className="p-2 text-slate-500 hover:text-[#006c4a] hover:bg-emerald-50 rounded-xl transition-all cursor-pointer"
-                >
-                    <Bot className="w-4 h-4" />
-                </button>
 
                 <div className="h-6 w-px bg-slate-200" />
 
