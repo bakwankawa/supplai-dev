@@ -82,10 +82,21 @@ export interface RedistributionRoute {
   dasarTakaran: "terukur" | "diasumsikan"
   /** How much of the computed requirement real intervention actually covers. */
   kecukupanPersen: number
+  /** "regional" or "nasional" — a province whose regional elasticity was not
+   *  statistically significant falls back to the national figure, and a reader
+   *  must be able to tell which happened. */
+  epsilonSumber: "regional" | "nasional"
+  /** 95% interval on volumeTon, from the published standard error. This is the
+   *  destination's interval apportioned by delivery share, not a per-route one. */
+  volumeCiBawah: number
+  volumeCiAtas: number
+  /** The denominator behind persenPasar: the destination's monthly consumption. */
+  konsumsiTujuanTonBulan: number
 }
 
 export interface RedistributionResponse {
-  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string; estimatedCost: number }
+  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string; estimatedCost: number
+             anggaranNasionalTon: number | null }
   provinces: RedistributionProvince[]
   routes: RedistributionRoute[]
 }

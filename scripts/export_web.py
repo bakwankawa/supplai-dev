@@ -193,7 +193,11 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        "postur": str(r.postur),
                        "epsilon": round(float(r.epsilon), 3),
                        "dasarTakaran": str(r.dasar_takaran),
-                       "kecukupanPersen": round(float(r.kecukupan_persen), 1)})
+                       "kecukupanPersen": round(float(r.kecukupan_persen), 1),
+                       "epsilonSumber": str(r.epsilon_sumber),
+                       "volumeCiBawah": round(float(r.volume_ci_bawah), 2),
+                       "volumeCiAtas": round(float(r.volume_ci_atas), 2),
+                       "konsumsiTujuanTonBulan": round(float(r.konsumsi_tujuan_ton_bulan), 1)})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -207,7 +211,9 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                "activeRoutes": f"{int(plan.get('n_sumber', 0))} → "
                                f"{int(plan.get('n_tujuan', 0))}",
                "estimatedCost": round(float(plan.get("total_biaya",
-                                                     col_sum("biaya_rp"))))}
+                                                     col_sum("biaya_rp")))),
+               "anggaranNasionalTon": (None if plan.get("anggaran_nasional") is None
+                                       else round(float(plan["anggaran_nasional"])))}
     return {"summary": summary, "provinces": provinces, "routes": routes}
 
 
