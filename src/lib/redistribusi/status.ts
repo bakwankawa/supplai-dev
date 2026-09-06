@@ -31,7 +31,7 @@ export function jelaskanStatus(
     case "tidak perlu intervensi":
       return {
         judul: "Wilayah berisiko tetap terdeteksi, tetapi kebutuhannya nol pada postur ini.",
-        alasan: `Postur ${POSTUR_LABEL[postur].nama} membaca batas bawah selang prediksi. Pada pembacaan itu kenaikan ${komoditas} dapat bernilai nol, sehingga volume yang dibutuhkan menjadi nol. Provinsi tujuannya sendiri tetap tertandai berisiko. Pilih postur Seimbang untuk melihat rencana pada prediksi titik.`,
+        alasan: `Postur ${POSTUR_LABEL[postur].nama} membaca batas bawah selang prediksi. Pada pembacaan itu kenaikan ${komoditas} dapat bernilai nol, sehingga volume yang dibutuhkan menjadi nol. Wilayah berisikonya sendiri tetap dikenali pemecah rute, dan daftarnya muncul pada postur Seimbang yang membaca prediksi titik. Angka nol di halaman ini berarti tidak ada yang perlu dikirim pada pembacaan konservatif, bukan tidak ada wilayah yang berisiko.`,
       }
     case "tidak ada kebutuhan terukur":
       return {
