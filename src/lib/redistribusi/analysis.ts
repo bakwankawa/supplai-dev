@@ -57,8 +57,8 @@ export function analyzeRedistribusi(
     routes.length === 0
       ? `${kosong.judul} ${kosong.alasan}`
       : `Rencana ini memindahkan ${ton(totalTon)} ${komoditas} melalui ${routes.length} rute. ` +
-        `Rute terbesar mengisi ${persen(Math.max(...routes.map((r) => r.persenPasar)))} pasar bulanan wilayah tujuannya, ` +
-        `sehingga penambahan pasokan ini tidak menggantikan perdagangan yang sudah berjalan di sana.`
+        `Rute terbesar mengisi ${persen(Math.max(...routes.map((r) => r.persenPasar)))} pasar bulanan wilayah tujuannya ` +
+        `— sebuah pangsa kecil, meskipun dampaknya terhadap harga setempat tidak kami ukur.`
 
   const catatanTakaran =
     routes.length === 0

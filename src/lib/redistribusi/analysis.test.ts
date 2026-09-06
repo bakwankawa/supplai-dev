@@ -56,6 +56,15 @@ describe("analyzeRedistribusi", () => {
     expect(negatives).toHaveLength(0);
   });
 
+  it("reports the market share without claiming the shipment has no price effect", () => {
+    // The volume is sized precisely to move the destination price. A report
+    // cannot size for a price effect and then assert there is none.
+    const a = analyzeRedistribusi(getRedistributionData("beras", "seimbang"), "beras", "seimbang");
+    expect(a.ringkasan).toMatch(/pasar bulanan/);
+    expect(a.ringkasan).toMatch(/tidak kami ukur/);
+    expect(a.ringkasan).not.toMatch(/tidak menggantikan perdagangan/);
+  });
+
   it("carries the solver's reason through for an empty plan", () => {
     const a = analyzeRedistribusi(
       getRedistributionData("bawang-merah", "seimbang"), "bawang-merah", "seimbang");
