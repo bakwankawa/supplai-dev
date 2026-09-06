@@ -52,7 +52,7 @@ export default function HeatmapPage() {
 
   const { data, loading, refetch } = useApi<HeatmapResponse>(
     `/api/heatmap?commodity=${commodity}&range=${range}`
-  ) as { data: HeatmapResponse | null; loading: boolean; refetch: () => void };
+  );
 
   useEffect(() => {
     const handleGlobalRefresh = () => refetch?.();

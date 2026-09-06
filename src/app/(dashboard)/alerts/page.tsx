@@ -85,11 +85,7 @@ export default function AlertsPage() {
   ];
 
   const query = commodity ? `?commodity=${commodity}` : "";
-  const { data, loading, refetch } = useApi<AlertResponse>(`/api/alerts${query}`) as {
-    data: AlertResponse | null;
-    loading: boolean;
-    refetch: () => void;
-  };
+  const { data, loading, refetch } = useApi<AlertResponse>(`/api/alerts${query}`);
 
   useEffect(() => {
     const handleGlobalRefresh = () => refetch?.();

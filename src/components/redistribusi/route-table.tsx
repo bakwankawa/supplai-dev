@@ -18,12 +18,19 @@ const COMMODITY_LABELS: Record<string, string> = { beras: "Beras", "bawang-merah
 interface RouteTableProps {
   routes: RedistributionRoute[];
   loading: boolean;
-  status: string;
+  /** The solver's own status string, or `null` where no answer was received.
+   *  It used to default to "kosong" — which is a real verdict the solver
+   *  returns for konservatif/all — so a failed fetch rendered as a solver
+   *  finding. There is no default any more. */
+  status: string | null;
+  /** Message from a failed load. Non-null means this table has no plan to
+   *  describe and must not describe one. */
+  gagalMuat?: string | null;
   postur: Postur;
   komoditas: string;
 }
 
-export function RouteTable({ routes, loading, status, postur, komoditas }: RouteTableProps) {
+export function RouteTable({ routes, loading, status, gagalMuat, postur, komoditas }: RouteTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>("priority");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -33,6 +40,21 @@ export function RouteTable({ routes, loading, status, postur, komoditas }: Route
         {Array.from({ length: 5 }).map((_, i) => (
           <Skeleton key={i} className="h-10 w-full rounded-xl" />
         ))}
+      </div>
+    );
+  }
+
+  // A load that never arrived is not an empty plan. Every sentence below is a
+  // quotation of the solver; attributing one to an answer we never received
+  // would put words in its mouth.
+  if (gagalMuat || status === null) {
+    return (
+      <div className="py-12 px-6 text-center space-y-1.5">
+        <p className="text-xs font-bold text-rose-600">Rencana ini gagal dimuat.</p>
+        <p className="text-[11px] font-medium text-slate-500 leading-relaxed max-w-md mx-auto">
+          {gagalMuat ?? "Tidak ada jawaban dari server."} Ini kegagalan pengambilan
+          data, bukan pernyataan bahwa pemecah rute tidak menghasilkan rute.
+        </p>
       </div>
     );
   }

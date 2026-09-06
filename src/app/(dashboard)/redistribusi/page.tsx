@@ -15,7 +15,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Narasi, Penjelas } from "@/components/ui/narasi";
 import { narasiRedistribusi } from "@/data/narasi";
 import { formatRupiah } from "@/lib/format";
-import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
+import { POSTUR_LABEL } from "@/lib/redistribusi/postur";
+import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -66,9 +67,15 @@ export default function RedistribusiPage() {
     return commodities.find(c => c.id === commodity)?.name ?? "Beras Medium";
   }, [commodity]);
 
-  const { data, loading } = useApi<RedistributionResponse>(
+  const { data, loading, error } = useApi<RedistributionResponse>(
     `/api/redistribution?commodity=${commodity}&postur=${postur}`
   );
+
+  // A failed load has no plan in it. Everything below the header describes a
+  // plan — tonnages, a map, a machine-written paragraph, a route table — so
+  // none of it may render from an answer that never arrived. The honesty
+  // ledger stays: it is static and remains true whether the API answered.
+  const gagalMuat = error ? error.message : null;
 
   const summary = data?.summary;
   const provinces = data?.provinces ?? [];
@@ -157,143 +164,170 @@ export default function RedistribusiPage() {
         </div>
       </div>
 
-      {/* ================= SUMMARY CARDS ================= */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Routes */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-          <div className="space-y-0.5">
-            <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Rute Alokasi</p>
-            {loading ? (
-              <Skeleton className="h-8 w-14 mt-1" />
-            ) : (
-              <h4 className="text-2xl font-black text-slate-800 tracking-tight">
-                {/* PERBAIKAN 2: Mengembalikan ke penulisan self-closing tag murni tanpa children */}
-                <AnimatedNumber value={summary?.totalRoutes ?? 0} />
-              </h4>
-            )}
+      {/* ================= LOAD FAILURE (NOT AN EMPTY PLAN) ================= */}
+      {gagalMuat ? (
+        <motion.div
+          variants={itemVariants}
+          className="bg-white border border-rose-200 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]"
+        >
+          <div className="flex items-center gap-2 border-b border-rose-100 pb-4 mb-4">
+            <AlertTriangle className="w-4 h-4 text-rose-600" />
+            <h3 className="text-lg font-bold text-slate-800">Rencana redistribusi gagal dimuat</h3>
           </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
-            <Route className="w-5 h-5" />
-          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Permintaan ke <span className="font-mono">/api/redistribution</span> untuk{" "}
+            <span className="font-bold">{currentCommodityName}</span> pada postur{" "}
+            <span className="font-bold">{POSTUR_LABEL[postur].nama}</span> tidak berhasil:{" "}
+            <span className="font-bold text-rose-700">{gagalMuat}</span>
+          </p>
+          <p className="text-xs text-slate-500 leading-relaxed mt-2">
+            Halaman ini sengaja tidak menampilkan angka apa pun sampai jawaban diterima.
+            Nol rute, nol ton, dan peta kosong akan terbaca sebagai hasil perhitungan,
+            padahal tidak ada perhitungan yang sampai ke sini.
+          </p>
         </motion.div>
-
-        {/* Total Volume */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-          <div className="space-y-0.5">
-            <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Volume Angkut</p>
-            {loading ? (
-              <Skeleton className="h-8 w-24 mt-1" />
-            ) : (
-              <h4 className="text-2xl font-black text-slate-800 tracking-tight flex items-baseline">
-                {/* PERBAIKAN 3: Menggunakan tag tunggal aman */}
-                <AnimatedNumber value={summary?.totalVolume ?? 0} />
-                <span className="text-xs font-bold font-sans text-slate-400 ml-1">ton</span>
-              </h4>
-            )}
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
-            <TrendingUp className="w-5 h-5" />
-          </div>
-        </motion.div>
-
-        {/* Prioritas Aktif */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-          <div className="space-y-0.5">
-            <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Prioritas Aktif</p>
-            {loading ? (
-              <Skeleton className="h-8 w-28 mt-1" />
-            ) : (
-              <p className="text-base font-extrabold text-slate-800 tracking-tight pt-1 leading-none">
-                {summary?.activeRoutes ?? "-"}
-              </p>
-            )}
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-            <MapPin className="w-5 h-5" />
-          </div>
-        </motion.div>
-
-        {/* Estimasi Biaya */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-          <div className="space-y-0.5">
-            <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Estimasi Biaya Kargo</p>
-            {loading ? (
-              <Skeleton className="h-8 w-28 mt-1" />
-            ) : (
-              <p className="text-lg font-black text-slate-800 tracking-tight pt-0.5">
-                {formatRupiah(summary?.estimatedCost ?? 0)}
-              </p>
-            )}
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600">
-            <Wallet className="w-5 h-5" />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* ================= ROW 1: SPATIAL ALOCATION & METHOD ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between">
-          <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
-            <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
-            <h3 className="text-lg font-bold text-slate-800">Peta Aliran Distribusi Logistik</h3>
-          </div>
-          <div className="w-full flex-1 flex items-center justify-center">
-            <IndonesiaMap
-              provinces={provinces}
-              routes={routes}
-              loading={loading}
-            />
-          </div>
-        </motion.div>
-
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-          <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
-        </motion.div>
-      </div>
-
-      {/* ================= NARRATION (MACHINE-WRITTEN, MAY BE ABSENT) ================= */}
-      <Narasi teks={narasiRedistribusi(commodity, postur)} />
-
-      {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
-          <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
-            <Route className="w-5 h-5 text-[#006c4a]" />
-            <div className="flex flex-col">
-              <h3 className="text-lg font-bold text-slate-800">Matriks Rute Distribusi Direkomendasikan</h3>
-              <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
+      ) : (
+        <>
+        {/* ================= SUMMARY CARDS ================= */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Total Routes */}
+          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
+            <div className="space-y-0.5">
+              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Rute Alokasi</p>
+              {loading ? (
+                <Skeleton className="h-8 w-14 mt-1" />
+              ) : (
+                <h4 className="text-2xl font-black text-slate-800 tracking-tight">
+                  {/* PERBAIKAN 2: Mengembalikan ke penulisan self-closing tag murni tanpa children */}
+                  <AnimatedNumber value={summary?.totalRoutes ?? 0} />
+                </h4>
+              )}
             </div>
-          </div>
-          <Penjelas
-            judul="Cara membaca tabel ini"
-            isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri."
-          />
-          <div className="mt-3">
-            <Penjelas
-              judul="Kecukupan GPM bukan cakupan kiriman ini"
-              isi="Kolom 'Kecukupan GPM' tidak mengukur rute pada baris itu. Ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah — program intervensi yang memang sudah berjalan di provinsi tujuan — sehingga nilainya melekat pada tujuan, bukan pada kiriman: setiap rute yang masuk ke provinsi yang sama menunjukkan angka yang sama. Tiga peringatan melekat padanya: (1) GPM hanya satu dari beberapa instrumen, dan penyaluran Cadangan Pangan Pemerintah jauh lebih besar serta tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran."
-            />
-          </div>
-          <div className="w-full overflow-x-auto mt-4">
-            <RouteTable
-              routes={routes}
-              loading={loading}
-              status={summary?.status ?? "kosong"}
-              postur={postur}
-              komoditas={currentCommodityName}
-            />
-          </div>
-        </motion.div>
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
+              <Route className="w-5 h-5" />
+            </div>
+          </motion.div>
 
-        <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <Layers3 className="w-4 h-4 text-[#006c4a]" />
-            <h3 className="text-lg font-bold text-slate-800">Wilayah Produsen (Surplus)</h3>
-          </div>
-          <SurplusPanel provinces={surplusProvinces} />
-        </motion.div>
-      </div>
+          {/* Total Volume */}
+          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
+            <div className="space-y-0.5">
+              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Volume Angkut</p>
+              {loading ? (
+                <Skeleton className="h-8 w-24 mt-1" />
+              ) : (
+                <h4 className="text-2xl font-black text-slate-800 tracking-tight flex items-baseline">
+                  {/* PERBAIKAN 3: Menggunakan tag tunggal aman */}
+                  <AnimatedNumber value={summary?.totalVolume ?? 0} />
+                  <span className="text-xs font-bold font-sans text-slate-400 ml-1">ton</span>
+                </h4>
+              )}
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
+              <TrendingUp className="w-5 h-5" />
+            </div>
+          </motion.div>
+
+          {/* Prioritas Aktif */}
+          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
+            <div className="space-y-0.5">
+              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Prioritas Aktif</p>
+              {loading ? (
+                <Skeleton className="h-8 w-28 mt-1" />
+              ) : (
+                <p className="text-base font-extrabold text-slate-800 tracking-tight pt-1 leading-none">
+                  {summary?.activeRoutes ?? "-"}
+                </p>
+              )}
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
+              <MapPin className="w-5 h-5" />
+            </div>
+          </motion.div>
+
+          {/* Estimasi Biaya */}
+          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
+            <div className="space-y-0.5">
+              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Estimasi Biaya Kargo</p>
+              {loading ? (
+                <Skeleton className="h-8 w-28 mt-1" />
+              ) : (
+                <p className="text-lg font-black text-slate-800 tracking-tight pt-0.5">
+                  {formatRupiah(summary?.estimatedCost ?? 0)}
+                </p>
+              )}
+            </div>
+            <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600">
+              <Wallet className="w-5 h-5" />
+            </div>
+          </motion.div>
+        </div>
+
+        {/* ================= ROW 1: SPATIAL ALOCATION & METHOD ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+            <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
+              <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
+              <h3 className="text-lg font-bold text-slate-800">Peta Aliran Distribusi Logistik</h3>
+            </div>
+            <div className="w-full flex-1 flex items-center justify-center">
+              <IndonesiaMap
+                provinces={provinces}
+                routes={routes}
+                loading={loading}
+              />
+            </div>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+            <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
+          </motion.div>
+        </div>
+
+        {/* ================= NARRATION (MACHINE-WRITTEN, MAY BE ABSENT) ================= */}
+        <Narasi teks={narasiRedistribusi(commodity, postur)} />
+
+        {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+          <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
+            <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
+              <Route className="w-5 h-5 text-[#006c4a]" />
+              <div className="flex flex-col">
+                <h3 className="text-lg font-bold text-slate-800">Matriks Rute Distribusi Direkomendasikan</h3>
+                <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
+              </div>
+            </div>
+            <Penjelas
+              judul="Cara membaca tabel ini"
+              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri."
+            />
+            <div className="mt-3">
+              <Penjelas
+                judul="Kecukupan GPM bukan cakupan kiriman ini"
+                isi="Kolom 'Kecukupan GPM' tidak mengukur rute pada baris itu. Ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah — program intervensi yang memang sudah berjalan di provinsi tujuan — sehingga nilainya melekat pada tujuan, bukan pada kiriman: setiap rute yang masuk ke provinsi yang sama menunjukkan angka yang sama. Tiga peringatan melekat padanya: (1) GPM hanya satu dari beberapa instrumen, dan penyaluran Cadangan Pangan Pemerintah jauh lebih besar serta tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran."
+              />
+            </div>
+            <div className="w-full overflow-x-auto mt-4">
+              <RouteTable
+                routes={routes}
+                loading={loading}
+                status={summary?.status ?? null}
+              gagalMuat={gagalMuat}
+                postur={postur}
+                komoditas={currentCommodityName}
+              />
+            </div>
+          </motion.div>
+
+          <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+              <Layers3 className="w-4 h-4 text-[#006c4a]" />
+              <h3 className="text-lg font-bold text-slate-800">Wilayah Produsen (Surplus)</h3>
+            </div>
+            <SurplusPanel provinces={surplusProvinces} />
+          </motion.div>
+        </div>
+        </>
+      )}
 
       {/* ================= ROW 3: HONESTY LEDGER (FULL WIDTH) ================= */}
       <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
