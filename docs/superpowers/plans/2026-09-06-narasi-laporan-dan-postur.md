@@ -777,7 +777,7 @@ export function takaranLabel(dasar: "terukur" | "diasumsikan"): {
 npm test
 ```
 
-Expected: PASS, 15 tests total.
+Expected: PASS, 14 tests total.
 
 - [ ] **Step 5: Add the columns to the table**
 
@@ -1324,7 +1324,7 @@ export function analyzeRedistribusi(
 npm test
 ```
 
-Expected: PASS, 22 tests total.
+Expected: PASS, 21 tests total.
 
 - [ ] **Step 5: Commit**
 
@@ -1590,7 +1590,6 @@ paragraph is a smaller harm than a table with a confident wrong one.
 from __future__ import annotations
 
 import json
-from typing import Any
 
 import pandas as pd
 
@@ -1944,6 +1943,7 @@ Add to `supplai/narasi.py`:
 import hashlib
 import os
 from pathlib import Path
+from typing import Any
 
 MODEL = "gpt-5.4-mini-2026-03-17"
 PROMPT_VERSION = "1"
