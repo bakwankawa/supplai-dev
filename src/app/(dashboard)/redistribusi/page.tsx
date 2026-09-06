@@ -321,7 +321,7 @@ export default function RedistribusiPage() {
           <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
             <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
               <Layers3 className="w-4 h-4 text-[#006c4a]" />
-              <h3 className="text-lg font-bold text-slate-800">Wilayah Produsen (Surplus)</h3>
+              <h3 className="text-lg font-bold text-slate-800">Wilayah Asal (Surplus)</h3>
             </div>
             <SurplusPanel provinces={surplusProvinces} />
           </motion.div>
