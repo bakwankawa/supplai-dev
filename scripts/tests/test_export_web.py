@@ -124,11 +124,21 @@ def test_build_redistribution():
         "dasar_takaran": ["terukur", "terukur"],
         "kecukupan_persen": [12.0, 12.0],
     })
+    # build_redistribution now requires a plan_meta entry for every
+    # commodity-posture pair (Step 6) — fill them all, then override the one
+    # combination this test actually exercises.
+    plan_meta = {
+        f"{wfp}|{postur}": {"status": "tidak perlu intervensi"}
+        for wfp in ew.COMMODITY_ID
+        for postur in ("konservatif", "seimbang", "aman_pangan")
+    }
+    plan_meta["Beras Medium|seimbang"] = {
+        "status": "ok", "total_ton": 700.0, "total_biaya": 3.75e9,
+        "n_rute": 2, "n_sumber": 2, "n_tujuan": 1,
+    }
     meta = {
         "postur_tersedia": ["konservatif", "seimbang", "aman_pangan"],
-        "plan_meta": {"Beras Medium|seimbang": {
-            "status": "ok", "total_ton": 700.0, "total_biaya": 3.75e9,
-            "n_rute": 2, "n_sumber": 2, "n_tujuan": 1}},
+        "plan_meta": plan_meta,
     }
     res = ew.build_redistribution(flows, meta)
     assert set(res) == {"konservatif", "seimbang", "aman_pangan", "default"}
@@ -276,3 +286,66 @@ def test_redistribution_routes_carry_sizing_fields():
         assert field in r, f"missing {field}"
     assert 0 <= r["persenPasar"] <= 100
     assert r["postur"] == "seimbang"
+
+
+def _redist():
+    import json, pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    return ew.build_redistribution(A["flows"], A["meta"])
+
+
+def test_every_summary_carries_status():
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "status" in resp["summary"], f"{postur}/{cid} has no status"
+            assert isinstance(resp["summary"]["status"], str)
+            assert resp["summary"]["status"], f"{postur}/{cid} status is empty"
+
+
+def test_empty_plans_report_their_own_reason():
+    # Bawang Merah is empty because no surplus/deficit pair formed; Beras under
+    # konservatif is empty because the required volume computed to zero. Two
+    # different causes, and the UI must be able to tell them apart.
+    out = _redist()
+    assert out["seimbang"]["bawang-merah"]["summary"]["status"] == \
+        "tidak ada pasangan surplus-defisit"
+    assert out["konservatif"]["beras"]["summary"]["status"] == "tidak perlu intervensi"
+
+
+def test_anggaran_key_present_even_on_all():
+    # Declared required in RedistributionResponse but previously omitted from
+    # the aggregate, which is exactly what /api/redistribution returns when no
+    # commodity is given.
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
+
+
+def test_routes_carry_the_prices_the_solver_used():
+    out = _redist()
+    route = out["seimbang"]["beras"]["routes"][0]
+    for key in ("hargaAsal", "hargaTujuan", "hematRp"):
+        assert key in route, f"route missing {key}"
+    assert route["hargaTujuan"] > route["hargaAsal"], \
+        "the solver ships from cheaper to dearer; this route inverts it"
+
+
+def test_ledger_loads_and_is_well_formed():
+    import pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    ledger = A["buku_besar"]
+    assert len(ledger) >= 10
+    assert all({"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in ledger)
+    assert all(e["status"] in {"terukur", "diasumsikan"} for e in ledger)
+
+
+def test_missing_plan_meta_entry_raises():
+    import pandas as pd, pytest
+    flows = pd.DataFrame(columns=["komoditas", "postur"])
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(KeyError, match="plan_meta"):
+        ew.build_redistribution(flows, meta)

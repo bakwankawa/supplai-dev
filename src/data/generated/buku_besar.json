@@ -1,0 +1,72 @@
+[
+ {
+  "input": "Populasi provinsi",
+  "nilai": "34 provinsi, nasional 284,667,253 jiwa",
+  "sumber": "BPS WebAPI, var_id 2781, th 125, turvar 585 (Jumlah)",
+  "tahun": "2025",
+  "status": "terukur"
+ },
+ {
+  "input": "Konsumsi per kapita (regional)",
+  "nilai": "136 pasangan komoditas-provinsi",
+  "sumber": "Berkas konsumsi kab/kota yang diterima dari staf ahli Komisi IV DPR RI ('konsumsi_pangan_kabkota_2021_2025.xlsx'), dirata-ratakan ke provinsi. Berkas itu tidak mencantumkan sumber aslinya, jadi asal-usul angka regionalnya tidak dapat kami verifikasi. Yang berasal dari Susenas hanyalah JANGKAR nasional yang dipakai mengkalibrasi levelnya (Statistik Konsumsi Pangan 2024); ragam antar-provinsinya berasal dari berkas ini. Angka provinsi adalah rata-rata TIDAK BERBOBOT atas kabupatennya, jadi ia mengukur kabupaten, bukan orang.",
+  "tahun": "2025",
+  "status": "terukur"
+ },
+ {
+  "input": "Konsumsi per kapita (nasional, cadangan)",
+  "nilai": "68 pasangan komoditas-provinsi (Bawang Merah dan Bawang Putih)",
+  "sumber": "Statistik Konsumsi Pangan 2024, Kementan Pusdatin, Tabel 4.1a dan 4.2a, dari Susenas Maret BPS",
+  "tahun": "2024",
+  "status": "terukur"
+ },
+ {
+  "input": "Elastisitas harga sendiri",
+  "nilai": "6 komoditas, nasional dan 5 wilayah, dengan galat baku",
+  "sumber": "Hamzah, I. (2022), tesis master SLU Dept. of Economics No. 1450, Tabel 26 — QUAIDS atas Susenas 2018 (295.155 rumah tangga). Bukan artikel bereview sejawat.",
+  "tahun": "2018 (data), 2022 (terbit)",
+  "status": "terukur"
+ },
+ {
+  "input": "Neraca ketersediaan dan kebutuhan nasional",
+  "nilai": "6 komoditas",
+  "sumber": "Badan Pangan Nasional / BPS, berkas dari staf ahli Komisi IV DPR RI",
+  "tahun": "2026",
+  "status": "terukur"
+ },
+ {
+  "input": "Ongkos angkut per ton-km",
+  "nilai": "Rp2,500",
+  "sumber": "Perkiraan tengah; angkutan antarpulau Indonesia berkisar Rp2.000-4.000 per ton-km tergantung rute dan moda",
+  "tahun": "—",
+  "status": "diasumsikan"
+ },
+ {
+  "input": "Anggaran GPM per kegiatan",
+  "nilai": "Rp26,300,000",
+  "sumber": "RKA Bapanas 2027 pada Rapat Komisi IV DPR RI, 1 September 2026 (1.888 kegiatan, Rp49,7 miliar). Rencana 2027 diterapkan pada realisasi 2026.",
+  "tahun": "2027 (rencana)",
+  "status": "diasumsikan"
+ },
+ {
+  "input": "Kapasitas kirim provinsi sumber",
+  "nilai": "maksimal 10% konsumsi bulanannya sendiri",
+  "sumber": "Heuristik yang dinyatakan; data produksi per provinsi tidak tersedia bagi kami",
+  "tahun": "—",
+  "status": "diasumsikan"
+ },
+ {
+  "input": "Ambang provinsi defisit (spike_threshold)",
+  "nilai": "kenaikan diprediksi >= 2,0% dan harga >= median nasional",
+  "sumber": "Angka yang kami pilih; ia menentukan provinsi MANA yang mendapat kiriman sama sekali, dan tidak berasal dari pita persentil terkalibrasi yang dipakai di tempat lain.",
+  "tahun": "—",
+  "status": "diasumsikan"
+ },
+ {
+  "input": "Pagu harga-rendah (p70 per komoditas)",
+  "nilai": "p70 sebaran perubahan historis komoditas itu sendiri",
+  "sumber": "artifacts/thresholds.parquet, dihitung dari panel harga 2016-2026 di agent.py:severity_thresholds. Diterapkan simetris ke sisi turun mengikuti cara Bapanas memperlakukan harga terlalu rendah sebagai peringatan.",
+  "tahun": "2016-2026",
+  "status": "terukur"
+ }
+]

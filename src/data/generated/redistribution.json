@@ -6,7 +6,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": 16248732
+    "anggaranNasionalTon": 16248732,
+    "status": "tidak perlu intervensi"
    },
    "provinces": [],
    "routes": []
@@ -17,7 +18,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": 41882
+    "anggaranNasionalTon": 41882,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -28,7 +30,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak perlu intervensi"
    },
    "provinces": [],
    "routes": []
@@ -39,7 +42,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak perlu intervensi"
    },
    "provinces": [],
    "routes": []
@@ -50,7 +54,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak perlu intervensi"
    },
    "provinces": [],
    "routes": []
@@ -61,7 +66,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -71,7 +77,9 @@
     "totalRoutes": 0,
     "totalVolume": 0,
     "activeRoutes": "0 komoditas",
-    "estimatedCost": 0
+    "estimatedCost": 0,
+    "anggaranNasionalTon": null,
+    "status": "kosong"
    },
    "provinces": [],
    "routes": []
@@ -84,7 +92,8 @@
     "totalVolume": 57,
     "activeRoutes": "1 → 1",
     "estimatedCost": 100692943,
-    "anggaranNasionalTon": 16248732
+    "anggaranNasionalTon": 16248732,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -118,7 +127,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 46.43,
      "volumeCiAtas": 68.39,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 48734180
     }
    ]
   },
@@ -128,7 +140,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": 41882
+    "anggaranNasionalTon": 41882,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -139,7 +152,8 @@
     "totalVolume": 88,
     "activeRoutes": "2 → 9",
     "estimatedCost": 300717863,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -227,7 +241,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.8,
      "volumeCiAtas": 4.36,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -246,7 +263,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.16,
      "volumeCiAtas": 38.04,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -265,7 +285,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.04,
      "volumeCiAtas": 8.8,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -284,7 +307,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.9,
      "volumeCiAtas": 5.68,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -303,7 +329,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.44,
      "volumeCiAtas": 5.83,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -322,7 +351,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.91,
      "volumeCiAtas": 7.16,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -341,7 +373,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.67,
      "volumeCiAtas": 10.07,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -360,7 +395,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.88,
      "volumeCiAtas": 1.32,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -379,7 +417,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.54,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -398,7 +439,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.84,
      "volumeCiAtas": 11.42,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 13467267
     }
    ]
   },
@@ -408,7 +452,8 @@
     "totalVolume": 268,
     "activeRoutes": "5 → 8",
     "estimatedCost": 464871943,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -508,7 +553,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.22,
      "volumeCiAtas": 41.71,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -527,7 +575,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.25,
      "volumeCiAtas": 19.57,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -546,7 +597,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.83,
      "volumeCiAtas": 8.83,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -565,7 +619,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.53,
      "volumeCiAtas": 15.08,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 30500,
+     "hargaTujuan": 40000,
+     "hematRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -584,7 +641,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.36,
      "volumeCiAtas": 13.55,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -603,7 +663,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.44,
      "volumeCiAtas": 15.17,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 142857726
     },
     {
      "from": "Lampung",
@@ -622,7 +685,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.35,
      "volumeCiAtas": 4.87,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -641,7 +707,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.39,
      "volumeCiAtas": 30.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -660,7 +729,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.68,
      "volumeCiAtas": 30.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 29500,
+     "hargaTujuan": 38000,
+     "hematRp": 167604143
     },
     {
      "from": "Lampung",
@@ -679,7 +751,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 78.5,
      "volumeCiAtas": 100.71,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -698,7 +773,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 8.41,
      "volumeCiAtas": 10.79,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -717,7 +795,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.94,
      "volumeCiAtas": 20.86,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 150192818
     }
    ]
   },
@@ -727,7 +808,8 @@
     "totalVolume": 612,
     "activeRoutes": "3 → 11",
     "estimatedCost": 1376375026,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -833,7 +915,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.65,
      "volumeCiAtas": 74.09,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -852,7 +937,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.16,
      "volumeCiAtas": 17.35,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -871,7 +959,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 95.83,
      "volumeCiAtas": 130.6,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 275544609
     },
     {
      "from": "Bali",
@@ -890,7 +981,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -909,7 +1003,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -928,7 +1025,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.34,
      "volumeCiAtas": 38.67,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -947,7 +1047,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 27.69,
      "volumeCiAtas": 37.74,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -966,7 +1069,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 38.44,
      "volumeCiAtas": 59.78,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -985,7 +1091,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.93,
      "volumeCiAtas": 12.09,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -1004,7 +1113,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 63.3,
      "volumeCiAtas": 86.27,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -1023,7 +1135,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 31.26,
      "volumeCiAtas": 42.6,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -1042,7 +1157,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 106.9,
      "volumeCiAtas": 145.68,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -1061,7 +1179,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 43.02,
      "volumeCiAtas": 66.89,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 229732613
     }
    ]
   },
@@ -1071,7 +1192,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -1081,7 +1203,9 @@
     "totalRoutes": 36,
     "totalVolume": 1025,
     "activeRoutes": "4 komoditas",
-    "estimatedCost": 2242657775
+    "estimatedCost": 2242657775,
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -1247,7 +1371,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 46.43,
      "volumeCiAtas": 68.39,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 48734180
     },
     {
      "from": "Kalimantan Barat",
@@ -1266,7 +1393,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.8,
      "volumeCiAtas": 4.36,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -1285,7 +1415,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.16,
      "volumeCiAtas": 38.04,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -1304,7 +1437,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.04,
      "volumeCiAtas": 8.8,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -1323,7 +1459,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.9,
      "volumeCiAtas": 5.68,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -1342,7 +1481,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.44,
      "volumeCiAtas": 5.83,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -1361,7 +1503,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.91,
      "volumeCiAtas": 7.16,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -1380,7 +1525,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.67,
      "volumeCiAtas": 10.07,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -1399,7 +1547,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.88,
      "volumeCiAtas": 1.32,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -1418,7 +1569,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.54,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -1437,7 +1591,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.84,
      "volumeCiAtas": 11.42,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 13467267
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1456,7 +1613,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.22,
      "volumeCiAtas": 41.71,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1475,7 +1635,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.25,
      "volumeCiAtas": 19.57,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -1494,7 +1657,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.83,
      "volumeCiAtas": 8.83,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -1513,7 +1679,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.53,
      "volumeCiAtas": 15.08,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 30500,
+     "hargaTujuan": 40000,
+     "hematRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -1532,7 +1701,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.36,
      "volumeCiAtas": 13.55,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -1551,7 +1723,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.44,
      "volumeCiAtas": 15.17,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 142857726
     },
     {
      "from": "Lampung",
@@ -1570,7 +1745,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.35,
      "volumeCiAtas": 4.87,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -1589,7 +1767,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.39,
      "volumeCiAtas": 30.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -1608,7 +1789,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.68,
      "volumeCiAtas": 30.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 29500,
+     "hargaTujuan": 38000,
+     "hematRp": 167604143
     },
     {
      "from": "Lampung",
@@ -1627,7 +1811,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 78.5,
      "volumeCiAtas": 100.71,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1646,7 +1833,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 8.41,
      "volumeCiAtas": 10.79,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -1665,7 +1855,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.94,
      "volumeCiAtas": 20.86,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 150192818
     },
     {
      "from": "Sumatera Selatan",
@@ -1684,7 +1877,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.65,
      "volumeCiAtas": 74.09,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -1703,7 +1899,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.16,
      "volumeCiAtas": 17.35,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -1722,7 +1921,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 95.83,
      "volumeCiAtas": 130.6,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 275544609
     },
     {
      "from": "Bali",
@@ -1741,7 +1943,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -1760,7 +1965,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -1779,7 +1987,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.34,
      "volumeCiAtas": 38.67,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -1798,7 +2009,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 27.69,
      "volumeCiAtas": 37.74,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -1817,7 +2031,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 38.44,
      "volumeCiAtas": 59.78,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -1836,7 +2053,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.93,
      "volumeCiAtas": 12.09,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -1855,7 +2075,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 63.3,
      "volumeCiAtas": 86.27,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -1874,7 +2097,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 31.26,
      "volumeCiAtas": 42.6,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -1893,7 +2119,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 106.9,
      "volumeCiAtas": 145.68,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -1912,7 +2141,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 43.02,
      "volumeCiAtas": 66.89,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 229732613
     }
    ]
   }
@@ -1924,7 +2156,8 @@
     "totalVolume": 59,
     "activeRoutes": "1 → 1",
     "estimatedCost": 103767404,
-    "anggaranNasionalTon": 16248732
+    "anggaranNasionalTon": 16248732,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -1958,7 +2191,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.84,
      "volumeCiAtas": 70.48,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 88479125
     }
    ]
   },
@@ -1968,7 +2204,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": 41882
+    "anggaranNasionalTon": 41882,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -1979,7 +2216,8 @@
     "totalVolume": 113,
     "activeRoutes": "2 → 9",
     "estimatedCost": 411064860,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -2067,7 +2305,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 32.23,
      "volumeCiAtas": 36.97,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 466612421
     },
     {
      "from": "Kalimantan Barat",
@@ -2086,7 +2327,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.27,
      "volumeCiAtas": 7.67,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 142290416
     },
     {
      "from": "Kalimantan Barat",
@@ -2105,7 +2349,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.69,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 58039571
     },
     {
      "from": "Kalimantan Barat",
@@ -2124,7 +2371,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.47,
      "volumeCiAtas": 7.18,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 28800675
     },
     {
      "from": "Kalimantan Barat",
@@ -2143,7 +2393,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.55,
      "volumeCiAtas": 11.01,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 30648534
     },
     {
      "from": "Kalimantan Barat",
@@ -2162,7 +2415,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.98,
      "volumeCiAtas": 15.73,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 43838485
     },
     {
      "from": "Kalimantan Barat",
@@ -2181,7 +2437,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.76,
      "volumeCiAtas": 2.65,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 14296034
     },
     {
      "from": "Kalimantan Barat",
@@ -2200,7 +2459,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.31,
      "volumeCiAtas": 14.04,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 49961789
     },
     {
      "from": "Kalimantan Barat",
@@ -2219,7 +2481,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.73,
      "volumeCiAtas": 25.83,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 60755614
     },
     {
      "from": "Kepulauan Riau",
@@ -2238,7 +2503,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.82,
      "volumeCiAtas": 1.19,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 6425373
     }
    ]
   },
@@ -2248,7 +2516,8 @@
     "totalVolume": 426,
     "activeRoutes": "5 → 8",
     "estimatedCost": 561906222,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -2348,7 +2617,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 13.23,
      "volumeCiAtas": 32.05,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 181314251
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2367,7 +2639,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 20.27,
      "volumeCiAtas": 26.0,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 204515114
     },
     {
      "from": "Gorontalo",
@@ -2386,7 +2661,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.29,
      "volumeCiAtas": 12.01,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 138644491
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2405,7 +2683,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.32,
      "volumeCiAtas": 1.73,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 13334232
     },
     {
      "from": "Sulawesi Barat",
@@ -2424,7 +2705,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.77,
      "volumeCiAtas": 44.19,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 601434914
     },
     {
      "from": "Kalimantan Barat",
@@ -2443,7 +2727,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.2,
      "volumeCiAtas": 25.02,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 360089470
     },
     {
      "from": "Lampung",
@@ -2462,7 +2749,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.75,
      "volumeCiAtas": 8.36,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 72187742
     },
     {
      "from": "Kalimantan Barat",
@@ -2481,7 +2771,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 57.05,
      "volumeCiAtas": 73.19,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 329565401
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2500,7 +2793,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.85,
      "volumeCiAtas": 2.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 9061309
     },
     {
      "from": "Lampung",
@@ -2519,7 +2815,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 173.05,
      "volumeCiAtas": 222.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 1595954577
     },
     {
      "from": "Gorontalo",
@@ -2538,7 +2837,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 25.02,
      "volumeCiAtas": 32.74,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 372541931
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2557,7 +2859,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.12,
      "volumeCiAtas": 8.01,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 35125,
+     "hargaTujuan": 39400,
+     "hematRp": 56939780
     }
    ]
   },
@@ -2567,7 +2872,8 @@
     "totalVolume": 652,
     "activeRoutes": "3 → 11",
     "estimatedCost": 1425818773,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -2673,7 +2979,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 29.07,
      "volumeCiAtas": 45.21,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 179419223
     },
     {
      "from": "Sumatera Selatan",
@@ -2692,7 +3001,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.3,
      "volumeCiAtas": 14.46,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 44197416
     },
     {
      "from": "Sumatera Selatan",
@@ -2711,7 +3023,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 89.5,
      "volumeCiAtas": 121.97,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 479581927
     },
     {
      "from": "Bali",
@@ -2730,7 +3045,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.92,
      "volumeCiAtas": 15.14,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 63856117
     },
     {
      "from": "Sumatera Selatan",
@@ -2749,7 +3067,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.2,
      "volumeCiAtas": 0.62,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 2356324
     },
     {
      "from": "Sumatera Selatan",
@@ -2768,7 +3089,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.1,
      "volumeCiAtas": 38.24,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": 18702011
     },
     {
      "from": "Sumatera Selatan",
@@ -2787,7 +3111,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 28.93,
      "volumeCiAtas": 39.43,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 163649595
     },
     {
      "from": "Sumatera Selatan",
@@ -2806,7 +3133,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 41.66,
      "volumeCiAtas": 64.79,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 147206222
     },
     {
      "from": "Sumatera Selatan",
@@ -2825,7 +3155,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.29,
      "volumeCiAtas": 13.2,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 34467419
     },
     {
      "from": "Bengkulu",
@@ -2844,7 +3177,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 75.68,
      "volumeCiAtas": 103.14,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 227360821
     },
     {
      "from": "Bengkulu",
@@ -2863,7 +3199,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.74,
      "volumeCiAtas": 32.35,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": 35807581
     },
     {
      "from": "Sumatera Selatan",
@@ -2882,7 +3221,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 142.63,
      "volumeCiAtas": 194.37,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 493898915
     },
     {
      "from": "Sumatera Selatan",
@@ -2901,7 +3243,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 58.75,
      "volumeCiAtas": 91.36,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 483486563
     }
    ]
   },
@@ -2911,7 +3256,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -2921,7 +3267,9 @@
     "totalRoutes": 36,
     "totalVolume": 1250,
     "activeRoutes": "4 komoditas",
-    "estimatedCost": 2502557259
+    "estimatedCost": 2502557259,
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -3087,7 +3435,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.84,
      "volumeCiAtas": 70.48,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 88479125
     },
     {
      "from": "Kepulauan Riau",
@@ -3106,7 +3457,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 32.23,
      "volumeCiAtas": 36.97,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 466612421
     },
     {
      "from": "Kalimantan Barat",
@@ -3125,7 +3479,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.27,
      "volumeCiAtas": 7.67,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 142290416
     },
     {
      "from": "Kalimantan Barat",
@@ -3144,7 +3501,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.69,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 58039571
     },
     {
      "from": "Kalimantan Barat",
@@ -3163,7 +3523,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.47,
      "volumeCiAtas": 7.18,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 28800675
     },
     {
      "from": "Kalimantan Barat",
@@ -3182,7 +3545,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.55,
      "volumeCiAtas": 11.01,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 30648534
     },
     {
      "from": "Kalimantan Barat",
@@ -3201,7 +3567,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.98,
      "volumeCiAtas": 15.73,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 43838485
     },
     {
      "from": "Kalimantan Barat",
@@ -3220,7 +3589,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.76,
      "volumeCiAtas": 2.65,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 14296034
     },
     {
      "from": "Kalimantan Barat",
@@ -3239,7 +3611,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.31,
      "volumeCiAtas": 14.04,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 49961789
     },
     {
      "from": "Kalimantan Barat",
@@ -3258,7 +3633,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.73,
      "volumeCiAtas": 25.83,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 60755614
     },
     {
      "from": "Kepulauan Riau",
@@ -3277,7 +3655,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.82,
      "volumeCiAtas": 1.19,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 6425373
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3296,7 +3677,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 13.23,
      "volumeCiAtas": 32.05,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 181314251
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3315,7 +3699,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 20.27,
      "volumeCiAtas": 26.0,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 204515114
     },
     {
      "from": "Gorontalo",
@@ -3334,7 +3721,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.29,
      "volumeCiAtas": 12.01,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 138644491
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3353,7 +3743,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.32,
      "volumeCiAtas": 1.73,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 13334232
     },
     {
      "from": "Sulawesi Barat",
@@ -3372,7 +3765,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.77,
      "volumeCiAtas": 44.19,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 601434914
     },
     {
      "from": "Kalimantan Barat",
@@ -3391,7 +3787,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.2,
      "volumeCiAtas": 25.02,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 360089470
     },
     {
      "from": "Lampung",
@@ -3410,7 +3809,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 5.75,
      "volumeCiAtas": 8.36,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 72187742
     },
     {
      "from": "Kalimantan Barat",
@@ -3429,7 +3831,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 57.05,
      "volumeCiAtas": 73.19,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 329565401
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3448,7 +3853,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 1.85,
      "volumeCiAtas": 2.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 9061309
     },
     {
      "from": "Lampung",
@@ -3467,7 +3875,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 173.05,
      "volumeCiAtas": 222.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 1595954577
     },
     {
      "from": "Gorontalo",
@@ -3486,7 +3897,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 25.02,
      "volumeCiAtas": 32.74,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 372541931
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3505,7 +3919,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.12,
      "volumeCiAtas": 8.01,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 35125,
+     "hargaTujuan": 39400,
+     "hematRp": 56939780
     },
     {
      "from": "Sumatera Selatan",
@@ -3524,7 +3941,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 29.07,
      "volumeCiAtas": 45.21,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 179419223
     },
     {
      "from": "Sumatera Selatan",
@@ -3543,7 +3963,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 9.3,
      "volumeCiAtas": 14.46,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 44197416
     },
     {
      "from": "Sumatera Selatan",
@@ -3562,7 +3985,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 89.5,
      "volumeCiAtas": 121.97,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 479581927
     },
     {
      "from": "Bali",
@@ -3581,7 +4007,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.92,
      "volumeCiAtas": 15.14,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 63856117
     },
     {
      "from": "Sumatera Selatan",
@@ -3600,7 +4029,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.2,
      "volumeCiAtas": 0.62,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 2356324
     },
     {
      "from": "Sumatera Selatan",
@@ -3619,7 +4051,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.1,
      "volumeCiAtas": 38.24,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": 18702011
     },
     {
      "from": "Sumatera Selatan",
@@ -3638,7 +4073,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 28.93,
      "volumeCiAtas": 39.43,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 163649595
     },
     {
      "from": "Sumatera Selatan",
@@ -3657,7 +4095,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 41.66,
      "volumeCiAtas": 64.79,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 147206222
     },
     {
      "from": "Sumatera Selatan",
@@ -3676,7 +4117,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.29,
      "volumeCiAtas": 13.2,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 34467419
     },
     {
      "from": "Bengkulu",
@@ -3695,7 +4139,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 75.68,
      "volumeCiAtas": 103.14,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 227360821
     },
     {
      "from": "Bengkulu",
@@ -3714,7 +4161,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.74,
      "volumeCiAtas": 32.35,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": 35807581
     },
     {
      "from": "Sumatera Selatan",
@@ -3733,7 +4183,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 142.63,
      "volumeCiAtas": 194.37,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 493898915
     },
     {
      "from": "Sumatera Selatan",
@@ -3752,7 +4205,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 58.75,
      "volumeCiAtas": 91.36,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 483486563
     }
    ]
   }
@@ -3764,7 +4220,8 @@
     "totalVolume": 57,
     "activeRoutes": "1 → 1",
     "estimatedCost": 100692943,
-    "anggaranNasionalTon": 16248732
+    "anggaranNasionalTon": 16248732,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -3798,7 +4255,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 46.43,
      "volumeCiAtas": 68.39,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 48734180
     }
    ]
   },
@@ -3808,7 +4268,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": 41882
+    "anggaranNasionalTon": 41882,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -3819,7 +4280,8 @@
     "totalVolume": 88,
     "activeRoutes": "2 → 9",
     "estimatedCost": 300717863,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -3907,7 +4369,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.8,
      "volumeCiAtas": 4.36,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -3926,7 +4391,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.16,
      "volumeCiAtas": 38.04,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -3945,7 +4413,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.04,
      "volumeCiAtas": 8.8,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -3964,7 +4435,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.9,
      "volumeCiAtas": 5.68,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -3983,7 +4457,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.44,
      "volumeCiAtas": 5.83,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -4002,7 +4479,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.91,
      "volumeCiAtas": 7.16,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -4021,7 +4501,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.67,
      "volumeCiAtas": 10.07,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -4040,7 +4523,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.88,
      "volumeCiAtas": 1.32,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -4059,7 +4545,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.54,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -4078,7 +4567,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.84,
      "volumeCiAtas": 11.42,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 13467267
     }
    ]
   },
@@ -4088,7 +4580,8 @@
     "totalVolume": 268,
     "activeRoutes": "5 → 8",
     "estimatedCost": 464871943,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -4188,7 +4681,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.22,
      "volumeCiAtas": 41.71,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -4207,7 +4703,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.25,
      "volumeCiAtas": 19.57,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -4226,7 +4725,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.83,
      "volumeCiAtas": 8.83,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -4245,7 +4747,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.53,
      "volumeCiAtas": 15.08,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 30500,
+     "hargaTujuan": 40000,
+     "hematRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -4264,7 +4769,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.36,
      "volumeCiAtas": 13.55,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -4283,7 +4791,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.44,
      "volumeCiAtas": 15.17,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 142857726
     },
     {
      "from": "Lampung",
@@ -4302,7 +4813,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.35,
      "volumeCiAtas": 4.87,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -4321,7 +4835,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.39,
      "volumeCiAtas": 30.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -4340,7 +4857,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.68,
      "volumeCiAtas": 30.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 29500,
+     "hargaTujuan": 38000,
+     "hematRp": 167604143
     },
     {
      "from": "Lampung",
@@ -4359,7 +4879,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 78.5,
      "volumeCiAtas": 100.71,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -4378,7 +4901,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 8.41,
      "volumeCiAtas": 10.79,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -4397,7 +4923,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.94,
      "volumeCiAtas": 20.86,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 150192818
     }
    ]
   },
@@ -4407,7 +4936,8 @@
     "totalVolume": 612,
     "activeRoutes": "3 → 11",
     "estimatedCost": 1376375026,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -4513,7 +5043,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.65,
      "volumeCiAtas": 74.09,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -4532,7 +5065,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.16,
      "volumeCiAtas": 17.35,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -4551,7 +5087,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 95.83,
      "volumeCiAtas": 130.6,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 275544609
     },
     {
      "from": "Bali",
@@ -4570,7 +5109,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -4589,7 +5131,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -4608,7 +5153,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.34,
      "volumeCiAtas": 38.67,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -4627,7 +5175,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 27.69,
      "volumeCiAtas": 37.74,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -4646,7 +5197,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 38.44,
      "volumeCiAtas": 59.78,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -4665,7 +5219,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.93,
      "volumeCiAtas": 12.09,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -4684,7 +5241,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 63.3,
      "volumeCiAtas": 86.27,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -4703,7 +5263,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 31.26,
      "volumeCiAtas": 42.6,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -4722,7 +5285,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 106.9,
      "volumeCiAtas": 145.68,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -4741,7 +5307,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 43.02,
      "volumeCiAtas": 66.89,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 229732613
     }
    ]
   },
@@ -4751,7 +5320,8 @@
     "totalVolume": 0,
     "activeRoutes": "0 → 0",
     "estimatedCost": 0,
-    "anggaranNasionalTon": null
+    "anggaranNasionalTon": null,
+    "status": "tidak ada pasangan surplus-defisit"
    },
    "provinces": [],
    "routes": []
@@ -4761,7 +5331,9 @@
     "totalRoutes": 36,
     "totalVolume": 1025,
     "activeRoutes": "4 komoditas",
-    "estimatedCost": 2242657775
+    "estimatedCost": 2242657775,
+    "anggaranNasionalTon": null,
+    "status": "ok"
    },
    "provinces": [
     {
@@ -4927,7 +5499,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 46.43,
      "volumeCiAtas": 68.39,
-     "konsumsiTujuanTonBulan": 4424.0
+     "konsumsiTujuanTonBulan": 4424.0,
+     "hargaAsal": 14750,
+     "hargaTujuan": 17000,
+     "hematRp": 48734180
     },
     {
      "from": "Kalimantan Barat",
@@ -4946,7 +5521,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.8,
      "volumeCiAtas": 4.36,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -4965,7 +5543,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 33.16,
      "volumeCiAtas": 38.04,
-     "konsumsiTujuanTonBulan": 1723.0
+     "konsumsiTujuanTonBulan": 1723.0,
+     "hargaAsal": 30000,
+     "hargaTujuan": 40000,
+     "hematRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -4984,7 +5565,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.04,
      "volumeCiAtas": 8.8,
-     "konsumsiTujuanTonBulan": 221.0
+     "konsumsiTujuanTonBulan": 221.0,
+     "hargaAsal": 35000,
+     "hargaTujuan": 55000,
+     "hematRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -5003,7 +5587,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.9,
      "volumeCiAtas": 5.68,
-     "konsumsiTujuanTonBulan": 196.9
+     "konsumsiTujuanTonBulan": 196.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 47500,
+     "hematRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -5022,7 +5609,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.44,
      "volumeCiAtas": 5.83,
-     "konsumsiTujuanTonBulan": 199.8
+     "konsumsiTujuanTonBulan": 199.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -5041,7 +5631,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.91,
      "volumeCiAtas": 7.16,
-     "konsumsiTujuanTonBulan": 316.9
+     "konsumsiTujuanTonBulan": 316.9,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -5060,7 +5653,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.67,
      "volumeCiAtas": 10.07,
-     "konsumsiTujuanTonBulan": 437.5
+     "konsumsiTujuanTonBulan": 437.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39500,
+     "hematRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -5079,7 +5675,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 0.88,
      "volumeCiAtas": 1.32,
-     "konsumsiTujuanTonBulan": 120.5
+     "konsumsiTujuanTonBulan": 120.5,
+     "hargaAsal": 35000,
+     "hargaTujuan": 41250,
+     "hematRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -5098,7 +5697,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 4.54,
      "volumeCiAtas": 6.84,
-     "konsumsiTujuanTonBulan": 650.8
+     "konsumsiTujuanTonBulan": 650.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 39000,
+     "hematRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -5117,7 +5719,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 7.84,
      "volumeCiAtas": 11.42,
-     "konsumsiTujuanTonBulan": 923.8
+     "konsumsiTujuanTonBulan": 923.8,
+     "hargaAsal": 35000,
+     "hargaTujuan": 40000,
+     "hematRp": 13467267
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5136,7 +5741,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 17.22,
      "volumeCiAtas": 41.71,
-     "konsumsiTujuanTonBulan": 3321.9
+     "konsumsiTujuanTonBulan": 3321.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5155,7 +5763,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.25,
      "volumeCiAtas": 19.57,
-     "konsumsiTujuanTonBulan": 3725.5
+     "konsumsiTujuanTonBulan": 3725.5,
+     "hargaAsal": 35125,
+     "hargaTujuan": 40000,
+     "hematRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -5174,7 +5785,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 6.83,
      "volumeCiAtas": 8.83,
-     "konsumsiTujuanTonBulan": 950.3
+     "konsumsiTujuanTonBulan": 950.3,
+     "hargaAsal": 30500,
+     "hargaTujuan": 38075,
+     "hematRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -5193,7 +5807,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.53,
      "volumeCiAtas": 15.08,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 30500,
+     "hargaTujuan": 40000,
+     "hematRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -5212,7 +5829,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.36,
      "volumeCiAtas": 13.55,
-     "konsumsiTujuanTonBulan": 3597.1
+     "konsumsiTujuanTonBulan": 3597.1,
+     "hargaAsal": 29500,
+     "hargaTujuan": 40000,
+     "hematRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -5231,7 +5851,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 10.44,
      "volumeCiAtas": 15.17,
-     "konsumsiTujuanTonBulan": 4136.6
+     "konsumsiTujuanTonBulan": 4136.6,
+     "hargaAsal": 36500,
+     "hargaTujuan": 48875,
+     "hematRp": 142857726
     },
     {
      "from": "Lampung",
@@ -5250,7 +5873,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.35,
      "volumeCiAtas": 4.87,
-     "konsumsiTujuanTonBulan": 1383.1
+     "konsumsiTujuanTonBulan": 1383.1,
+     "hargaAsal": 34750,
+     "hargaTujuan": 40000,
+     "hematRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -5269,7 +5895,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.39,
      "volumeCiAtas": 30.0,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 36500,
+     "hargaTujuan": 38000,
+     "hematRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -5288,7 +5917,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 23.68,
      "volumeCiAtas": 30.37,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 29500,
+     "hargaTujuan": 38000,
+     "hematRp": 167604143
     },
     {
      "from": "Lampung",
@@ -5307,7 +5939,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 78.5,
      "volumeCiAtas": 100.71,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 34750,
+     "hargaTujuan": 38000,
+     "hematRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5326,7 +5961,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 8.41,
      "volumeCiAtas": 10.79,
-     "konsumsiTujuanTonBulan": 42634.9
+     "konsumsiTujuanTonBulan": 42634.9,
+     "hargaAsal": 35125,
+     "hargaTujuan": 38000,
+     "hematRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -5345,7 +5983,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 15.94,
      "volumeCiAtas": 20.86,
-     "konsumsiTujuanTonBulan": 3192.6
+     "konsumsiTujuanTonBulan": 3192.6,
+     "hargaAsal": 30500,
+     "hargaTujuan": 39400,
+     "hematRp": 150192818
     },
     {
      "from": "Sumatera Selatan",
@@ -5364,7 +6005,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 47.65,
      "volumeCiAtas": 74.09,
-     "konsumsiTujuanTonBulan": 1671.5
+     "konsumsiTujuanTonBulan": 1671.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30800,
+     "hematRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -5383,7 +6027,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 11.16,
      "volumeCiAtas": 17.35,
-     "konsumsiTujuanTonBulan": 534.6
+     "konsumsiTujuanTonBulan": 534.6,
+     "hargaAsal": 27000,
+     "hargaTujuan": 31500,
+     "hematRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -5402,7 +6049,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 95.83,
      "volumeCiAtas": 130.6,
-     "konsumsiTujuanTonBulan": 4572.0
+     "konsumsiTujuanTonBulan": 4572.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29750,
+     "hematRp": 275544609
     },
     {
      "from": "Bali",
@@ -5421,7 +6071,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 29300,
+     "hargaTujuan": 36400,
+     "hematRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -5440,7 +6093,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 2.61,
      "volumeCiAtas": 8.03,
-     "konsumsiTujuanTonBulan": 470.0
+     "konsumsiTujuanTonBulan": 470.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 36400,
+     "hematRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -5459,7 +6115,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 21.34,
      "volumeCiAtas": 38.67,
-     "konsumsiTujuanTonBulan": 1144.2
+     "konsumsiTujuanTonBulan": 1144.2,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29800,
+     "hematRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -5478,7 +6137,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 27.69,
      "volumeCiAtas": 37.74,
-     "konsumsiTujuanTonBulan": 1478.0
+     "konsumsiTujuanTonBulan": 1478.0,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30000,
+     "hematRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -5497,7 +6159,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 38.44,
      "volumeCiAtas": 59.78,
-     "konsumsiTujuanTonBulan": 2395.3
+     "konsumsiTujuanTonBulan": 2395.3,
+     "hargaAsal": 27000,
+     "hargaTujuan": 30500,
+     "hematRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -5516,7 +6181,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 3.93,
      "volumeCiAtas": 12.09,
-     "konsumsiTujuanTonBulan": 393.5
+     "konsumsiTujuanTonBulan": 393.5,
+     "hargaAsal": 27000,
+     "hargaTujuan": 35450,
+     "hematRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -5535,7 +6203,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 63.3,
      "volumeCiAtas": 86.27,
-     "konsumsiTujuanTonBulan": 3866.2
+     "konsumsiTujuanTonBulan": 3866.2,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29600,
+     "hematRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -5554,7 +6225,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 31.26,
      "volumeCiAtas": 42.6,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 28800,
+     "hargaTujuan": 29350,
+     "hematRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -5573,7 +6247,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 106.9,
      "volumeCiAtas": 145.68,
-     "konsumsiTujuanTonBulan": 8498.7
+     "konsumsiTujuanTonBulan": 8498.7,
+     "hargaAsal": 27000,
+     "hargaTujuan": 29350,
+     "hematRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -5592,7 +6269,10 @@
      "epsilonSumber": "regional",
      "volumeCiBawah": 43.02,
      "volumeCiAtas": 66.89,
-     "konsumsiTujuanTonBulan": 3377.9
+     "konsumsiTujuanTonBulan": 3377.9,
+     "hargaAsal": 27000,
+     "hargaTujuan": 32300,
+     "hematRp": 229732613
     }
    ]
   }

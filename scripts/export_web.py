@@ -55,6 +55,7 @@ def load_artifacts(art: Path) -> dict:
         "centroids": pq("centroids"),
         "bench_final": pq("bench_final"),
         "meta": json.loads((art / "meta.json").read_text()),
+        "buku_besar": json.loads((art / "buku_besar.json").read_text()),
         "final_results": json.loads((art / "final_results.json").read_text()),
     }
 
@@ -197,7 +198,13 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        "epsilonSumber": str(r.epsilon_sumber),
                        "volumeCiBawah": round(float(r.volume_ci_bawah), 2),
                        "volumeCiAtas": round(float(r.volume_ci_atas), 2),
-                       "konsumsiTujuanTonBulan": round(float(r.konsumsi_tujuan_ton_bulan), 1)})
+                       "konsumsiTujuanTonBulan": round(float(r.konsumsi_tujuan_ton_bulan), 1),
+                       # The two prices the solver itself compared when it chose
+                       # this lane. A report that recomputed them from heatmap.json
+                       # could disagree with the plan it is describing.
+                       "hargaAsal": round(float(r.harga_asal)),
+                       "hargaTujuan": round(float(r.harga_tujuan)),
+                       "hematRp": round(float(r.hemat_rp))})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -213,7 +220,11 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                "estimatedCost": round(float(plan.get("total_biaya",
                                                      col_sum("biaya_rp")))),
                "anggaranNasionalTon": (None if plan.get("anggaran_nasional") is None
-                                       else round(float(plan["anggaran_nasional"])))}
+                                       else round(float(plan["anggaran_nasional"]))),
+               # Why the plan looks the way it does, straight from the solver.
+               # The front end used to invent this sentence and got it wrong for
+               # every empty plan.
+               "status": str(plan["status"])}
     return {"summary": summary, "provinces": provinces, "routes": routes}
 
 
@@ -239,7 +250,14 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
             # Skipping it let the front-end's `data[commodity] ?? data["all"]`
             # fall through to the aggregate, so selecting Bawang Merah displayed
             # Beras routes under a Bawang Merah heading.
-            per_kom[cid] = _response_for(sub, cid, plan_meta.get(f"{wfp}|{postur}", {}))
+            key = f"{wfp}|{postur}"
+            if key not in plan_meta:
+                raise KeyError(
+                    f"plan_meta has no entry for {key!r}. Every commodity-posture "
+                    f"pair must be present, including empty ones — a missing entry "
+                    f"would render as an unexplained blank table."
+                )
+            per_kom[cid] = _response_for(sub, cid, plan_meta[key])
         with_routes = [r for r in per_kom.values() if r["routes"]]
         all_routes = [rt for resp in with_routes for rt in resp["routes"]]
         all_net = {}
@@ -251,7 +269,11 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
             "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
                         "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
                         "activeRoutes": f"{len(with_routes)} komoditas",
-                        "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes)},
+                        "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes),
+                        # A national tonnage cap is per-commodity; summing it
+                        # across six commodities would be a number with no meaning.
+                        "anggaranNasionalTon": None,
+                        "status": "ok" if all_routes else "kosong"},
             "provinces": [{"id": slug(n), "name": n,
                            "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
                           for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],
@@ -400,6 +422,7 @@ def main(argv=None) -> int:
     executive = build_executive(A)
     timeseries = build_timeseries(A["panel"], A["forecast_path"])
     commodity_mape = build_commodity_mape(A["bench_final"], A["final_results"])
+    buku_besar = A["buku_besar"]
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -410,6 +433,7 @@ def main(argv=None) -> int:
     _write(args.out, "executive.json", executive)
     _write(args.out, "timeseries.json", timeseries)
     _write(args.out, "commodity_mape.json", commodity_mape)
+    _write(args.out, "buku_besar.json", buku_besar)
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -434,6 +458,15 @@ def main(argv=None) -> int:
         assert any(p["isToday"] for p in sample), "no isToday flag"
         assert sum(p["isFuture"] for p in sample) == 3, "expected 3 forecast points"
     assert len(commodity_mape) == 6, "commodity_mape must cover 6 commodities"
+    assert buku_besar and all(
+        {"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in buku_besar
+    ), "buku_besar entries are missing required fields"
+    assert all(e["status"] in {"terukur", "diasumsikan"} for e in buku_besar), \
+        "buku_besar status must be terukur or diasumsikan"
+    for postur, per_kom in redist.items():
+        for cid, resp in per_kom.items():
+            assert resp["summary"].get("status"), f"{postur}/{cid} has no status"
+            assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
     print("export_web: OK")
     return 0
 
