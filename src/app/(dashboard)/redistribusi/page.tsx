@@ -13,7 +13,7 @@ import { BukuBesarPanel } from "@/components/redistribusi/buku-besar-panel";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
 import { formatRupiah } from "@/lib/format";
-import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet, Search } from "lucide-react";
+import { ChevronDown, RefreshCw, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -141,6 +141,17 @@ export default function RedistribusiPage() {
               )}
             </AnimatePresence>
           </div>
+
+          {(["pemerintah", "pedagang"] as const).map((pembaca) => (
+            <a
+              key={pembaca}
+              href={`/api/redistribution-report?commodity=${commodity}&postur=${postur}&pembaca=${pembaca}`}
+              className="h-10 inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-slate-300 bg-white px-3 text-xs font-bold text-slate-700 hover:border-slate-400 shadow-xs transition-all"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Laporan {pembaca === "pemerintah" ? "Pemerintah" : "Pedagang"}
+            </a>
+          ))}
         </div>
       </div>
 
