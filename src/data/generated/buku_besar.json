@@ -1,7 +1,7 @@
 [
  {
   "input": "Populasi provinsi",
-  "nilai": "34 provinsi, nasional 284,667,253 jiwa",
+  "nilai": "34 provinsi, nasional 284.667.253 jiwa",
   "sumber": "BPS WebAPI, var_id 2781, th 125, turvar 585 (Jumlah)",
   "tahun": "2025",
   "status": "terukur"
@@ -36,14 +36,14 @@
  },
  {
   "input": "Ongkos angkut per ton-km",
-  "nilai": "Rp2,500",
+  "nilai": "Rp2.500",
   "sumber": "Perkiraan tengah; angkutan antarpulau Indonesia berkisar Rp2.000-4.000 per ton-km tergantung rute dan moda",
   "tahun": "—",
   "status": "diasumsikan"
  },
  {
   "input": "Anggaran GPM per kegiatan",
-  "nilai": "Rp26,300,000",
+  "nilai": "Rp26.300.000",
   "sumber": "RKA Bapanas 2027 pada Rapat Komisi IV DPR RI, 1 September 2026 (1.888 kegiatan, Rp49,7 miliar). Rencana 2027 diterapkan pada realisasi 2026.",
   "tahun": "2027 (rencana)",
   "status": "diasumsikan"
