@@ -511,7 +511,10 @@ def test_price_impact_facts_survive_the_number_verifier(bahan):
     f = narasi.fakta_redistribusi(flows, meta, "Telur Ayam", "seimbang")
     kalimat = (f"Rencana menahan {f['ditahan_pp']} poin persen "
                f"pada {f['bulan_sasaran']}.")
-    assert narasi.verifikasi(kalimat, f) == []
+    # verifikasi mengembalikan (bool, list[str]) -- `return (not sisa), sisa`.
+    # Membandingkannya dengan [] selalu gagal.
+    ok, sisa = narasi.verifikasi(kalimat, f)
+    assert ok, sisa
 ```
 
 Fixture `bahan` sudah ada di berkas itu dan mengembalikan `(flows, meta)`. Perhatikan
@@ -896,7 +899,7 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 **Files:**
 - Modify: `supplai-dev/src/lib/redistribusi/report.ts:86-92`
 - Modify: `supplai-dev/src/lib/prediction/report.ts` (blok kepala, dekat baris 52)
-- Test: `supplai-dev/src/lib/redistribusi/report.test.ts`
+- Create/Modify test: `supplai-dev/src/lib/redistribusi/teks.test.ts`
 
 **Interfaces:**
 - Consumes: `jendelaWaktu()` dari Task 8; `plan_meta.bulanPrediksi` dari Task 7
@@ -904,50 +907,56 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 
 - [ ] **Step 1: Tulis tes yang gagal**
 
-Tambahkan di `supplai-dev/src/lib/redistribusi/report.test.ts`:
+Tambahkan di `supplai-dev/src/lib/redistribusi/teks.test.ts`:
 
 ```typescript
 it("menyebut bulan sasaran di kepala laporan", () => {
-  const teks = barisLaporan({ ...ANALISIS_CONTOH, bulanPrediksi: "2026-09-01" }, "pemerintah", new Date("2026-08-20T00:00:00Z")).join(" ")
+  const teks = teksJendela("2026-09-01", new Date("2026-08-20T00:00:00Z")).join(" ")
   expect(teks).toContain("September 2026")
 })
 
 it("membuka dengan pernyataan ketika jendelanya sudah lewat", () => {
   // Di badan laporan, bukan catatan kaki: ia menentukan apakah laporan ini
   // masih boleh dipakai sama sekali.
-  const teks = barisLaporan({ ...ANALISIS_CONTOH, bulanPrediksi: "2026-09-01" }, "pemerintah", new Date("2026-09-07T00:00:00Z")).join(" ")
+  const teks = teksJendela("2026-09-01", new Date("2026-09-07T00:00:00Z")).join(" ")
   expect(teks.toLowerCase()).toContain("jendela")
   expect(teks.toLowerCase()).toContain("lewat")
 })
 ```
 
-`report.ts` saat ini hanya mengekspor `createRedistribusiReport(a, pembaca)` yang langsung
-menggambar ke jsPDF, sehingga tidak ada yang bisa diuji. Sebelum tes ini bisa lulus,
-pisahkan dulu penyusun teksnya:
+`report.ts` menggambar dengan closure: `heading`, `paragraph` dan kawan-kawannya
+didefinisikan **di dalam** `createRedistribusiReport`, menutup `doc` dan `y`. Mengekstrak
+model bagian yang utuh berarti menyentuh setiap bagian yang sudah ada — jauh lebih besar
+dari yang dibenarkan pekerjaan ini.
+
+Jadi jangan ubah gaya penggambarannya. Buat berkas baru `src/lib/redistribusi/teks.ts`
+berisi fungsi murni yang hanya mengembalikan teks, lalu `report.ts` memanggilnya dan
+meneruskan tiap string ke `paragraph()` yang sudah ada:
 
 ```typescript
-/** Baris teks laporan, terpisah dari penggambarannya, supaya isinya dapat diuji
- *  tanpa menjalankan jsPDF. */
-export function barisLaporan(
-  a: RedistribusiAnalysis,
-  pembaca: Pembaca,
-  sekarang: Date,
-): string[] { /* ... */ }
+/** Kepala laporan: bulan sasaran dan sisa waktu. Baris pertama selalu ada;
+ *  baris kedua berubah bunyinya ketika jendelanya sudah lewat. */
+export function teksJendela(bulanPrediksi: string, sekarang: Date): string[]
 
-export function createRedistribusiReport(
-  a: RedistribusiAnalysis,
-  pembaca: Pembaca,
-  sekarang: Date = new Date(),
-) { /* memanggil barisLaporan lalu menggambarnya */ }
+/** Paragraf bagian penekanan harga (kerangka pemerintah). */
+export function teksPenekananHarga(a: RedistribusiAnalysis): string[]
+
+/** Kalimat definisi marjin harapan (kerangka pedagang). */
+export function teksMarjin(): string
 ```
 
-`sekarang` diberi nilai bawaan `new Date()` **hanya** di pembungkus jsPDF; `barisLaporan`
-mewajibkannya, supaya tidak ada jalur yang diam-diam membaca jam saat diuji. Rute API
-`src/app/api/redistribution-report/route.ts` tidak perlu berubah.
+Yang diuji adalah `teks.ts`, yang murni. jsPDF tidak diuji. `createRedistribusiReport`
+menerima parameter ketiga `sekarang: Date = new Date()`; nilai bawaannya ada **hanya**
+di pembungkus itu, sedangkan fungsi di `teks.ts` mewajibkannya agar tidak ada jalur yang
+diam-diam membaca jam saat diuji. Rute API `src/app/api/redistribution-report/route.ts`
+tidak perlu berubah.
+
+Konsekuensi yang diterima: tes memverifikasi isi teks, bukan letaknya di dalam PDF.
+Letak diperiksa manual pada Task 13 dan oleh review akhir.
 
 - [ ] **Step 2: Jalankan tes untuk memastikan gagal**
 
-Run: `npx vitest run src/lib/redistribusi/report.test.ts`
+Run: `npx vitest run src/lib/redistribusi/teks.test.ts`
 Expected: FAIL
 
 - [ ] **Step 3: Tulis implementasi**
@@ -1003,7 +1012,7 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 
 **Files:**
 - Modify: `supplai-dev/src/lib/redistribusi/report.ts` (kerangka pemerintah, setelah "01 Ringkasan")
-- Test: `supplai-dev/src/lib/redistribusi/report.test.ts`
+- Create/Modify test: `supplai-dev/src/lib/redistribusi/teks.test.ts`
 
 **Interfaces:**
 - Consumes: `analisis.dampak` dari Task 9; `a.terukur` / `a.diasumsikan` yang **sudah ada**; `ton`, `persen` dari `src/lib/redistribusi/format.ts`
@@ -1015,24 +1024,38 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 it("menyatakan penekanan harga sebagai selisih terhadap tanpa-intervensi", () => {
   // "Menekan harga X%" tanpa pembanding terbaca sebagai penurunan mutlak.
   // Yang benar: harga berakhir X% lebih rendah dibanding tanpa intervensi.
-  const teks = barisLaporan(ANALISIS_CONTOH, "pemerintah", new Date("2026-08-20T00:00:00Z")).join(" ")
+  const teks = teksPenekananHarga(contoh()).join(" ")
   expect(teks).toContain("tanpa intervensi")
 })
 
 it("memisahkan berapa rute terukur dan berapa diasumsikan", () => {
-  const teks = barisLaporan(ANALISIS_CONTOH, "pemerintah", new Date("2026-08-20T00:00:00Z")).join(" ")
+  const teks = teksPenekananHarga(contoh()).join(" ")
   expect(teks).toContain("diasumsikan")
 })
 ```
 
+Pembantu `contoh()` di kepala berkas tes, memuat data nyata seperti gaya
+`analysis.test.ts` yang sudah ada:
+
+```typescript
+import { getRedistributionData } from "@/data/redistribution";
+import { analyzeRedistribusi } from "./analysis";
+
+const contoh = () =>
+  analyzeRedistribusi(
+    getRedistributionData("telur-ayam", "seimbang"), "telur-ayam", "seimbang",
+  );
+```
+
 - [ ] **Step 2: Jalankan tes untuk memastikan gagal**
 
-Run: `npx vitest run src/lib/redistribusi/report.test.ts`
+Run: `npx vitest run src/lib/redistribusi/teks.test.ts`
 Expected: 2 FAIL
 
 - [ ] **Step 3: Tulis implementasi**
 
-Di kerangka pemerintah `report.ts`, setelah bagian "01 Ringkasan", sisipkan dan geser penomoran bagian setelahnya:
+Isi paragrafnya di `teks.ts` sebagai `teksPenekananHarga(a)`, lalu `report.ts`
+memanggilnya di kerangka pemerintah setelah bagian "01 Ringkasan", sisipkan dan geser penomoran bagian setelahnya:
 
 ```typescript
     heading("02  Penekanan harga")
@@ -1081,7 +1104,7 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 
 **Files:**
 - Modify: `supplai-dev/src/lib/redistribusi/report.ts` (kerangka pedagang, bagian "02 Selisih harga terhadap ongkos angkut")
-- Test: `supplai-dev/src/lib/redistribusi/report.test.ts`
+- Create/Modify test: `supplai-dev/src/lib/redistribusi/teks.test.ts`
 
 **Interfaces:**
 - Consumes: field rute `marjinHarapanRp` dari Task 2
@@ -1093,7 +1116,7 @@ Claude-Session: https://claude.ai/code/session_01AB4ghSXJctvGS2kUYLFALy"
 it("menyebut marjin sebagai harapan terhadap harga yang sudah naik", () => {
   // Label "Hemat" pada angka ini adalah klaim yang salah: ia keuntungan
   // yang diharapkan bila kenaikan yang diprediksi benar-benar terjadi.
-  const teks = barisLaporan(ANALISIS_CONTOH, "pedagang", new Date("2026-08-20T00:00:00Z")).join(" ")
+  const teks = teksMarjin()
   expect(teks).not.toContain("Hemat")
   expect(teks).toContain("bila kenaikan")
 })
@@ -1101,7 +1124,7 @@ it("menyebut marjin sebagai harapan terhadap harga yang sudah naik", () => {
 
 - [ ] **Step 2: Jalankan tes untuk memastikan gagal**
 
-Run: `npx vitest run src/lib/redistribusi/report.test.ts`
+Run: `npx vitest run src/lib/redistribusi/teks.test.ts`
 Expected: FAIL
 
 - [ ] **Step 3: Tulis implementasi**
