@@ -37,7 +37,8 @@ sasaran. Kerangkanya harus berbasis tingkatan daerah, bukan geografi.
 3. Tidak ada konsep muatan balik; LP satu arah.
 4. Ongkos = jarak × tarif, berlawanan dengan tesis mentor.
 5. Tidak ada bacaan komoditas kuat/lemah per daerah.
-6. KDMP nol penyebutan di seluruh repo.
+6. KDMP nol penyebutan di seluruh repo — dicatat sebagai temuan, tetapi **tidak
+   dikerjakan**; lihat Bukan sasaran.
 
 ## Keputusan lintas-bagian
 
@@ -50,6 +51,12 @@ dipertanggungjawabkan, dan selalu mengundang nama yang melampaui definisinya.
 
 **Nama resmi tidak dipinjam.** Kelompok terbawah tidak disebut "daerah tertinggal" —
 itu sebutan resmi tingkat kabupaten dengan daftarnya sendiri (Perpres 63/2020).
+
+**PDF adalah permukaan utama, layar yang kedua.** Atas keputusan pemilik produk, yang
+dinilai adalah rekomendasi berbentuk PDF untuk pemerintah atau swasta. Karena itu tidak
+ada temuan yang berhenti di dashboard: setiap bagian di bawah ini harus menyebutkan ke
+bagian PDF mana ia mendarat, dan sebuah bagian dianggap belum selesai selama temuannya
+baru ada di layar.
 
 ---
 
@@ -260,7 +267,7 @@ mempertaruhkan setiap angka yang sudah terbit.
 
 ---
 
-## Bagian 4 — Lanskap komoditas, KDMP, arsitektur
+## Bagian 4 — Lanskap komoditas, tol laut, arsitektur
 
 ### Komoditas kuat/lemah per daerah
 
@@ -288,26 +295,17 @@ Panel "Wilayah Surplus" mendapat `<Penjelas>` yang menyebut definisinya berbasis
 surplus berarti harga di bawah median nasional dan tidak diprediksi melonjak — bukan
 kelebihan produksi terukur.
 
-### KDMP dan tol laut
+### Tol laut
 
-Framing bersitasi, bukan input model.
+Framing bersitasi, bukan input model. **KDMP dikeluarkan dari cakupan** atas keputusan
+pemilik produk: ia tidak mengubah satu pun angka, dan data per provinsinya tidak
+tersedia publik.
 
-KDMP: 83.381 koperasi terbentuk, 80.977 ber-NPWP, 60.786 ber-NIB (20 Juli 2026);
-10.000 beroperasi dan 3.300 optimal (14 Agustus 2026). Beras SPHP nasional 493,8 juta
-kg dari target 828 juta kg, dan **9,44 juta kg lewat KDMP — 1,9%**. Fungsinya sudah
-mencakup operasi pasar, yang adalah GPM yang sudah dimodelkan di `kebutuhan.py`.
-
-Tol laut: 107 trayek (2024) — 12 barat, 41 tengah, 54 timur. Pada 2025, dari 12 trayek
+Tol laut tetap masuk karena ia bukti bagi Bagian 3: 107 trayek (2024) — 12 barat, 41 tengah, 54 timur. Pada 2025, dari 12 trayek
 di pelabuhan pengumpul, **8 trayek bermuatan balik 0 TEUs**. Rekomendasi resmi
 Kemenhub adalah lembaga agregator muatan yang menghubungkan produsen daerah dengan
 pasar tujuan — peran yang membutuhkan ramalan tiga bulan yang tidak dimiliki agregator
 mana pun.
-
-Data KDMP per provinsi **tidak** dipakai sebagai lapisan kapasitas. Yang tersedia
-publik hanya 10 provinsi teratas (Jawa Tengah 8.524, Jawa Timur 8.494, Aceh 6.534) dan
-tiga terbawah (Jakarta 268, Bangka Belitung 393, Kepulauan Riau 407); dasbor Simkopdes
-tertutup. Sumber juga tidak sepakat pada Papua Pegunungan (2.359 versus 2.387).
-Membangun lapisan per provinsi di atas daftar sepuluh besar akan jadi karangan.
 
 ### Arsitektur
 
@@ -345,6 +343,38 @@ jalan.
 
 ---
 
+## Permukaan pengiriman: dua laporan PDF
+
+Laporan redistribusi sudah punya dua kerangka. Yang sekarang ada:
+
+| Kerangka Pemerintah | Kerangka Pedagang |
+|---|---|
+| 01 Ringkasan | 01 Ringkasan |
+| 02 Rute dan takaran | 02 Selisih harga terhadap ongkos angkut |
+| 03 Dasar takaran | 03 Batasan |
+| 04 Pagu anggaran | |
+| 05 Asal-usul angka | |
+
+Kerangka pedagang jelas lebih tipis, dan pekerjaan ini yang mengisinya.
+
+### Ke mana tiap temuan mendarat
+
+| Temuan | Pemerintah | Pedagang |
+|---|---|---|
+| Penekanan harga (Bagian 2) | bagian baru setelah Ringkasan: persen tertahan, Rp/kg, Rp/bulan, rasio manfaat, dipecah menurut `dasar_takaran` | disebut ringkas di Ringkasan; bukan bahasa pembeliannya |
+| Marjin harapan (Bagian 2) | — | menggantikan `hemat_rp` di bagian 02, dengan definisinya tertulis |
+| Kesenjangan IKP (Bagian 1) | bagian baru: sebaran rencana atas tiga kelompok IKP, plus provinsi ber-IKP terendah yang di luar jangkauan model | — |
+| Muatan balik (Bagian 3) | bagian baru: diagnosis kekosongan balik dan ton-km terbuang | **bagian utama** — perantaian adalah cara pedagang menekan ongkos |
+| Lanskap komoditas (Bagian 4) | — | **bagian utama** — komoditas mana di provinsi ini di bawah/atas median |
+| Uji tesis ongkos (Bagian 3) | satu paragraf di Batasan: apakah jarak menyetir rencana | satu paragraf yang sama |
+
+Pemisahannya disengaja: cerita pemerataan dan penekanan harga milik pemerintah;
+cerita perantaian dan lanskap milik pedagang. Keduanya menerima keduanya, tetapi
+penekanannya berbeda karena keputusannya berbeda.
+
+Setiap angka baru di kedua PDF melewati pemverifikasi angka `narasi.py` seperti yang
+sudah berlaku, dan membawa `dasar_takaran`-nya.
+
 ## Data yang dicari dan tidak ditemukan
 
 Dicatat supaya tidak dicari ulang, dan supaya batasnya bisa dinyatakan di proposal:
@@ -353,7 +383,7 @@ Dicatat supaya tidak dicari ulang, dan supaya batasnya bisa dinyatakan di propos
 |---|---|
 | IKP resmi per provinsi | **Didapat**, tervalidasi, akan dikomit |
 | Daftar trayek tol laut terbaca mesin | Tidak ada; hanya deskripsi naratif T-1..T-3 |
-| KDMP per provinsi lengkap | Tidak ada; hanya 10 teratas dan 3 terbawah |
+| KDMP per provinsi lengkap | Tidak ada; hanya 10 teratas dan 3 terbawah — lalu dikeluarkan dari cakupan |
 | Data transaksi keuangan daerah | Tidak ada yang terbuka; Simkopdes tertutup |
 
 Konsekuensinya: uji tesis ongkos memakai struktur abstrak (a)/(b)/(c), bukan frekuensi
@@ -363,7 +393,7 @@ layanan nyata.
 
 - Membongkar model ongkos. Diuji lebih dulu.
 - Model kendaraan atau penjadwalan kapal.
-- Lapisan kapasitas KDMP per provinsi.
+- KDMP dalam bentuk apa pun — dikeluarkan atas keputusan pemilik produk.
 - Melatih ulang model ramalan atau menambah komoditas yang diramalkan.
 - Menyatakan tingkatan daerah dengan sebutan resmi pemerintah.
 
