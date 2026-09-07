@@ -171,17 +171,17 @@ export function createRedistribusiReport(
     ]);
     heading("02  Selisih harga terhadap ongkos angkut");
     if (a.routes.length) {
-      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
+      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu. Marjin harapan adalah total rute, dalam rupiah, tanpa prediksi. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
       table(
-        ["Asal", "Tujuan", "Harga asal", "Harga tujuan", "Jarak", "Ongkos/kg", "Margin/kg", "Menutup"],
+        ["Asal", "Tujuan", "Harga asal", "Harga tujuan", "Jarak", "Ongkos/kg", "Margin/kg", "Marjin harapan", "Menutup"],
         [...a.routes]
           .sort((x, z) => z.marginRpPerKg - x.marginRpPerKg)
           .map((r) => [
             r.from, r.to, formatRupiah(r.hargaAsal), formatRupiah(r.hargaTujuan),
             `${formatNumber(r.distance)} km`, formatRupiah(r.ongkosRpPerKg),
-            formatRupiah(r.marginRpPerKg), r.menutupOngkos ? "Ya" : "Tidak",
+            formatRupiah(r.marginRpPerKg), formatRupiah(r.marjinHarapanRp), r.menutupOngkos ? "Ya" : "Tidak",
           ]),
-        [25, 25, 21, 22, 20, 21, 22, 18],
+        [25, 25, 21, 22, 20, 21, 22, 28, 18],
       );
       paragraph(`Rekapitulasi: ${a.menutup} rute menutup ongkos, ${a.totalRute - a.menutup} rute tidak, dari ${a.totalRute} rute yang seluruhnya tercantum di atas.`, 10, green);
       paragraph(teksMarjin(), 9, muted);

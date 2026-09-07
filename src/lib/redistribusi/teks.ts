@@ -78,14 +78,19 @@ export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
 
 /** Kerangka pedagang: penjelasan tentang marjin harapan. Ia adalah selisih
  *  antara harga tujuan SETELAH kenaikan yang diprediksi dan harga asal hari
- *  ini, dikurangi ongkos angkut. Penting untuk menyatakan bahwa ia harapan
- *  (conditional pada kenaikan yang terjadi) dan bukan penghematan (yang sudah
- *  terwujud). */
+ *  ini, dikurangi ongkos angkut, untuk SELURUH RUTE (bukan per kilogram).
+ *  Penting untuk menyatakan bahwa ia harapan (conditional pada kenaikan yang
+ *  terjadi) dan bukan penghematan (yang sudah terwujud). Juga harus dijelaskan
+ *  perbedaan antara Margin/kg (hari ini, tanpa prediksi) dan Marjin harapan
+ *  (setelah prediksi, untuk seluruh rute). */
 export function teksMarjin(): string {
   return (
-    `Marjin harapan adalah selisih antara harga tujuan setelah kenaikan yang ` +
-    `diprediksi dan harga asal hari ini, dikurangi ongkos angkut. Ia bukan ` +
-    `penghematan: angka ini terwujud hanya bila kenaikan yang diprediksi ` +
-    `benar-benar terjadi. Marjin negatif ditampilkan apa adanya.`
+    `Marjin harapan adalah total rute — selisih antara harga tujuan setelah ` +
+    `kenaikan yang diprediksi dan harga asal hari ini, dikurangi ongkos angkut ` +
+    `untuk seluruh volume. Ia bukan penghematan: angka ini terwujud hanya bila ` +
+    `kenaikan yang diprediksi benar-benar terjadi. Marjin negatif ditampilkan ` +
+    `apa adanya. Margin/kg di kolom sebelumnya adalah selisih hari ini per ` +
+    `kilogram, tanpa prediksi — dua besaran berbeda, keduanya berguna bagi ` +
+    `pedagang yang memutuskan apakah perlu memindahkan barang.`
   )
 }

@@ -24,12 +24,23 @@ describe("teksJendela", () => {
 })
 
 describe("teksMarjin", () => {
-  it("menyebut marjin sebagai harapan terhadap harga yang sudah naik", () => {
-    // Label "Hemat" pada angka ini adalah klaim yang salah: ia keuntungan
-    // yang diharapkan bila kenaikan yang diprediksi benar-benar terjadi.
+  it("menyatakan marjin sebagai conditional pada prediksi, bukan pasti diterima hari ini", () => {
+    // Marjin adalah keuntungan YANG DIHARAPKAN, tergantung pada apakah kenaikan
+    // yang diprediksi benar-benar terjadi. Bukan "keuntungan yang sudah pasti
+    // diterima hari ini". Kalimat yang salah: "Marjin ini adalah keuntungan
+    // yang sudah pasti diterima pedagang hari ini, terlepas dari bila kenaikan
+    // harga yang diprediksi terjadi atau tidak." — itu lolos "tidak ada Hemat"
+    // dan "ada bila kenaikan", tapi maknanya bertolak belakang. Test harus
+    // memeriksa makna sebenarnya: tergantung pada prediksi.
     const teks = teksMarjin()
+    // Frasa kunci yang menyatakan kondisionalitas: angka terwujud HANYA BILA
+    // prediksi terjadi. Bukan "sudah pasti" atau "terlepas dari".
+    expect(teks).toContain("terwujud hanya bila")
+    // Menolak frasa yang menyatakan keuntungan pasti hari ini
+    expect(teks).not.toContain("sudah pasti")
+    expect(teks).not.toContain("terlepas dari")
+    // Label "Hemat" tetap ditolak
     expect(teks).not.toContain("Hemat")
-    expect(teks).toContain("bila kenaikan")
   })
 })
 
