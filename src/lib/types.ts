@@ -104,12 +104,26 @@ export interface RedistributionRoute {
    *  angkut. Bukan penghematan: ia keuntungan yang diharapkan bila kenaikan
    *  yang diprediksi benar-benar terjadi. */
   marjinHarapanRp: number
+  /** Poin persen kenaikan yang ditahan rute ini. Mewarisi dasarTakaran: bila
+   *  volumenya diasumsikan, angka ini juga diasumsikan. `null` — bukan 0 —
+   *  bila provinsi tujuan tidak punya data konsumsi pendukung; jangan
+   *  tampilkan sebagai angka bila null. */
+  ditahanPp: number | null
+  ditahanCiBawah: number | null
+  ditahanCiAtas: number | null
+  /** Bagian kenaikan terprediksi yang tertutup, 0..1. `null` mengikuti
+   *  ditahanPp — sama-sama tidak diketahui, bukan nol. */
+  fraksiDitahan: number | null
 }
 
 export interface RedistributionResponse {
   summary: { totalRoutes: number; totalVolume: number; activeRoutes: string
              estimatedCost: number
              anggaranNasionalTon: number | null
+             /** Bulan yang diramal, ISO "YYYY-MM-DD". Tenggat tindakan adalah
+              *  AWAL bulan ini, bukan akhirnya. */
+             bulanPrediksi: string
+             horizonBulan: number
              /** The solver's own reason, e.g. "ok", "tidak perlu intervensi".
               *  Left as a string, not a union: "solver gagal: …" carries a
               *  variable message. */

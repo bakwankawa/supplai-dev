@@ -180,8 +180,21 @@ def build_alerts(alerts_df: pd.DataFrame, meta: dict) -> dict:
             "alerts": alerts}
 
 
-def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
+def _response_for(sub: pd.DataFrame, cid: str, plan: dict,
+                  bulan_prediksi: str, horizon_bulan: int) -> dict:
     routes, net = [], {}
+
+    def or_none(x, ndigits):
+        # ditahan_pp and its three companions are deliberately NaN for a route
+        # with no supporting consumption data (kebutuhan.dampak_harga simply
+        # omits that province, so a .map() lookup comes back NaN) — unknown
+        # must not read as zero. json.dumps would otherwise write a bare NaN
+        # token, which JSON.parse in the browser rejects; None serializes to
+        # `null`, which survives the trip and keeps "unknown" representable.
+        # Mirrors anggaranNasionalTon's existing None-if-missing precedent below.
+        x = float(x)
+        return None if pd.isna(x) else round(x, ndigits)
+
     for r in sub.itertuples():
         routes.append({"from": r.dari, "to": r.ke, "commodity": cid,
                        "volume": round(float(r.volume_ton)),
@@ -207,7 +220,14 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        # could disagree with the plan it is describing.
                        "hargaAsal": round(float(r.harga_asal)),
                        "hargaTujuan": round(float(r.harga_tujuan)),
-                       "marjinHarapanRp": round(float(r.marjin_harapan_rp))})
+                       "marjinHarapanRp": round(float(r.marjin_harapan_rp)),
+                       # Poin persen kenaikan yang ditahan rute ini. Mewarisi
+                       # dasarTakaran: NaN (-> null) di sini berarti tidak ada
+                       # data konsumsi pendukung untuk provinsi tujuannya.
+                       "ditahanPp": or_none(r.ditahan_pp, 3),
+                       "ditahanCiBawah": or_none(r.ditahan_ci_bawah, 3),
+                       "ditahanCiAtas": or_none(r.ditahan_ci_atas, 3),
+                       "fraksiDitahan": or_none(r.fraksi_ditahan, 4)})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -224,6 +244,10 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                                                      col_sum("biaya_rp")))),
                "anggaranNasionalTon": (None if plan.get("anggaran_nasional") is None
                                        else round(float(plan["anggaran_nasional"]))),
+               # Bulan yang diramal dan horizon yang mendasarinya — konstan di
+               # seluruh flows, diteruskan apa adanya dari build_redistribution.
+               "bulanPrediksi": bulan_prediksi,
+               "horizonBulan": horizon_bulan,
                # Why the plan looks the way it does, straight from the solver.
                # The front end used to invent this sentence and got it wrong for
                # every empty plan.
@@ -242,6 +266,12 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
         )
     plan_meta = meta["plan_meta"]
     posturs = meta["postur_tersedia"]
+    # Single forecast run -> one target month and one horizon, constant across
+    # every row of flows. Read once here rather than per commodity/posture
+    # subset, since an empty subset (a commodity the solver moved nothing of)
+    # has no row to read .iloc[0] from.
+    bulan_prediksi = str(flows.bulan_prediksi.iloc[0])
+    horizon_bulan = int(flows.horizon_bulan.iloc[0])
     out = {}
     for postur in posturs:
         by_postur = (flows[flows.postur == postur]
@@ -260,7 +290,8 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
                     f"pair must be present, including empty ones — a missing entry "
                     f"would render as an unexplained blank table."
                 )
-            per_kom[cid] = _response_for(sub, cid, plan_meta[key])
+            per_kom[cid] = _response_for(sub, cid, plan_meta[key],
+                                         bulan_prediksi, horizon_bulan)
         with_routes = [r for r in per_kom.values() if r["routes"]]
         all_routes = [rt for resp in with_routes for rt in resp["routes"]]
         all_net = {}
@@ -276,6 +307,8 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
                         # A national tonnage cap is per-commodity; summing it
                         # across six commodities would be a number with no meaning.
                         "anggaranNasionalTon": None,
+                        "bulanPrediksi": bulan_prediksi,
+                        "horizonBulan": horizon_bulan,
                         "status": "ok" if all_routes else "kosong"},
             "provinces": [{"id": slug(n), "name": n,
                            "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
@@ -401,7 +434,14 @@ def build_commodity_mape(bench_final: pd.DataFrame, final_results: dict) -> dict
 # CLI
 # --------------------------------------------------------------------------- #
 def _write(out_dir: Path, name: str, obj) -> None:
-    (out_dir / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1))
+    # allow_nan=False: json.dumps defaults to writing bare NaN/Infinity tokens
+    # for a float that carries them, which is not valid JSON and JSON.parse
+    # rejects in the browser. Every builder above is expected to convert a
+    # missing value to None (-> JSON null) before it gets here — see or_none
+    # in _response_for — so a NaN reaching this call means a builder forgot,
+    # and that should fail the export loudly rather than ship broken JSON.
+    (out_dir / name).write_text(
+        json.dumps(obj, ensure_ascii=False, indent=1, allow_nan=False))
     print(f"  wrote {name}")
 
 
