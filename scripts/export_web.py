@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -33,14 +34,53 @@ IND_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
 def _disp_month(ts) -> str:
     return f"{IND_MONTHS[ts.month]} {ts.year % 100:02d}"
 
-# scripts/ -> supplai-dev/ -> hackathon_phase2/  (artifacts and data/ live at
-# the last, and so does the supplai package itself — it is not pip-installed,
-# so it must be put on sys.path before `from supplai import ...` can resolve).
-_PIPELINE_ROOT = Path(__file__).resolve().parents[2]
+def _pipeline_root() -> Path:
+    """Where the pipeline repo (bakwankawa/supplai-pipeline) lives.
+
+    supplai-dev and the pipeline are two independent repositories — the
+    pipeline's own .gitignore excludes supplai-dev/, so nothing declares this
+    layout. On this machine supplai-dev happens to sit two directories inside
+    a pipeline checkout (scripts/ -> supplai-dev/ -> pipeline root, where
+    artifacts/ and data/ live), and that sibling guess is the fallback here.
+    It is not guaranteed elsewhere: a standalone supplai-dev checkout, a
+    teammate's machine, CI. Set SUPPLAI_PIPELINE_ROOT to override it.
+    """
+    override = os.environ.get("SUPPLAI_PIPELINE_ROOT")
+    return Path(override).resolve() if override else Path(__file__).resolve().parents[2]
+
+
+_PIPELINE_ROOT = _pipeline_root()
+# artifacts/ and data/ are expected to live under the pipeline root regardless
+# of whether that root came from the env override or the sibling guess.
 DEFAULT_ARTIFACTS = _PIPELINE_ROOT / "artifacts"
 DEFAULT_DATA = _PIPELINE_ROOT / "data"
-if str(_PIPELINE_ROOT) not in sys.path:
-    sys.path.insert(0, str(_PIPELINE_ROOT))
+
+
+def _ensure_supplai_importable() -> None:
+    """Put the pipeline package on sys.path, failing loudly and specifically
+    if it isn't there to be found.
+
+    Called lazily from build_tingkatan()/build_lanskap() — the rest of this
+    module's tests never touch the pipeline package and must not start
+    failing because it is missing. When it IS needed and can't be found, a
+    bare ModuleNotFoundError would point at nothing useful (a directory the
+    reader has never heard of); this raises one that names the missing repo,
+    where it looked, and how to point it somewhere else.
+    """
+    root = str(_PIPELINE_ROOT)
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    try:
+        import supplai  # noqa: F401
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(
+            f"cannot import 'supplai': the pipeline repository "
+            f"(bakwankawa/supplai-pipeline) was not found at {_PIPELINE_ROOT}. "
+            f"export_web.py guesses that location by assuming supplai-dev sits "
+            f"inside a pipeline checkout, which is only true on some machines. "
+            f"Set the SUPPLAI_PIPELINE_ROOT environment variable to a checkout "
+            f"of bakwankawa/supplai-pipeline to fix this."
+        ) from e
 
 
 def slug(s: str) -> str:
@@ -476,6 +516,7 @@ def build_tingkatan() -> dict:
     Cakupan ikut dikirim, bukan disembunyikan: empat provinsi Papua punya skor
     tetapi tidak punya harga, dan salah satunya ber-IKP terendah di negeri ini.
     """
+    _ensure_supplai_importable()
     from supplai import tingkatan
 
     t = tingkatan.muat(DEFAULT_DATA)
@@ -498,6 +539,7 @@ def build_tingkatan() -> dict:
 
 def build_lanskap() -> dict:
     """Posisi harga tiap komoditas di tiap provinsi terhadap median nasional."""
+    _ensure_supplai_importable()
     from supplai import lanskap
 
     p = lanskap.posisi_harga(DEFAULT_DATA)

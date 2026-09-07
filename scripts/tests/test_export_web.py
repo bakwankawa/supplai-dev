@@ -487,3 +487,34 @@ def test_lanskap_export_covers_eight_commodities():
     assert len(out["komoditas"]) == 8
     assert "Daging Sapi" in out["komoditas"]
     assert "Gula Pasir" in out["komoditas"]
+
+
+def test_missing_pipeline_package_raises_actionable_error(tmp_path, monkeypatch):
+    """supplai-dev and the pipeline (bakwankawa/supplai-pipeline) are separate
+    repos; the sibling layout export_web.py guesses at is only true on some
+    machines. When the pipeline can't be found there — a standalone
+    supplai-dev checkout, a teammate's machine, CI — the failure must name
+    what is missing, where it looked, and how to override it (
+    SUPPLAI_PIPELINE_ROOT), not surface a bare ModuleNotFoundError pointing
+    at a directory nobody recognizes.
+    """
+    import pytest
+
+    # Simulate "not found": drop any already-cached supplai modules (so the
+    # real package isn't served from sys.modules) and hide the real pipeline
+    # root from sys.path (so it can't be found there either), then point
+    # _PIPELINE_ROOT at an empty directory. monkeypatch restores all three
+    # afterward, so the rest of the suite keeps using the real package.
+    for name in list(sys.modules):
+        if name == "supplai" or name.startswith("supplai."):
+            monkeypatch.delitem(sys.modules, name, raising=False)
+    real_root = str(ew._PIPELINE_ROOT)
+    monkeypatch.setattr(sys, "path", [p for p in sys.path if p != real_root])
+    monkeypatch.setattr(ew, "_PIPELINE_ROOT", tmp_path)
+
+    with pytest.raises(ModuleNotFoundError) as exc_info:
+        ew._ensure_supplai_importable()
+    msg = str(exc_info.value)
+    assert "SUPPLAI_PIPELINE_ROOT" in msg, "must name the override"
+    assert "supplai-pipeline" in msg, "must name the missing repository"
+    assert str(tmp_path) in msg, "must say where it looked"
