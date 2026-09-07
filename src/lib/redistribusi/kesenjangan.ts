@@ -10,6 +10,15 @@ export interface BagianKelompok {
   nProvinsi: number;
 }
 
+export interface SebaranKelompokResult {
+  kelompok: BagianKelompok[];
+  tanpaTingkatan: {
+    ton: number;
+    persen: number;
+    provinsi: string[];
+  };
+}
+
 /**
  * Berapa banyak rencana ini sampai ke tiap kelompok IKP.
  *
@@ -17,14 +26,19 @@ export interface BagianKelompok {
  * Ketiga kelompok selalu dikembalikan, termasuk yang menerima nol — sebuah
  * kelompok yang tidak menerima apa pun adalah temuan yang harus terbaca, bukan
  * baris yang hilang dari tabel.
+ *
+ * Rute dengan tujuan yang tidak punya skor IKP dikembalikan dalam tanpaTingkatan.
+ * Volumenya ada di sini, bukan di salah satu kelompok, jadi persentase ketiga
+ * kelompok dapat berjumlah kurang dari 100.
  */
 export function sebaranKelompok(
   rute: { ke: string; volumeTon: number }[],
   tingkatan: TingkatanProvinsi[],
-): BagianKelompok[] {
+): SebaranKelompokResult {
   const peta = new Map(tingkatan.map((t) => [t.provinsi, t.kelompok]));
   const total = rute.reduce((s, r) => s + r.volumeTon, 0);
-  return KELOMPOK.map((k) => {
+
+  const kelompok = KELOMPOK.map((k) => {
     const cocok = rute.filter((r) => peta.get(r.ke) === k);
     const ton = cocok.reduce((s, r) => s + r.volumeTon, 0);
     return {
@@ -34,19 +48,20 @@ export function sebaranKelompok(
       nProvinsi: new Set(cocok.map((r) => r.ke)).size,
     };
   });
-}
 
-/**
- * Tujuan yang tidak punya skor IKP.
- *
- * Dinamai, bukan dihitung diam-diam ke salah satu kelompok. Tonase yang jatuh
- * ke sini tidak muncul di sebaran mana pun, dan pembaca berhak tahu bahwa
- * jumlahnya tidak genap.
- */
-export function provinsiTanpaTingkatan(
-  rute: { ke: string }[],
-  tingkatan: TingkatanProvinsi[],
-): string[] {
-  const punya = new Set(tingkatan.map((t) => t.provinsi));
-  return [...new Set(rute.map((r) => r.ke))].filter((p) => !punya.has(p)).sort();
+  const tanpaProvinsi = [...new Set(rute.map((r) => r.ke))].filter(
+    (p) => !peta.has(p),
+  );
+  const tanpaVolume = rute
+    .filter((r) => tanpaProvinsi.includes(r.ke))
+    .reduce((s, r) => s + r.volumeTon, 0);
+
+  return {
+    kelompok,
+    tanpaTingkatan: {
+      ton: tanpaVolume,
+      persen: total > 0 ? (tanpaVolume / total) * 100 : 0,
+      provinsi: tanpaProvinsi.sort(),
+    },
+  };
 }
