@@ -116,7 +116,7 @@ def test_build_redistribution():
         "volume_ton": [500.0, 200.0], "jarak_km": [3800.0, 3000.0],
         "biaya_rp": [2.85e9, 9e8], "harga_asal": [14000, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
-        "urgensi": ["Warning", "Info"], "hemat_rp": [-1e8, -4e7],
+        "urgensi": ["Warning", "Info"], "marjin_harapan_rp": [-1e8, -4e7],
         # Columns added by the population-sizing work (Tasks 8-9).
         "postur": ["seimbang", "seimbang"],
         "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
@@ -248,7 +248,7 @@ def test_executive_totals_describe_one_posture_only():
         "volume_ton": [100.0, 300.0], "jarak_km": [3000.0, 3000.0],
         "biaya_rp": [9e8, 9e8], "harga_asal": [14950, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
-        "urgensi": ["Info", "Info"], "hemat_rp": [-4e7, -4e7],
+        "urgensi": ["Info", "Info"], "marjin_harapan_rp": [-4e7, -4e7],
         "postur": ["seimbang", "aman_pangan"],
         "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
         "persen_pasar": [0.5, 1.5], "epsilon": [0.385, 0.385],
@@ -331,7 +331,7 @@ def test_anggaran_key_present_even_on_all():
 def test_routes_carry_the_prices_the_solver_used():
     out = _redist()
     route = out["seimbang"]["beras"]["routes"][0]
-    for key in ("hargaAsal", "hargaTujuan", "hematRp"):
+    for key in ("hargaAsal", "hargaTujuan", "marjinHarapanRp"):
         assert key in route, f"route missing {key}"
     assert route["hargaTujuan"] > route["hargaAsal"], \
         "the solver ships from cheaper to dearer; this route inverts it"

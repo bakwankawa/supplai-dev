@@ -100,7 +100,10 @@ export interface RedistributionRoute {
    *  with the plan it describes. */
   hargaAsal: number
   hargaTujuan: number
-  hematRp: number
+  /** Marjin pedagang terhadap harga tujuan yang sudah naik, dikurangi ongkos
+   *  angkut. Bukan penghematan: ia keuntungan yang diharapkan bila kenaikan
+   *  yang diprediksi benar-benar terjadi. */
+  marjinHarapanRp: number
 }
 
 export interface RedistributionResponse {

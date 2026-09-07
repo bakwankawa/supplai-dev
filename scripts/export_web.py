@@ -207,7 +207,7 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        # could disagree with the plan it is describing.
                        "hargaAsal": round(float(r.harga_asal)),
                        "hargaTujuan": round(float(r.harga_tujuan)),
-                       "hematRp": round(float(r.hemat_rp))})
+                       "marjinHarapanRp": round(float(r.marjin_harapan_rp))})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,

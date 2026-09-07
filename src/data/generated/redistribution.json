@@ -130,7 +130,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 48734180
+     "marjinHarapanRp": 48734180
     }
    ]
   },
@@ -244,7 +244,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 29272237
+     "marjinHarapanRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -266,7 +266,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 426567993
+     "marjinHarapanRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -288,7 +288,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 148060357
+     "marjinHarapanRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -310,7 +310,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 40058683
+     "marjinHarapanRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -332,7 +332,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 16048798
+     "marjinHarapanRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -354,7 +354,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 11130253
+     "marjinHarapanRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -376,7 +376,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 15694731
+     "marjinHarapanRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -398,7 +398,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 5543391
+     "marjinHarapanRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -420,7 +420,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 16589829
+     "marjinHarapanRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -442,7 +442,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 13467267
+     "marjinHarapanRp": 13467267
     }
    ]
   },
@@ -556,7 +556,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 96534703
+     "marjinHarapanRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -578,7 +578,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 69292200
+     "marjinHarapanRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -600,7 +600,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 65726351
+     "marjinHarapanRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -622,7 +622,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 30500,
      "hargaTujuan": 40000,
-     "hematRp": 109765189
+     "marjinHarapanRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -644,7 +644,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 126695406
+     "marjinHarapanRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -666,7 +666,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 142857726
+     "marjinHarapanRp": 142857726
     },
     {
      "from": "Lampung",
@@ -688,7 +688,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 22192922
+     "marjinHarapanRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -710,7 +710,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 12803049
+     "marjinHarapanRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -732,7 +732,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 29500,
      "hargaTujuan": 38000,
-     "hematRp": 167604143
+     "marjinHarapanRp": 167604143
     },
     {
      "from": "Lampung",
@@ -754,7 +754,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 313465846
+     "marjinHarapanRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -776,7 +776,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": -2708290
+     "marjinHarapanRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -798,7 +798,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 150192818
+     "marjinHarapanRp": 150192818
     }
    ]
   },
@@ -918,7 +918,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 159517263
+     "marjinHarapanRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -940,7 +940,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 21197834
+     "marjinHarapanRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -962,7 +962,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 275544609
+     "marjinHarapanRp": 275544609
     },
     {
      "from": "Bali",
@@ -984,7 +984,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 20205910
+     "marjinHarapanRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -1006,7 +1006,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 16707507
+     "marjinHarapanRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -1028,7 +1028,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": -44155925
+     "marjinHarapanRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -1050,7 +1050,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 87507373
+     "marjinHarapanRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -1072,7 +1072,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 30426564
+     "marjinHarapanRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -1094,7 +1094,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 11597784
+     "marjinHarapanRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -1116,7 +1116,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 34768522
+     "marjinHarapanRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -1138,7 +1138,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": -28931823
+     "marjinHarapanRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -1160,7 +1160,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 110017100
+     "marjinHarapanRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -1182,7 +1182,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 229732613
+     "marjinHarapanRp": 229732613
     }
    ]
   },
@@ -1374,7 +1374,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 48734180
+     "marjinHarapanRp": 48734180
     },
     {
      "from": "Kalimantan Barat",
@@ -1396,7 +1396,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 29272237
+     "marjinHarapanRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -1418,7 +1418,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 426567993
+     "marjinHarapanRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -1440,7 +1440,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 148060357
+     "marjinHarapanRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -1462,7 +1462,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 40058683
+     "marjinHarapanRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -1484,7 +1484,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 16048798
+     "marjinHarapanRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -1506,7 +1506,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 11130253
+     "marjinHarapanRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -1528,7 +1528,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 15694731
+     "marjinHarapanRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -1550,7 +1550,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 5543391
+     "marjinHarapanRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -1572,7 +1572,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 16589829
+     "marjinHarapanRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -1594,7 +1594,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 13467267
+     "marjinHarapanRp": 13467267
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1616,7 +1616,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 96534703
+     "marjinHarapanRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1638,7 +1638,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 69292200
+     "marjinHarapanRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -1660,7 +1660,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 65726351
+     "marjinHarapanRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -1682,7 +1682,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 30500,
      "hargaTujuan": 40000,
-     "hematRp": 109765189
+     "marjinHarapanRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -1704,7 +1704,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 126695406
+     "marjinHarapanRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -1726,7 +1726,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 142857726
+     "marjinHarapanRp": 142857726
     },
     {
      "from": "Lampung",
@@ -1748,7 +1748,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 22192922
+     "marjinHarapanRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -1770,7 +1770,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 12803049
+     "marjinHarapanRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -1792,7 +1792,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 29500,
      "hargaTujuan": 38000,
-     "hematRp": 167604143
+     "marjinHarapanRp": 167604143
     },
     {
      "from": "Lampung",
@@ -1814,7 +1814,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 313465846
+     "marjinHarapanRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -1836,7 +1836,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": -2708290
+     "marjinHarapanRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -1858,7 +1858,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 150192818
+     "marjinHarapanRp": 150192818
     },
     {
      "from": "Sumatera Selatan",
@@ -1880,7 +1880,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 159517263
+     "marjinHarapanRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -1902,7 +1902,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 21197834
+     "marjinHarapanRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -1924,7 +1924,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 275544609
+     "marjinHarapanRp": 275544609
     },
     {
      "from": "Bali",
@@ -1946,7 +1946,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 20205910
+     "marjinHarapanRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -1968,7 +1968,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 16707507
+     "marjinHarapanRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -1990,7 +1990,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": -44155925
+     "marjinHarapanRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -2012,7 +2012,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 87507373
+     "marjinHarapanRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -2034,7 +2034,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 30426564
+     "marjinHarapanRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -2056,7 +2056,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 11597784
+     "marjinHarapanRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -2078,7 +2078,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 34768522
+     "marjinHarapanRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -2100,7 +2100,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": -28931823
+     "marjinHarapanRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -2122,7 +2122,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 110017100
+     "marjinHarapanRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -2144,7 +2144,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 229732613
+     "marjinHarapanRp": 229732613
     }
    ]
   }
@@ -2194,7 +2194,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 88479125
+     "marjinHarapanRp": 88479125
     }
    ]
   },
@@ -2308,7 +2308,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 466612421
+     "marjinHarapanRp": 466612421
     },
     {
      "from": "Kalimantan Barat",
@@ -2330,7 +2330,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 142290416
+     "marjinHarapanRp": 142290416
     },
     {
      "from": "Kalimantan Barat",
@@ -2352,7 +2352,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 58039571
+     "marjinHarapanRp": 58039571
     },
     {
      "from": "Kalimantan Barat",
@@ -2374,7 +2374,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 28800675
+     "marjinHarapanRp": 28800675
     },
     {
      "from": "Kalimantan Barat",
@@ -2396,7 +2396,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 30648534
+     "marjinHarapanRp": 30648534
     },
     {
      "from": "Kalimantan Barat",
@@ -2418,7 +2418,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 43838485
+     "marjinHarapanRp": 43838485
     },
     {
      "from": "Kalimantan Barat",
@@ -2440,7 +2440,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 14296034
+     "marjinHarapanRp": 14296034
     },
     {
      "from": "Kalimantan Barat",
@@ -2462,7 +2462,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 49961789
+     "marjinHarapanRp": 49961789
     },
     {
      "from": "Kalimantan Barat",
@@ -2484,7 +2484,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 60755614
+     "marjinHarapanRp": 60755614
     },
     {
      "from": "Kepulauan Riau",
@@ -2506,7 +2506,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 6425373
+     "marjinHarapanRp": 6425373
     }
    ]
   },
@@ -2620,7 +2620,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 181314251
+     "marjinHarapanRp": 181314251
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2642,7 +2642,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 204515114
+     "marjinHarapanRp": 204515114
     },
     {
      "from": "Gorontalo",
@@ -2664,7 +2664,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 138644491
+     "marjinHarapanRp": 138644491
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2686,7 +2686,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 13334232
+     "marjinHarapanRp": 13334232
     },
     {
      "from": "Sulawesi Barat",
@@ -2708,7 +2708,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 601434914
+     "marjinHarapanRp": 601434914
     },
     {
      "from": "Kalimantan Barat",
@@ -2730,7 +2730,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 360089470
+     "marjinHarapanRp": 360089470
     },
     {
      "from": "Lampung",
@@ -2752,7 +2752,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 72187742
+     "marjinHarapanRp": 72187742
     },
     {
      "from": "Kalimantan Barat",
@@ -2774,7 +2774,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 329565401
+     "marjinHarapanRp": 329565401
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2796,7 +2796,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 9061309
+     "marjinHarapanRp": 9061309
     },
     {
      "from": "Lampung",
@@ -2818,7 +2818,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 1595954577
+     "marjinHarapanRp": 1595954577
     },
     {
      "from": "Gorontalo",
@@ -2840,7 +2840,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 372541931
+     "marjinHarapanRp": 372541931
     },
     {
      "from": "Sulawesi Tenggara",
@@ -2862,7 +2862,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 35125,
      "hargaTujuan": 39400,
-     "hematRp": 56939780
+     "marjinHarapanRp": 56939780
     }
    ]
   },
@@ -2982,7 +2982,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 179419223
+     "marjinHarapanRp": 179419223
     },
     {
      "from": "Sumatera Selatan",
@@ -3004,7 +3004,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 44197416
+     "marjinHarapanRp": 44197416
     },
     {
      "from": "Sumatera Selatan",
@@ -3026,7 +3026,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 479581927
+     "marjinHarapanRp": 479581927
     },
     {
      "from": "Bali",
@@ -3048,7 +3048,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 63856117
+     "marjinHarapanRp": 63856117
     },
     {
      "from": "Sumatera Selatan",
@@ -3070,7 +3070,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 2356324
+     "marjinHarapanRp": 2356324
     },
     {
      "from": "Sumatera Selatan",
@@ -3092,7 +3092,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": 18702011
+     "marjinHarapanRp": 18702011
     },
     {
      "from": "Sumatera Selatan",
@@ -3114,7 +3114,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 163649595
+     "marjinHarapanRp": 163649595
     },
     {
      "from": "Sumatera Selatan",
@@ -3136,7 +3136,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 147206222
+     "marjinHarapanRp": 147206222
     },
     {
      "from": "Sumatera Selatan",
@@ -3158,7 +3158,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 34467419
+     "marjinHarapanRp": 34467419
     },
     {
      "from": "Bengkulu",
@@ -3180,7 +3180,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 227360821
+     "marjinHarapanRp": 227360821
     },
     {
      "from": "Bengkulu",
@@ -3202,7 +3202,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": 35807581
+     "marjinHarapanRp": 35807581
     },
     {
      "from": "Sumatera Selatan",
@@ -3224,7 +3224,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 493898915
+     "marjinHarapanRp": 493898915
     },
     {
      "from": "Sumatera Selatan",
@@ -3246,7 +3246,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 483486563
+     "marjinHarapanRp": 483486563
     }
    ]
   },
@@ -3438,7 +3438,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 88479125
+     "marjinHarapanRp": 88479125
     },
     {
      "from": "Kepulauan Riau",
@@ -3460,7 +3460,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 466612421
+     "marjinHarapanRp": 466612421
     },
     {
      "from": "Kalimantan Barat",
@@ -3482,7 +3482,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 142290416
+     "marjinHarapanRp": 142290416
     },
     {
      "from": "Kalimantan Barat",
@@ -3504,7 +3504,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 58039571
+     "marjinHarapanRp": 58039571
     },
     {
      "from": "Kalimantan Barat",
@@ -3526,7 +3526,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 28800675
+     "marjinHarapanRp": 28800675
     },
     {
      "from": "Kalimantan Barat",
@@ -3548,7 +3548,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 30648534
+     "marjinHarapanRp": 30648534
     },
     {
      "from": "Kalimantan Barat",
@@ -3570,7 +3570,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 43838485
+     "marjinHarapanRp": 43838485
     },
     {
      "from": "Kalimantan Barat",
@@ -3592,7 +3592,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 14296034
+     "marjinHarapanRp": 14296034
     },
     {
      "from": "Kalimantan Barat",
@@ -3614,7 +3614,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 49961789
+     "marjinHarapanRp": 49961789
     },
     {
      "from": "Kalimantan Barat",
@@ -3636,7 +3636,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 60755614
+     "marjinHarapanRp": 60755614
     },
     {
      "from": "Kepulauan Riau",
@@ -3658,7 +3658,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 6425373
+     "marjinHarapanRp": 6425373
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3680,7 +3680,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 181314251
+     "marjinHarapanRp": 181314251
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3702,7 +3702,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 204515114
+     "marjinHarapanRp": 204515114
     },
     {
      "from": "Gorontalo",
@@ -3724,7 +3724,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 138644491
+     "marjinHarapanRp": 138644491
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3746,7 +3746,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 13334232
+     "marjinHarapanRp": 13334232
     },
     {
      "from": "Sulawesi Barat",
@@ -3768,7 +3768,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 601434914
+     "marjinHarapanRp": 601434914
     },
     {
      "from": "Kalimantan Barat",
@@ -3790,7 +3790,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 360089470
+     "marjinHarapanRp": 360089470
     },
     {
      "from": "Lampung",
@@ -3812,7 +3812,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 72187742
+     "marjinHarapanRp": 72187742
     },
     {
      "from": "Kalimantan Barat",
@@ -3834,7 +3834,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 329565401
+     "marjinHarapanRp": 329565401
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3856,7 +3856,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 9061309
+     "marjinHarapanRp": 9061309
     },
     {
      "from": "Lampung",
@@ -3878,7 +3878,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 1595954577
+     "marjinHarapanRp": 1595954577
     },
     {
      "from": "Gorontalo",
@@ -3900,7 +3900,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 372541931
+     "marjinHarapanRp": 372541931
     },
     {
      "from": "Sulawesi Tenggara",
@@ -3922,7 +3922,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 35125,
      "hargaTujuan": 39400,
-     "hematRp": 56939780
+     "marjinHarapanRp": 56939780
     },
     {
      "from": "Sumatera Selatan",
@@ -3944,7 +3944,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 179419223
+     "marjinHarapanRp": 179419223
     },
     {
      "from": "Sumatera Selatan",
@@ -3966,7 +3966,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 44197416
+     "marjinHarapanRp": 44197416
     },
     {
      "from": "Sumatera Selatan",
@@ -3988,7 +3988,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 479581927
+     "marjinHarapanRp": 479581927
     },
     {
      "from": "Bali",
@@ -4010,7 +4010,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 63856117
+     "marjinHarapanRp": 63856117
     },
     {
      "from": "Sumatera Selatan",
@@ -4032,7 +4032,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 2356324
+     "marjinHarapanRp": 2356324
     },
     {
      "from": "Sumatera Selatan",
@@ -4054,7 +4054,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": 18702011
+     "marjinHarapanRp": 18702011
     },
     {
      "from": "Sumatera Selatan",
@@ -4076,7 +4076,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 163649595
+     "marjinHarapanRp": 163649595
     },
     {
      "from": "Sumatera Selatan",
@@ -4098,7 +4098,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 147206222
+     "marjinHarapanRp": 147206222
     },
     {
      "from": "Sumatera Selatan",
@@ -4120,7 +4120,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 34467419
+     "marjinHarapanRp": 34467419
     },
     {
      "from": "Bengkulu",
@@ -4142,7 +4142,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 227360821
+     "marjinHarapanRp": 227360821
     },
     {
      "from": "Bengkulu",
@@ -4164,7 +4164,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": 35807581
+     "marjinHarapanRp": 35807581
     },
     {
      "from": "Sumatera Selatan",
@@ -4186,7 +4186,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 493898915
+     "marjinHarapanRp": 493898915
     },
     {
      "from": "Sumatera Selatan",
@@ -4208,7 +4208,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 483486563
+     "marjinHarapanRp": 483486563
     }
    ]
   }
@@ -4258,7 +4258,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 48734180
+     "marjinHarapanRp": 48734180
     }
    ]
   },
@@ -4372,7 +4372,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 29272237
+     "marjinHarapanRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -4394,7 +4394,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 426567993
+     "marjinHarapanRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -4416,7 +4416,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 148060357
+     "marjinHarapanRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -4438,7 +4438,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 40058683
+     "marjinHarapanRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -4460,7 +4460,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 16048798
+     "marjinHarapanRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -4482,7 +4482,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 11130253
+     "marjinHarapanRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -4504,7 +4504,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 15694731
+     "marjinHarapanRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -4526,7 +4526,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 5543391
+     "marjinHarapanRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -4548,7 +4548,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 16589829
+     "marjinHarapanRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -4570,7 +4570,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 13467267
+     "marjinHarapanRp": 13467267
     }
    ]
   },
@@ -4684,7 +4684,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 96534703
+     "marjinHarapanRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -4706,7 +4706,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 69292200
+     "marjinHarapanRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -4728,7 +4728,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 65726351
+     "marjinHarapanRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -4750,7 +4750,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 30500,
      "hargaTujuan": 40000,
-     "hematRp": 109765189
+     "marjinHarapanRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -4772,7 +4772,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 126695406
+     "marjinHarapanRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -4794,7 +4794,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 142857726
+     "marjinHarapanRp": 142857726
     },
     {
      "from": "Lampung",
@@ -4816,7 +4816,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 22192922
+     "marjinHarapanRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -4838,7 +4838,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 12803049
+     "marjinHarapanRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -4860,7 +4860,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 29500,
      "hargaTujuan": 38000,
-     "hematRp": 167604143
+     "marjinHarapanRp": 167604143
     },
     {
      "from": "Lampung",
@@ -4882,7 +4882,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 313465846
+     "marjinHarapanRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -4904,7 +4904,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": -2708290
+     "marjinHarapanRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -4926,7 +4926,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 150192818
+     "marjinHarapanRp": 150192818
     }
    ]
   },
@@ -5046,7 +5046,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 159517263
+     "marjinHarapanRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -5068,7 +5068,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 21197834
+     "marjinHarapanRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -5090,7 +5090,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 275544609
+     "marjinHarapanRp": 275544609
     },
     {
      "from": "Bali",
@@ -5112,7 +5112,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 20205910
+     "marjinHarapanRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -5134,7 +5134,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 16707507
+     "marjinHarapanRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -5156,7 +5156,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": -44155925
+     "marjinHarapanRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -5178,7 +5178,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 87507373
+     "marjinHarapanRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -5200,7 +5200,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 30426564
+     "marjinHarapanRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -5222,7 +5222,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 11597784
+     "marjinHarapanRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -5244,7 +5244,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 34768522
+     "marjinHarapanRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -5266,7 +5266,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": -28931823
+     "marjinHarapanRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -5288,7 +5288,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 110017100
+     "marjinHarapanRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -5310,7 +5310,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 229732613
+     "marjinHarapanRp": 229732613
     }
    ]
   },
@@ -5502,7 +5502,7 @@
      "konsumsiTujuanTonBulan": 4424.0,
      "hargaAsal": 14750,
      "hargaTujuan": 17000,
-     "hematRp": 48734180
+     "marjinHarapanRp": 48734180
     },
     {
      "from": "Kalimantan Barat",
@@ -5524,7 +5524,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 29272237
+     "marjinHarapanRp": 29272237
     },
     {
      "from": "Kepulauan Riau",
@@ -5546,7 +5546,7 @@
      "konsumsiTujuanTonBulan": 1723.0,
      "hargaAsal": 30000,
      "hargaTujuan": 40000,
-     "hematRp": 426567993
+     "marjinHarapanRp": 426567993
     },
     {
      "from": "Kalimantan Barat",
@@ -5568,7 +5568,7 @@
      "konsumsiTujuanTonBulan": 221.0,
      "hargaAsal": 35000,
      "hargaTujuan": 55000,
-     "hematRp": 148060357
+     "marjinHarapanRp": 148060357
     },
     {
      "from": "Kalimantan Barat",
@@ -5590,7 +5590,7 @@
      "konsumsiTujuanTonBulan": 196.9,
      "hargaAsal": 35000,
      "hargaTujuan": 47500,
-     "hematRp": 40058683
+     "marjinHarapanRp": 40058683
     },
     {
      "from": "Kalimantan Barat",
@@ -5612,7 +5612,7 @@
      "konsumsiTujuanTonBulan": 199.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 16048798
+     "marjinHarapanRp": 16048798
     },
     {
      "from": "Kalimantan Barat",
@@ -5634,7 +5634,7 @@
      "konsumsiTujuanTonBulan": 316.9,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 11130253
+     "marjinHarapanRp": 11130253
     },
     {
      "from": "Kalimantan Barat",
@@ -5656,7 +5656,7 @@
      "konsumsiTujuanTonBulan": 437.5,
      "hargaAsal": 35000,
      "hargaTujuan": 39500,
-     "hematRp": 15694731
+     "marjinHarapanRp": 15694731
     },
     {
      "from": "Kalimantan Barat",
@@ -5678,7 +5678,7 @@
      "konsumsiTujuanTonBulan": 120.5,
      "hargaAsal": 35000,
      "hargaTujuan": 41250,
-     "hematRp": 5543391
+     "marjinHarapanRp": 5543391
     },
     {
      "from": "Kalimantan Barat",
@@ -5700,7 +5700,7 @@
      "konsumsiTujuanTonBulan": 650.8,
      "hargaAsal": 35000,
      "hargaTujuan": 39000,
-     "hematRp": 16589829
+     "marjinHarapanRp": 16589829
     },
     {
      "from": "Kalimantan Barat",
@@ -5722,7 +5722,7 @@
      "konsumsiTujuanTonBulan": 923.8,
      "hargaAsal": 35000,
      "hargaTujuan": 40000,
-     "hematRp": 13467267
+     "marjinHarapanRp": 13467267
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5744,7 +5744,7 @@
      "konsumsiTujuanTonBulan": 3321.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": 96534703
+     "marjinHarapanRp": 96534703
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5766,7 +5766,7 @@
      "konsumsiTujuanTonBulan": 3725.5,
      "hargaAsal": 35125,
      "hargaTujuan": 40000,
-     "hematRp": 69292200
+     "marjinHarapanRp": 69292200
     },
     {
      "from": "Gorontalo",
@@ -5788,7 +5788,7 @@
      "konsumsiTujuanTonBulan": 950.3,
      "hargaAsal": 30500,
      "hargaTujuan": 38075,
-     "hematRp": 65726351
+     "marjinHarapanRp": 65726351
     },
     {
      "from": "Gorontalo",
@@ -5810,7 +5810,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 30500,
      "hargaTujuan": 40000,
-     "hematRp": 109765189
+     "marjinHarapanRp": 109765189
     },
     {
      "from": "Sulawesi Barat",
@@ -5832,7 +5832,7 @@
      "konsumsiTujuanTonBulan": 3597.1,
      "hargaAsal": 29500,
      "hargaTujuan": 40000,
-     "hematRp": 126695406
+     "marjinHarapanRp": 126695406
     },
     {
      "from": "Kalimantan Barat",
@@ -5854,7 +5854,7 @@
      "konsumsiTujuanTonBulan": 4136.6,
      "hargaAsal": 36500,
      "hargaTujuan": 48875,
-     "hematRp": 142857726
+     "marjinHarapanRp": 142857726
     },
     {
      "from": "Lampung",
@@ -5876,7 +5876,7 @@
      "konsumsiTujuanTonBulan": 1383.1,
      "hargaAsal": 34750,
      "hargaTujuan": 40000,
-     "hematRp": 22192922
+     "marjinHarapanRp": 22192922
     },
     {
      "from": "Kalimantan Barat",
@@ -5898,7 +5898,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 36500,
      "hargaTujuan": 38000,
-     "hematRp": 12803049
+     "marjinHarapanRp": 12803049
     },
     {
      "from": "Sulawesi Barat",
@@ -5920,7 +5920,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 29500,
      "hargaTujuan": 38000,
-     "hematRp": 167604143
+     "marjinHarapanRp": 167604143
     },
     {
      "from": "Lampung",
@@ -5942,7 +5942,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 34750,
      "hargaTujuan": 38000,
-     "hematRp": 313465846
+     "marjinHarapanRp": 313465846
     },
     {
      "from": "Sulawesi Tenggara",
@@ -5964,7 +5964,7 @@
      "konsumsiTujuanTonBulan": 42634.9,
      "hargaAsal": 35125,
      "hargaTujuan": 38000,
-     "hematRp": -2708290
+     "marjinHarapanRp": -2708290
     },
     {
      "from": "Gorontalo",
@@ -5986,7 +5986,7 @@
      "konsumsiTujuanTonBulan": 3192.6,
      "hargaAsal": 30500,
      "hargaTujuan": 39400,
-     "hematRp": 150192818
+     "marjinHarapanRp": 150192818
     },
     {
      "from": "Sumatera Selatan",
@@ -6008,7 +6008,7 @@
      "konsumsiTujuanTonBulan": 1671.5,
      "hargaAsal": 27000,
      "hargaTujuan": 30800,
-     "hematRp": 159517263
+     "marjinHarapanRp": 159517263
     },
     {
      "from": "Sumatera Selatan",
@@ -6030,7 +6030,7 @@
      "konsumsiTujuanTonBulan": 534.6,
      "hargaAsal": 27000,
      "hargaTujuan": 31500,
-     "hematRp": 21197834
+     "marjinHarapanRp": 21197834
     },
     {
      "from": "Sumatera Selatan",
@@ -6052,7 +6052,7 @@
      "konsumsiTujuanTonBulan": 4572.0,
      "hargaAsal": 27000,
      "hargaTujuan": 29750,
-     "hematRp": 275544609
+     "marjinHarapanRp": 275544609
     },
     {
      "from": "Bali",
@@ -6074,7 +6074,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 29300,
      "hargaTujuan": 36400,
-     "hematRp": 20205910
+     "marjinHarapanRp": 20205910
     },
     {
      "from": "Sumatera Selatan",
@@ -6096,7 +6096,7 @@
      "konsumsiTujuanTonBulan": 470.0,
      "hargaAsal": 27000,
      "hargaTujuan": 36400,
-     "hematRp": 16707507
+     "marjinHarapanRp": 16707507
     },
     {
      "from": "Sumatera Selatan",
@@ -6118,7 +6118,7 @@
      "konsumsiTujuanTonBulan": 1144.2,
      "hargaAsal": 27000,
      "hargaTujuan": 29800,
-     "hematRp": -44155925
+     "marjinHarapanRp": -44155925
     },
     {
      "from": "Sumatera Selatan",
@@ -6140,7 +6140,7 @@
      "konsumsiTujuanTonBulan": 1478.0,
      "hargaAsal": 27000,
      "hargaTujuan": 30000,
-     "hematRp": 87507373
+     "marjinHarapanRp": 87507373
     },
     {
      "from": "Sumatera Selatan",
@@ -6162,7 +6162,7 @@
      "konsumsiTujuanTonBulan": 2395.3,
      "hargaAsal": 27000,
      "hargaTujuan": 30500,
-     "hematRp": 30426564
+     "marjinHarapanRp": 30426564
     },
     {
      "from": "Sumatera Selatan",
@@ -6184,7 +6184,7 @@
      "konsumsiTujuanTonBulan": 393.5,
      "hargaAsal": 27000,
      "hargaTujuan": 35450,
-     "hematRp": 11597784
+     "marjinHarapanRp": 11597784
     },
     {
      "from": "Bengkulu",
@@ -6206,7 +6206,7 @@
      "konsumsiTujuanTonBulan": 3866.2,
      "hargaAsal": 28800,
      "hargaTujuan": 29600,
-     "hematRp": 34768522
+     "marjinHarapanRp": 34768522
     },
     {
      "from": "Bengkulu",
@@ -6228,7 +6228,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 28800,
      "hargaTujuan": 29350,
-     "hematRp": -28931823
+     "marjinHarapanRp": -28931823
     },
     {
      "from": "Sumatera Selatan",
@@ -6250,7 +6250,7 @@
      "konsumsiTujuanTonBulan": 8498.7,
      "hargaAsal": 27000,
      "hargaTujuan": 29350,
-     "hematRp": 110017100
+     "marjinHarapanRp": 110017100
     },
     {
      "from": "Sumatera Selatan",
@@ -6272,7 +6272,7 @@
      "konsumsiTujuanTonBulan": 3377.9,
      "hargaAsal": 27000,
      "hargaTujuan": 32300,
-     "hematRp": 229732613
+     "marjinHarapanRp": 229732613
     }
    ]
   }
