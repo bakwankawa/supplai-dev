@@ -1,3 +1,5 @@
+import type { RedistribusiAnalysis } from "./analysis"
+import { persen } from "./format"
 import { jendelaWaktu } from "./waktu"
 
 /** Kepala laporan: bulan sasaran dan sisa waktu. Baris pertama selalu ada;
@@ -16,4 +18,49 @@ export function teksJendela(bulanPrediksi: string, sekarang: Date): string[] {
     : `Sisa waktu sampai tenggat: ${jendela.sisaHari} hari. Tenggatnya awal ` +
       `${jendela.labelBulan}, bukan akhirnya.`
   return [baris1, baris2]
+}
+
+/** Bagian "Penekanan harga": klaim utama, dasar takarannya, lalu asumsi
+ *  terbesar yang menopang angka itu -- diucapkan sebelum ditanya, bukan
+ *  ditunggu sampai ditanya.
+ *
+ *  `a.dampak.ditahanPpRata` / `fraksiRata` bisa `null`, dan nol bukan hal
+ *  yang sama dengan null di sini (lihat `rataBobotVolume` di `./analysis`):
+ *  nol berarti kami TAHU rencana ini tidak menahan apa-apa, null berarti
+ *  kami TIDAK TAHU -- karena sedikitnya satu rute dalam seleksi ini menuju
+ *  provinsi tujuan tanpa data konsumsi pendukung. Kasus null di sini tidak
+ *  mencetak angka dan tidak mencetak nol; ia menyatakan mengapa angkanya
+ *  tidak ada. Ini meniru pilihan yang sudah diambil `rataBobotVolume` dan
+ *  blok fakta Python yang sama-sama menghilangkan figur ini seluruhnya
+ *  dalam situasi yang sama, alih-alih diam-diam merata-ratakan sisa rute
+ *  yang datanya ada -- dua lapisan yang membaca sumber yang sama tidak
+ *  boleh berselisih pendapat soal apa arti "tidak diketahui". */
+export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
+  const { ditahanPpRata, fraksiRata } = a.dampak
+  const klaim =
+    ditahanPpRata === null || fraksiRata === null
+      ? "Rencana ini tidak menghasilkan angka penekanan harga gabungan: " +
+        "setidaknya satu rute dalam seleksi ini menuju provinsi tujuan tanpa " +
+        "data konsumsi pendukung, sehingga seberapa jauh harga akhirnya lebih " +
+        "rendah dibanding tanpa intervensi tidak diketahui — bukan nol. Rute " +
+        "yang datanya tersedia sengaja tidak dirata-ratakan sendirian, karena " +
+        "itu akan diam-diam menyembunyikan rute yang tidak diketahui itu."
+      : `Rencana ini menahan rata-rata ${persen(ditahanPpRata)} poin persen ` +
+        `dari kenaikan yang diprediksi, atau sekitar ${persen(fraksiRata * 100)} ` +
+        `dari kenaikan itu. Artinya harga di provinsi tujuan berakhir sekitar ` +
+        `${persen(ditahanPpRata)} lebih rendah dibanding tanpa intervensi — ` +
+        `bukan turun sebesar itu dari harga hari ini.`
+
+  const takaran =
+    `Angka ini mewarisi dasar takaran rutenya: ${a.terukur} rute bersandar ` +
+    `pada kebutuhan terukur, ${a.diasumsikan} rute pada heuristik sisi ` +
+    `pasokan. Untuk rute yang diasumsikan, dampak harganya juga diasumsikan.`
+
+  const basis =
+    `Efek harga berlaku atas seluruh konsumsi bulanan provinsi tujuan, bukan ` +
+    `hanya atas tonase yang dikirim. Itulah sebabnya volume kecil dapat ` +
+    `menggeser harga untuk semua pembeli, dan itu pula asumsi terbesar dalam ` +
+    `angka di atas.`
+
+  return [klaim, takaran, basis]
 }
