@@ -335,34 +335,6 @@ export const translations: Record<string, readonly [string, string]> = {
     "Aceh",
     "Aceh"
   ],
-  "Medan": [
-    "Medan",
-    "Medan"
-  ],
-  "Jakarta": [
-    "Jakarta",
-    "Jakarta"
-  ],
-  "Bandung": [
-    "Bandung",
-    "Bandung"
-  ],
-  "Surabaya": [
-    "Surabaya",
-    "Surabaya"
-  ],
-  "Pontianak": [
-    "Pontianak",
-    "Pontianak"
-  ],
-  "Samarinda": [
-    "Samarinda",
-    "Samarinda"
-  ],
-  "Manado": [
-    "Manado",
-    "Manado"
-  ],
   "Papua": [
     "Papua",
     "Papua"
