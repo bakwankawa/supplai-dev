@@ -92,6 +92,10 @@ def test_build_alerts_mapping():
     res = ew.build_alerts(df, {"dibuat": "2026-07-20T12:42:56"})
     assert res["summary"]["thisMonth"] == 2
     assert res["summary"]["active"] == 2
+    # Neither field was ever measured; both used to be emitted as a flat 0 and
+    # rendered as if they were. They must not come back.
+    assert "avgResponseTime" not in res["summary"]
+    assert "resolved" not in res["summary"]
     a0 = res["alerts"][0]
     assert a0["severity"] == "tinggi"           # Warning -> tinggi
     assert a0["commodity"] == "beras"

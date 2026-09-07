@@ -173,8 +173,10 @@ def build_alerts(alerts_df: pd.DataFrame, meta: dict) -> dict:
                 "anomaliTerkonfirmasi": bool(r["anomali_terkonfirmasi"]),
             },
         })
-    return {"summary": {"active": len(alerts), "thisMonth": len(alerts),
-                        "avgResponseTime": 0, "resolved": 0},
+    # `avgResponseTime` and `resolved` used to ship here as hardcoded zeros.
+    # Nothing in the product measures a response time or closes a distribution
+    # case, so the fields carried no measurement — only the appearance of one.
+    return {"summary": {"active": len(alerts), "thisMonth": len(alerts)},
             "alerts": alerts}
 
 

@@ -143,7 +143,7 @@ export interface Alert {
 }
 
 export interface AlertResponse {
-  summary: { active: number; thisMonth: number; avgResponseTime: number; resolved: number }
+  summary: { active: number; thisMonth: number }
   alerts: Alert[]
 }
 
