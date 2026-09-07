@@ -16,6 +16,7 @@ import { Narasi, Penjelas } from "@/components/ui/narasi";
 import { narasiRedistribusi } from "@/data/narasi";
 import { formatRupiah } from "@/lib/format";
 import { POSTUR_LABEL } from "@/lib/redistribusi/postur";
+import { jendelaWaktu } from "@/lib/redistribusi/waktu";
 import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
 
 const containerVariants = {
@@ -188,6 +189,29 @@ export default function RedistribusiPage() {
         </motion.div>
       ) : (
         <>
+        {/* ================= TARGET MONTH WINDOW BANNER ================= */}
+        {loading ? (
+          <Skeleton className="h-10 w-full max-w-md rounded-lg" />
+        ) : summary ? (() => {
+          const j = jendelaWaktu(summary.bulanPrediksi, new Date());
+          return (
+            <div
+              className={
+                j.sudahLewat
+                  ? "border-l-2 border-red-500 pl-3 py-2"
+                  : "border-l-2 border-slate-300 pl-3 py-2"
+              }
+            >
+              <p className="text-sm text-slate-700">
+                Rencana untuk <strong>{j.labelBulan}</strong>
+                {j.sudahLewat
+                  ? ` — jendela tindakan sudah lewat ${Math.abs(j.sisaHari)} hari lalu.`
+                  : ` — sisa ${j.sisaHari} hari sampai tenggat.`}
+              </p>
+            </div>
+          );
+        })() : null}
+
         {/* ================= SUMMARY CARDS ================= */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Total Routes */}
@@ -298,7 +322,7 @@ export default function RedistribusiPage() {
             </div>
             <Penjelas
               judul="Cara membaca tabel ini"
-              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. Kolom 'Biaya' memuat ongkos angkut rute itu, dengan jarak tempuhnya dalam kilometer di baris bawahnya."
+              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Menekan harga' menyatakan berapa poin persen dari kenaikan yang diprediksi tertahan oleh rute itu; 'tidak diketahui' berarti provinsi tujuan tidak punya data konsumsi pendukung untuk menghitungnya, bukan nol. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. Kolom 'Biaya' memuat ongkos angkut rute itu, dengan jarak tempuhnya dalam kilometer di baris bawahnya."
             />
             <div className="mt-3">
               <Penjelas
