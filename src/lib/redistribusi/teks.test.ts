@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
-import { teksJendela, teksPenekananHarga } from "./teks"
+import { teksJendela, teksPenekananHarga, teksMarjin } from "./teks"
 
 const contoh = () =>
   analyzeRedistribusi(
@@ -20,6 +20,16 @@ describe("teksJendela", () => {
     const teks = teksJendela("2026-09-01", new Date("2026-09-07T00:00:00Z")).join(" ")
     expect(teks.toLowerCase()).toContain("jendela")
     expect(teks.toLowerCase()).toContain("lewat")
+  })
+})
+
+describe("teksMarjin", () => {
+  it("menyebut marjin sebagai harapan terhadap harga yang sudah naik", () => {
+    // Label "Hemat" pada angka ini adalah klaim yang salah: ia keuntungan
+    // yang diharapkan bila kenaikan yang diprediksi benar-benar terjadi.
+    const teks = teksMarjin()
+    expect(teks).not.toContain("Hemat")
+    expect(teks).toContain("bila kenaikan")
   })
 })
 

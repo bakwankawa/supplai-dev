@@ -5,7 +5,7 @@ import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
 import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
-import { teksJendela, teksPenekananHarga } from "./teks";
+import { teksJendela, teksPenekananHarga, teksMarjin } from "./teks";
 import { jendelaWaktu } from "./waktu";
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
@@ -184,6 +184,7 @@ export function createRedistribusiReport(
         [25, 25, 21, 22, 20, 21, 22, 18],
       );
       paragraph(`Rekapitulasi: ${a.menutup} rute menutup ongkos, ${a.totalRute - a.menutup} rute tidak, dari ${a.totalRute} rute yang seluruhnya tercantum di atas.`, 10, green);
+      paragraph(teksMarjin(), 9, muted);
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada selisih harga yang dapat diuji terhadap ongkos angkut.");
     heading("03  Batasan");
     paragraph(a.catatanPedagang);

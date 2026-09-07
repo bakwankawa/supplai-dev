@@ -75,3 +75,17 @@ export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
 
   return [klaim, takaran, basis]
 }
+
+/** Kerangka pedagang: penjelasan tentang marjin harapan. Ia adalah selisih
+ *  antara harga tujuan SETELAH kenaikan yang diprediksi dan harga asal hari
+ *  ini, dikurangi ongkos angkut. Penting untuk menyatakan bahwa ia harapan
+ *  (conditional pada kenaikan yang terjadi) dan bukan penghematan (yang sudah
+ *  terwujud). */
+export function teksMarjin(): string {
+  return (
+    `Marjin harapan adalah selisih antara harga tujuan setelah kenaikan yang ` +
+    `diprediksi dan harga asal hari ini, dikurangi ongkos angkut. Ia bukan ` +
+    `penghematan: angka ini terwujud hanya bila kenaikan yang diprediksi ` +
+    `benar-benar terjadi. Marjin negatif ditampilkan apa adanya.`
+  )
+}
