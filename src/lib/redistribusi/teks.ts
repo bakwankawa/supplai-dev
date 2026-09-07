@@ -1,4 +1,5 @@
 import tingkatanData from "@/data/generated/tingkatan.json"
+import type { PosisiHarga } from "@/lib/types"
 import type { RedistribusiAnalysis } from "./analysis"
 import { angka, persen, ton } from "./format"
 import type { Kelompok, SebaranKelompokResult } from "./kesenjangan"
@@ -227,4 +228,83 @@ export function teksKesenjangan(
   }
 
   return hasil
+}
+
+/** Enam komoditas yang benar-benar punya model ramalan tiga bulan (lihat
+ *  `COMMODITY_MAP` di `supplai/data.py`). Daftar tetap, bukan diturunkan dari
+ *  `baris` yang masuk ke `teksLanskap`: "diramalkan" adalah properti produk
+ *  (model mana yang kami latih), bukan properti baris data lanskap tertentu
+ *  yang kebetulan lewat -- dua hal yang harus tetap terpisah walau hari ini
+ *  kebetulan sejalan. */
+const KOMODITAS_DIRAMALKAN = [
+  "Beras Medium", "Bawang Merah", "Bawang Putih", "Daging Ayam", "Telur Ayam", "Minyak Goreng",
+]
+
+/** Dua dari delapan komoditas lanskap yang TIDAK kami ramalkan: keduanya
+ *  punya harga dan neraca nasional (lihat `supplai/lanskap.py`,
+ *  `data/neraca_nasional.csv`) tapi tidak ada model tiga bulan untuknya.
+ *  Nama tetap sesuai brief tugas ini, bukan dihitung dari
+ *  `KOMODITAS_DIRAMALKAN` -- lihat komentar di atasnya. */
+const KOMODITAS_TANPA_RAMALAN = ["Daging Sapi", "Gula Pasir"]
+
+/** Bagian "Lanskap komoditas" pada kerangka pedagang: komoditas mana di
+ *  provinsi yang diminta harganya di bawah median nasional dan mana di
+ *  atas, dengan selisihnya.
+ *
+ *  Ini BACAAN HARGA, bukan bacaan pasokan, dan kalimat itu bagian dari
+ *  kontrak fungsi ini, bukan komentar pinggir: harga di bawah median adalah
+ *  bukti kelimpahan setempat, bukan pengukurannya. Data produksi per
+ *  provinsi tidak tersedia bagi kami -- buku besar mencatat baris yang
+ *  sama persis ("Kapasitas kirim provinsi sumber": "Heuristik yang
+ *  dinyatakan; data produksi per provinsi tidak tersedia bagi kami") -- jadi
+ *  kata "surplus" di produk ini berarti "harga di bawah median dan tidak
+ *  diramalkan melonjak", bukan kelebihan produksi terukur. Kalimat ini
+ *  menjaga layar dan PDF sepakat dengan buku besar, bukan menyimpulkan
+ *  sendiri sesuatu yang lebih kuat dari yang datanya dukung.
+ *
+ *  Urutan array yang dikembalikan adalah bagian dari kontraknya, seperti
+ *  `teksKesenjangan`: [klaim per-provinsi, bacaan-harga bukan-bacaan-pasokan,
+ *  penanda enam-diramalkan/dua-tidak]. Dua kalimat terakhir TIDAK bergantung
+ *  pada apakah provinsi yang diminta punya baris data -- keduanya pernyataan
+ *  umum tentang produk ini, bukan simpulan atas baris yang ditemukan --
+ *  sehingga `report.ts` boleh mencetaknya sekali saja untuk seluruh bagian
+ *  (mengambilnya dari panggilan provinsi manapun) sementara elemen pertama
+ *  dicetak ulang tiap provinsi.
+ *
+ *  Provinsi yang diminta tapi tidak punya baris di `baris` (nama tidak
+ *  cocok, atau provinsi itu di luar cakupan `lanskap.json`) TIDAK dibiarkan
+ *  diam: elemen pertama menyatakan eksplisit bahwa datanya tidak ada,
+ *  alih-alih mencetak daftar kosong yang terbaca seolah provinsi itu
+ *  benar-benar tidak punya komoditas bermasalah. */
+export function teksLanskap(baris: PosisiHarga[], provinsi: string): string[] {
+  const milikProvinsi = baris.filter((b) => b.provinsi === provinsi)
+
+  const bawah = milikProvinsi
+    .filter((b) => b.posisi === "di bawah median")
+    .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"))
+  const atas = milikProvinsi
+    .filter((b) => b.posisi === "di atas median")
+    .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"))
+  const sebut = (list: PosisiHarga[]) =>
+    daftarDan(list.map((b) => `${b.komoditas} (${persen(b.relatifPersen)})`))
+
+  const klaim =
+    milikProvinsi.length === 0
+      ? `Lanskap harga tidak memuat baris untuk ${provinsi}, sehingga posisi komoditasnya ` +
+        `terhadap median nasional tidak dapat dinyatakan di sini.`
+      : `Di ${provinsi}, terhadap median nasional: ` +
+        `${bawah.length > 0 ? `di bawah median ${sebut(bawah)}` : "tidak ada komoditas di bawah median"}; ` +
+        `${atas.length > 0 ? `di atas median ${sebut(atas)}` : "tidak ada komoditas di atas median"}.`
+
+  const bacaanHarga =
+    `Ini bacaan harga, bukan bacaan pasokan: harga di bawah median nasional adalah bukti ` +
+    `kelimpahan setempat, bukan pengukurannya -- data produksi per provinsi tidak tersedia ` +
+    `bagi kami.`
+
+  const penanda =
+    `Dari delapan komoditas yang lanskap ini baca, enam kami ramalkan tiga bulan ke depan -- ` +
+    `${daftarDan(KOMODITAS_DIRAMALKAN)} -- dan dua tidak kami ramalkan, hanya dibaca harganya: ` +
+    `${daftarDan(KOMODITAS_TANPA_RAMALAN)}.`
+
+  return [klaim, bacaanHarga, penanda]
 }

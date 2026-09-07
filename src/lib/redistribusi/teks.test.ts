@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
 import type { SebaranKelompokResult } from "./kesenjangan"
-import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan } from "./teks"
+import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap } from "./teks"
 
 const contoh = () =>
   analyzeRedistribusi(
@@ -209,5 +209,33 @@ describe("teksKesenjangan", () => {
     expect(kalimatJangkauan).not.toBe(kalimatTanpaTingkatan)
     expect(kalimatJangkauan).not.toContain("Wakanda")
     expect(kalimatTanpaTingkatan).not.toContain("Papua Pegunungan")
+  })
+})
+
+describe("teksLanskap", () => {
+  const LANSKAP = [
+    { komoditas: "Beras Medium", provinsi: "Papua", harga: 16000, medianNasional: 14000, relatifPersen: 14.29, posisi: "di atas median" as const },
+    { komoditas: "Gula Pasir", provinsi: "Papua", harga: 17000, medianNasional: 18000, relatifPersen: -5.56, posisi: "di bawah median" as const },
+    { komoditas: "Beras Medium", provinsi: "Aceh", harga: 13000, medianNasional: 14000, relatifPersen: -7.14, posisi: "di bawah median" as const },
+  ]
+
+  it("menyatakan dirinya bacaan harga, bukan bacaan pasokan", () => {
+    // Surplus di produk ini berarti harga di bawah median, bukan kelebihan produksi
+    // terukur. Buku besarnya sudah mencatat bahwa data produksi per provinsi tidak
+    // tersedia bagi kami; kalimat ini menjaga layar dan PDF sepakat dengan itu.
+    const teks = teksLanskap(LANSKAP, "Papua").join(" ")
+    expect(teks).toContain("bacaan harga")
+    expect(teks.toLowerCase()).not.toMatch(/kelebihan produksi|surplus produksi/)
+  })
+
+  it("memisahkan komoditas yang diramalkan dari yang hanya dibaca harganya", () => {
+    const teks = teksLanskap(LANSKAP, "Papua").join(" ")
+    expect(teks).toContain("Gula Pasir")
+    expect(teks).toMatch(/tidak kami ramalkan|di luar enam/)
+  })
+
+  it("hanya memakai baris provinsi yang diminta", () => {
+    const teks = teksLanskap(LANSKAP, "Papua").join(" ")
+    expect(teks).not.toContain("Aceh")
   })
 })

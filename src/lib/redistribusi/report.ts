@@ -1,14 +1,15 @@
 import { jsPDF } from "jspdf";
 import { bukuBesar } from "@/data/buku-besar";
+import lanskapData from "@/data/generated/lanskap.json";
 import tingkatanData from "@/data/generated/tingkatan.json";
 import { formatNumber, formatRupiah } from "@/lib/format";
-import type { TingkatanProvinsi } from "@/lib/types";
+import type { PosisiHarga, TingkatanProvinsi } from "@/lib/types";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
 import { sebaranKelompok } from "./kesenjangan";
 import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
-import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan } from "./teks";
+import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap } from "./teks";
 import { jendelaWaktu } from "./waktu";
 
 // Tingkatan IKP Bapanas 2025 per provinsi, dan provinsi yang punya skor IKP
@@ -17,6 +18,11 @@ import { jendelaWaktu } from "./waktu";
 // tingkat modul: datanya statis per build, sama seperti `bukuBesar` di atas.
 const TINGKATAN_IKP = tingkatanData.provinsi as TingkatanProvinsi[];
 const IKP_TANPA_HARGA = tingkatanData.cakupan.ikpTanpaHarga as string[];
+
+// Posisi harga tiap komoditas di tiap provinsi terhadap median nasional
+// (lihat dokumentasi teksLanskap di ./teks). Dimuat sekali di tingkat modul,
+// sama seperti TINGKATAN_IKP di atas.
+const LANSKAP_BARIS = lanskapData.baris as PosisiHarga[];
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
@@ -231,7 +237,33 @@ export function createRedistribusiReport(
       paragraph(`Rekapitulasi: ${a.menutup} rute menutup ongkos, ${a.totalRute - a.menutup} rute tidak, dari ${a.totalRute} rute yang seluruhnya tercantum di atas.`, 10, green);
       paragraph(teksMarjin(), 9, muted);
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada selisih harga yang dapat diuji terhadap ongkos angkut.");
-    heading("03  Batasan");
+    heading("03  Lanskap komoditas");
+    if (a.routes.length === 0) {
+      // Sama seperti Bagian 02: rencana kosong tidak punya provinsi tujuan
+      // untuk dibaca lanskapnya, jadi bagian ini menyatakan itu -- bukan
+      // mencetak posisi harga seakan ada tujuan yang sungguh dituju.
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada provinsi tujuan yang lanskap komoditasnya relevan untuk ditampilkan.");
+    } else {
+      paragraph(
+        "Posisi harga kedelapan komoditas yang lanskap ini baca -- termasuk dua yang tidak kami " +
+        "ramalkan -- di tiap provinsi tujuan rencana ini, terhadap median nasional.", 9, muted,
+      );
+      const tujuan = [...new Set(a.routes.map((r) => r.to))].sort((x, y) => x.localeCompare(y, "id"));
+      // teksLanskap menjamin urutan [klaim per-provinsi, bacaan-harga bukan
+      // bacaan-pasokan, penanda enam-diramalkan/dua-tidak]. Dua elemen
+      // terakhir adalah pernyataan umum tentang produk ini, bukan simpulan
+      // atas baris data provinsi tertentu -- lihat dokumentasi teksLanskap di
+      // ./teks -- sehingga aman dicetak SEKALI untuk seluruh bagian ini,
+      // diambil dari provinsi tujuan pertama, alih-alih diulang tiap provinsi.
+      for (const provinsi of tujuan) {
+        const [klaim] = teksLanskap(LANSKAP_BARIS, provinsi);
+        paragraph(klaim);
+      }
+      const [, bacaanHarga, penanda] = teksLanskap(LANSKAP_BARIS, tujuan[0]);
+      paragraph(bacaanHarga, 10, green);
+      paragraph(penanda, 9, muted);
+    }
+    heading("04  Batasan");
     paragraph(a.catatanPedagang);
     // Mandatory, not best-effort. The freight rate is assumed and it carries
     // the whole trader framing, so the row declaring that has to print. Skipping
