@@ -13,7 +13,11 @@ export type Pembaca = (typeof PEMBACA)[number];
 
 /** Table width constants (all sum to 174mm drawable width) */
 export const KERANGKA_PEMERINTAH_RUTE_WIDTH = [34, 34, 26, 22, 30, 28];
-export const KERANGKA_PEDAGANG_WIDTH = [21, 21, 19, 20, 18, 19, 20, 24, 12];
+// Kolom terakhir diberi 16mm, bukan 12: "Menutup" tidak punya spasi untuk
+// dibungkus, jadi pada 12mm splitTextToSize memotong katanya sendiri dan
+// header itu tercetak "Menu / tup". Tambahannya diambil dari Tujuan dan
+// Jarak, yang isinya masih muat. Jumlahnya tetap 174 -- dijaga oleh tes.
+export const KERANGKA_PEDAGANG_WIDTH = [21, 20, 19, 20, 15, 19, 20, 24, 16];
 
 /** The same plan, told twice. The government framing has to answer "on whose
  *  measurement?"; the trader framing has to answer "does the price gap pay for
