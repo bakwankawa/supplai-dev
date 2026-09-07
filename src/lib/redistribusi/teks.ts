@@ -1,5 +1,5 @@
 import type { RedistribusiAnalysis } from "./analysis"
-import { persen } from "./format"
+import { angka, persen } from "./format"
 import { jendelaWaktu } from "./waktu"
 
 /** Kepala laporan: bulan sasaran dan sisa waktu. Baris pertama selalu ada;
@@ -34,22 +34,33 @@ export function teksJendela(bulanPrediksi: string, sekarang: Date): string[] {
  *  blok fakta Python yang sama-sama menghilangkan figur ini seluruhnya
  *  dalam situasi yang sama, alih-alih diam-diam merata-ratakan sisa rute
  *  yang datanya ada -- dua lapisan yang membaca sumber yang sama tidak
- *  boleh berselisih pendapat soal apa arti "tidak diketahui". */
+ *  boleh berselisih pendapat soal apa arti "tidak diketahui".
+ *
+ *  Satu angka, dua besaran: `ditahanPpRata` adalah POIN PERSEN dari kenaikan
+ *  yang diprediksi, dirender dengan `angka` (tanpa tanda %) karena unitnya
+ *  sudah disebut dalam kata "poin persen" di sampingnya -- menambahkan %
+ *  akan menyatakan besaran yang berbeda dan lebih kecil (X% DARI kenaikan,
+ *  bukan X poin persen DARInya). `fraksiRata` genuinely adalah pecahan 0..1
+ *  dari kenaikan itu, jadi ia dan harga akhir yang "lebih rendah" memang
+ *  berhak atas tanda %, dirender dengan `persen`. */
 export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
   const { ditahanPpRata, fraksiRata } = a.dampak
   const klaim =
-    ditahanPpRata === null || fraksiRata === null
-      ? "Rencana ini tidak menghasilkan angka penekanan harga gabungan: " +
-        "setidaknya satu rute dalam seleksi ini menuju provinsi tujuan tanpa " +
-        "data konsumsi pendukung, sehingga seberapa jauh harga akhirnya lebih " +
-        "rendah dibanding tanpa intervensi tidak diketahui — bukan nol. Rute " +
-        "yang datanya tersedia sengaja tidak dirata-ratakan sendirian, karena " +
-        "itu akan diam-diam menyembunyikan rute yang tidak diketahui itu."
-      : `Rencana ini menahan rata-rata ${persen(ditahanPpRata)} poin persen ` +
-        `dari kenaikan yang diprediksi, atau sekitar ${persen(fraksiRata * 100)} ` +
-        `dari kenaikan itu. Artinya harga di provinsi tujuan berakhir sekitar ` +
-        `${persen(ditahanPpRata)} lebih rendah dibanding tanpa intervensi — ` +
-        `bukan turun sebesar itu dari harga hari ini.`
+    a.totalRute === 0
+      ? "Rencana ini tidak memuat satu pun rute, sehingga tidak ada klaim " +
+        "penekanan harga yang dapat dinyatakan."
+      : ditahanPpRata === null || fraksiRata === null
+        ? "Rencana ini tidak menghasilkan angka penekanan harga gabungan: " +
+          "setidaknya satu rute dalam seleksi ini menuju provinsi tujuan tanpa " +
+          "data konsumsi pendukung, sehingga seberapa jauh harga akhirnya lebih " +
+          "rendah dibanding tanpa intervensi tidak diketahui — bukan nol. Rute " +
+          "yang datanya tersedia sengaja tidak dirata-ratakan sendirian, karena " +
+          "itu akan diam-diam menyembunyikan rute yang tidak diketahui itu."
+        : `Rencana ini menahan rata-rata ${angka(ditahanPpRata)} poin persen ` +
+          `dari kenaikan yang diprediksi, atau sekitar ${persen(fraksiRata * 100)} ` +
+          `dari kenaikan itu. Artinya harga di provinsi tujuan berakhir sekitar ` +
+          `${persen(ditahanPpRata)} lebih rendah dibanding tanpa intervensi — ` +
+          `bukan turun sebesar itu dari harga hari ini.`
 
   const takaran =
     `Angka ini mewarisi dasar takaran rutenya: ${a.terukur} rute bersandar ` +

@@ -47,4 +47,31 @@ describe("teksPenekananHarga", () => {
     expect(teksTanpaData.toLowerCase()).toContain("tidak diketahui")
     expect(teksTanpaData.toLowerCase()).toContain("bukan nol")
   })
+
+  it("poin persen dan persen dari harga akhir adalah besaran berbeda: hanya yang kedua bertanda %", () => {
+    // ditahanPpRata adalah POIN PERSEN dari kenaikan yang diprediksi; membubuhi
+    // tanda % di situ menyatakan besaran yang berbeda dan lebih kecil (lihat
+    // dokumentasi teksPenekananHarga). fraksiRata dan harga akhir yang "lebih
+    // rendah" genuinely adalah persentase, dan harus bertanda %.
+    const teks = teksPenekananHarga(contoh()).join(" ")
+
+    const poinPersen = teks.match(/rata-rata ([\d.,]+) poin persen/)
+    expect(poinPersen).not.toBeNull()
+    expect(poinPersen![0]).not.toContain("%")
+
+    const lebihRendah = teks.match(/([\d.,]+%) lebih rendah dibanding tanpa intervensi/)
+    expect(lebihRendah).not.toBeNull()
+    expect(lebihRendah![1]).toContain("%")
+  })
+
+  it("tidak menyatakan klaim penekanan harga ketika rencananya tidak memuat satu pun rute", () => {
+    // Pola yang sama sudah dipakai "Dasar takaran" untuk rencana kosong: bukan
+    // mencetak 0,00% seakan itu hasil pengukuran, tapi menyatakan tidak ada
+    // klaim yang bisa dibuat sama sekali.
+    const kosong = analyzeRedistribusi(getRedistributionData("beras", "konservatif"), "beras", "konservatif")
+    expect(kosong.totalRute).toBe(0)
+    const teks = teksPenekananHarga(kosong).join(" ")
+    expect(teks).not.toMatch(/-?\d[\d.,]*%/)
+    expect(teks.toLowerCase()).toContain("tidak ada klaim")
+  })
 })
