@@ -27,11 +27,11 @@ export interface JendelaWaktu {
 export function jendelaWaktu(bulanPrediksi: string, sekarang: Date): JendelaWaktu {
   const tahun = Number(bulanPrediksi.slice(0, 4))
   const bulan = Number(bulanPrediksi.slice(5, 7))
-  const tenggat = Date.UTC(tahun, bulan - 1, 1)
-  const hariIni = Date.UTC(
-    sekarang.getUTCFullYear(), sekarang.getUTCMonth(), sekarang.getUTCDate(),
+  const tenggat = new Date(tahun, bulan - 1, 1)
+  const hariIni = new Date(
+    sekarang.getFullYear(), sekarang.getMonth(), sekarang.getDate(),
   )
-  const sisaHari = Math.round((tenggat - hariIni) / 86_400_000)
+  const sisaHari = Math.round((tenggat.getTime() - hariIni.getTime()) / 86_400_000)
   return {
     bulanSasaran: `${tahun}-${String(bulan).padStart(2, "0")}`,
     labelBulan: `${NAMA_BULAN[bulan - 1]} ${tahun}`,
