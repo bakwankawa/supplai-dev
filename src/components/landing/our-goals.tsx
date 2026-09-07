@@ -57,7 +57,7 @@ export function OurGoalsSection() {
                                     <BarChart3 className="w-6 h-6" />
                                 </div>
                                 <div className="space-y-1">
-                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="AKURASI PREDIKSI" /> </span>
+                                    <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="TARGET GALAT PREDIKSI" /> </span>
                                     <div className="flex items-baseline gap-2 mt-2">
                                         <span className="text-5xl font-black tracking-tight"><LandingText text="&lt; 10%" /></span>
                                         <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Error" /></span>

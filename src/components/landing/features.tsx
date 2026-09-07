@@ -116,7 +116,7 @@ const featuresData = [
                         <h4 className="text-xs font-bold text-brand-textMain"><LandingText text="National Supply Density Heatmap" /></h4>
                     </div>
                     <span className="flex items-center gap-1 text-[9px] text-brand-primary font-bold bg-brand-primary/10 px-2 py-0.5 rounded-md">
-                        <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" /> <LandingText text="Live Sync" /> </span>
+                        <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" /> <LandingText text="Data Tersinkron" /> </span>
                 </div>
 
                 <div className="relative w-full h-[220px] rounded-xl border border-brand-border overflow-hidden bg-brand-bgSubtle flex items-center justify-center">

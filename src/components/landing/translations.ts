@@ -91,7 +91,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga.",
     "Price forecasts up to three months ahead to support supply planning and price risk mitigation."
   ],
-  "AKURASI PREDIKSI": [
+  "TARGET GALAT PREDIKSI": [
     "TARGET GALAT PREDIKSI",
     "TARGET FORECAST ERROR"
   ],
@@ -147,7 +147,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Menghitung proyeksi harga komoditas",
     "Calculating commodity price forecasts"
   ],
-  "Akurasi: 95.2%": [
+  "Ilustrasi proses prediksi": [
     "Ilustrasi proses prediksi",
     "Forecast process illustration"
   ],
@@ -163,7 +163,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Match",
     "SupplAI Match"
   ],
-  "Algoritma optimasi matematis menganalisis fluktuasi harga secara real-time dan otomatis memetakan titik pasokan surplus untuk dialirkan ke wilayah defisit.": [
+  "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
     "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
     "Analyzes price movements and supply availability to recommend allocations from surplus to deficit regions."
   ],
@@ -207,7 +207,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Agent",
     "SupplAI Agent"
   ],
-  "Sistem otomatisasi yang menyajikan peta disparitas spasial nasional serta mengirimkan alarm Push-Alert darurat langsung ke 500 instansi TPID daerah.": [
+  "Menyajikan peta perbedaan harga dan ringkasan peringatan untuk mendukung koordinasi serta penetapan prioritas tindak lanjut oleh instansi terkait.": [
     "Menyajikan peta perbedaan harga dan ringkasan peringatan untuk mendukung koordinasi serta penetapan prioritas tindak lanjut oleh instansi terkait.",
     "Provides price disparity maps and alert summaries to support coordination and help institutions prioritize follow-up actions."
   ],
@@ -227,7 +227,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Peta Perbedaan Harga Tersedia",
     "Price Disparity Map Available"
   ],
-  "Notification broadcast completed successfully.": [
+  "Ringkasan peringatan siap ditinjau.": [
     "Ringkasan peringatan siap ditinjau.",
     "Alert summary ready for review."
   ],
@@ -307,7 +307,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Peta Pasokan Pangan Nasional",
     "National Food Supply Map"
   ],
-  "Live Sync": [
+  "Data Tersinkron": [
     "Data Tersinkron",
     "Data Synced"
   ],

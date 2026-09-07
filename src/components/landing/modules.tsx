@@ -32,7 +32,7 @@ const modulesData = [
             <div className="w-full bg-brand-primary h-full rounded-t animate-pulse"></div>
           </div>
         </div>
-        <div className="text-right text-brand-primary font-bold"><LandingText text="Akurasi: 95.2%" /></div>
+        <div className="text-right text-brand-primary font-bold"><LandingText text="Ilustrasi proses prediksi" /></div>
       </div>
     )
   },
@@ -41,7 +41,7 @@ const modulesData = [
     step: "PROSES",
     stepLabel: "AI & Matchmaking Engine",
     title: "SupplAi Match",
-    description: "Algoritma optimasi matematis menganalisis fluktuasi harga secara real-time dan otomatis memetakan titik pasokan surplus untuk dialirkan ke wilayah defisit.",
+    description: "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
     icon: Zap,
     imageBg: "from-teal-500/10 to-brand-primary/5",
     mockupContent: (
@@ -69,7 +69,7 @@ const modulesData = [
     step: "OUTPUT",
     stepLabel: "Aksi Cepat & Peringatan",
     title: "SupplAi Agent",
-    description: "Sistem otomatisasi yang menyajikan peta disparitas spasial nasional serta mengirimkan alarm Push-Alert darurat langsung ke 500 instansi TPID daerah.",
+    description: "Menyajikan peta perbedaan harga dan ringkasan peringatan untuk mendukung koordinasi serta penetapan prioritas tindak lanjut oleh instansi terkait.",
     icon: Rocket,
     imageBg: "from-emerald-500/10 to-cyan-500/5",
     mockupContent: (
@@ -88,7 +88,7 @@ const modulesData = [
             <span><LandingText text="Peta Disparitas Terdistribusi" /></span>
           </div>
         </div>
-        <div className="text-xs text-brand-textMuted/60 italic text-left"><LandingText text="Notification broadcast completed successfully." /></div>
+        <div className="text-xs text-brand-textMuted/60 italic text-left"><LandingText text="Ringkasan peringatan siap ditinjau." /></div>
       </div>
     )
   }
