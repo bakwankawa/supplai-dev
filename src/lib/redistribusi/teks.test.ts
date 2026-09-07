@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
-import { teksJendela, teksPenekananHarga, teksMarjin } from "./teks"
+import type { SebaranKelompokResult } from "./kesenjangan"
+import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan } from "./teks"
 
 const contoh = () =>
   analyzeRedistribusi(
@@ -102,5 +103,60 @@ describe("teksPenekananHarga", () => {
     const teks = teksPenekananHarga(kosong).join(" ")
     expect(teks).not.toMatch(/-?\d[\d.,]*%/)
     expect(teks.toLowerCase()).toContain("tidak ada klaim")
+  })
+})
+
+describe("teksKesenjangan", () => {
+  // sebaranKelompok (./kesenjangan) mengembalikan objek { kelompok, tanpaTingkatan },
+  // bukan array telanjang seperti versi lama fungsi ini -- lihat catatan di
+  // kesenjangan.ts. Tes di bawah membangun objek itu langsung, tanpa
+  // tanpaTingkatan aktif kecuali dinyatakan.
+  const kosongTanpaTingkatan = { ton: 0, persen: 0, provinsi: [] as string[] }
+
+  it("menyebut kelompok dengan namanya sendiri, bukan sebutan resmi", () => {
+    const sebaran: SebaranKelompokResult = {
+      kelompok: [
+        { kelompok: "bawah", ton: 10, persen: 25, nProvinsi: 1 },
+        { kelompok: "tengah", ton: 0, persen: 0, nProvinsi: 0 },
+        { kelompok: "atas", ton: 30, persen: 75, nProvinsi: 1 },
+      ],
+      tanpaTingkatan: kosongTanpaTingkatan,
+    }
+    const teks = teksKesenjangan(sebaran, ["Papua Pegunungan"]).join(" ")
+    expect(teks.toLowerCase()).not.toContain("tertinggal")
+    expect(teks).toContain("IKP Bapanas 2025")
+  })
+
+  it("menyatakan provinsi ber-IKP terendah yang di luar jangkauan model", () => {
+    // Alat pemerataan yang tidak bisa melihat daerah paling rentan adalah hal yang
+    // wajib diketahui pemakainya, bukan cacat yang disembunyikan.
+    const sebaran: SebaranKelompokResult = {
+      kelompok: [
+        { kelompok: "bawah", ton: 10, persen: 25, nProvinsi: 1 },
+        { kelompok: "tengah", ton: 0, persen: 0, nProvinsi: 0 },
+        { kelompok: "atas", ton: 30, persen: 75, nProvinsi: 1 },
+      ],
+      tanpaTingkatan: kosongTanpaTingkatan,
+    }
+    const teks = teksKesenjangan(sebaran, ["Papua Pegunungan", "Papua Tengah"]).join(" ")
+    expect(teks).toContain("Papua Pegunungan")
+    expect(teks).toContain("di luar jangkauan")
+  })
+
+  it("menyebut kelompok yang tidak menerima apa pun, dan tonase yang tidak masuk sebaran mana pun", () => {
+    // Dua kalimat bersyarat berbeda dalam satu tes: kelompok bernilai nol
+    // (persyaratan brief), dan tujuan tanpa skor IKP pada rencana ini --
+    // rute.ton yang jatuh di sebaran.tanpaTingkatan, bukan ikpTanpaHarga.
+    const sebaran: SebaranKelompokResult = {
+      kelompok: [
+        { kelompok: "bawah", ton: 0, persen: 0, nProvinsi: 0 },
+        { kelompok: "tengah", ton: 0, persen: 0, nProvinsi: 0 },
+        { kelompok: "atas", ton: 40, persen: 88.89, nProvinsi: 2 },
+      ],
+      tanpaTingkatan: { ton: 5, persen: 11.11, provinsi: ["Wakanda"] },
+    }
+    const teks = teksKesenjangan(sebaran, []).join(" ")
+    expect(teks).toMatch(/tidak menerima|nol/i)
+    expect(teks).toContain("Wakanda")
   })
 })

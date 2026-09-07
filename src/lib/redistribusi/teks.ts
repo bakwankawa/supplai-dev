@@ -1,6 +1,23 @@
+import tingkatanData from "@/data/generated/tingkatan.json"
 import type { RedistribusiAnalysis } from "./analysis"
-import { angka, persen } from "./format"
+import { angka, persen, ton } from "./format"
+import type { Kelompok, SebaranKelompokResult } from "./kesenjangan"
 import { jendelaWaktu } from "./waktu"
+
+/** Label lengkap tiap kelompok IKP, dari `tingkatan.json` -- satu-satunya
+ *  sumber, supaya kalimatnya tidak bisa diam-diam berbeda dari data yang
+ *  menghasilkannya. Bukan "daerah tertinggal": itu sebutan resmi dengan
+ *  daftarnya sendiri di tingkat kabupaten (Perpres 63/2020), sedangkan ini
+ *  provinsi yang diurutkan menurut skor IKP. */
+const LABEL_KELOMPOK: Record<Kelompok, string> = tingkatanData.label as Record<Kelompok, string>
+
+/** Menggabung daftar nama dengan "dan" ala Indonesia: "A", "A dan B", atau
+ *  "A, B, dan C". */
+function daftarDan(items: string[]): string {
+  if (items.length <= 1) return items[0] ?? ""
+  if (items.length === 2) return `${items[0]} dan ${items[1]}`
+  return `${items.slice(0, -1).join(", ")}, dan ${items[items.length - 1]}`
+}
 
 /** Kepala laporan: bulan sasaran dan sisa waktu. Baris pertama selalu ada;
  *  baris kedua berubah bunyinya ketika jendelanya sudah lewat.
@@ -112,4 +129,67 @@ export function teksMarjin(): string {
     `kilogram, tanpa prediksi — dua besaran berbeda, keduanya berguna bagi ` +
     `pedagang yang memutuskan apakah perlu memindahkan barang.`
   )
+}
+
+/** Bagian "Kesenjangan": ke kelompok IKP mana rencana ini sampai.
+ *
+ *  `sebaran` datang dari `sebaranKelompok` (lihat `./kesenjangan`) apa
+ *  adanya -- fungsi ini tidak menghitung ulang, hanya merangkai kalimat dari
+ *  angka yang sudah ada. Kelompoknya selalu disebut dengan label lengkapnya
+ *  dari `tingkatan.json` ("sepertiga terbawah/tengah/teratas IKP Bapanas
+ *  2025"), TIDAK PERNAH "daerah tertinggal": itu sebutan resmi dengan
+ *  daftarnya sendiri di tingkat kabupaten (Perpres 63/2020), bukan provinsi
+ *  yang diurutkan menurut skor IKP -- memakainya di sini salah tingkatan
+ *  administratif sekaligus salah daftar.
+ *
+ *  `ikpTanpaHarga` dan `sebaran.tanpaTingkatan` adalah dua lubang yang
+ *  berbeda dan TIDAK BOLEH tertukar:
+ *  - `ikpTanpaHarga` (dari `cakupan.ikpTanpaHarga` di `tingkatan.json`):
+ *    provinsi yang PUNYA skor IKP tapi harganya tidak pernah dimodelkan sama
+ *    sekali, karena datanya masih memakai pembagian provinsi sebelum
+ *    pemekaran 2022. Ini lubang pada JANGKAUAN PRODUK -- provinsi itu tidak
+ *    bisa muncul di rute manapun, terlepas dari rencana yang mana.
+ *  - `sebaran.tanpaTingkatan`: tujuan rute PADA RENCANA INI yang tidak
+ *    punya skor IKP sama sekali, sehingga volumenya tidak masuk salah satu
+ *    dari tiga kelompok. Ini lubang pada RENCANA -- alasannya bisa berbeda
+ *    tiap kali (skor belum ada, nama tidak cocok, dst).
+ *  Alat pemerataan yang tidak bisa melihat provinsi paling rentan adalah hal
+ *  yang wajib diketahui pemakainya, bukan cacat yang disembunyikan -- karena
+ *  itu keduanya dinyatakan eksplisit, bukan digabung diam-diam ke salah satu
+ *  kelompok atau saling menutupi satu sama lain. */
+export function teksKesenjangan(
+  sebaran: SebaranKelompokResult,
+  ikpTanpaHarga: string[],
+): string[] {
+  const hasil: string[] = []
+
+  const bagian = sebaran.kelompok
+    .map((k) => `${persen(k.persen)} ke ${LABEL_KELOMPOK[k.kelompok]}`)
+    .join(", ")
+  hasil.push(`Dari seluruh tonase rencana ini, ${bagian}.`)
+
+  const nol = sebaran.kelompok.filter((k) => k.ton === 0)
+  if (nol.length > 0) {
+    hasil.push(
+      `${daftarDan(nol.map((k) => LABEL_KELOMPOK[k.kelompok]))} tidak menerima apa pun dari rencana ini.`,
+    )
+  }
+
+  if (ikpTanpaHarga.length > 0) {
+    hasil.push(
+      `${daftarDan(ikpTanpaHarga)} punya skor IKP Bapanas 2025 tetapi berada di luar jangkauan model ini: ` +
+        `data harganya masih memakai pembagian provinsi sebelum pemekaran 2022, sehingga rencana ini tidak ` +
+        `pernah bisa mengirim ke sana.`,
+    )
+  }
+
+  if (sebaran.tanpaTingkatan.provinsi.length > 0) {
+    hasil.push(
+      `${ton(sebaran.tanpaTingkatan.ton)} (${persen(sebaran.tanpaTingkatan.persen)} dari total rencana ini) ` +
+        `menuju ${daftarDan(sebaran.tanpaTingkatan.provinsi)} tidak punya skor IKP, sehingga tonase itu ` +
+        `tidak masuk sebaran kelompok mana pun di atas.`,
+    )
+  }
+
+  return hasil
 }

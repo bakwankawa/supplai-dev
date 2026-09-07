@@ -1,12 +1,22 @@
 import { jsPDF } from "jspdf";
 import { bukuBesar } from "@/data/buku-besar";
+import tingkatanData from "@/data/generated/tingkatan.json";
 import { formatNumber, formatRupiah } from "@/lib/format";
+import type { TingkatanProvinsi } from "@/lib/types";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
+import { sebaranKelompok } from "./kesenjangan";
 import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
-import { teksJendela, teksPenekananHarga, teksMarjin } from "./teks";
+import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan } from "./teks";
 import { jendelaWaktu } from "./waktu";
+
+// Tingkatan IKP Bapanas 2025 per provinsi, dan provinsi yang punya skor IKP
+// tapi tidak pernah dimodelkan harganya (lihat dokumentasi teksKesenjangan di
+// ./teks untuk kenapa dua hal ini tidak boleh tertukar). Dimuat sekali di
+// tingkat modul: datanya statis per build, sama seperti `bukuBesar` di atas.
+const TINGKATAN_IKP = tingkatanData.provinsi as TingkatanProvinsi[];
+const IKP_TANPA_HARGA = tingkatanData.cakupan.ikpTanpaHarga as string[];
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
@@ -131,7 +141,15 @@ export function createRedistribusiReport(
     paragraph(klaimHarga);
     paragraph(takaranHarga, 9, muted);
     paragraph(basisHarga, 9, muted);
-    heading("03  Rute dan takaran");
+    heading("03  Kesenjangan IKP");
+    const sebaran = sebaranKelompok(
+      a.routes.map((r) => ({ ke: r.to, volumeTon: r.volumeTon })),
+      TINGKATAN_IKP,
+    );
+    const [kesenjanganUtama, ...kesenjanganLain] = teksKesenjangan(sebaran, IKP_TANPA_HARGA);
+    paragraph(kesenjanganUtama);
+    for (const kalimat of kesenjanganLain) paragraph(kalimat, 9, muted);
+    heading("04  Rute dan takaran");
     if (a.routes.length) {
       paragraph("Kolom \"% pasar\" adalah bagian kiriman terhadap konsumsi bulanan provinsi tujuan. Kolom \"Kecukupan GPM\" bukan tentang kiriman ini: ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah, program intervensi yang memang sudah berjalan di provinsi tujuan. Angka itu melekat pada tujuannya, jadi setiap rute yang masuk ke provinsi yang sama menunjukkan nilai yang sama.", 9, muted);
       paragraph("Tiga peringatan melekat pada Kecukupan GPM dan harus dibaca bersamanya: (1) GPM hanya satu dari beberapa instrumen — penyaluran Cadangan Pangan Pemerintah jauh lebih besar dan tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran.", 9, muted);
@@ -144,7 +162,7 @@ export function createRedistribusiReport(
         KERANGKA_PEMERINTAH_RUTE_WIDTH,
       );
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada tabel yang dapat ditampilkan.");
-    heading("04  Dasar takaran");
+    heading("05  Dasar takaran");
     paragraph(a.catatanTakaran);
     paragraph(
       a.totalRute === 0
@@ -155,7 +173,7 @@ export function createRedistribusiReport(
       10, green,
     );
     paragraph("Peringatan ini berada di badan laporan, bukan di catatan kaki, karena ia menentukan seberapa jauh rencana ini boleh dipakai.", 9, muted);
-    heading("05  Pagu anggaran");
+    heading("06  Pagu anggaran");
     if (a.anggaranNasionalTon === null) {
       paragraph("Komoditas ini tidak memiliki neraca nasional yang dapat dijadikan pagu, sehingga rencana berjalan tanpa batas anggaran. Keterbatasan ini dinyatakan, bukan diabaikan.");
     } else {
@@ -163,7 +181,7 @@ export function createRedistribusiReport(
       paragraph(`Neraca ketersediaan dan kebutuhan nasional menetapkan pagu ${ton(a.anggaranNasionalTon)} untuk ${a.komoditas}. Rencana ini memakai ${ton(a.totalTon)}, atau ${persen(bagian, bagian > 0 && bagian < 0.01 ? 4 : 2)} dari pagu tersebut.`);
       paragraph("Pagu membatasi tonase nasional, bukan biaya angkut. Ongkos angkut pada Bagian 01 dihitung terpisah dan tidak diuji terhadap pagu ini.", 9, muted);
     }
-    heading("06  Asal-usul angka");
+    heading("07  Asal-usul angka");
     const terukurLedger = bukuBesar.filter((e) => e.status === "terukur").length;
     const diasumsikanLedger = bukuBesar.filter((e) => e.status === "diasumsikan").length;
     const diturunkanLedger = bukuBesar.filter((e) => e.status === "diturunkan").length;
