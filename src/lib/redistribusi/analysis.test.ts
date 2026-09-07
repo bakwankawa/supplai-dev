@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { getRedistributionData } from "@/data/redistribution";
-import { analyzeRedistribusi, ONGKOS_RP_PER_KG_KM } from "./analysis";
+import { analyzeRedistribusi, ONGKOS_RP_PER_KG_KM, rataBobotVolume } from "./analysis";
 
 const all = (postur: "seimbang" | "aman_pangan" | "konservatif") =>
   ["beras", "bawang-merah", "bawang-putih", "daging-ayam", "telur-ayam", "minyak-goreng"]
@@ -70,5 +70,55 @@ describe("analyzeRedistribusi", () => {
       getRedistributionData("bawang-merah", "seimbang"), "bawang-merah", "seimbang");
     expect(a.totalRute).toBe(0);
     expect(a.ringkasan).toMatch(/pasangan/);
+  });
+
+  it("membobot dengan volume, bukan merata-rata baris", () => {
+    // Rata-rata baris memberi bobot sama pada rute 5 ton dan rute 500 ton.
+    // Yang menekan harga adalah tonasenya, bukan banyaknya baris.
+    const rute = [
+      { volumeTon: 100, nilai: 4 },
+      { volumeTon: 1, nilai: 0 },
+    ];
+    expect(rataBobotVolume(rute, (r) => r.nilai)).toBeCloseTo(400 / 101, 6);
+  });
+
+  it("mengembalikan nol untuk rencana kosong, bukan NaN", () => {
+    // Pembagian dengan total bobot nol menghasilkan NaN, yang lolos setiap
+    // pemeriksaan rentang dan muncul di PDF sebagai "NaN%".
+    expect(rataBobotVolume([] as { volumeTon: number; nilai: number }[], (r) => r.nilai)).toBe(0);
+  });
+
+  it("dampak rata berada di antara nilai rute terkecil dan terbesar, dan tidak diketahui bila satu saja rute null", () => {
+    // Sanity check pada data nyata: selama tidak ada rute yang null (data hari
+    // ini tidak punya satupun), rata-rata dibobot volume tidak boleh jatuh di
+    // luar rentang nilai per-rutenya.
+    for (const a of all("seimbang")) {
+      if (a.routes.length === 0) continue;
+      expect(a.routes.every((r) => r.ditahanPp !== null)).toBe(true);
+      const lo = Math.min(...a.routes.map((r) => r.ditahanPp as number));
+      const hi = Math.max(...a.routes.map((r) => r.ditahanPp as number));
+      expect(a.dampak.ditahanPpRata).toBeGreaterThanOrEqual(lo - 1e-9);
+      expect(a.dampak.ditahanPpRata).toBeLessThanOrEqual(hi + 1e-9);
+    }
+
+    // Tidak ada rute null hari ini, jadi kasus null dibangun dari potongan
+    // data nyata: satu dari 12 rute daging ayam dibuat null, meniru provinsi
+    // tujuan tanpa data konsumsi pendukung.
+    const asli = getRedistributionData("daging-ayam", "seimbang");
+    expect(asli.routes.length).toBeGreaterThan(1);
+    const ruteDenganNull = asli.routes.map((r, i) => (i === 0 ? { ...r, ditahanPp: null } : r));
+
+    // Satu rute null meniadakan seluruh rata-rata -- bukan rata-rata dari
+    // rute yang diketahui saja. Ini menyamakan sikap dengan blok fakta Python
+    // yang menghilangkan angka dampaknya seluruhnya dalam situasi yang sama.
+    expect(rataBobotVolume(ruteDenganNull, (r) => r.ditahanPp)).toBeNull();
+
+    const a = analyzeRedistribusi({ ...asli, routes: ruteDenganNull }, "daging-ayam", "seimbang");
+    expect(a.dampak.ditahanPpRata).toBeNull();
+    // fraksiDitahan rute itu masih ada -- dua kolom yang tidak diketahui
+    // secara independen, bukan satu null menulari kolom yang lain.
+    expect(a.dampak.fraksiRata).not.toBeNull();
+    // Nilai per-rute tetap tampil di tabel walau rata-ratanya tidak diketahui.
+    expect(a.routes[0].ditahanPp).toBeNull();
   });
 });
