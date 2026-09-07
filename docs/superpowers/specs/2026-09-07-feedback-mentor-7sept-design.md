@@ -279,7 +279,18 @@ Dua bacaan yang masing-masing bernama jelas, bukan satu skor:
 1. **Tekanan harga** — perubahan 3 bulan terprediksi dengan selangnya. Terbatas pada 6
    komoditas yang dimodelkan.
 2. **Posisi harga relatif** — harga kini terhadap median nasional. Tidak butuh model
-   ramalan, sehingga bisa mencakup seluruh **26–27 komoditas** yang ada di data WFP.
+   ramalan, sehingga bisa mencakup komoditas di luar enam yang diramalkan.
+
+**Koreksi atas draf pertama spec ini.** Draf itu menyebut 26–27 komoditas. Angka itu
+salah: ia menghitung seluruh sejarah 2016–2026, dan **19 dari 27 seri WFP berhenti pada
+Mei 2024 atau lebih awal** karena WFP mengganti spesifikasinya (`Rice` menjadi
+`Rice (medium quality)`, `Garlic` menjadi `Garlic (medium)`, dan seterusnya). Yang masih
+punya harga sampai Juni 2026 hanya **delapan**, dan enam di antaranya sudah kita ramalkan.
+
+Jadi lanskap menambah **dua** komoditas, bukan dua puluh: **Daging Sapi** dan **Gula
+Pasir**. Keduanya justru pilihan yang tepat — keduanya sudah ada di `data/neraca_nasional.csv`
+yang diturunkan dari berkas neraca staf ahli Komisi IV, sehingga posisi harganya bisa
+dibaca bersama ketersediaan nasionalnya.
 
 Pembedaan cakupan keduanya dinyatakan di layar, tidak disamarkan.
 
