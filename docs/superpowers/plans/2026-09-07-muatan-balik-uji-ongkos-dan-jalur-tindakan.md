@@ -548,22 +548,19 @@ Imbal hasil adalah satu transaksi, bukan setahun."
 
 ```python
 def test_muatan_balik_export_states_zero_round_trips():
-    from scripts.export_web import build_muatan_balik
-    out = build_muatan_balik()
+    out = ew.build_muatan_balik()
     assert out["seimbang"]["pasanganBolakBalik"] == 0
     assert out["seimbang"]["nRute"] == 36
 
 
 def test_tindakan_export_carries_capacity_not_just_the_conversion():
-    from scripts.export_web import build_tindakan
-    out = build_tindakan()
+    out = ew.build_tindakan()
     assert out["setaraKegiatan"]["kapasitasTahunan"] == 1888
     assert out["setaraKegiatan"]["persenKapasitas"] > 50
 
 
 def test_tindakan_export_ranks_routes_by_return_not_by_capital():
-    from scripts.export_web import build_tindakan
-    out = build_tindakan()
+    out = ew.build_tindakan()
     imbal = [r["imbalHasilPersen"] for r in out["modal"]]
     assert imbal == sorted(imbal, reverse=True)
 ```
