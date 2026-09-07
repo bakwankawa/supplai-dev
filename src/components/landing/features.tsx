@@ -158,13 +158,13 @@ const featuresData = [
 
                         {[
                             { x: 60, y: 72, label: "Aceh" },
-                            { x: 95, y: 108, label: "Medan" },
-                            { x: 220, y: 232, label: "Jakarta" },
-                            { x: 265, y: 242, label: "Bandung" },
-                            { x: 310, y: 250, label: "Surabaya" },
-                            { x: 290, y: 140, label: "Pontianak" },
-                            { x: 370, y: 135, label: "Samarinda" },
-                            { x: 450, y: 150, label: "Manado" },
+                            { x: 95, y: 108, label: "Sumatera Utara" },
+                            { x: 220, y: 232, label: "DKI Jakarta" },
+                            { x: 265, y: 242, label: "Jawa Barat" },
+                            { x: 310, y: 250, label: "Jawa Timur" },
+                            { x: 290, y: 140, label: "Kalimantan Barat" },
+                            { x: 370, y: 135, label: "Kalimantan Timur" },
+                            { x: 450, y: 150, label: "Sulawesi Utara" },
                             { x: 650, y: 195, label: "Papua" },
                         ].map((p) => (
                             <g key={p.label}>
