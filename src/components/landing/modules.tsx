@@ -52,12 +52,12 @@ const modulesData = [
         <div className="space-y-3 my-auto">
           <div className="flex items-center justify-between bg-brand-primary/10 border border-brand-primary/20 p-2 rounded-xl">
             <span className="text-brand-accentDark font-bold"><LandingText text="Wilayah Surplus" /></span>
-            <span className="font-bold text-brand-textMain"><LandingText text="Kediri (+12T)" /></span>
+            <span className="font-bold text-brand-textMain"><LandingText text="Sulawesi Barat (+57,41 Ton)" /></span>
           </div>
           <div className="flex justify-center text-brand-textMuted/40 text-[10px]"><LandingText text="↓↓ Proses Alokasi Jalur ↓↓" /></div>
           <div className="flex items-center justify-between bg-rose-500/10 border border-rose-500/20 p-2 rounded-xl">
             <span className="text-rose-600 font-bold"><LandingText text="Wilayah Defisit" /></span>
-            <span className="font-bold text-brand-textMain"><LandingText text="Surabaya (-8T)" /></span>
+            <span className="font-bold text-brand-textMain"><LandingText text="Kalimantan Utara (-57,41 Ton)" /></span>
           </div>
         </div>
         <div className="text-center text-brand-accentDark font-bold"><LandingText text="Biaya Logistik minimum didapatkan" /></div>

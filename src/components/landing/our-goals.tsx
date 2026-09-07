@@ -43,7 +43,7 @@ export function OurGoalsSection() {
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
-                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan." /> </p>
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga." /> </p>
                             </div>
                         </motion.div>
 

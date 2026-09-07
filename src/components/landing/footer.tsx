@@ -63,7 +63,7 @@ export function FooterSection() {
               </Link>
             </li>
             <li>
-              <Link href="#modules" className="hover:text-brand-primary transition-colors"> <LandingText text="API Integration" /> </Link>
+              <Link href="#modules" className="hover:text-brand-primary transition-colors"> <LandingText text="Integrasi Data" /> </Link>
             </li>
           </ul>
         </div>

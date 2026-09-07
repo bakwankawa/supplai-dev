@@ -87,7 +87,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Bulan",
     "Months"
   ],
-  "Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan.": [
+  "Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga.": [
     "Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga.",
     "Price forecasts up to three months ahead to support supply planning and price risk mitigation."
   ],
@@ -175,9 +175,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Wilayah Surplus",
     "Surplus Region"
   ],
-  "Kediri (+12T)": [
-    "Kediri (+12 ton)",
-    "Kediri (+12 tonnes)"
+  "Sulawesi Barat (+57,41 Ton)": [
+    "Sulawesi Barat (+57,41 Ton)",
+    "West Sulawesi (+57.41 Tonnes)"
   ],
   "↓↓ Proses Alokasi Jalur ↓↓": [
     "↓↓ Proses Alokasi Distribusi ↓↓",
@@ -187,9 +187,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Wilayah Defisit",
     "Deficit Region"
   ],
-  "Surabaya (-8T)": [
-    "Surabaya (-8 ton)",
-    "Surabaya (-8 tonnes)"
+  "Kalimantan Utara (-57,41 Ton)": [
+    "Kalimantan Utara (-57,41 Ton)",
+    "North Kalimantan (-57.41 Tonnes)"
   ],
   "Biaya Logistik minimum didapatkan": [
     "Rekomendasi biaya logistik tersedia",
@@ -275,9 +275,25 @@ export const translations: Record<string, readonly [string, string]> = {
     "Prediksi 3 Bulan",
     "3-Month Forecast"
   ],
-  "16/03 (Hari Ini)": [
-    "16/03 (Saat Ini)",
-    "16/03 (Current)"
+  "Bulan Ini": [
+    "Bulan Ini",
+    "This Month"
+  ],
+  "-2 Bulan": [
+    "-2 Bulan",
+    "-2 Months"
+  ],
+  "-1 Bulan": [
+    "-1 Bulan",
+    "-1 Month"
+  ],
+  "+1 Bulan": [
+    "+1 Bulan",
+    "+1 Month"
+  ],
+  "+3 Bulan": [
+    "+3 Bulan",
+    "+3 Months"
   ],
   "● Aktual: Rp14.500": [
     "● Aktual: Rp14.500",
@@ -391,31 +407,31 @@ export const translations: Record<string, readonly [string, string]> = {
     "Asal Pasokan:",
     "Supply Origin:"
   ],
-  "Subang Rice Hub (150 Tons)": [
-    "Sentra Beras Subang (150 ton)",
-    "Subang Rice Hub (150 tonnes)"
+  "Sulawesi Barat (Surplus 57,41 Ton)": [
+    "Sulawesi Barat (Surplus 57,41 Ton)",
+    "West Sulawesi (Surplus 57.41 Tonnes)"
   ],
   "Target Demand:": [
     "Tujuan Distribusi:",
     "Distribution Destination:"
   ],
-  "Bandung Core Market (120 Tons)": [
-    "Pasar Induk Bandung (120 ton)",
-    "Bandung Wholesale Market (120 tonnes)"
+  "Kalimantan Utara (1,30% Pasar Bulanan)": [
+    "Kalimantan Utara (1,30% Pasar Bulanan)",
+    "North Kalimantan (1.30% of Monthly Market)"
   ],
   "Optimized Cost:": [
     "Efisiensi Biaya:",
     "Cost Efficiency:"
   ],
-  "Saved ~18.4% vs Manual Route": [
-    "Estimasi penghematan 18,4%",
-    "Estimated savings of 18.4%"
+  "Estimasi Hemat ~Rp48,7 Juta": [
+    "Estimasi Hemat ~Rp48,7 Juta",
+    "Estimated Savings ~Rp48.7 Million"
   ],
   "Status: Route Computed": [
     "Status: Rute Tersedia",
     "Status: Route Available"
   ],
-  "● Operational": [
+  "● Siap Ditinjau": [
     "● Siap Ditinjau",
     "● Ready for Review"
   ],
@@ -499,7 +515,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Ya. Optimasi distribusi mempertimbangkan pasokan, kebutuhan, dan biaya angkut untuk menyusun alternatif alokasi dari wilayah surplus ke wilayah defisit. Rekomendasi dapat digunakan sebagai bahan pertimbangan operasional.",
     "Yes. Distribution optimization considers supply, demand, and transport costs to develop allocation options from surplus to deficit regions. Recommendations can inform operational decisions."
   ],
-  "Bagaimana cara instansi daerah (TPID) menerima alarm dari Early Warning System?": [
+  "Bagaimana instansi menindaklanjuti peringatan harga?": [
     "Bagaimana instansi menindaklanjuti peringatan harga?",
     "How can institutions respond to price alerts?"
   ],
@@ -547,7 +563,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Dasbor",
     "Dashboard"
   ],
-  "API Integration": [
+  "Integrasi Data": [
     "Integrasi Data",
     "Data Integration"
   ],
