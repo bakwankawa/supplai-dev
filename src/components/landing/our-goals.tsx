@@ -81,13 +81,13 @@ export function OurGoalsSection() {
                                 <div className="space-y-1">
                                     <span className="font-mono text-xs font-bold tracking-wider text-brand-textMuted uppercase block"> <LandingText text="KEMITRAAN STRATEGIS" /> </span>
                                     <div className="flex items-baseline gap-2 mt-2">
-                                        <span className="text-5xl font-black tracking-tight">335</span>
-                                        <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Triliun" /></span>
+                                        <span className="text-5xl font-black tracking-tight">500+</span>
+                                        <span className="text-xl font-medium text-brand-textMuted"><LandingText text="Satuan TPID" /></span>
                                     </div>
                                 </div>
                             </div>
                             <div className="border-t border-brand-border pt-6 mt-6">
-                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Target potensi serapan melalui 500+ satuan TPID nasional." /> </p>
+                                <p className="text-brand-textMuted text-sm font-normal leading-relaxed"> <LandingText text="Jangkauan kemitraan strategis ke satuan TPID provinsi dan kabupaten/kota di seluruh Indonesia." /> </p>
                             </div>
                         </motion.div>
 

@@ -111,13 +111,13 @@ export const translations: Record<string, readonly [string, string]> = {
     "POTENSI KEMITRAAN",
     "PARTNERSHIP POTENTIAL"
   ],
-  "Triliun": [
-    "Triliun rupiah",
-    "Trillion rupiah"
+  "Satuan TPID": [
+    "Satuan TPID",
+    "TPID Units"
   ],
-  "Target potensi serapan melalui 500+ satuan TPID nasional.": [
-    "Sasaran potensi serapan melalui kerja sama dengan lebih dari 500 TPID di Indonesia.",
-    "A potential absorption target through collaboration with more than 500 regional inflation control teams across Indonesia."
+  "Jangkauan kemitraan strategis ke satuan TPID provinsi dan kabupaten/kota di seluruh Indonesia.": [
+    "Jangkauan kemitraan strategis ke satuan TPID provinsi dan kabupaten/kota di seluruh Indonesia.",
+    "Strategic partnership reach across provincial and district/city TPID units throughout Indonesia."
   ],
   "INPUT": [
     "MASUKAN",
