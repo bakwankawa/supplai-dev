@@ -42,14 +42,30 @@ export function teksJendela(bulanPrediksi: string, sekarang: Date): string[] {
  *  akan menyatakan besaran yang berbeda dan lebih kecil (X% DARI kenaikan,
  *  bukan X poin persen DARInya). `fraksiRata` genuinely adalah pecahan 0..1
  *  dari kenaikan itu, jadi ia dan harga akhir yang "lebih rendah" memang
- *  berhak atas tanda %, dirender dengan `persen`. */
+ *  berhak atas tanda %, dirender dengan `persen`.
+ *
+ *  `ditahanPpRata` dan `fraksiRata` TIDAK setara, walau berasal dari data
+ *  yang sama: `fraksiRata` adalah rata-rata TERBOBOT dari rasio per-rute
+ *  (d_i/r_i), sedangkan `ditahanPpRata` dibagi kenaikan rata-rata adalah
+ *  rasio dari dua rata-rata terbobot (mean(d_i)/mean(r_i)) -- pembagian dan
+ *  rata-rata tidak bertukar urutan begitu saja, jadi kalimat tidak boleh
+ *  memakai "atau" seakan keduanya cara lain menyatakan angka yang sama.
+ *
+ *  Klaim "harga akhir X% lebih rendah dibanding tanpa intervensi" TIDAK
+ *  sama dengan `ditahanPpRata` dibaca sebagai persen: bila kenaikan yang
+ *  diprediksi adalah r% dan yang ditahan d poin, harga tanpa intervensi naik
+ *  ke P0(1+r/100) dan harga dengan intervensi naik lebih sedikit, ke
+ *  P0(1+(r-d)/100). Selisih relatif keduanya adalah d/(1+r/100), BUKAN d --
+ *  memakai d langsung sebagai persen membesar-besarkan klaim (satu kasus
+ *  nyata mencetak 1,78% padahal 1,55% yang tepat). `kenaikanRata` di
+ *  `./analysis` memulihkan r dari ditahanPp/fraksiDitahan tiap rute. */
 export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
-  const { ditahanPpRata, fraksiRata } = a.dampak
+  const { ditahanPpRata, fraksiRata, kenaikanRata } = a.dampak
   const klaim =
     a.totalRute === 0
       ? "Rencana ini tidak memuat satu pun rute, sehingga tidak ada klaim " +
         "penekanan harga yang dapat dinyatakan."
-      : ditahanPpRata === null || fraksiRata === null
+      : ditahanPpRata === null || fraksiRata === null || kenaikanRata === null
         ? "Rencana ini tidak menghasilkan angka penekanan harga gabungan: " +
           "setidaknya satu rute dalam seleksi ini menuju provinsi tujuan tanpa " +
           "data konsumsi pendukung, sehingga seberapa jauh harga akhirnya lebih " +
@@ -57,10 +73,13 @@ export function teksPenekananHarga(a: RedistribusiAnalysis): string[] {
           "yang datanya tersedia sengaja tidak dirata-ratakan sendirian, karena " +
           "itu akan diam-diam menyembunyikan rute yang tidak diketahui itu."
         : `Rencana ini menahan rata-rata ${angka(ditahanPpRata)} poin persen ` +
-          `dari kenaikan yang diprediksi, atau sekitar ${persen(fraksiRata * 100)} ` +
-          `dari kenaikan itu. Artinya harga di provinsi tujuan berakhir sekitar ` +
-          `${persen(ditahanPpRata)} lebih rendah dibanding tanpa intervensi — ` +
-          `bukan turun sebesar itu dari harga hari ini.`
+          `dari kenaikan yang diprediksi. Secara terpisah, rata-rata terbobot ` +
+          `di seluruh rute, bagian kenaikan yang tertahan per rute adalah ` +
+          `sekitar ${persen(fraksiRata * 100)} — dua cara berbeda merangkum ` +
+          `data yang sama, bukan angka yang setara. Artinya harga di provinsi ` +
+          `tujuan berakhir sekitar ${persen(ditahanPpRata / (1 + kenaikanRata / 100))} ` +
+          `lebih rendah dibanding tanpa intervensi — bukan turun sebesar itu ` +
+          `dari harga hari ini.`
 
   const takaran =
     `Angka ini mewarisi dasar takaran rutenya: ${a.terukur} rute bersandar ` +

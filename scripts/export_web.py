@@ -270,8 +270,42 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
     # every row of flows. Read once here rather than per commodity/posture
     # subset, since an empty subset (a commodity the solver moved nothing of)
     # has no row to read .iloc[0] from.
-    bulan_prediksi = str(flows.bulan_prediksi.iloc[0])
-    horizon_bulan = int(flows.horizon_bulan.iloc[0])
+    #
+    # An entirely empty *flows* (no commodity produced a single route, or no
+    # column even exists yet) has nothing to read .iloc[0] from either. That
+    # used to throw here — an IndexError/AttributeError with no context —
+    # before the loop below ever got a chance to raise ITS own, more specific
+    # KeyError about a missing plan_meta entry. Deferring this read until
+    # flows is known to be non-empty restores that ordering: the file's
+    # deliberate empty-flows defence (the plan_meta KeyError below) fires
+    # first, the way it did before this branch added these two lines.
+    #
+    # supplai/match.py refuses to pick an arbitrary bulan_prediksi/
+    # horizon_bulan when a commodity carries more than one distinct value —
+    # it raises rather than silently take the first row. Mirror that guard
+    # here: flows is meant to carry exactly one forecast run, so more than
+    # one distinct value is a structural bug upstream, not a `.iloc[0]` away.
+    if flows.empty:
+        bulan_prediksi, horizon_bulan = "", 0
+    else:
+        unique_bulan = flows["bulan_prediksi"].unique()
+        unique_horizon = flows["horizon_bulan"].unique()
+        if len(unique_bulan) != 1:
+            raise ValueError(
+                f"flows carries {len(unique_bulan)} distinct bulan_prediksi "
+                f"values {sorted(unique_bulan)}, but the whole export must "
+                f"target exactly one month. Falling back to the first row "
+                f"would silently pick an arbitrary month."
+            )
+        if len(unique_horizon) != 1:
+            raise ValueError(
+                f"flows carries {len(unique_horizon)} distinct horizon_bulan "
+                f"values {sorted(unique_horizon)}, but the whole export must "
+                f"have exactly one horizon. Falling back to the first row "
+                f"would silently pick an arbitrary horizon."
+            )
+        bulan_prediksi = str(flows.bulan_prediksi.iloc[0])
+        horizon_bulan = int(flows.horizon_bulan.iloc[0])
     out = {}
     for postur in posturs:
         by_postur = (flows[flows.postur == postur]

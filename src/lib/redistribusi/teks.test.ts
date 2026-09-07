@@ -67,7 +67,10 @@ describe("teksPenekananHarga", () => {
     // diam-diam mencetak nol -- nol berarti "kami tahu rencana ini tidak
     // menahan apa-apa", null berarti "kami tidak tahu". Ini adalah bagian yang
     // dipatok oleh tes: hilangnya kalimat ini tidak cukup, harus jelas kenapa.
-    const tanpaData = { ...contoh(), dampak: { ditahanPpRata: null, fraksiRata: null } }
+    const tanpaData = {
+      ...contoh(),
+      dampak: { ditahanPpRata: null, fraksiRata: null, kenaikanRata: null },
+    }
     const teksTanpaData = teksPenekananHarga(tanpaData).join(" ")
     expect(teksTanpaData).not.toMatch(/-?\d[\d.,]*%/)
     expect(teksTanpaData.toLowerCase()).toContain("tidak diketahui")

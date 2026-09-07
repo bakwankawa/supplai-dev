@@ -117,6 +117,10 @@ def test_build_redistribution():
         "biaya_rp": [2.85e9, 9e8], "harga_asal": [14000, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
         "urgensi": ["Warning", "Info"], "marjin_harapan_rp": [-1e8, -4e7],
+        # Bulan sasaran dan horizon yang mendasarinya (Tasks 12-13) — konstan
+        # di seluruh flows, sama seperti supplai/match.py menjaminnya.
+        "bulan_prediksi": ["2026-09-01", "2026-09-01"],
+        "horizon_bulan": [3, 3],
         # Columns added by the population-sizing work (Tasks 8-9).
         "postur": ["seimbang", "seimbang"],
         "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
@@ -127,6 +131,14 @@ def test_build_redistribution():
         "volume_ci_atas": [550.0, 220.0],
         "dasar_takaran": ["terukur", "terukur"],
         "kecukupan_persen": [12.0, 12.0],
+        # Dampak harga (Tasks 12-13): poin persen kenaikan yang ditahan, its
+        # interval, dan bagian kenaikan yang tertutup. Second row is NaN, to
+        # exercise the "no supporting consumption data -> null, not zero"
+        # path through or_none() below.
+        "ditahan_pp": [2.0, float("nan")],
+        "ditahan_ci_bawah": [1.5, float("nan")],
+        "ditahan_ci_atas": [2.5, float("nan")],
+        "fraksi_ditahan": [0.5, float("nan")],
     })
     # build_redistribution now requires a plan_meta entry for every
     # commodity-posture pair (Step 6) — fill them all, then override the one
@@ -156,13 +168,39 @@ def test_build_redistribution():
     # f"{komoditas}|{postur}" lookup hit. The other summary values happen to
     # equal what the code computes from the rows when the lookup misses.
     assert beras["summary"]["activeRoutes"] == "2 → 1"
+    # Bulan sasaran dan horizon (Tasks 12-13): read once from flows and
+    # carried through untouched, including into the "all" aggregate below —
+    # they are properties of the forecast run, not of one commodity's plan.
+    assert beras["summary"]["bulanPrediksi"] == "2026-09-01"
+    assert beras["summary"]["horizonBulan"] == 3
     r0 = next(r for r in beras["routes"] if r["from"] == "Jawa Timur")
     assert r0["priority"] == "medium" and r0["commodity"] == "beras"
     assert r0["volumeTon"] == 500.0 and r0["dasarTakaran"] == "terukur"
+    # Marjin harapan (Rp, total rute, memakai harga tujuan SETELAH prediksi
+    # kenaikan) — carried straight from the pipeline's marjin_harapan_rp.
+    assert r0["marjinHarapanRp"] == -100_000_000
+    # ditahanPp/ditahanCiBawah/ditahanCiAtas/fraksiDitahan: real numbers for
+    # a route whose destination has supporting consumption data.
+    assert r0["ditahanPp"] == 2.0
+    assert r0["ditahanCiBawah"] == 1.5
+    assert r0["ditahanCiAtas"] == 2.5
+    assert r0["fraksiDitahan"] == 0.5
+    # Second row is NaN in the fixture, meaning no supporting consumption
+    # data for its destination — unknown must not read as zero, so it must
+    # serialize as None (-> JSON null), never as 0.
+    r1 = next(r for r in beras["routes"] if r["from"] == "Bali")
+    assert r1["ditahanPp"] is None
+    assert r1["ditahanCiBawah"] is None
+    assert r1["ditahanCiAtas"] is None
+    assert r1["fraksiDitahan"] is None
     provs = {p["name"]: p for p in beras["provinces"]}
     assert provs["Jawa Timur"]["status"] == "surplus"
     assert provs["Papua"]["status"] == "deficit" and provs["Papua"]["stock"] == 700
     assert "all" in res["seimbang"]
+    # The "all" aggregate carries the same bulanPrediksi/horizonBulan — they
+    # describe the whole forecast run, not any one commodity's slice of it.
+    assert res["seimbang"]["all"]["summary"]["bulanPrediksi"] == "2026-09-01"
+    assert res["seimbang"]["all"]["summary"]["horizonBulan"] == 3
 
     # A posture that produced no routes still gets an entry, with empty lists —
     # the UI must be able to say "this posture ships nothing" rather than fall
@@ -337,6 +375,24 @@ def test_routes_carry_the_prices_the_solver_used():
         "the solver ships from cheaper to dearer; this route inverts it"
 
 
+def test_summary_carries_bulan_prediksi_and_horizon():
+    # Tasks 12-13: every summary — per commodity and the "all" aggregate —
+    # must be able to say which month it targets and the deadline is built
+    # from (jendelaWaktu on the front end reads bulanPrediksi directly).
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "bulanPrediksi" in resp["summary"], f"{postur}/{cid}"
+            assert "horizonBulan" in resp["summary"], f"{postur}/{cid}"
+            assert isinstance(resp["summary"]["horizonBulan"], int)
+            # ISO "YYYY-MM-DD", not a pandas Timestamp repr leaking through.
+            assert len(resp["summary"]["bulanPrediksi"]) == 10
+    # Constant across the whole export — one forecast run, one target month.
+    bulan = {resp["summary"]["bulanPrediksi"]
+             for per_kom in out.values() for resp in per_kom.values()}
+    assert len(bulan) == 1, f"bulanPrediksi is not constant across the export: {bulan}"
+
+
 def test_ledger_loads_and_is_well_formed():
     import pathlib
     art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
@@ -352,6 +408,51 @@ def test_missing_plan_meta_entry_raises():
     flows = pd.DataFrame(columns=["komoditas", "postur"])
     meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
     with pytest.raises(KeyError, match="plan_meta"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_empty_flows_reaches_plan_meta_error_not_an_iloc_crash():
+    # Regression: reading flows.bulan_prediksi.iloc[0] before this KeyError
+    # check used to throw an unrelated AttributeError/IndexError on a
+    # completely empty flows frame (this fixture has no bulan_prediksi
+    # column at all), which masked the file's own deliberate empty-flows
+    # defence below. This is the same assertion as
+    # test_missing_plan_meta_entry_raises, kept separate and named for the
+    # regression so it does not silently start passing for the wrong reason
+    # again.
+    import pandas as pd, pytest
+    flows = pd.DataFrame(columns=["komoditas", "postur"])
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(KeyError, match="plan_meta"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_non_unique_bulan_prediksi_raises():
+    # supplai/match.py refuses to pick an arbitrary bulan_prediksi when a
+    # commodity carries more than one distinct value; build_redistribution
+    # must refuse the same way rather than silently take flows.iloc[0].
+    import pandas as pd, pytest
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium", "Beras Medium"],
+        "postur": ["seimbang", "seimbang"],
+        "bulan_prediksi": ["2026-09-01", "2026-10-01"],
+        "horizon_bulan": [3, 3],
+    })
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(ValueError, match="bulan_prediksi"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_non_unique_horizon_bulan_raises():
+    import pandas as pd, pytest
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium", "Beras Medium"],
+        "postur": ["seimbang", "seimbang"],
+        "bulan_prediksi": ["2026-09-01", "2026-09-01"],
+        "horizon_bulan": [3, 6],
+    })
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(ValueError, match="horizon_bulan"):
         ew.build_redistribution(flows, meta)
 
 

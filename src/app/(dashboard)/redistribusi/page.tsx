@@ -206,7 +206,7 @@ export default function RedistribusiPage() {
                 Rencana untuk <strong>{j.labelBulan}</strong>
                 {j.sudahLewat
                   ? ` — jendela tindakan sudah lewat ${Math.abs(j.sisaHari)} hari lalu.`
-                  : ` — sisa ${j.sisaHari} hari sampai tenggat.`}
+                  : ` — sisa ${j.sisaHari} hari sampai tenggat. Tenggatnya awal ${j.labelBulan}, bukan akhirnya.`}
               </p>
             </div>
           );

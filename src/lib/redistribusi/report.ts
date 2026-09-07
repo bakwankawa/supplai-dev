@@ -94,7 +94,6 @@ export function createRedistribusiReport(
   });
   heading("Laporan Rencana Redistribusi Pangan");
   paragraph(`${a.komoditas} | Postur ${POSTUR_LABEL[a.postur].nama} | ${judulPembaca}`, 12);
-  paragraph(`Dibuat: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`, 8, muted);
   paragraph(`${POSTUR_LABEL[a.postur].arti} Status pemecah rute: "${a.status}".`, 9, muted);
 
   // Kepala laporan menyebut bulan sasaran dan sisa waktu di badan laporan,
@@ -102,6 +101,11 @@ export function createRedistribusiReport(
   // dipakai sama sekali. teksJendela hanya mengembalikan teks; gaya baris
   // kedua (ukuran/warna) berubah menurut jendelaWaktu, dihitung terpisah di
   // sini karena teks.ts murni tidak membawa keputusan tampilan.
+  //
+  // Tanggal pembuatan dicetak SEKALI, di baris pertama teksJendela, dari jam
+  // yang disuntikkan (`sekarang`) -- bukan di sini lagi dari `new Date()`.
+  // Dua pencetakan dari dua jam berbeda bisa mencetak dua tanggal berbeda
+  // pada laporan yang sama.
   const [jendelaBaris1, jendelaBaris2] = teksJendela(a.bulanPrediksi, sekarang);
   paragraph(jendelaBaris1, 9, muted);
   if (jendelaWaktu(a.bulanPrediksi, sekarang).sudahLewat) {
@@ -175,7 +179,7 @@ export function createRedistribusiReport(
     ]);
     heading("02  Selisih harga terhadap ongkos angkut");
     if (a.routes.length) {
-      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu. Marjin harapan adalah total rute, dalam rupiah, tanpa prediksi. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
+      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu, memakai harga hari ini tanpa prediksi. Marjin harapan adalah total rute, dalam rupiah, memakai harga tujuan SETELAH kenaikan yang diprediksi, dikurangi ongkos angkut. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
       table(
         ["Asal", "Tujuan", "Harga asal", "Harga tujuan", "Jarak", "Ongkos/kg", "Margin/kg", "Marjin harapan", "Menutup"],
         [...a.routes]
