@@ -33,8 +33,14 @@ IND_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
 def _disp_month(ts) -> str:
     return f"{IND_MONTHS[ts.month]} {ts.year % 100:02d}"
 
-# scripts/ -> supplai-dev/ -> hackathon_phase2/  (artifacts live at the last)
-DEFAULT_ARTIFACTS = Path(__file__).resolve().parents[2] / "artifacts"
+# scripts/ -> supplai-dev/ -> hackathon_phase2/  (artifacts and data/ live at
+# the last, and so does the supplai package itself — it is not pip-installed,
+# so it must be put on sys.path before `from supplai import ...` can resolve).
+_PIPELINE_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_ARTIFACTS = _PIPELINE_ROOT / "artifacts"
+DEFAULT_DATA = _PIPELINE_ROOT / "data"
+if str(_PIPELINE_ROOT) not in sys.path:
+    sys.path.insert(0, str(_PIPELINE_ROOT))
 
 
 def slug(s: str) -> str:
@@ -464,6 +470,50 @@ def build_commodity_mape(bench_final: pd.DataFrame, final_results: dict) -> dict
             for k, v in m.items() if k in COMMODITY_ID}
 
 
+def build_tingkatan() -> dict:
+    """Tiga kelompok IKP, plus provinsi mana yang tidak berpasangan.
+
+    Cakupan ikut dikirim, bukan disembunyikan: empat provinsi Papua punya skor
+    tetapi tidak punya harga, dan salah satunya ber-IKP terendah di negeri ini.
+    """
+    from supplai import tingkatan
+
+    t = tingkatan.muat(DEFAULT_DATA)
+    prov_model = sorted(pd.read_parquet(DEFAULT_ARTIFACTS / "forecast.parquet").provinsi.unique())
+    c = tingkatan.cakupan(prov_model, DEFAULT_DATA)
+    return {
+        "label": {k: tingkatan.LABEL[k] for k in tingkatan.KELOMPOK},
+        "provinsi": [
+            {"provinsi": p, "ikp": round(float(r.ikp), 2),
+             "peringkat": int(r.peringkat), "kelompok": str(r.kelompok)}
+            for p, r in t.iterrows()
+        ],
+        "cakupan": {
+            "cocok": c["cocok"],
+            "ikpTanpaHarga": c["ikp_tanpa_harga"],
+            "hargaTanpaIkp": c["harga_tanpa_ikp"],
+        },
+    }
+
+
+def build_lanskap() -> dict:
+    """Posisi harga tiap komoditas di tiap provinsi terhadap median nasional."""
+    from supplai import lanskap
+
+    p = lanskap.posisi_harga(DEFAULT_DATA)
+    return {
+        "komoditas": sorted(p.komoditas.unique().tolist()),
+        "baris": [
+            {"komoditas": r.komoditas, "provinsi": r.provinsi,
+             "harga": round(float(r.harga)),
+             "medianNasional": round(float(r.median_nasional)),
+             "relatifPersen": round(float(r.relatif_persen), 2),
+             "posisi": r.posisi}
+            for r in p.itertuples()
+        ],
+    }
+
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
@@ -500,6 +550,8 @@ def main(argv=None) -> int:
     timeseries = build_timeseries(A["panel"], A["forecast_path"])
     commodity_mape = build_commodity_mape(A["bench_final"], A["final_results"])
     buku_besar = A["buku_besar"]
+    tingkatan = build_tingkatan()
+    lanskap = build_lanskap()
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -512,6 +564,8 @@ def main(argv=None) -> int:
     _write(args.out, "commodity_mape.json", commodity_mape)
     _write(args.out, "buku_besar.json", buku_besar)
     _write(args.out, "narasi.json", A["narasi"])
+    _write(args.out, "tingkatan.json", tingkatan)
+    _write(args.out, "lanskap.json", lanskap)
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -546,6 +600,14 @@ def main(argv=None) -> int:
         for cid, resp in per_kom.items():
             assert resp["summary"].get("status"), f"{postur}/{cid} has no status"
             assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
+    assert len(tingkatan["provinsi"]) == 38, "tingkatan must cover all 38 IKP provinces"
+    assert set(tingkatan["label"]) == {"bawah", "tengah", "atas"}
+    assert "tertinggal" not in json.dumps(tingkatan).lower(), \
+        "'tertinggal' is a kabupaten designation (Perpres 63/2020); wrong at province level"
+    assert tingkatan["cakupan"]["ikpTanpaHarga"], \
+        "expected provinces with an IKP score but no price data (the 2022 Papua split)"
+    assert len(lanskap["komoditas"]) == 8, "lanskap must cover 8 commodities"
+    assert lanskap["baris"], "lanskap produced no rows"
     print("export_web: OK")
     return 0
 

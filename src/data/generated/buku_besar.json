@@ -82,5 +82,19 @@
   "sumber": "Bulan dihitung, bukan diamati. Tenggat tindakan adalah AWAL bulan itu, bukan akhirnya: intervensi harus terjadi sebelum bulan berjalan agar memengaruhi harganya.",
   "tahun": "—",
   "status": "diturunkan"
+ },
+ {
+  "input": "Indeks Ketahanan Pangan provinsi",
+  "nilai": "skor 0-100 per provinsi, 38 provinsi, makin tinggi makin tahan",
+  "sumber": "Bapanas (Badan Pangan Nasional), IKP Tingkat Provinsi 2025 (12 indikator), portal data terbuka. Diambil 2026-09-07 lewat ekstraksi tabel, lalu diuji tiga cara di tests/test_ikp_data.py — peringkatnya harus permutasi 1..38 dan harus konsisten dengan urutan skornya.",
+  "tahun": "2025",
+  "status": "terukur"
+ },
+ {
+  "input": "Berkas IKP bulanan yang TIDAK dipakai",
+  "nilai": "additional data/indeks_ketahanan_pangan_provinsi_2022_2026.xlsx",
+  "sumber": "Ditolak sebagai dasar tingkatan. Berkas itu bulanan berskala 1-3; IKP resmi tahunan berskala 0-100. Korelasi peringkat keduanya hanya 0,42 (terhadap rata-rata dua belas rilis bulanan 2025), dan berkas itu menempatkan Papua Pegunungan — peringkat 38 secara resmi, terendah di negeri ini — di atas median. Membangun analisis kesenjangan di atasnya akan membalik posisi pemerintah pada provinsi yang paling menentukan. Dicatat di sini supaya orang berikutnya yang melihat berkas itu tidak mengulanginya.",
+  "tahun": "—",
+  "status": "diasumsikan"
  }
 ]

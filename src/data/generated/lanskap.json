@@ -1,0 +1,2190 @@
+{
+ "komoditas": [
+  "Bawang Merah",
+  "Bawang Putih",
+  "Beras Medium",
+  "Daging Ayam",
+  "Daging Sapi",
+  "Gula Pasir",
+  "Minyak Goreng",
+  "Telur Ayam"
+ ],
+ "baris": [
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 29650,
+   "medianNasional": 29575,
+   "relatifPersen": 0.25,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kalimantan Utara",
+   "harga": 17000,
+   "medianNasional": 15819,
+   "relatifPersen": 7.46,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Jambi",
+   "harga": 32875,
+   "medianNasional": 37738,
+   "relatifPersen": -12.89,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "DKI Jakarta",
+   "harga": 17017,
+   "medianNasional": 15819,
+   "relatifPersen": 7.57,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Jawa Barat",
+   "harga": 56882,
+   "medianNasional": 50125,
+   "relatifPersen": 13.48,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Jambi",
+   "harga": 43500,
+   "medianNasional": 50125,
+   "relatifPersen": -13.22,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sumatera Selatan",
+   "harga": 28000,
+   "medianNasional": 29575,
+   "relatifPersen": -5.33,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Papua Barat",
+   "harga": 35725,
+   "medianNasional": 29575,
+   "relatifPersen": 20.79,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Gorontalo",
+   "harga": 39667,
+   "medianNasional": 37738,
+   "relatifPersen": 5.11,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "DI Yogyakarta",
+   "harga": 14875,
+   "medianNasional": 15819,
+   "relatifPersen": -5.97,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sulawesi Utara",
+   "harga": 51375,
+   "medianNasional": 50125,
+   "relatifPersen": 2.49,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Bengkulu",
+   "harga": 16075,
+   "medianNasional": 15819,
+   "relatifPersen": 1.62,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Gorontalo",
+   "harga": 15000,
+   "medianNasional": 15819,
+   "relatifPersen": -5.18,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kepulauan Riau",
+   "harga": 28600,
+   "medianNasional": 37738,
+   "relatifPersen": -24.21,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sumatera Barat",
+   "harga": 43750,
+   "medianNasional": 50125,
+   "relatifPersen": -12.72,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Bali",
+   "harga": 29250,
+   "medianNasional": 37738,
+   "relatifPersen": -22.49,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Aceh",
+   "harga": 45333,
+   "medianNasional": 50125,
+   "relatifPersen": -9.56,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kalimantan Timur",
+   "harga": 16917,
+   "medianNasional": 15819,
+   "relatifPersen": 6.94,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sumatera Utara",
+   "harga": 46385,
+   "medianNasional": 50125,
+   "relatifPersen": -7.46,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 19125,
+   "medianNasional": 15819,
+   "relatifPersen": 20.9,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Bali",
+   "harga": 40375,
+   "medianNasional": 50125,
+   "relatifPersen": -19.45,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Banten",
+   "harga": 40333,
+   "medianNasional": 37738,
+   "relatifPersen": 6.88,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 18738,
+   "medianNasional": 15819,
+   "relatifPersen": 18.45,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Papua",
+   "harga": 39833,
+   "medianNasional": 29575,
+   "relatifPersen": 34.69,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Banten",
+   "harga": 58800,
+   "medianNasional": 50125,
+   "relatifPersen": 17.31,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sumatera Selatan",
+   "harga": 44833,
+   "medianNasional": 50125,
+   "relatifPersen": -10.56,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kalimantan Barat",
+   "harga": 17600,
+   "medianNasional": 15819,
+   "relatifPersen": 11.26,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Bengkulu",
+   "harga": 41750,
+   "medianNasional": 37738,
+   "relatifPersen": 10.63,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Bengkulu",
+   "harga": 55000,
+   "medianNasional": 50125,
+   "relatifPersen": 9.73,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Jawa Timur",
+   "harga": 14845,
+   "medianNasional": 15819,
+   "relatifPersen": -6.16,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 29788,
+   "medianNasional": 29575,
+   "relatifPersen": 0.72,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "DI Yogyakarta",
+   "harga": 47500,
+   "medianNasional": 50125,
+   "relatifPersen": -5.24,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Jawa Tengah",
+   "harga": 15776,
+   "medianNasional": 15819,
+   "relatifPersen": -0.27,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "DI Yogyakarta",
+   "harga": 36000,
+   "medianNasional": 37738,
+   "relatifPersen": -4.6,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Jawa Barat",
+   "harga": 15389,
+   "medianNasional": 15819,
+   "relatifPersen": -2.72,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "DKI Jakarta",
+   "harga": 60083,
+   "medianNasional": 50125,
+   "relatifPersen": 19.87,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Jambi",
+   "harga": 16625,
+   "medianNasional": 15819,
+   "relatifPersen": 5.09,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "DKI Jakarta",
+   "harga": 39167,
+   "medianNasional": 37738,
+   "relatifPersen": 3.79,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Gorontalo",
+   "harga": 55833,
+   "medianNasional": 50125,
+   "relatifPersen": 11.39,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Banten",
+   "harga": 15667,
+   "medianNasional": 15819,
+   "relatifPersen": -0.96,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Jawa Tengah",
+   "harga": 33292,
+   "medianNasional": 37738,
+   "relatifPersen": -11.78,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 53125,
+   "medianNasional": 50125,
+   "relatifPersen": 5.99,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Riau",
+   "harga": 45000,
+   "medianNasional": 50125,
+   "relatifPersen": -10.22,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 37625,
+   "medianNasional": 37738,
+   "relatifPersen": -0.3,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 24935,
+   "medianNasional": 29575,
+   "relatifPersen": -15.69,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Papua Barat",
+   "harga": 50000,
+   "medianNasional": 37738,
+   "relatifPersen": 32.49,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kepulauan Riau",
+   "harga": 37800,
+   "medianNasional": 50125,
+   "relatifPersen": -24.59,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Papua",
+   "harga": 54583,
+   "medianNasional": 37738,
+   "relatifPersen": 44.64,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Papua Barat",
+   "harga": 61250,
+   "medianNasional": 50125,
+   "relatifPersen": 22.19,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Lampung",
+   "harga": 50375,
+   "medianNasional": 50125,
+   "relatifPersen": 0.5,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 44167,
+   "medianNasional": 37738,
+   "relatifPersen": 17.04,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kalimantan Timur",
+   "harga": 42167,
+   "medianNasional": 37738,
+   "relatifPersen": 11.74,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sulawesi Barat",
+   "harga": 25750,
+   "medianNasional": 29575,
+   "relatifPersen": -12.93,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 32900,
+   "medianNasional": 37738,
+   "relatifPersen": -12.82,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Maluku",
+   "harga": 55000,
+   "medianNasional": 50125,
+   "relatifPersen": 9.73,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kalimantan Utara",
+   "harga": 41625,
+   "medianNasional": 37738,
+   "relatifPersen": 10.3,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Maluku Utara",
+   "harga": 55000,
+   "medianNasional": 37738,
+   "relatifPersen": 45.74,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Maluku Utara",
+   "harga": 66250,
+   "medianNasional": 50125,
+   "relatifPersen": 32.17,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sulawesi Utara",
+   "harga": 32625,
+   "medianNasional": 29575,
+   "relatifPersen": 10.31,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Maluku",
+   "harga": 42500,
+   "medianNasional": 37738,
+   "relatifPersen": 12.62,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Papua",
+   "harga": 68333,
+   "medianNasional": 50125,
+   "relatifPersen": 36.33,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 45400,
+   "medianNasional": 50125,
+   "relatifPersen": -9.43,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 35000,
+   "medianNasional": 37738,
+   "relatifPersen": -7.25,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Lampung",
+   "harga": 32125,
+   "medianNasional": 37738,
+   "relatifPersen": -14.87,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 44167,
+   "medianNasional": 50125,
+   "relatifPersen": -11.89,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Riau",
+   "harga": 33500,
+   "medianNasional": 37738,
+   "relatifPersen": -11.23,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Jawa Tengah",
+   "harga": 52646,
+   "medianNasional": 50125,
+   "relatifPersen": 5.03,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 61000,
+   "medianNasional": 50125,
+   "relatifPersen": 21.7,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sumatera Barat",
+   "harga": 29600,
+   "medianNasional": 29575,
+   "relatifPersen": 0.08,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Bali",
+   "harga": 14975,
+   "medianNasional": 15819,
+   "relatifPersen": -5.34,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Jawa Barat",
+   "harga": 37444,
+   "medianNasional": 37738,
+   "relatifPersen": -0.78,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Jawa Timur",
+   "harga": 51139,
+   "medianNasional": 50125,
+   "relatifPersen": 2.02,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Aceh",
+   "harga": 14917,
+   "medianNasional": 15819,
+   "relatifPersen": -5.71,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 48333,
+   "medianNasional": 50125,
+   "relatifPersen": -3.57,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sumatera Utara",
+   "harga": 34000,
+   "medianNasional": 37738,
+   "relatifPersen": -9.9,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kalimantan Barat",
+   "harga": 47562,
+   "medianNasional": 50125,
+   "relatifPersen": -5.11,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sumatera Selatan",
+   "harga": 43000,
+   "medianNasional": 37738,
+   "relatifPersen": 13.95,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 47875,
+   "medianNasional": 50125,
+   "relatifPersen": -4.49,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Jawa Timur",
+   "harga": 27303,
+   "medianNasional": 37738,
+   "relatifPersen": -27.65,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sumatera Barat",
+   "harga": 32375,
+   "medianNasional": 37738,
+   "relatifPersen": -14.21,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 41000,
+   "medianNasional": 50125,
+   "relatifPersen": -18.2,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 49875,
+   "medianNasional": 50125,
+   "relatifPersen": -0.5,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sulawesi Utara",
+   "harga": 40375,
+   "medianNasional": 37738,
+   "relatifPersen": 6.99,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Riau",
+   "harga": 29869,
+   "medianNasional": 29575,
+   "relatifPersen": 0.99,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kalimantan Barat",
+   "harga": 36375,
+   "medianNasional": 37738,
+   "relatifPersen": -3.61,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kalimantan Timur",
+   "harga": 52500,
+   "medianNasional": 50125,
+   "relatifPersen": 4.74,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 46250,
+   "medianNasional": 37738,
+   "relatifPersen": 22.56,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 41667,
+   "medianNasional": 37738,
+   "relatifPersen": 10.41,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Sulawesi Barat",
+   "harga": 46250,
+   "medianNasional": 50125,
+   "relatifPersen": -7.73,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Merah",
+   "provinsi": "Kalimantan Utara",
+   "harga": 52250,
+   "medianNasional": 50125,
+   "relatifPersen": 4.24,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 37850,
+   "medianNasional": 37738,
+   "relatifPersen": 0.3,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 35125,
+   "medianNasional": 37738,
+   "relatifPersen": -6.92,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Sulawesi Barat",
+   "harga": 40000,
+   "medianNasional": 37738,
+   "relatifPersen": 6.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Bawang Putih",
+   "provinsi": "Aceh",
+   "harga": 34833,
+   "medianNasional": 37738,
+   "relatifPersen": -7.7,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Lampung",
+   "harga": 26875,
+   "medianNasional": 29575,
+   "relatifPersen": -9.13,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kepulauan Riau",
+   "harga": 15500,
+   "medianNasional": 15819,
+   "relatifPersen": -2.02,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Jawa Timur",
+   "harga": 26194,
+   "medianNasional": 29575,
+   "relatifPersen": -11.43,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kalimantan Utara",
+   "harga": 20000,
+   "medianNasional": 19079,
+   "relatifPersen": 4.83,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 18438,
+   "medianNasional": 19079,
+   "relatifPersen": -3.36,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kepulauan Riau",
+   "harga": 15400,
+   "medianNasional": 19079,
+   "relatifPersen": -19.28,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Lampung",
+   "harga": 18562,
+   "medianNasional": 19079,
+   "relatifPersen": -2.71,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Maluku",
+   "harga": 20000,
+   "medianNasional": 19079,
+   "relatifPersen": 4.83,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Maluku Utara",
+   "harga": 20500,
+   "medianNasional": 19079,
+   "relatifPersen": 7.45,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 19100,
+   "medianNasional": 19079,
+   "relatifPersen": 0.11,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kalimantan Timur",
+   "harga": 19375,
+   "medianNasional": 19079,
+   "relatifPersen": 1.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 19500,
+   "medianNasional": 19079,
+   "relatifPersen": 2.21,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Papua",
+   "harga": 21750,
+   "medianNasional": 19079,
+   "relatifPersen": 14.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Papua Barat",
+   "harga": 20750,
+   "medianNasional": 19079,
+   "relatifPersen": 8.76,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Riau",
+   "harga": 18950,
+   "medianNasional": 19079,
+   "relatifPersen": -0.68,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sulawesi Barat",
+   "harga": 18875,
+   "medianNasional": 19079,
+   "relatifPersen": -1.07,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 18200,
+   "medianNasional": 19079,
+   "relatifPersen": -4.61,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 19833,
+   "medianNasional": 19079,
+   "relatifPersen": 3.95,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 19375,
+   "medianNasional": 19079,
+   "relatifPersen": 1.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sulawesi Utara",
+   "harga": 19500,
+   "medianNasional": 19079,
+   "relatifPersen": 2.21,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Jawa Tengah",
+   "harga": 26205,
+   "medianNasional": 29575,
+   "relatifPersen": -11.4,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sumatera Barat",
+   "harga": 18750,
+   "medianNasional": 19079,
+   "relatifPersen": -1.72,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 19400,
+   "medianNasional": 19079,
+   "relatifPersen": 1.68,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kalimantan Barat",
+   "harga": 19812,
+   "medianNasional": 19079,
+   "relatifPersen": 3.85,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 143333,
+   "medianNasional": 152500,
+   "relatifPersen": -6.01,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sulawesi Utara",
+   "harga": 153750,
+   "medianNasional": 152500,
+   "relatifPersen": 0.82,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sumatera Barat",
+   "harga": 152500,
+   "medianNasional": 152500,
+   "relatifPersen": 0.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sumatera Selatan",
+   "harga": 151667,
+   "medianNasional": 152500,
+   "relatifPersen": -0.55,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 29250,
+   "medianNasional": 29575,
+   "relatifPersen": -1.1,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sumatera Utara",
+   "harga": 143636,
+   "medianNasional": 152500,
+   "relatifPersen": -5.81,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Aceh",
+   "harga": 19500,
+   "medianNasional": 19079,
+   "relatifPersen": 2.21,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Bali",
+   "harga": 18875,
+   "medianNasional": 19079,
+   "relatifPersen": -1.07,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 18875,
+   "medianNasional": 19079,
+   "relatifPersen": -1.07,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Banten",
+   "harga": 18875,
+   "medianNasional": 19079,
+   "relatifPersen": -1.07,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "DI Yogyakarta",
+   "harga": 18000,
+   "medianNasional": 19079,
+   "relatifPersen": -5.65,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "DKI Jakarta",
+   "harga": 19550,
+   "medianNasional": 19079,
+   "relatifPersen": 2.47,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Gorontalo",
+   "harga": 21167,
+   "medianNasional": 19079,
+   "relatifPersen": 10.94,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kalimantan Barat",
+   "harga": 30729,
+   "medianNasional": 29575,
+   "relatifPersen": 3.9,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Jambi",
+   "harga": 19125,
+   "medianNasional": 19079,
+   "relatifPersen": 0.24,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Jawa Barat",
+   "harga": 18515,
+   "medianNasional": 19079,
+   "relatifPersen": -2.96,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Jawa Tengah",
+   "harga": 17656,
+   "medianNasional": 19079,
+   "relatifPersen": -7.46,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Jawa Timur",
+   "harga": 17167,
+   "medianNasional": 19079,
+   "relatifPersen": -10.02,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Bengkulu",
+   "harga": 18625,
+   "medianNasional": 19079,
+   "relatifPersen": -2.38,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Jawa Barat",
+   "harga": 27438,
+   "medianNasional": 29575,
+   "relatifPersen": -7.23,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sumatera Selatan",
+   "harga": 18500,
+   "medianNasional": 19079,
+   "relatifPersen": -3.03,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Gula Pasir",
+   "provinsi": "Sumatera Utara",
+   "harga": 19058,
+   "medianNasional": 19079,
+   "relatifPersen": -0.11,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 25300,
+   "medianNasional": 24000,
+   "relatifPersen": 5.42,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "DKI Jakarta",
+   "harga": 28017,
+   "medianNasional": 29575,
+   "relatifPersen": -5.27,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 24167,
+   "medianNasional": 24000,
+   "relatifPersen": 0.69,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Papua",
+   "harga": 28221,
+   "medianNasional": 24000,
+   "relatifPersen": 17.59,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Papua Barat",
+   "harga": 26775,
+   "medianNasional": 24000,
+   "relatifPersen": 11.56,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Riau",
+   "harga": 22938,
+   "medianNasional": 24000,
+   "relatifPersen": -4.43,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sulawesi Barat",
+   "harga": 22667,
+   "medianNasional": 24000,
+   "relatifPersen": -5.56,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 22950,
+   "medianNasional": 24000,
+   "relatifPersen": -4.38,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Maluku Utara",
+   "harga": 24500,
+   "medianNasional": 24000,
+   "relatifPersen": 2.08,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 24333,
+   "medianNasional": 24000,
+   "relatifPersen": 1.39,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sulawesi Utara",
+   "harga": 22188,
+   "medianNasional": 24000,
+   "relatifPersen": -7.55,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "DI Yogyakarta",
+   "harga": 26000,
+   "medianNasional": 29575,
+   "relatifPersen": -12.09,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sumatera Barat",
+   "harga": 24775,
+   "medianNasional": 24000,
+   "relatifPersen": 3.23,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sumatera Selatan",
+   "harga": 21500,
+   "medianNasional": 24000,
+   "relatifPersen": -10.42,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sumatera Utara",
+   "harga": 23077,
+   "medianNasional": 24000,
+   "relatifPersen": -3.85,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Aceh",
+   "harga": 29410,
+   "medianNasional": 29575,
+   "relatifPersen": -0.56,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Bali",
+   "harga": 29167,
+   "medianNasional": 29575,
+   "relatifPersen": -1.38,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Banten",
+   "harga": 27917,
+   "medianNasional": 29575,
+   "relatifPersen": -5.61,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 28375,
+   "medianNasional": 24000,
+   "relatifPersen": 18.23,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Maluku",
+   "harga": 24375,
+   "medianNasional": 24000,
+   "relatifPersen": 1.56,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Lampung",
+   "harga": 23188,
+   "medianNasional": 24000,
+   "relatifPersen": -3.39,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kepulauan Riau",
+   "harga": 21450,
+   "medianNasional": 24000,
+   "relatifPersen": -10.62,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Aceh",
+   "harga": 24083,
+   "medianNasional": 24000,
+   "relatifPersen": 0.35,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Bali",
+   "harga": 22938,
+   "medianNasional": 24000,
+   "relatifPersen": -4.43,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Banten",
+   "harga": 21917,
+   "medianNasional": 24000,
+   "relatifPersen": -8.68,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Bengkulu",
+   "harga": 24000,
+   "medianNasional": 24000,
+   "relatifPersen": 0.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "DI Yogyakarta",
+   "harga": 23250,
+   "medianNasional": 24000,
+   "relatifPersen": -3.12,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "DKI Jakarta",
+   "harga": 23083,
+   "medianNasional": 24000,
+   "relatifPersen": -3.82,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Jambi",
+   "harga": 26667,
+   "medianNasional": 29575,
+   "relatifPersen": -9.83,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Gorontalo",
+   "harga": 29167,
+   "medianNasional": 24000,
+   "relatifPersen": 21.53,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Jambi",
+   "harga": 24000,
+   "medianNasional": 24000,
+   "relatifPersen": 0.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Jawa Barat",
+   "harga": 23319,
+   "medianNasional": 24000,
+   "relatifPersen": -2.84,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Jawa Tengah",
+   "harga": 22856,
+   "medianNasional": 24000,
+   "relatifPersen": -4.77,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Jawa Timur",
+   "harga": 22758,
+   "medianNasional": 24000,
+   "relatifPersen": -5.17,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kalimantan Barat",
+   "harga": 24219,
+   "medianNasional": 24000,
+   "relatifPersen": 0.91,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 24500,
+   "medianNasional": 24000,
+   "relatifPersen": 2.08,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 24625,
+   "medianNasional": 24000,
+   "relatifPersen": 2.6,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Gorontalo",
+   "harga": 34183,
+   "medianNasional": 29575,
+   "relatifPersen": 15.58,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kalimantan Timur",
+   "harga": 24417,
+   "medianNasional": 24000,
+   "relatifPersen": 1.74,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kalimantan Utara",
+   "harga": 24000,
+   "medianNasional": 24000,
+   "relatifPersen": 0.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Minyak Goreng",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 21750,
+   "medianNasional": 24000,
+   "relatifPersen": -9.38,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 151667,
+   "medianNasional": 152500,
+   "relatifPersen": -0.55,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 16075,
+   "medianNasional": 15819,
+   "relatifPersen": 1.62,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 135000,
+   "medianNasional": 152500,
+   "relatifPersen": -11.48,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Riau",
+   "harga": 147143,
+   "medianNasional": 152500,
+   "relatifPersen": -3.51,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Bengkulu",
+   "harga": 40000,
+   "medianNasional": 37439,
+   "relatifPersen": 6.84,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "DI Yogyakarta",
+   "harga": 35250,
+   "medianNasional": 37439,
+   "relatifPersen": -5.85,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "DKI Jakarta",
+   "harga": 37517,
+   "medianNasional": 37439,
+   "relatifPersen": 0.21,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Gorontalo",
+   "harga": 29500,
+   "medianNasional": 37439,
+   "relatifPersen": -21.2,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Jambi",
+   "harga": 36562,
+   "medianNasional": 37439,
+   "relatifPersen": -2.34,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Jawa Barat",
+   "harga": 37361,
+   "medianNasional": 37439,
+   "relatifPersen": -0.21,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Jawa Tengah",
+   "harga": 35708,
+   "medianNasional": 37439,
+   "relatifPersen": -4.62,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Maluku",
+   "harga": 35800,
+   "medianNasional": 29575,
+   "relatifPersen": 21.05,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Maluku Utara",
+   "harga": 43200,
+   "medianNasional": 29575,
+   "relatifPersen": 46.07,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Jawa Timur",
+   "harga": 34694,
+   "medianNasional": 37439,
+   "relatifPersen": -7.33,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 40625,
+   "medianNasional": 37439,
+   "relatifPersen": 8.51,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 35625,
+   "medianNasional": 37439,
+   "relatifPersen": -4.84,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kalimantan Timur",
+   "harga": 35892,
+   "medianNasional": 37439,
+   "relatifPersen": -4.13,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kalimantan Utara",
+   "harga": 46250,
+   "medianNasional": 37439,
+   "relatifPersen": 23.53,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 40500,
+   "medianNasional": 37439,
+   "relatifPersen": 8.18,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kepulauan Riau",
+   "harga": 42300,
+   "medianNasional": 37439,
+   "relatifPersen": 12.98,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Bengkulu",
+   "harga": 28800,
+   "medianNasional": 29575,
+   "relatifPersen": -2.62,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Lampung",
+   "harga": 35500,
+   "medianNasional": 37439,
+   "relatifPersen": -5.18,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Kalimantan Barat",
+   "harga": 36438,
+   "medianNasional": 37439,
+   "relatifPersen": -2.67,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Maluku",
+   "harga": 47412,
+   "medianNasional": 37439,
+   "relatifPersen": 26.64,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Banten",
+   "harga": 43167,
+   "medianNasional": 37439,
+   "relatifPersen": 15.3,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Aceh",
+   "harga": 35025,
+   "medianNasional": 37439,
+   "relatifPersen": -6.45,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Lampung",
+   "harga": 15225,
+   "medianNasional": 15819,
+   "relatifPersen": -3.76,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Maluku",
+   "harga": 17688,
+   "medianNasional": 15819,
+   "relatifPersen": 11.81,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Maluku Utara",
+   "harga": 18000,
+   "medianNasional": 15819,
+   "relatifPersen": 13.79,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 33190,
+   "medianNasional": 29575,
+   "relatifPersen": 12.22,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 14000,
+   "medianNasional": 15819,
+   "relatifPersen": -11.5,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 14833,
+   "medianNasional": 15819,
+   "relatifPersen": -6.23,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Papua",
+   "harga": 18804,
+   "medianNasional": 15819,
+   "relatifPersen": 18.87,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Papua Barat",
+   "harga": 17850,
+   "medianNasional": 15819,
+   "relatifPersen": 12.84,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Bali",
+   "harga": 39500,
+   "medianNasional": 37439,
+   "relatifPersen": 5.51,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Riau",
+   "harga": 16969,
+   "medianNasional": 15819,
+   "relatifPersen": 7.27,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 14675,
+   "medianNasional": 15819,
+   "relatifPersen": -7.23,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 15625,
+   "medianNasional": 15819,
+   "relatifPersen": -1.23,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 29250,
+   "medianNasional": 29575,
+   "relatifPersen": -1.1,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 15862,
+   "medianNasional": 15819,
+   "relatifPersen": 0.27,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sulawesi Utara",
+   "harga": 14917,
+   "medianNasional": 15819,
+   "relatifPersen": -5.71,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sumatera Barat",
+   "harga": 18438,
+   "medianNasional": 15819,
+   "relatifPersen": 16.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sumatera Selatan",
+   "harga": 16000,
+   "medianNasional": 15819,
+   "relatifPersen": 1.14,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sumatera Utara",
+   "harga": 14985,
+   "medianNasional": 15819,
+   "relatifPersen": -5.28,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Beras Medium",
+   "provinsi": "Sulawesi Barat",
+   "harga": 14575,
+   "medianNasional": 15819,
+   "relatifPersen": -7.87,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Maluku Utara",
+   "harga": 45500,
+   "medianNasional": 37439,
+   "relatifPersen": 21.53,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 39500,
+   "medianNasional": 37439,
+   "relatifPersen": 5.51,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 50000,
+   "medianNasional": 37439,
+   "relatifPersen": 33.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Jawa Tengah",
+   "harga": 142500,
+   "medianNasional": 152500,
+   "relatifPersen": -6.56,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Jawa Timur",
+   "harga": 138105,
+   "medianNasional": 152500,
+   "relatifPersen": -9.44,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kalimantan Barat",
+   "harga": 164286,
+   "medianNasional": 152500,
+   "relatifPersen": 7.73,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kalimantan Selatan",
+   "harga": 170000,
+   "medianNasional": 152500,
+   "relatifPersen": 11.48,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 162500,
+   "medianNasional": 152500,
+   "relatifPersen": 6.56,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kalimantan Timur",
+   "harga": 168750,
+   "medianNasional": 152500,
+   "relatifPersen": 10.66,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kalimantan Utara",
+   "harga": 169167,
+   "medianNasional": 152500,
+   "relatifPersen": 10.93,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kalimantan Timur",
+   "harga": 30990,
+   "medianNasional": 29575,
+   "relatifPersen": 4.78,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Jawa Barat",
+   "harga": 157917,
+   "medianNasional": 152500,
+   "relatifPersen": 3.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 152500,
+   "medianNasional": 152500,
+   "relatifPersen": 0.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Lampung",
+   "harga": 139375,
+   "medianNasional": 152500,
+   "relatifPersen": -8.61,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Maluku",
+   "harga": 147500,
+   "medianNasional": 152500,
+   "relatifPersen": -3.28,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Maluku Utara",
+   "harga": 175000,
+   "medianNasional": 152500,
+   "relatifPersen": 14.75,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Nusa Tenggara Barat",
+   "harga": 130500,
+   "medianNasional": 152500,
+   "relatifPersen": -14.43,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Nusa Tenggara Timur",
+   "harga": 117500,
+   "medianNasional": 152500,
+   "relatifPersen": -22.95,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Papua",
+   "harga": 158542,
+   "medianNasional": 152500,
+   "relatifPersen": 3.96,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kalimantan Tengah",
+   "harga": 32400,
+   "medianNasional": 29575,
+   "relatifPersen": 9.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Papua Barat",
+   "harga": 153333,
+   "medianNasional": 152500,
+   "relatifPersen": 0.55,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Kepulauan Riau",
+   "harga": 128125,
+   "medianNasional": 152500,
+   "relatifPersen": -15.98,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kalimantan Utara",
+   "harga": 31333,
+   "medianNasional": 29575,
+   "relatifPersen": 5.95,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Jambi",
+   "harga": 156250,
+   "medianNasional": 152500,
+   "relatifPersen": 2.46,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Gorontalo",
+   "harga": 146667,
+   "medianNasional": 152500,
+   "relatifPersen": -3.83,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Papua",
+   "harga": 52042,
+   "medianNasional": 37439,
+   "relatifPersen": 39.0,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Papua Barat",
+   "harga": 51117,
+   "medianNasional": 37439,
+   "relatifPersen": 36.53,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Riau",
+   "harga": 29875,
+   "medianNasional": 37439,
+   "relatifPersen": -20.2,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kepulauan Riau",
+   "harga": 29550,
+   "medianNasional": 29575,
+   "relatifPersen": -0.08,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sulawesi Barat",
+   "harga": 29612,
+   "medianNasional": 37439,
+   "relatifPersen": -20.9,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sulawesi Selatan",
+   "harga": 29715,
+   "medianNasional": 37439,
+   "relatifPersen": -20.63,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sulawesi Tengah",
+   "harga": 35417,
+   "medianNasional": 37439,
+   "relatifPersen": -5.4,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sulawesi Tenggara",
+   "harga": 35488,
+   "medianNasional": 37439,
+   "relatifPersen": -5.21,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sulawesi Utara",
+   "harga": 38300,
+   "medianNasional": 37439,
+   "relatifPersen": 2.3,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sumatera Barat",
+   "harga": 48575,
+   "medianNasional": 37439,
+   "relatifPersen": 29.74,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sumatera Selatan",
+   "harga": 37000,
+   "medianNasional": 37439,
+   "relatifPersen": -1.17,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Ayam",
+   "provinsi": "Sumatera Utara",
+   "harga": 39462,
+   "medianNasional": 37439,
+   "relatifPersen": 5.4,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Kepulauan Bangka Belitung",
+   "harga": 33738,
+   "medianNasional": 29575,
+   "relatifPersen": 14.07,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Aceh",
+   "harga": 179000,
+   "medianNasional": 152500,
+   "relatifPersen": 17.38,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Bali",
+   "harga": 141250,
+   "medianNasional": 152500,
+   "relatifPersen": -7.38,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Banten",
+   "harga": 158333,
+   "medianNasional": 152500,
+   "relatifPersen": 3.83,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Bengkulu",
+   "harga": 155000,
+   "medianNasional": 152500,
+   "relatifPersen": 1.64,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "DI Yogyakarta",
+   "harga": 153750,
+   "medianNasional": 152500,
+   "relatifPersen": 0.82,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "DKI Jakarta",
+   "harga": 153450,
+   "medianNasional": 152500,
+   "relatifPersen": 0.62,
+   "posisi": "di atas median"
+  },
+  {
+   "komoditas": "Daging Sapi",
+   "provinsi": "Sulawesi Barat",
+   "harga": 141667,
+   "medianNasional": 152500,
+   "relatifPersen": -7.1,
+   "posisi": "di bawah median"
+  },
+  {
+   "komoditas": "Telur Ayam",
+   "provinsi": "Sumatera Utara",
+   "harga": 30315,
+   "medianNasional": 29575,
+   "relatifPersen": 2.5,
+   "posisi": "di atas median"
+  }
+ ]
+}

@@ -467,3 +467,23 @@ def test_narasi_loads_and_is_keyed_by_commodity_and_posture():
         komoditas, _, postur = key.partition("|")
         assert komoditas in ew.COMMODITY_ID, f"unknown commodity in narasi key: {key}"
         assert postur in {"konservatif", "seimbang", "aman_pangan"}, key
+
+
+def test_tingkatan_export_carries_all_thirty_eight_provinces(tmp_path):
+    import json
+    out = ew.build_tingkatan()
+    assert len(out["provinsi"]) == 38
+    assert set(out["label"]) == {"bawah", "tengah", "atas"}
+    assert "tertinggal" not in json.dumps(out).lower()
+
+
+def test_tingkatan_export_states_the_provinces_without_prices():
+    out = ew.build_tingkatan()
+    assert "Papua Pegunungan" in out["cakupan"]["ikpTanpaHarga"]
+
+
+def test_lanskap_export_covers_eight_commodities():
+    out = ew.build_lanskap()
+    assert len(out["komoditas"]) == 8
+    assert "Daging Sapi" in out["komoditas"]
+    assert "Gula Pasir" in out["komoditas"]

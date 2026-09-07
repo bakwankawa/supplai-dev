@@ -171,3 +171,21 @@ export interface BukuBesarEntry {
   tahun: string
   status: "terukur" | "diasumsikan" | "diturunkan"
 }
+
+export interface TingkatanProvinsi {
+  provinsi: string
+  /** Skor IKP Bapanas 2025, 0-100. Makin tinggi makin tahan pangan. */
+  ikp: number
+  peringkat: number
+  kelompok: "bawah" | "tengah" | "atas"
+}
+
+export interface PosisiHarga {
+  komoditas: string
+  provinsi: string
+  harga: number
+  medianNasional: number
+  /** Selisih terhadap median nasional, dalam persen. Negatif berarti di bawah. */
+  relatifPersen: number
+  posisi: "di bawah median" | "di atas median"
+}
