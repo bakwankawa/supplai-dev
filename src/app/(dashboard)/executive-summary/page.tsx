@@ -229,7 +229,7 @@ export default function ExecutiveSummaryPage() {
           <div className="flex-1 w-full h-[300px] pt-3 flex items-center justify-center">
             {loading ? (
               <div className="w-full h-full animate-pulse bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                Memuat Grafik Realtime...
+                Memuat grafik...
               </div>
             ) : komoditasOverviewData.length === 0 ? (
               <div className="text-xs text-slate-400 font-medium">Data komoditas tidak ditemukan.</div>

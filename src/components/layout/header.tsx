@@ -231,8 +231,10 @@ export function Header() {
                                                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                                                     Alert Center ({notifications.length})
                                                 </span>
-                                                <span className="text-[10px] font-mono bg-rose-100 text-rose-700 font-bold px-1.5 py-0.5 rounded-sm">
-                                                    Live Monitoring
+                                                {/* Bukan pemantauan langsung: alert disusun dari panel
+                                                    harga bulanan, jadi badge menyebut cadence sebenarnya. */}
+                                                <span className="text-[10px] font-mono bg-slate-100 text-slate-600 font-bold px-1.5 py-0.5 rounded-sm">
+                                                    Data Bulanan
                                                 </span>
                                             </div>
 

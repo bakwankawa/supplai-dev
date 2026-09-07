@@ -59,17 +59,13 @@ export const translations: Record<string, readonly [string, string]> = {
     "Bapanas",
     "Bapanas"
   ],
-  "BMKG": [
-    "BMKG",
-    "BMKG"
-  ],
   "Kementerian Pertanian": [
     "Kementerian Pertanian",
     "Ministry of Agriculture"
   ],
-  "Kolaborasi untuk ketahanan pangan Indonesia": [
-    "Kolaborasi untuk ketahanan pangan Indonesia",
-    "Working together for Indonesia’s food security"
+  "Sumber data resmi yang kami olah": [
+    "Sumber data resmi yang kami olah",
+    "Official data sources we process"
   ],
   "OUR GOALS": [
     "TUJUAN STRATEGIS",
