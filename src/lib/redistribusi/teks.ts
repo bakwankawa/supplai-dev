@@ -246,6 +246,7 @@ const KOMODITAS_DIRAMALKAN = [
  *  Nama tetap sesuai brief tugas ini, bukan dihitung dari
  *  `KOMODITAS_DIRAMALKAN` -- lihat komentar di atasnya. */
 const KOMODITAS_TANPA_RAMALAN = ["Daging Sapi", "Gula Pasir"]
+const SET_TANPA_RAMALAN = new Set(KOMODITAS_TANPA_RAMALAN)
 
 /** Bagian "Lanskap komoditas" pada kerangka pedagang: komoditas mana di
  *  provinsi yang diminta harganya di bawah median nasional dan mana di
@@ -271,6 +272,16 @@ const KOMODITAS_TANPA_RAMALAN = ["Daging Sapi", "Gula Pasir"]
  *  (mengambilnya dari panggilan provinsi manapun) sementara elemen pertama
  *  dicetak ulang tiap provinsi.
  *
+ *  Penanda enam-diramalkan/dua-tidak TIDAK BOLEH tinggal hanya di kalimat
+ *  `penanda`: satu provinsi mencetak sampai delapan angka berdampingan
+ *  ("... Daging Sapi (7,73%), Gula Pasir (3,85%) ..."), dan pembaca yang
+ *  sedang memindai satu baris tidak menahan kalimat penjelas dari bagian
+ *  lain di kepalanya. Aturan "angka tidak boleh membawa nama yang tidak
+ *  didukung definisinya" mengikat ANGKA itu sendiri, bukan paragraf
+ *  tempatnya berada -- karena itu `sebut` di bawah menambahkan penanda
+ *  ", tidak diramalkan" tepat di sebelah tiap angka Daging Sapi/Gula Pasir,
+ *  bukan cuma di kalimat `penanda` yang menjelaskan artinya.
+ *
  *  Provinsi yang diminta tapi tidak punya baris di `baris` (nama tidak
  *  cocok, atau provinsi itu di luar cakupan `lanskap.json`) TIDAK dibiarkan
  *  diam: elemen pertama menyatakan eksplisit bahwa datanya tidak ada,
@@ -286,7 +297,12 @@ export function teksLanskap(baris: PosisiHarga[], provinsi: string): string[] {
     .filter((b) => b.posisi === "di atas median")
     .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"))
   const sebut = (list: PosisiHarga[]) =>
-    daftarDan(list.map((b) => `${b.komoditas} (${persen(b.relatifPersen)})`))
+    daftarDan(
+      list.map(
+        (b) =>
+          `${b.komoditas} (${persen(b.relatifPersen)}${SET_TANPA_RAMALAN.has(b.komoditas) ? ", tidak diramalkan" : ""})`,
+      ),
+    )
 
   const klaim =
     milikProvinsi.length === 0

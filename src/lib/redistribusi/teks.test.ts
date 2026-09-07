@@ -238,4 +238,28 @@ describe("teksLanskap", () => {
     const teks = teksLanskap(LANSKAP, "Papua").join(" ")
     expect(teks).not.toContain("Aceh")
   })
+
+  it("menempatkan tiap komoditas di sisi median yang benar, bukan sekadar menyebutnya", () => {
+    // Membuktikan PENEMPATAN, bukan cuma KEHADIRAN nama: sebuah mutasi yang
+    // menukar filter "di bawah median" dan "di atas median" tetap membuat
+    // ketiga tes di atas lulus (kedua nama tetap "hadir" di teksnya), tapi
+    // menaruh komoditas di sisi yang salah. Fiksturnya sengaja punya satu
+    // komoditas jelas di tiap sisi (Gula Pasir di bawah, Beras Medium di
+    // atas untuk Papua) supaya salah tempat tertangkap di sini.
+    const [klaim] = teksLanskap(LANSKAP, "Papua")
+    const [bagianBawah, bagianAtas] = klaim.split("; ")
+    expect(bagianBawah).toContain("Gula Pasir")
+    expect(bagianBawah).not.toContain("Beras Medium")
+    expect(bagianAtas).toContain("Beras Medium")
+    expect(bagianAtas).not.toContain("Gula Pasir")
+  })
+
+  it("menandai komoditas yang tidak diramalkan tepat di sebelah angkanya sendiri", () => {
+    // Finding 1: kalimat penanda terpisah tidak cukup -- pembaca yang
+    // memindai satu baris berisi delapan angka tidak menahan kalimat lain
+    // di kepalanya. Penandanya harus ada di DALAM tanda kurung angka itu
+    // sendiri, bukan cuma di kalimat lain pada array yang sama.
+    const [klaim] = teksLanskap(LANSKAP, "Papua")
+    expect(klaim).toMatch(/Gula Pasir \([^)]*tidak diramalkan[^)]*\)/)
+  })
 })
