@@ -39,6 +39,9 @@ sasaran. Kerangkanya harus berbasis tingkatan daerah, bukan geografi.
 5. Tidak ada bacaan komoditas kuat/lemah per daerah.
 6. KDMP nol penyebutan di seluruh repo — dicatat sebagai temuan, tetapi **tidak
    dikerjakan**; lihat Bukan sasaran.
+7. Laporan berhenti pada wawasan. Tidak ada bulan sasaran, tidak ada pelaksana, tidak
+   ada pasar bernama, tidak ada modal. Pembaca tahu apa yang terjadi tetapi tidak tahu
+   apa yang harus dilakukan.
 
 ## Keputusan lintas-bagian
 
@@ -267,7 +270,7 @@ mempertaruhkan setiap angka yang sudah terbit.
 
 ---
 
-## Bagian 4 — Lanskap komoditas, tol laut, arsitektur
+## Bagian 4 — Lanskap komoditas & tol laut
 
 ### Komoditas kuat/lemah per daerah
 
@@ -307,41 +310,113 @@ Kemenhub adalah lembaga agregator muatan yang menghubungkan produsen daerah deng
 pasar tujuan — peran yang membutuhkan ramalan tiga bulan yang tidak dimiliki agregator
 mana pun.
 
-### Arsitektur
 
-Modul baru kecil dan satu tujuan, mengikuti tata letak paket yang ada:
+## Bagian 5 — Dari wawasan ke tindakan
 
-| Modul | Tugas |
-|---|---|
-| `supplai/tingkatan.py` | muat IKP, tetapkan kelompok |
-| `Kebutuhan.dampak_harga()` | pembalikan elastisitas — di sana karena butuh konsumsi dan ε |
-| `supplai/muatan_balik.py` | perantaian pengiriman |
-| `supplai/lanskap.py` | bacaan komoditas per provinsi |
-| `bench_ongkos.py` | eksperimen struktur ongkos → `artifacts/uji_ongkos.json` |
+Uji bagian ini satu kalimat: **setelah membaca laporan, apakah pembaca tahu apa yang
+harus dilakukan besok pagi?** Saat ini tidak, dan sebabnya bukan kekurangan wawasan
+melainkan tiga hal yang tidak pernah disebutkan.
 
-`match.py` menerima satu parameter struktur ongkos yang tidak mengubah perilaku bawaan.
-FE mencerminkannya di `src/lib/redistribusi/` dan komponen baru.
+### 5.1 Bulan sasaran dan sisa waktu
 
-### Pengujian
+`flows.parquet` tidak punya satu pun kolom waktu. Ramalannya menyasar September 2026
+(data sampai Juni 2026, horizon 3 bulan), tetapi rencana yang dihasilkan darinya tidak
+membawa fakta itu, sehingga PDF tidak pernah menyebut untuk bulan apa ia berlaku.
 
-Uji sifat, bukan uji nilai:
+Akibatnya nyata: pada 7 September 2026, jendela tindakan rencana ini sudah tiba dan
+mungkin sudah lewat, dan **pembacanya tidak punya cara untuk mengetahuinya.**
+Rekomendasi yang tidak menyatakan kapan ia kedaluwarsa akan dieksekusi terlambat, dan
+yang disalahkan alatnya.
 
-- `dampak_harga(volume_intervensi(x)) == x` — bolak-balik kembali ke angka semula.
-- Urutan selang terbalik karena ε di penyebut.
-- Perantaian tidak melebihi `min(masuk, keluar)`.
-- Penugasan tingkatan stabil terhadap skor.
-- Eksperimen ongkos dapat direproduksi.
+Pembagian tugas:
 
-Setiap angka baru yang sampai ke PDF atau layar melewati pemverifikasi angka di
-`narasi.py`: string pra-format, tidak pernah float mentah.
+- **Pipeline** membawa `bulan_prediksi` dan `horizon_bulan` dari `forecast.parquet` ke
+  dalam `flows.parquet` dan ke `export_web.py`. Ini fakta tentang rencananya.
+- **Laporan** menghitung sisa waktu saat dirender, bukan saat dibangun. PDF dibuat
+  sesuai permintaan lewat route API, jadi ia tahu tanggal hari ini; menyimpan sisa
+  waktu ke artefak akan membekukan angka yang harus terus berubah.
 
-### Urutan
+Tenggatnya adalah **awal bulan sasaran**, bukan akhirnya: intervensi harus terjadi
+sebelum bulan itu berjalan agar memengaruhi harganya. Kepala kedua laporan menyatakan
+bulan sasaran, tanggal pembuatan, dan sisa hari. Ketika sisa hari negatif, laporan
+membuka dengan pernyataan bahwa jendelanya sudah lewat — di badan laporan, bukan
+catatan kaki.
 
-Tingkatan → dampak harga → lanskap → perantaian dan eksperimen ongkos → dokumen.
-Proposal ditulis paling akhir karena mengutip angka yang baru ada setelah kodenya
-jalan.
+### 5.2 Instrumen dan kapasitasnya (kerangka pemerintah)
 
----
+Laporan tidak pernah menyebut siapa pelaksananya. Konversinya sudah tersedia dan
+mengikuti konvensi `kecukupan()` yang sudah dipakai — anggaran per kegiatan dibagi
+harga lokal menghasilkan tonase, sehingga kebalikannya menghasilkan jumlah kegiatan:
+
+```
+setara_kegiatan = ton × 1000 × harga_tujuan / GPM_RP_PER_KEGIATAN
+```
+
+Untuk postur seimbang: 1.025,7 ton, senilai Rp37,16 miliar, setara sekitar 1.413
+kegiatan GPM. Angka ini **indikatif** dan membawa tiga peringatan yang sudah melekat
+pada Kecukupan GPM — GPM satu instrumen di antara beberapa, anggaran per kegiatan
+adalah rencana 2027 atas realisasi 2026, dan GPM menjual beberapa komoditas sekaligus.
+
+Yang lebih penting muncul begitu angka itu dihitung. RKA Bapanas 2027 seluruhnya
+**1.888 kegiatan GPM setahun**. Rencana satu bulan kita setara sekitar **75% program
+GPM nasional setahun penuh**.
+
+Maka laporan menyatakan, di badan dan bukan di catatan: **rencana ini tidak dapat
+dijalankan lewat GPM saja**, dan membutuhkan instrumen lain seperti penyaluran CPP yang
+skalanya jauh lebih besar. Merekomendasikan volume di luar kapasitas instrumen yang
+kita sendiri jadikan pembanding, tanpa mengatakannya, adalah kelalaian yang bisa
+dihindari dengan satu paragraf.
+
+Kapasitas ini diuji per rencana, bukan ditulis sekali sebagai teks tetap, sehingga
+pernyataannya ikut berubah ketika volumenya berubah.
+
+### 5.3 Pasar bernama (kerangka pedagang)
+
+Rekomendasi berhenti di tingkat provinsi. `data/wfp_markets_idn.csv` memuat 224 pasar
+dengan nama, kabupaten, dan koordinat, dan belum pernah dipakai.
+
+Laporan pedagang menyebut pasar-pasar di provinsi asal dan tujuan tiap rute. Baris
+`National Average` disaring karena bukan pasar.
+
+Batas yang ikut: daftar ini adalah **tempat harga diamati**, bukan jaminan barang
+tersedia di sana. Kita tidak punya data pasokan tingkat pasar. Kalimat itu melekat pada
+tabelnya.
+
+### 5.4 Modal dan imbal hasil (kerangka pedagang)
+
+Laporan menyebut marjin tetapi tidak pernah menyebut modal yang harus dikeluarkan
+lebih dulu. Keduanya sudah ada:
+
+```
+modal_rp     = volume_ton × 1000 × harga_asal
+imbal_hasil  = marjin_harapan_rp / modal_rp
+```
+
+Postur seimbang: modal Rp29,53 miliar untuk marjin Rp2,97 miliar — imbal hasil 10,1%.
+Sebarannya yang penting, bukan totalnya:
+
+| Asal | Modal | Marjin | Imbal hasil |
+|---|---|---|---|
+| Sulawesi Barat | Rp2,00 miliar | Rp343 juta | 17,2% |
+| Kalimantan Barat | Rp3,29 miliar | Rp452 juta | 13,7% |
+| Sumatera Selatan | Rp13,36 miliar | Rp898 juta | 6,7% |
+| Bengkulu | Rp3,22 miliar | Rp6 juta | 0,2% |
+
+Rute Bengkulu mengunci modal Rp3,22 miliar untuk imbal hasil 0,2%. Laporan sekarang
+menyajikannya setara dengan rute Sulawesi Barat. Tabel diurutkan menurut imbal hasil,
+dan rute di bawah ambang yang dinyatakan ditandai sebagai tidak layak diambil —
+ambangnya ditulis di buku besar sebagai angka yang kita pilih, bukan diselundupkan.
+
+Penamaannya harus tepat: ini **imbal hasil satu transaksi**, bukan setahun, dan
+bersandar pada kenaikan harga yang diprediksi benar-benar terjadi. Keduanya dinyatakan
+di sebelah angkanya.
+
+### 5.5 Yang tetap tidak dijawab
+
+Dinyatakan sebagai batas, bukan dibiarkan mengambang: kita tidak tahu berapa lama
+pengiriman memakan waktu, tidak tahu ketersediaan barang di pasar tertentu, dan tidak
+memodelkan siapa yang menanggung ongkos. Laporan menyebut tiga hal ini sebagai
+pertanyaan yang harus dijawab pelaksana sebelum berangkat.
 
 ## Permukaan pengiriman: dua laporan PDF
 
@@ -367,6 +442,11 @@ Kerangka pedagang jelas lebih tipis, dan pekerjaan ini yang mengisinya.
 | Muatan balik (Bagian 3) | bagian baru: diagnosis kekosongan balik dan ton-km terbuang | **bagian utama** — perantaian adalah cara pedagang menekan ongkos |
 | Lanskap komoditas (Bagian 4) | — | **bagian utama** — komoditas mana di provinsi ini di bawah/atas median |
 | Uji tesis ongkos (Bagian 3) | satu paragraf di Batasan: apakah jarak menyetir rencana | satu paragraf yang sama |
+| Bulan sasaran & sisa waktu (5.1) | **kepala laporan**, dan pernyataan pembuka bila jendela lewat | sama |
+| Instrumen & kapasitasnya (5.2) | bagian baru: setara kegiatan GPM, dan pernyataan bahwa GPM saja tidak cukup | — |
+| Pasar bernama (5.3) | — | kolom pada tabel rute |
+| Modal & imbal hasil (5.4) | — | tabel diurutkan imbal hasil, rute tak layak ditandai |
+| Yang tetap tidak dijawab (5.5) | Batasan | Batasan |
 
 Pemisahannya disengaja: cerita pemerataan dan penekanan harga milik pemerintah;
 cerita perantaian dan lanskap milik pedagang. Keduanya menerima keduanya, tetapi
@@ -374,6 +454,54 @@ penekanannya berbeda karena keputusannya berbeda.
 
 Setiap angka baru di kedua PDF melewati pemverifikasi angka `narasi.py` seperti yang
 sudah berlaku, dan membawa `dasar_takaran`-nya.
+
+## Arsitektur
+
+Modul baru kecil dan satu tujuan, mengikuti tata letak paket yang ada:
+
+| Modul | Tugas |
+|---|---|
+| `supplai/tingkatan.py` | muat IKP, tetapkan kelompok |
+| `Kebutuhan.dampak_harga()` | pembalikan elastisitas — di sana karena butuh konsumsi dan ε |
+| `supplai/muatan_balik.py` | perantaian pengiriman |
+| `supplai/lanskap.py` | bacaan komoditas per provinsi |
+| `supplai/tindakan.py` | konversi instrumen, kapasitas, modal dan imbal hasil, pasar bernama |
+| `bench_ongkos.py` | eksperimen struktur ongkos → `artifacts/uji_ongkos.json` |
+
+`match.py` menerima satu parameter struktur ongkos yang tidak mengubah perilaku bawaan.
+FE mencerminkannya di `src/lib/redistribusi/` dan komponen baru.
+
+## Pengujian
+
+Uji sifat, bukan uji nilai:
+
+- `dampak_harga(volume_intervensi(x)) == x` — bolak-balik kembali ke angka semula.
+- Urutan selang terbalik karena ε di penyebut.
+- Perantaian tidak melebihi `min(masuk, keluar)`.
+- Penugasan tingkatan stabil terhadap skor.
+- Eksperimen ongkos dapat direproduksi.
+- Sisa waktu dihitung dari tanggal render, bukan dari artefak: dua render pada hari
+  berbeda atas artefak yang sama harus menghasilkan sisa hari yang berbeda.
+- Tenggat adalah awal bulan sasaran, bukan akhirnya.
+- Pernyataan kapasitas instrumen ikut berubah ketika volume rencana berubah — diuji
+  dengan mutasi, karena teks tetap akan lolos uji nilai mana pun.
+- `imbal_hasil = marjin / modal` dengan modal nol tidak meledak dan tidak diam-diam
+  menjadi nol.
+
+Setiap angka baru yang sampai ke PDF atau layar melewati pemverifikasi angka di
+`narasi.py`: string pra-format, tidak pernah float mentah.
+
+## Urutan
+
+Tingkatan → dampak harga → lanskap → perantaian dan eksperimen ongkos → **jalur
+tindakan (Bagian 5)** → dokumen. Proposal ditulis paling akhir karena mengutip angka
+yang baru ada setelah kodenya jalan.
+
+Bagian 5.1 boleh didahulukan kalau ada tekanan waktu: ia yang paling murah dan paling
+mahal jika hilang. Sebuah rencana tanpa bulan sasaran bisa dieksekusi terlambat, dan
+kesalahan itu akan terlihat sebagai kesalahan alatnya.
+
+---
 
 ## Data yang dicari dan tidak ditemukan
 
@@ -394,6 +522,8 @@ layanan nyata.
 - Membongkar model ongkos. Diuji lebih dulu.
 - Model kendaraan atau penjadwalan kapal.
 - KDMP dalam bentuk apa pun — dikeluarkan atas keputusan pemilik produk.
+- Lama waktu pengiriman, ketersediaan barang tingkat pasar, dan siapa menanggung
+  ongkos. Ketiganya dinyatakan sebagai batas di 5.5, bukan ditebak.
 - Melatih ulang model ramalan atau menambah komoditas yang diramalkan.
 - Menyatakan tingkatan daerah dengan sebutan resmi pemerintah.
 
