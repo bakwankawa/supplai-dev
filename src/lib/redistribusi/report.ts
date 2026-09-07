@@ -11,6 +11,10 @@ import { jendelaWaktu } from "./waktu";
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
 
+/** Table width constants (all sum to 174mm drawable width) */
+export const KERANGKA_PEMERINTAH_RUTE_WIDTH = [34, 34, 26, 22, 30, 28];
+export const KERANGKA_PEDAGANG_WIDTH = [21, 21, 19, 20, 18, 19, 20, 24, 12];
+
 /** The same plan, told twice. The government framing has to answer "on whose
  *  measurement?"; the trader framing has to answer "does the price gap pay for
  *  the freight?". Neither is allowed to drop the rows that look bad.
@@ -129,7 +133,7 @@ export function createRedistribusiReport(
           r.from, r.to, ton(r.volumeTon), persen(r.persenPasar),
           takaranLabel(r.dasarTakaran).teks, persen(r.kecukupanPersen),
         ]),
-        [34, 34, 26, 22, 30, 28],
+        KERANGKA_PEMERINTAH_RUTE_WIDTH,
       );
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada tabel yang dapat ditampilkan.");
     heading("04  Dasar takaran");
@@ -181,7 +185,7 @@ export function createRedistribusiReport(
             `${formatNumber(r.distance)} km`, formatRupiah(r.ongkosRpPerKg),
             formatRupiah(r.marginRpPerKg), formatRupiah(r.marjinHarapanRp), r.menutupOngkos ? "Ya" : "Tidak",
           ]),
-        [25, 25, 21, 22, 20, 21, 22, 28, 18],
+        KERANGKA_PEDAGANG_WIDTH,
       );
       paragraph(`Rekapitulasi: ${a.menutup} rute menutup ongkos, ${a.totalRute - a.menutup} rute tidak, dari ${a.totalRute} rute yang seluruhnya tercantum di atas.`, 10, green);
       paragraph(teksMarjin(), 9, muted);

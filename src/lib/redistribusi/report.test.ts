@@ -4,7 +4,7 @@ import { commodities } from "@/data/commodities"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
 import { POSTUR } from "./postur"
-import { createRedistribusiReport, PEMBACA } from "./report"
+import { createRedistribusiReport, PEMBACA, KERANGKA_PEMERINTAH_RUTE_WIDTH, KERANGKA_PEDAGANG_WIDTH } from "./report"
 
 const analisis = (id: string, postur: (typeof POSTUR)[number]) =>
   analyzeRedistribusi(
@@ -49,5 +49,17 @@ describe("createRedistribusiReport", () => {
     expect(ongkos).toHaveLength(1)
     expect(ongkos[0].status).toBe("diasumsikan")
     expect(() => createRedistribusiReport(analisis("telur-ayam", "seimbang"), "pedagang")).not.toThrow()
+  })
+
+  /** Table widths must sum to 174mm (the drawable page width) to prevent
+   *  columns from overflowing past the A4 edge. This test pins that constraint
+   *  so a future edit that adds columns without rebalancing will fail here, not
+   *  silently at the reader's desk with columns drawn off the page. */
+  it("all table width constants sum to the drawable width (174mm)", () => {
+    const DRAWABLE_WIDTH = 174
+    const pemeriksaanPemerintah = KERANGKA_PEMERINTAH_RUTE_WIDTH.reduce((sum, w) => sum + w, 0)
+    const pemeriksaanPedagang = KERANGKA_PEDAGANG_WIDTH.reduce((sum, w) => sum + w, 0)
+    expect(pemeriksaanPemerintah).toBe(DRAWABLE_WIDTH)
+    expect(pemeriksaanPedagang).toBe(DRAWABLE_WIDTH)
   })
 })

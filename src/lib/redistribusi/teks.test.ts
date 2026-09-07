@@ -24,18 +24,23 @@ describe("teksJendela", () => {
 })
 
 describe("teksMarjin", () => {
-  it("menyatakan marjin sebagai conditional pada prediksi, bukan pasti diterima hari ini", () => {
-    // Marjin adalah keuntungan YANG DIHARAPKAN, tergantung pada apakah kenaikan
-    // yang diprediksi benar-benar terjadi. Bukan "keuntungan yang sudah pasti
-    // diterima hari ini". Kalimat yang salah: "Marjin ini adalah keuntungan
-    // yang sudah pasti diterima pedagang hari ini, terlepas dari bila kenaikan
-    // harga yang diprediksi terjadi atau tidak." — itu lolos "tidak ada Hemat"
-    // dan "ada bila kenaikan", tapi maknanya bertolak belakang. Test harus
-    // memeriksa makna sebenarnya: tergantung pada prediksi.
+  it("menyatakan marjin sebagai whole-route total, conditional pada prediksi, bukan keuntungan keseluruhan per-kg", () => {
+    // Marjin harapan adalah TOTAL RUTE (bukan per-kg) dengan kondisionalitas pada
+    // prediksi kenaikan. Dua kesalahan yang terpisah:
+    // 1. Menyebut sebagai per-kg ketika sebenarnya total rute
+    // 2. Menyebut sebagai pasti hari ini, bukan conditional
+    // Kalimat yang lolos test conditionality lama tapi masih salah:
+    // "Marjin harapan adalah keuntungan pedagang. Angka ini terwujud hanya bila
+    // kenaikan yang diprediksi benar-benar terjadi. Marjin negatif ditampilkan
+    // apa adanya." — punya "terwujud hanya bila" tapi tidak menyatakan ini adalah
+    // total rute dan berbeda dari margin/kg. Jadi test harus meminta keduanya.
     const teks = teksMarjin()
-    // Frasa kunci yang menyatakan kondisionalitas: angka terwujud HANYA BILA
-    // prediksi terjadi. Bukan "sudah pasti" atau "terlepas dari".
+    // Menyatakan ini adalah total rute, bukan per-kg
+    expect(teks).toContain("total rute")
+    // Frasa kunci kondisionalitas: terwujud HANYA BILA prediksi terjadi
     expect(teks).toContain("terwujud hanya bila")
+    // Menyatakan perbedaan antara dua kolom margin
+    expect(teks).toContain("dua besaran berbeda")
     // Menolak frasa yang menyatakan keuntungan pasti hari ini
     expect(teks).not.toContain("sudah pasti")
     expect(teks).not.toContain("terlepas dari")
