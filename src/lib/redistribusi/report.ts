@@ -5,6 +5,8 @@ import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
 import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
+import { teksJendela } from "./teks";
+import { jendelaWaktu } from "./waktu";
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
@@ -15,7 +17,9 @@ export type Pembaca = (typeof PEMBACA)[number];
  *
  *  Drawn as vector text, mirroring src/lib/prediction/report.ts, so this
  *  codebase has one report idiom instead of two. */
-export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pembaca) {
+export function createRedistribusiReport(
+  a: RedistribusiAnalysis, pembaca: Pembaca, sekarang: Date = new Date(),
+) {
   const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
   const left = 18, width = 174, bottom = 272;
   const green = "#006C4A", ink = "#182B38", muted = "#536775";
@@ -88,6 +92,19 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
   paragraph(`${a.komoditas} | Postur ${POSTUR_LABEL[a.postur].nama} | ${judulPembaca}`, 12);
   paragraph(`Dibuat: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`, 8, muted);
   paragraph(`${POSTUR_LABEL[a.postur].arti} Status pemecah rute: "${a.status}".`, 9, muted);
+
+  // Kepala laporan menyebut bulan sasaran dan sisa waktu di badan laporan,
+  // bukan catatan kaki: baris ini menentukan apakah rencana ini masih boleh
+  // dipakai sama sekali. teksJendela hanya mengembalikan teks; gaya baris
+  // kedua (ukuran/warna) berubah menurut jendelaWaktu, dihitung terpisah di
+  // sini karena teks.ts murni tidak membawa keputusan tampilan.
+  const [jendelaBaris1, jendelaBaris2] = teksJendela(a.bulanPrediksi, sekarang);
+  paragraph(jendelaBaris1, 9, muted);
+  if (jendelaWaktu(a.bulanPrediksi, sekarang).sudahLewat) {
+    paragraph(jendelaBaris2, 10);
+  } else {
+    paragraph(jendelaBaris2, 9, muted);
+  }
 
   if (pembaca === "pemerintah") {
     heading("01  Ringkasan");

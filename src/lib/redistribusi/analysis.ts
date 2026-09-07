@@ -18,6 +18,10 @@ export type RedistribusiAnalysis = {
   komoditas: string
   postur: Postur
   status: string
+  /** Bulan yang diramal rencana ini, ISO "YYYY-MM-DD", diteruskan apa adanya
+   *  dari `RedistributionResponse.summary.bulanPrediksi`. Tenggat tindakan
+   *  adalah AWAL bulan ini, bukan akhirnya — lihat `jendelaWaktu` di `./waktu`. */
+  bulanPrediksi: string
   totalRute: number
   totalTon: number
   totalBiaya: number
@@ -120,6 +124,7 @@ export function analyzeRedistribusi(
     komoditas,
     postur,
     status,
+    bulanPrediksi: data.summary.bulanPrediksi,
     totalRute: routes.length,
     totalTon,
     totalBiaya: data.summary.estimatedCost,

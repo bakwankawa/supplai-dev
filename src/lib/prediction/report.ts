@@ -1,8 +1,12 @@
 import { jsPDF } from "jspdf";
 import { type PredictionAnalysis, money, monthLabel, percent } from "./analysis";
+// jendelaWaktu is a generic "days to the start of a target month" utility —
+// nothing in it is redistribusi-specific, so this report reuses it rather
+// than duplicating the date arithmetic. See src/lib/redistribusi/waktu.ts.
+import { jendelaWaktu } from "@/lib/redistribusi/waktu";
 
 // Draw text and vector graphics directly. No DOM screenshots or browser print.
-export function createPredictionReport(a: PredictionAnalysis) {
+export function createPredictionReport(a: PredictionAnalysis, sekarang: Date = new Date()) {
   const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
   const left = 18, width = 174, bottom = 272;
   const green = "#006C4A", ink = "#182B38", muted = "#536775";
@@ -51,6 +55,37 @@ export function createPredictionReport(a: PredictionAnalysis) {
   paragraph(`${a.commodity.name} | ${a.regions.map((row) => row.region).join(", ")}`, 12);
   paragraph(`Dibuat: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`, 8, muted);
   paragraph(`Rentang telaah: ${monthLabel(a.startDate)} - ${monthLabel(a.endDate)}. Acuan harga: ${a.baselineDate ? monthLabel(a.baselineDate) : "belum tersedia"}.`, 9, muted);
+  // Laporan ini meninjau sebuah rentang bulan yang dipilih pengguna, bukan
+  // satu rencana dengan satu bulan sasaran seperti laporan redistribusi.
+  // Jadi ia tidak punya satu "tenggat tindakan" tunggal untuk seluruh
+  // rentang — yang bisa dinyatakan dengan jujur hanyalah bulan prediksi
+  // TERAKHIR yang benar-benar bisa dibandingkan untuk seluruh wilayah
+  // terpilih (forecastDate). Bila bulan terakhir itu sudah lewat, seluruh
+  // rentang di depannya pasti juga sudah lewat, karena forecastDate adalah
+  // yang terjauh. Bila datanya tidak lengkap (forecastDate null), laporan
+  // menyatakan itu apa adanya, bukan mengarang bulan sasaran.
+  if (a.forecastDate) {
+    const jendela = jendelaWaktu(a.forecastDate, sekarang);
+    if (jendela.sudahLewat) {
+      paragraph(
+        `Bulan prediksi terakhir pada rentang ini, ${jendela.labelBulan}, sudah berjalan sejak ` +
+        `${Math.abs(jendela.sisaHari)} hari lalu. Prediksi untuk bulan yang sudah berjalan tidak ` +
+        `lagi bisa memengaruhi harganya; laporan ini berguna sebagai catatan, bukan bahan tindakan ke depan.`,
+        10,
+      );
+    } else {
+      paragraph(
+        `Bulan prediksi terakhir pada rentang ini adalah ${jendela.labelBulan}, ${jendela.sisaHari} hari dari sekarang.`,
+        9, muted,
+      );
+    }
+  } else {
+    paragraph(
+      "Rentang ini tidak memiliki satu bulan prediksi yang dapat dibandingkan untuk seluruh wilayah " +
+      "terpilih, sehingga laporan ini tidak menyatakan tenggat tindakan. Tanggal acuan di atas tetap berlaku.",
+      9, muted,
+    );
+  }
   heading("01  Ringkasan untuk pengambil keputusan");
   paragraph(a.narrative);
   ensure(27);
