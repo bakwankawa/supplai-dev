@@ -14,7 +14,6 @@ import {
   ArrowRight,
   Database,
   ShieldAlert,
-  CheckCircle2,
   Truck
 } from "lucide-react";
 
@@ -217,7 +216,7 @@ export default function ExecutiveSummaryPage() {
                 <TrendingUp className="w-4 h-4 text-[#006c4a]" />
                 Peta Indeks Harga Baseline Strategis
               </h3>
-              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional (Data Realtime API).</p>
+              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional (panel bulanan WFP/HDX).</p>
             </div>
             <div className="flex gap-1.5 text-[10px] font-mono font-bold shrink-0">
               <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100">Kritis</span>
@@ -273,10 +272,8 @@ export default function ExecutiveSummaryPage() {
           {/* Rentetan Log Operasional Terintegrasi Ringkasan API */}
           <div className="flex-1 space-y-3 overflow-y-auto pr-1">
             {[
-              { time: "Snapshot", type: "WARNING", msg: `${alertResponse?.summary?.thisMonth ?? 182} wilayah berstatus pantauan aktif`, icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
-              { time: "Snapshot", type: "INFO", msg: `${alertResponse?.summary?.resolved ?? 168} isu distribusi berhasil diselesaikan`, icon: AlertTriangle, bg: "bg-sky-50 text-sky-600 border-sky-100" },
+              { time: "Snapshot", type: "WARNING", msg: alertResponse?.summary?.thisMonth != null ? `${alertResponse.summary.thisMonth} wilayah berstatus pantauan aktif` : "— wilayah berstatus pantauan aktif", icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
               { time: "Snapshot", type: "MODEL", msg: "204 seri komoditas-provinsi dimodelkan bulanan", icon: Truck, bg: "bg-slate-50 text-slate-600 border-slate-100" },
-              { time: "Snapshot", type: "AKURASI", msg: `Rata-rata respons sistem: ${alertResponse?.summary?.avgResponseTime ?? 14} menit`, icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
             ].map((log, idx) => {
               const LogIcon = log.icon;
               return (
