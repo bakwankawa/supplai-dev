@@ -155,5 +155,5 @@ export interface BukuBesarEntry {
   nilai: string
   sumber: string
   tahun: string
-  status: "terukur" | "diasumsikan"
+  status: "terukur" | "diasumsikan" | "diturunkan"
 }

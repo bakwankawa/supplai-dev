@@ -4,6 +4,7 @@ import { formatNumber, formatRupiah } from "@/lib/format";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
 import { POSTUR_LABEL } from "./postur";
+import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
@@ -72,7 +73,7 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
   const LEDGER_WIDTH = [30, 33, 71, 18, 22];
   const ledgerRow = (entry: (typeof bukuBesar)[number]) => [
     entry.input, entry.nilai, entry.sumber, entry.tahun,
-    entry.status === "terukur" ? "Terukur" : "Diasumsikan",
+    BUKU_BESAR_STATUS_LABEL[entry.status].label,
   ];
 
   header();
@@ -130,7 +131,9 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
     }
     heading("05  Asal-usul angka");
     const terukurLedger = bukuBesar.filter((e) => e.status === "terukur").length;
-    paragraph(`Setiap masukan yang dipakai perhitungan ini, beserta asalnya. ${terukurLedger} dari ${bukuBesar.length} berasal dari sumber yang dapat diperiksa; ${bukuBesar.length - terukurLedger} sisanya kami tetapkan sendiri dan ditandai demikian.`, 9);
+    const diasumsikanLedger = bukuBesar.filter((e) => e.status === "diasumsikan").length;
+    const diturunkanLedger = bukuBesar.filter((e) => e.status === "diturunkan").length;
+    paragraph(`Setiap masukan yang dipakai perhitungan ini, beserta asalnya. ${terukurLedger} dari ${bukuBesar.length} berasal dari sumber yang dapat diperiksa. ${diasumsikanLedger} kami tetapkan sendiri berdasarkan penilaian profesional. ${diturunkanLedger} dihitung dari masukan lain dan mewarisi tingkat kepercayaan mereka. Semua ditandai sesuai jenisnya.`, 9);
     table(LEDGER_HEAD, bukuBesar.map(ledgerRow), LEDGER_WIDTH);
   } else {
     heading("01  Ringkasan");

@@ -68,5 +68,19 @@
   "sumber": "artifacts/thresholds.parquet, dihitung dari panel harga 2016-2026 di agent.py:severity_thresholds. Diterapkan simetris ke sisi turun mengikuti cara Bapanas memperlakukan harga terlalu rendah sebagai peringatan.",
   "tahun": "2016-2026",
   "status": "terukur"
+ },
+ {
+  "input": "Dampak harga (pembalikan elastisitas)",
+  "nilai": "ditahan_pp = volume / (epsilon x konsumsi) x 100, dipotong pada kenaikan yang diprediksi",
+  "sumber": "Turunan aljabar dari volume_intervensi, memakai elastisitas dan galat bakunya yang sama. Selangnya terbalik karena elastisitas membagi di sini dan mengalikan di sana. Angka ini mewarisi dasar_takaran rutenya: bila volumenya diasumsikan, dampak harganya juga diasumsikan.",
+  "tahun": "—",
+  "status": "diturunkan"
+ },
+ {
+  "input": "Bulan sasaran rencana",
+  "nilai": "bulan_prediksi dari forecast.parquet, dihitung sebagai bulan data terakhir ditambah horizon 3 bulan",
+  "sumber": "Bulan dihitung, bukan diamati. Tenggat tindakan adalah AWAL bulan itu, bukan akhirnya: intervensi harus terjadi sebelum bulan berjalan agar memengaruhi harganya.",
+  "tahun": "—",
+  "status": "diturunkan"
  }
 ]

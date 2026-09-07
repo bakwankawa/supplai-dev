@@ -465,8 +465,8 @@ def main(argv=None) -> int:
     assert buku_besar and all(
         {"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in buku_besar
     ), "buku_besar entries are missing required fields"
-    assert all(e["status"] in {"terukur", "diasumsikan"} for e in buku_besar), \
-        "buku_besar status must be terukur or diasumsikan"
+    assert all(e["status"] in {"terukur", "diasumsikan", "diturunkan"} for e in buku_besar), \
+        "buku_besar status must be terukur, diasumsikan, or diturunkan"
     assert A["narasi"]["redistribusi"], "narasi.json has no redistribution text"
     for postur, per_kom in redist.items():
         for cid, resp in per_kom.items():
