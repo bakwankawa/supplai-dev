@@ -10,6 +10,8 @@ import { RouteTable } from "@/components/redistribusi/route-table";
 import { PostureSwitch } from "@/components/redistribusi/posture-switch";
 import { SurplusPanel, MethodPanel } from "@/components/redistribusi/info-panels";
 import { BukuBesarPanel } from "@/components/redistribusi/buku-besar-panel";
+import { KesenjanganPanel } from "@/components/redistribusi/kesenjangan-panel";
+import { LanskapPanel } from "@/components/redistribusi/lanskap-panel";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Narasi, Penjelas } from "@/components/ui/narasi";
@@ -17,7 +19,7 @@ import { narasiRedistribusi } from "@/data/narasi";
 import { formatRupiah } from "@/lib/format";
 import { POSTUR_LABEL } from "@/lib/redistribusi/postur";
 import { jendelaWaktu } from "@/lib/redistribusi/waktu";
-import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download } from "lucide-react";
+import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download, Scale, BarChart3 } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -350,6 +352,34 @@ export default function RedistribusiPage() {
             <SurplusPanel provinces={surplusProvinces} />
           </motion.div>
         </div>
+
+        {/* ================= ROW 2.5: KESENJANGAN IKP (FULL WIDTH, OWN ROW) =================
+         *  Halaman ini pernah mengalami regresi tata letak ketika sebuah panel
+         *  disisipkan ke baris yang sudah terisi dan memotong tabel rute di
+         *  atas -- panel ini karena itu diberi barisnya sendiri, bukan
+         *  disisipkan ke grid Row 2. */}
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+            <Scale className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-lg font-bold text-slate-800">Kesenjangan Antarkelompok IKP</h3>
+          </div>
+          <KesenjanganPanel routes={routes} loading={loading} />
+          <div className="mt-4">
+            <Penjelas
+              judul="Sepertiga dihitung atas 38 provinsi, bukan 34"
+              isi="Ketiga kelompok di atas — bawah, tengah, dan atas — adalah sepertiga dari seluruh 38 provinsi yang punya skor IKP Bapanas 2025, bukan sepertiga dari 34 provinsi yang harganya bisa kami model. Sebuah kelompok yang isinya kecil di sini bisa berarti kelompok itu memang kecil, atau bisa berarti sebagian provinsi anggotanya berada di luar jangkauan model — dua hal berbeda yang baris di atas, bila ada, membedakannya."
+            />
+          </div>
+        </motion.div>
+
+        {/* ================= ROW 2.6: LANSKAP KOMODITAS (FULL WIDTH, OWN ROW) ================= */}
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+            <BarChart3 className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-lg font-bold text-slate-800">Lanskap Komoditas</h3>
+          </div>
+          <LanskapPanel provinsiAwal={routes[0]?.to} />
+        </motion.div>
         </>
       )}
 
