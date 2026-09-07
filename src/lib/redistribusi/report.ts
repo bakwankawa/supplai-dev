@@ -142,13 +142,28 @@ export function createRedistribusiReport(
     paragraph(takaranHarga, 9, muted);
     paragraph(basisHarga, 9, muted);
     heading("03  Kesenjangan IKP");
-    const sebaran = sebaranKelompok(
-      a.routes.map((r) => ({ ke: r.to, volumeTon: r.volumeTon })),
-      TINGKATAN_IKP,
-    );
-    const [kesenjanganUtama, ...kesenjanganLain] = teksKesenjangan(sebaran, IKP_TANPA_HARGA);
-    paragraph(kesenjanganUtama);
-    for (const kalimat of kesenjanganLain) paragraph(kalimat, 9, muted);
+    if (a.totalRute === 0) {
+      // Sama seperti "02 Penekanan harga": rencana kosong tidak punya sebaran
+      // untuk dinyatakan, jadi bagian ini menyatakan itu -- bukan mencetak
+      // 0,00% ke ketiga kelompok seakan itu hasil pengukuran atas sebuah
+      // rencana yang tidak pernah ada.
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada sebaran kelompok IKP yang dapat dinyatakan.");
+    } else {
+      const sebaran = sebaranKelompok(
+        a.routes.map((r) => ({ ke: r.to, volumeTon: r.volumeTon })),
+        TINGKATAN_IKP,
+      );
+      const teksSebaran = teksKesenjangan(sebaran, IKP_TANPA_HARGA);
+      // teksKesenjangan menjamin urutan: [utama, jangkauan model (hanya bila
+      // IKP_TANPA_HARGA tidak kosong), lalu sisanya]. Kalimat jangkauan model
+      // BUKAN aside -- ia menyatakan provinsi yang tidak akan pernah
+      // terjangkau produk ini sama sekali -- jadi ia dicetak senormal
+      // kalimat utama, bukan abu-abu 9pt seperti kalimat kondisional lain.
+      let i = 0;
+      paragraph(teksSebaran[i++]);
+      if (IKP_TANPA_HARGA.length > 0) paragraph(teksSebaran[i++]);
+      for (; i < teksSebaran.length; i++) paragraph(teksSebaran[i], 9, muted);
+    }
     heading("04  Rute dan takaran");
     if (a.routes.length) {
       paragraph("Kolom \"% pasar\" adalah bagian kiriman terhadap konsumsi bulanan provinsi tujuan. Kolom \"Kecukupan GPM\" bukan tentang kiriman ini: ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah, program intervensi yang memang sudah berjalan di provinsi tujuan. Angka itu melekat pada tujuannya, jadi setiap rute yang masuk ke provinsi yang sama menunjukkan nilai yang sama.", 9, muted);

@@ -11,6 +11,17 @@ import { jendelaWaktu } from "./waktu"
  *  provinsi yang diurutkan menurut skor IKP. */
 const LABEL_KELOMPOK: Record<Kelompok, string> = tingkatanData.label as Record<Kelompok, string>
 
+/** Peringkat IKP tiap provinsi (1 = tertinggi, `TOTAL_PROVINSI_IKP` =
+ *  terendah), dari `tingkatan.json`. Dipakai supaya kalimat "di luar
+ *  jangkauan model" bisa menyebut peringkat provinsi ber-IKP terendah di
+ *  antara yang disebut, bukan cuma menyebut namanya. Empat nama saja
+ *  menyatakan kita kehilangan sejumlah provinsi; menyebut peringkatnya
+ *  menyatakan apa yang hilang itu. */
+const PERINGKAT_IKP: Map<string, number> = new Map(
+  tingkatanData.provinsi.map((p) => [p.provinsi, p.peringkat]),
+)
+const TOTAL_PROVINSI_IKP = tingkatanData.provinsi.length
+
 /** Menggabung daftar nama dengan "dan" ala Indonesia: "A", "A dan B", atau
  *  "A, B, dan C". */
 function daftarDan(items: string[]): string {
@@ -156,7 +167,18 @@ export function teksMarjin(): string {
  *  Alat pemerataan yang tidak bisa melihat provinsi paling rentan adalah hal
  *  yang wajib diketahui pemakainya, bukan cacat yang disembunyikan -- karena
  *  itu keduanya dinyatakan eksplisit, bukan digabung diam-diam ke salah satu
- *  kelompok atau saling menutupi satu sama lain. */
+ *  kelompok atau saling menutupi satu sama lain, dan tidak digabung jadi
+ *  satu kalimat yang sama.
+ *
+ *  Urutan array yang dikembalikan adalah bagian dari kontraknya, bukan
+ *  kebetulan: [kalimat utama, kalimat jangkauan model (HANYA bila
+ *  `ikpTanpaHarga` tidak kosong), lalu kalimat-kalimat kondisional lain apa
+ *  adanya]. `report.ts` menyandarkan diri pada urutan ini untuk mencetak
+ *  kalimat jangkauan model senormal kalimat utama -- ia BUKAN aside dan
+ *  tidak boleh mendapat perlakuan catatan kaki (abu-abu, 9pt) seperti
+ *  kalimat kondisional lainnya, karena ia menyatakan provinsi yang produk
+ *  ini tidak akan pernah bisa jangkau sama sekali, termasuk yang ber-IKP
+ *  terendah di negeri ini. */
 export function teksKesenjangan(
   sebaran: SebaranKelompokResult,
   ikpTanpaHarga: string[],
@@ -168,18 +190,31 @@ export function teksKesenjangan(
     .join(", ")
   hasil.push(`Dari seluruh tonase rencana ini, ${bagian}.`)
 
+  if (ikpTanpaHarga.length > 0) {
+    const berperingkat = ikpTanpaHarga
+      .map((nama) => ({ nama, peringkat: PERINGKAT_IKP.get(nama) }))
+      .filter((p): p is { nama: string; peringkat: number } => p.peringkat !== undefined)
+    const terendah =
+      berperingkat.length > 0
+        ? berperingkat.reduce((a, b) => (b.peringkat > a.peringkat ? b : a))
+        : null
+    // Empat nama menyatakan kita kehilangan sejumlah provinsi; peringkat
+    // menyatakan APA yang hilang -- provinsi ber-IKP terendah yang justru
+    // paling butuh dilihat alat pemerataan ini.
+    const catatanPeringkat = terendah
+      ? ` Salah satunya, ${terendah.nama}, berperingkat ${terendah.peringkat} dari ${TOTAL_PROVINSI_IKP} -- IKP terendah di seluruh Indonesia.`
+      : ""
+    hasil.push(
+      `${daftarDan(ikpTanpaHarga)} punya skor IKP Bapanas 2025 tetapi berada di luar jangkauan model ini: ` +
+        `data harganya masih memakai pembagian provinsi sebelum pemekaran 2022, sehingga rencana ini tidak ` +
+        `pernah bisa mengirim ke sana.${catatanPeringkat}`,
+    )
+  }
+
   const nol = sebaran.kelompok.filter((k) => k.ton === 0)
   if (nol.length > 0) {
     hasil.push(
       `${daftarDan(nol.map((k) => LABEL_KELOMPOK[k.kelompok]))} tidak menerima apa pun dari rencana ini.`,
-    )
-  }
-
-  if (ikpTanpaHarga.length > 0) {
-    hasil.push(
-      `${daftarDan(ikpTanpaHarga)} punya skor IKP Bapanas 2025 tetapi berada di luar jangkauan model ini: ` +
-        `data harganya masih memakai pembagian provinsi sebelum pemekaran 2022, sehingga rencana ini tidak ` +
-        `pernah bisa mengirim ke sana.`,
     )
   }
 

@@ -113,23 +113,40 @@ describe("teksKesenjangan", () => {
   // tanpaTingkatan aktif kecuali dinyatakan.
   const kosongTanpaTingkatan = { ton: 0, persen: 0, provinsi: [] as string[] }
 
-  it("menyebut kelompok dengan namanya sendiri, bukan sebutan resmi", () => {
+  it("menyebut kelompok dengan namanya sendiri, bukan sebutan resmi ataupun kunci mentahnya", () => {
+    // ikpTanpaHarga sengaja [] di sini: kalimat "IKP Bapanas 2025" hanya bisa
+    // datang dari LABEL_KELOMPOK pada kalimat utama, bukan "kebetulan" muncul
+    // lewat kalimat jangkauan model yang juga memuat frasa itu. Reviewer
+    // membuktikan lewat mutasi bahwa toContain("IKP Bapanas 2025") saja lolos
+    // meski peta labelnya dihapus dan kunci mentah "bawah"/"tengah"/"atas"
+    // dicetak apa adanya -- karena frasa itu tetap ada di kalimat LAIN. Di
+    // sini diisolasi, dan diperiksa label lengkap per kelompok, plus kunci
+    // mentah dipastikan TIDAK muncul.
     const sebaran: SebaranKelompokResult = {
       kelompok: [
         { kelompok: "bawah", ton: 10, persen: 25, nProvinsi: 1 },
-        { kelompok: "tengah", ton: 0, persen: 0, nProvinsi: 0 },
-        { kelompok: "atas", ton: 30, persen: 75, nProvinsi: 1 },
+        { kelompok: "tengah", ton: 5, persen: 12.5, nProvinsi: 1 },
+        { kelompok: "atas", ton: 25, persen: 62.5, nProvinsi: 1 },
       ],
       tanpaTingkatan: kosongTanpaTingkatan,
     }
-    const teks = teksKesenjangan(sebaran, ["Papua Pegunungan"]).join(" ")
+    const teks = teksKesenjangan(sebaran, []).join(" ")
     expect(teks.toLowerCase()).not.toContain("tertinggal")
-    expect(teks).toContain("IKP Bapanas 2025")
+    expect(teks).toContain("Sepertiga terbawah IKP Bapanas 2025")
+    expect(teks).toContain("Sepertiga tengah IKP Bapanas 2025")
+    expect(teks).toContain("Sepertiga teratas IKP Bapanas 2025")
+    // Kunci mentah tidak boleh bocor sebagai pengganti labelnya
+    expect(teks).not.toMatch(/\bke bawah\b/)
+    expect(teks).not.toMatch(/\bke tengah\b/)
+    expect(teks).not.toMatch(/\bke atas\b/)
   })
 
-  it("menyatakan provinsi ber-IKP terendah yang di luar jangkauan model", () => {
+  it("menyatakan peringkat provinsi ber-IKP terendah yang di luar jangkauan model, sebagai kalimat kedua yang berdiri sendiri", () => {
     // Alat pemerataan yang tidak bisa melihat daerah paling rentan adalah hal yang
-    // wajib diketahui pemakainya, bukan cacat yang disembunyikan.
+    // wajib diketahui pemakainya, bukan cacat yang disembunyikan. Empat nama saja
+    // tidak cukup -- pembaca harus tahu SEBERAPA rentan provinsi yang hilang itu,
+    // jadi kalimatnya menyebut peringkat IKP-nya (dari tingkatan.json: Papua
+    // Pegunungan peringkat 38 dari 38, IKP terendah di Indonesia).
     const sebaran: SebaranKelompokResult = {
       kelompok: [
         { kelompok: "bawah", ton: 10, persen: 25, nProvinsi: 1 },
@@ -138,9 +155,16 @@ describe("teksKesenjangan", () => {
       ],
       tanpaTingkatan: kosongTanpaTingkatan,
     }
-    const teks = teksKesenjangan(sebaran, ["Papua Pegunungan", "Papua Tengah"]).join(" ")
+    const teksArr = teksKesenjangan(sebaran, ["Papua Pegunungan", "Papua Tengah"])
+    const teks = teksArr.join(" ")
     expect(teks).toContain("Papua Pegunungan")
     expect(teks).toContain("di luar jangkauan")
+    expect(teks).toContain("38 dari 38")
+    // Kontrak urutan yang disandarkan report.ts: kalimat jangkauan model
+    // adalah elemen array KEDUA (indeks 1) begitu ikpTanpaHarga tidak kosong,
+    // supaya report.ts bisa mencetaknya senormal kalimat utama tanpa menebak
+    // dari isi teksnya.
+    expect(teksArr[1]).toContain("di luar jangkauan")
   })
 
   it("menyebut kelompok yang tidak menerima apa pun, dan tonase yang tidak masuk sebaran mana pun", () => {
@@ -158,5 +182,32 @@ describe("teksKesenjangan", () => {
     const teks = teksKesenjangan(sebaran, []).join(" ")
     expect(teks).toMatch(/tidak menerima|nol/i)
     expect(teks).toContain("Wakanda")
+  })
+
+  it("tidak pernah menggabung kalimat jangkauan model dengan kalimat tanpa-tingkatan jadi satu", () => {
+    // Reviewer membuktikan lewat mutasi bahwa menggabung dua kalimat ini
+    // jadi satu string (sambil tetap menyimpan kedua substring yang dicek
+    // tes lain) tetap lolos semua tes -- karena tak ada tes yang memeriksa
+    // KEDUANYA berada di elemen array yang BERBEDA. Di sini keduanya dipicu
+    // bersamaan dan dipastikan tidak pernah jadi elemen yang sama, dan tidak
+    // saling membocorkan nama provinsi milik kalimat lain.
+    const sebaran: SebaranKelompokResult = {
+      kelompok: [
+        { kelompok: "bawah", ton: 10, persen: 50, nProvinsi: 1 },
+        { kelompok: "tengah", ton: 0, persen: 0, nProvinsi: 0 },
+        { kelompok: "atas", ton: 10, persen: 50, nProvinsi: 1 },
+      ],
+      tanpaTingkatan: { ton: 5, persen: 20, provinsi: ["Wakanda"] },
+    }
+    const teksArr = teksKesenjangan(sebaran, ["Papua Pegunungan"])
+    const kalimatJangkauan = teksArr.find((t) => t.includes("di luar jangkauan"))
+    const kalimatTanpaTingkatan = teksArr.find((t) => t.includes("tidak masuk sebaran kelompok mana pun"))
+
+    expect(kalimatJangkauan).toBeDefined()
+    expect(kalimatTanpaTingkatan).toBeDefined()
+    // Properti inti: dua kalimat berbeda, bukan satu kalimat gabungan
+    expect(kalimatJangkauan).not.toBe(kalimatTanpaTingkatan)
+    expect(kalimatJangkauan).not.toContain("Wakanda")
+    expect(kalimatTanpaTingkatan).not.toContain("Papua Pegunungan")
   })
 })
