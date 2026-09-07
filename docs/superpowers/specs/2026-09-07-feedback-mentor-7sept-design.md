@@ -282,8 +282,8 @@ Dua bacaan yang masing-masing bernama jelas, bukan satu skor:
    ramalan, sehingga bisa mencakup komoditas di luar enam yang diramalkan.
 
 **Koreksi atas draf pertama spec ini.** Draf itu menyebut 26–27 komoditas. Angka itu
-salah: ia menghitung seluruh sejarah 2016–2026, dan **19 dari 27 seri WFP berhenti pada
-Mei 2024 atau lebih awal** karena WFP mengganti spesifikasinya (`Rice` menjadi
+salah: ia menghitung seluruh sejarah 2016–2026, dan **18 dari 27 seri WFP berhenti tepat pada
+Mei 2024**, dan satu lagi lebih awal karena WFP mengganti spesifikasinya (`Rice` menjadi
 `Rice (medium quality)`, `Garlic` menjadi `Garlic (medium)`, dan seterusnya). Yang masih
 punya harga sampai Juni 2026 hanya **delapan**, dan enam di antaranya sudah kita ramalkan.
 

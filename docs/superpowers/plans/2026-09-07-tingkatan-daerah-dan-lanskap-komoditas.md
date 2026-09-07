@@ -511,7 +511,7 @@ tampil harus mengatakannya.
 
 Karena tidak ada model ramalan yang terlibat, cakupannya lebih luas daripada
 enam komoditas yang kita ramalkan — tetapi hanya dua lebih luas, bukan dua
-puluh. Dari 27 seri WFP, sembilan belas berhenti pada Mei 2024 ketika WFP
+puluh. Dari 27 seri WFP, delapan belas berhenti tepat pada Mei 2024 ketika WFP
 mengganti spesifikasinya; yang masih berharga sampai Juni 2026 ada delapan.
 Dua tambahannya, Daging Sapi dan Gula Pasir, kebetulan justru dua yang sudah
 punya neraca nasional dari berkas staf ahli Komisi IV.
@@ -588,7 +588,7 @@ COMMODITIES yang diturunkan dari sana menggerakkan loop pelatihan di train.py,
 jadi menambah entri di sana akan melatih model untuk komoditas yang sengaja
 tidak diramalkan.
 
-Delapan, bukan dua puluh tujuh: sembilan belas seri WFP berhenti Mei 2024 saat
+Delapan, bukan dua puluh tujuh: delapan belas seri WFP berhenti Mei 2024 saat
 spesifikasinya berganti."
 ```
 
@@ -612,22 +612,19 @@ Tambahkan di `supplai-dev/scripts/tests/test_export_web.py`:
 ```python
 def test_tingkatan_export_carries_all_thirty_eight_provinces(tmp_path):
     import json
-    from scripts.export_web import build_tingkatan
-    out = build_tingkatan()
+    out = ew.build_tingkatan()
     assert len(out["provinsi"]) == 38
     assert set(out["label"]) == {"bawah", "tengah", "atas"}
     assert "tertinggal" not in json.dumps(out).lower()
 
 
 def test_tingkatan_export_states_the_provinces_without_prices():
-    from scripts.export_web import build_tingkatan
-    out = build_tingkatan()
+    out = ew.build_tingkatan()
     assert "Papua Pegunungan" in out["cakupan"]["ikpTanpaHarga"]
 
 
 def test_lanskap_export_covers_eight_commodities():
-    from scripts.export_web import build_lanskap
-    out = build_lanskap()
+    out = ew.build_lanskap()
     assert len(out["komoditas"]) == 8
     assert "Daging Sapi" in out["komoditas"]
     assert "Gula Pasir" in out["komoditas"]
