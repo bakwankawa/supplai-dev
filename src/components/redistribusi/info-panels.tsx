@@ -47,16 +47,22 @@ export function MethodPanel({ sources = 0, destinations = 0 }: { sources?: numbe
           <h3 className="text-lg font-bold text-slate-800">Metode Alokasi</h3>
         </div>
         <p className="text-xs text-slate-500 leading-relaxed font-medium">
-          Sistem intelijen pangan ini memanfaatkan algoritma <span className="font-bold text-[#006c4a]">Linear Programming (Simplex Method)</span> untuk menghitung titik keseimbangan distribusi logistik guna meminimalisasi overhead biaya angkut nasional.
+          Rencana ini dipecahkan sebagai <span className="font-bold text-[#006c4a]">program linier</span> oleh{" "}
+          <span className="font-bold text-[#006c4a]">HiGHS</span> (<span className="font-mono">scipy.optimize.linprog</span>,{" "}
+          <span className="font-mono">method=&quot;highs&quot;</span>), dengan tujuan meminimalkan total biaya angkut nasional.
+          HiGHS sendiri yang memilih simpleks atau titik-dalam, jadi metodenya tidak kami tetapkan dan tidak kami klaim.
         </p>
 
         <div className="grid grid-cols-2 gap-2 pt-2">
+          {/* Not "Produsen": we have no per-province production data at all —
+              the honesty ledger on this same page says so. These are the
+              provinces the solver drew routes out of and into, nothing more. */}
           <div className="rounded-xl bg-emerald-50/70 border border-emerald-100/60 p-3 text-center">
-            <span className="text-[10px] text-emerald-700 font-mono font-bold uppercase block">Produsen</span>
+            <span className="text-[10px] text-emerald-700 font-mono font-bold uppercase block">Wilayah Asal</span>
             <span className="text-lg font-black text-emerald-800">{label(sources, "Provinsi")}</span>
           </div>
           <div className="rounded-xl bg-rose-50/70 border border-rose-100/60 p-3 text-center">
-            <span className="text-[10px] text-rose-700 font-mono font-bold uppercase block">Konsumen</span>
+            <span className="text-[10px] text-rose-700 font-mono font-bold uppercase block">Wilayah Tujuan</span>
             <span className="text-lg font-black text-rose-800">{label(destinations, "Wilayah")}</span>
           </div>
         </div>
@@ -71,11 +77,25 @@ export function MethodPanel({ sources = 0, destinations = 0 }: { sources?: numbe
         </div>
 
         <div className="text-[11px] text-slate-400 space-y-1 bg-slate-50 p-3 rounded-xl border border-slate-100">
+          {/* The three constraints supplai/match.py actually builds into A_ub.
+              The list here used to name a fleet-capacity term and a buffer-stock
+              term, neither of which exists — and the first contradicted the
+              ledger further down this page, which states we have no per-province
+              production data. */}
           <p className="font-bold text-slate-700">Parameter Batasan / Constraints:</p>
           <ul className="list-disc list-inside space-y-0.5 font-medium">
-            <li>Kapasitas batas pengiriman armada cargo</li>
-            <li>Pemenuhan kuota minimum wilayah kritis</li>
-            <li>Defisit ambang batas stok penyangga</li>
+            <li>
+              Provinsi asal mengirim <span className="font-bold text-slate-600">maksimal 10% konsumsi bulanannya sendiri</span> —
+              batas yang kami tetapkan, bukan kami ukur, karena data produksi per provinsi tidak tersedia bagi kami.
+            </li>
+            <li>
+              Provinsi tujuan menerima <span className="font-bold text-slate-600">sekurang-kurangnya kebutuhan terukurnya</span> —
+              populasi × konsumsi per kapita × elastisitas harga sendiri × kenaikan yang diprediksi.
+            </li>
+            <li>
+              Total tonase dibatasi <span className="font-bold text-slate-600">neraca ketersediaan dan kebutuhan nasional</span>,
+              bila komoditas itu punya neraca. Bawang Putih tidak punya, sehingga rencananya berjalan tanpa pagu.
+            </li>
           </ul>
         </div>
       </div>

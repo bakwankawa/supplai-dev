@@ -3,15 +3,11 @@
 import { useState, useRef, useEffect, useMemo } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { Search, Bell, User, LogOut, LogIn, Bot, RefreshCw, AlertTriangle, ArrowRight, ChevronLeft, ArrowUpRight, Menu } from "lucide-react";
+import { Search, Bell, User, LogOut, LogIn, RefreshCw, AlertTriangle, ArrowRight, ChevronLeft, ArrowUpRight, Menu } from "lucide-react";
 
 // Import hook API & tipe yang sama dengan Alert Center
 import { useApi } from "@/hooks/use-api";
 import { AlertResponse } from "@/lib/types";
-
-interface HeaderProps {
-    onToggleAgent: () => void;
-}
 
 // Tipe data internal untuk notifikasi di Header
 interface HeaderNotification {
@@ -24,7 +20,7 @@ interface HeaderNotification {
     slug: string;
 }
 
-export function Header({ onToggleAgent }: HeaderProps) {
+export function Header() {
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showNotificationMenu, setShowNotificationMenu] = useState(false);
     const [activeView, setActiveView] = useState<"list" | "detail">("list");
@@ -235,8 +231,10 @@ export function Header({ onToggleAgent }: HeaderProps) {
                                                 <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">
                                                     Alert Center ({notifications.length})
                                                 </span>
-                                                <span className="text-[10px] font-mono bg-rose-100 text-rose-700 font-bold px-1.5 py-0.5 rounded-sm">
-                                                    Live Monitoring
+                                                {/* Bukan pemantauan langsung: alert disusun dari panel
+                                                    harga bulanan, jadi badge menyebut cadence sebenarnya. */}
+                                                <span className="text-[10px] font-mono bg-slate-100 text-slate-600 font-bold px-1.5 py-0.5 rounded-sm">
+                                                    Data Bulanan
                                                 </span>
                                             </div>
 
@@ -339,14 +337,6 @@ export function Header({ onToggleAgent }: HeaderProps) {
                         )}
                     </AnimatePresence>
                 </div>
-
-                {/* Tombol Agent Chat */}
-                <button
-                    onClick={onToggleAgent}
-                    className="p-2 text-slate-500 hover:text-[#006c4a] hover:bg-emerald-50 rounded-xl transition-all cursor-pointer"
-                >
-                    <Bot className="w-4 h-4" />
-                </button>
 
                 <div className="h-6 w-px bg-slate-200" />
 

@@ -9,7 +9,8 @@
     "lint": "eslint",
     "export:data": "python scripts/export_web.py",
     "verify:api": "bash scripts/verify_endpoints.sh",
-    "check:secrets": "bash scripts/check_secrets.sh"
+    "check:secrets": "bash scripts/check_secrets.sh",
+    "test": "vitest run"
   },
   "dependencies": {
     "@base-ui/react": "^1.3.0",
@@ -44,6 +45,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.7",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.1.11"
   }
 }

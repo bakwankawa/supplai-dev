@@ -92,6 +92,10 @@ def test_build_alerts_mapping():
     res = ew.build_alerts(df, {"dibuat": "2026-07-20T12:42:56"})
     assert res["summary"]["thisMonth"] == 2
     assert res["summary"]["active"] == 2
+    # Neither field was ever measured; both used to be emitted as a flat 0 and
+    # rendered as if they were. They must not come back.
+    assert "avgResponseTime" not in res["summary"]
+    assert "resolved" not in res["summary"]
     a0 = res["alerts"][0]
     assert a0["severity"] == "tinggi"           # Warning -> tinggi
     assert a0["commodity"] == "beras"
@@ -113,19 +117,57 @@ def test_build_redistribution():
         "biaya_rp": [2.85e9, 9e8], "harga_asal": [14000, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
         "urgensi": ["Warning", "Info"], "hemat_rp": [-1e8, -4e7],
+        # Columns added by the population-sizing work (Tasks 8-9).
+        "postur": ["seimbang", "seimbang"],
+        "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
+        "persen_pasar": [2.5, 1.0],
+        "epsilon": [0.385, 0.385],
+        "epsilon_sumber": ["nasional", "nasional"],
+        "volume_ci_bawah": [450.0, 180.0],
+        "volume_ci_atas": [550.0, 220.0],
+        "dasar_takaran": ["terukur", "terukur"],
+        "kecukupan_persen": [12.0, 12.0],
     })
-    meta = {"plan_meta": {"Beras Medium": {"status": "ok", "total_ton": 700.0,
-            "total_biaya": 3.75e9, "n_rute": 2, "n_sumber": 2, "n_tujuan": 1}}}
+    # build_redistribution now requires a plan_meta entry for every
+    # commodity-posture pair (Step 6) — fill them all, then override the one
+    # combination this test actually exercises.
+    plan_meta = {
+        f"{wfp}|{postur}": {"status": "tidak perlu intervensi"}
+        for wfp in ew.COMMODITY_ID
+        for postur in ("konservatif", "seimbang", "aman_pangan")
+    }
+    plan_meta["Beras Medium|seimbang"] = {
+        "status": "ok", "total_ton": 700.0, "total_biaya": 3.75e9,
+        "n_rute": 2, "n_sumber": 2, "n_tujuan": 1,
+    }
+    meta = {
+        "postur_tersedia": ["konservatif", "seimbang", "aman_pangan"],
+        "plan_meta": plan_meta,
+    }
     res = ew.build_redistribution(flows, meta)
-    beras = res["beras"]
+    assert set(res) == {"konservatif", "seimbang", "aman_pangan", "default"}
+    assert res["default"] == res["seimbang"]
+
+    beras = res["seimbang"]["beras"]
     assert beras["summary"]["totalRoutes"] == 2
     assert beras["summary"]["totalVolume"] == 700
+    # Comes from plan_meta's n_sumber/n_tujuan, which have no row-derived
+    # fallback — so this is the assertion that actually proves the
+    # f"{komoditas}|{postur}" lookup hit. The other summary values happen to
+    # equal what the code computes from the rows when the lookup misses.
+    assert beras["summary"]["activeRoutes"] == "2 → 1"
     r0 = next(r for r in beras["routes"] if r["from"] == "Jawa Timur")
     assert r0["priority"] == "medium" and r0["commodity"] == "beras"
+    assert r0["volumeTon"] == 500.0 and r0["dasarTakaran"] == "terukur"
     provs = {p["name"]: p for p in beras["provinces"]}
     assert provs["Jawa Timur"]["status"] == "surplus"
     assert provs["Papua"]["status"] == "deficit" and provs["Papua"]["stock"] == 700
-    assert "all" in res
+    assert "all" in res["seimbang"]
+
+    # A posture that produced no routes still gets an entry, with empty lists —
+    # the UI must be able to say "this posture ships nothing" rather than fall
+    # through to another posture's numbers.
+    assert res["konservatif"]["beras"]["routes"] == []
 
 
 def test_build_timeseries_history_then_forecast():
@@ -171,3 +213,156 @@ def test_headline_mape_and_exec_values_parser_safe():
     for v in vals:
         assert _re.fullmatch(r"\d+(\.\d+)?[^0-9.-]*", v), f"unsafe value {v!r}"
     assert any("%" in v for v in vals)
+
+
+def _exec_fixture():
+    bf = pd.DataFrame({"h": [1], "komoditas": ["Beras Medium"], "actual": [100.0],
+                       "lgbm": [100.0], "lstm": [100.0], "qnt": [100.0]})
+    fr = {"bobot": {"Beras Medium": [1 / 3, 1 / 3, 1 / 3]}}
+    forecast = pd.DataFrame({"perubahan_persen": [0.0]})
+    alerts = pd.DataFrame({"severity": []})
+    return {"bench_final": bf, "final_results": fr, "forecast": forecast,
+            "alerts": alerts, "flows": pd.DataFrame(), "meta": {}}
+
+
+def test_executive_never_presents_mape_as_accuracy():
+    """100 - MAPE reads as a probability of being right. It is not: MAPE is a
+    backtest error. The Prediction page already says "KESALAHAN HISTORIS";
+    the Executive Summary must not contradict it."""
+    ex = ew.build_executive(_exec_fixture())
+    titles = [m["title"] for m in ex["topMetrics"]]
+    assert "KESALAHAN HISTORIS (MAPE)" in titles
+    assert not any("AKURASI" in t.upper() for t in titles), titles
+    kartu = next(m for m in ex["topMetrics"] if m["title"] == "KESALAHAN HISTORIS (MAPE)")
+    # The value must be the error itself, not its complement.
+    assert float(kartu["value"].rstrip("%")) < 50, kartu["value"]
+
+
+def test_executive_totals_describe_one_posture_only():
+    """flows and plan_meta hold three postures. Summing across them reports the
+    balanced plan plus the food-security plan as if both would run — the tile
+    read 2,276 t against a balanced plan of 1,026 t."""
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium"] * 2,
+        "dari": ["Bali", "Bali"], "ke": ["Papua", "Papua"],
+        "volume_ton": [100.0, 300.0], "jarak_km": [3000.0, 3000.0],
+        "biaya_rp": [9e8, 9e8], "harga_asal": [14950, 14950],
+        "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
+        "urgensi": ["Info", "Info"], "hemat_rp": [-4e7, -4e7],
+        "postur": ["seimbang", "aman_pangan"],
+        "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
+        "persen_pasar": [0.5, 1.5], "epsilon": [0.385, 0.385],
+        "epsilon_sumber": ["nasional", "nasional"],
+        "volume_ci_bawah": [90.0, 270.0], "volume_ci_atas": [110.0, 330.0],
+        "dasar_takaran": ["terukur", "terukur"],
+        "kecukupan_persen": [12.0, 12.0],
+    })
+    meta = {
+        "postur_tersedia": ["konservatif", "seimbang", "aman_pangan"],
+        "plan_meta": {
+            "Beras Medium|seimbang": {"status": "ok", "total_ton": 100.0},
+            "Beras Medium|aman_pangan": {"status": "ok", "total_ton": 300.0},
+            "Beras Medium|konservatif": {"status": "tidak perlu intervensi"},
+        },
+    }
+    A = dict(_exec_fixture(), flows=flows, meta=meta)
+    ex = ew.build_executive(A)
+    vol = next(m for m in ex["topMetrics"] if m["title"] == "VOL. REDISTRIBUSI")
+    assert vol["value"] == "100", f"summed across postures: {vol['value']}"
+
+
+def test_redistribution_is_keyed_by_posture():
+    import json, subprocess, sys
+    subprocess.run([sys.executable, "scripts/export_web.py"], check=True)
+    data = json.load(open("src/data/generated/redistribution.json"))
+    assert {"konservatif", "seimbang", "aman_pangan", "default"} <= set(data)
+    assert data["default"] == data["seimbang"]
+
+
+def test_redistribution_routes_carry_sizing_fields():
+    import json
+    data = json.load(open("src/data/generated/redistribution.json"))
+    routes = data["default"]["all"]["routes"]
+    assert routes, "no routes exported"
+    r = routes[0]
+    for field in ["volumeTon", "persenPasar", "postur", "epsilon",
+                  "dasarTakaran", "kecukupanPersen"]:
+        assert field in r, f"missing {field}"
+    assert 0 <= r["persenPasar"] <= 100
+    assert r["postur"] == "seimbang"
+
+
+def _redist():
+    import json, pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    return ew.build_redistribution(A["flows"], A["meta"])
+
+
+def test_every_summary_carries_status():
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "status" in resp["summary"], f"{postur}/{cid} has no status"
+            assert isinstance(resp["summary"]["status"], str)
+            assert resp["summary"]["status"], f"{postur}/{cid} status is empty"
+
+
+def test_empty_plans_report_their_own_reason():
+    # Bawang Merah is empty because no surplus/deficit pair formed; Beras under
+    # konservatif is empty because the required volume computed to zero. Two
+    # different causes, and the UI must be able to tell them apart.
+    out = _redist()
+    assert out["seimbang"]["bawang-merah"]["summary"]["status"] == \
+        "tidak ada pasangan surplus-defisit"
+    assert out["konservatif"]["beras"]["summary"]["status"] == "tidak perlu intervensi"
+
+
+def test_anggaran_key_present_even_on_all():
+    # Declared required in RedistributionResponse but previously omitted from
+    # the aggregate, which is exactly what /api/redistribution returns when no
+    # commodity is given.
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
+
+
+def test_routes_carry_the_prices_the_solver_used():
+    out = _redist()
+    route = out["seimbang"]["beras"]["routes"][0]
+    for key in ("hargaAsal", "hargaTujuan", "hematRp"):
+        assert key in route, f"route missing {key}"
+    assert route["hargaTujuan"] > route["hargaAsal"], \
+        "the solver ships from cheaper to dearer; this route inverts it"
+
+
+def test_ledger_loads_and_is_well_formed():
+    import pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    ledger = A["buku_besar"]
+    assert len(ledger) >= 10
+    assert all({"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in ledger)
+    assert all(e["status"] in {"terukur", "diasumsikan"} for e in ledger)
+
+
+def test_missing_plan_meta_entry_raises():
+    import pandas as pd, pytest
+    flows = pd.DataFrame(columns=["komoditas", "postur"])
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(KeyError, match="plan_meta"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_narasi_loads_and_is_keyed_by_commodity_and_posture():
+    import pathlib
+    art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
+    A = ew.load_artifacts(art)
+    n = A["narasi"]
+    assert n["model"].startswith("gpt-"), "the model must be recorded with the text"
+    assert n["redistribusi"], "no redistribution narratives were built"
+    for key in n["redistribusi"]:
+        komoditas, _, postur = key.partition("|")
+        assert komoditas in ew.COMMODITY_ID, f"unknown commodity in narasi key: {key}"
+        assert postur in {"konservatif", "seimbang", "aman_pangan"}, key

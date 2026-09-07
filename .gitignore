@@ -61,3 +61,6 @@ id_ed25519*
 *credentials*.json
 *service-account*.json
 *serviceaccount*.json
+
+# SDD scratch workspace — never ship
+.superpowers/

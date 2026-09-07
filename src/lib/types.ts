@@ -59,6 +59,8 @@ export interface RedistributionProvince {
   stock: number
 }
 
+export type Postur = "konservatif" | "seimbang" | "aman_pangan"
+
 export interface RedistributionRoute {
   from: string
   to: string
@@ -67,13 +69,56 @@ export interface RedistributionRoute {
   distance: number
   cost: number
   priority: "high" | "medium" | "low"
+  /** Tonnes, to two decimals. Routes are tens of tonnes under population-based
+   *  sizing, so the rounded `volume` above is too coarse to compare. */
+  volumeTon: number
+  /** Shipment as a share of the destination's monthly consumption. This is the
+   *  number that shows the plan is not over-subsidising. */
+  persenPasar: number
+  postur: Postur
+  epsilon: number
+  /** "terukur" where the volume came from measured consumption; "diasumsikan"
+   *  where a declared heuristic was used. */
+  dasarTakaran: "terukur" | "diasumsikan"
+  /** Share of the computed requirement already covered by Gerakan Pangan
+   *  Murah, the intervention programme already running in the destination.
+   *  A property of the destination, not of this route: every route into the
+   *  same province carries the same value. */
+  kecukupanPersen: number
+  /** "regional" or "nasional" — a province whose regional elasticity was not
+   *  statistically significant falls back to the national figure, and a reader
+   *  must be able to tell which happened. */
+  epsilonSumber: "regional" | "nasional"
+  /** 95% interval on volumeTon, from the published standard error. This is the
+   *  destination's interval apportioned by delivery share, not a per-route one. */
+  volumeCiBawah: number
+  volumeCiAtas: number
+  /** The denominator behind persenPasar: the destination's monthly consumption. */
+  konsumsiTujuanTonBulan: number
+  /** The two prices the solver compared when it chose this lane. Kept here so a
+   *  report never has to recompute them from an unrelated artifact and disagree
+   *  with the plan it describes. */
+  hargaAsal: number
+  hargaTujuan: number
+  hematRp: number
 }
 
 export interface RedistributionResponse {
-  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string; estimatedCost: number }
+  summary: { totalRoutes: number; totalVolume: number; activeRoutes: string
+             estimatedCost: number
+             anggaranNasionalTon: number | null
+             /** The solver's own reason, e.g. "ok", "tidak perlu intervensi".
+              *  Left as a string, not a union: "solver gagal: …" carries a
+              *  variable message. */
+             status: string }
   provinces: RedistributionProvince[]
   routes: RedistributionRoute[]
 }
+
+export type RedistributionByPostur = Record<
+  Postur | "default",
+  Record<string, RedistributionResponse>
+>
 
 export interface Alert {
   id: string
@@ -98,6 +143,14 @@ export interface Alert {
 }
 
 export interface AlertResponse {
-  summary: { active: number; thisMonth: number; avgResponseTime: number; resolved: number }
+  summary: { active: number; thisMonth: number }
   alerts: Alert[]
+}
+
+export interface BukuBesarEntry {
+  input: string
+  nilai: string
+  sumber: string
+  tahun: string
+  status: "terukur" | "diasumsikan"
 }

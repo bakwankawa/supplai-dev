@@ -55,6 +55,8 @@ def load_artifacts(art: Path) -> dict:
         "centroids": pq("centroids"),
         "bench_final": pq("bench_final"),
         "meta": json.loads((art / "meta.json").read_text()),
+        "buku_besar": json.loads((art / "buku_besar.json").read_text()),
+        "narasi": json.loads((art / "narasi.json").read_text()),
         "final_results": json.loads((art / "final_results.json").read_text()),
     }
 
@@ -171,8 +173,10 @@ def build_alerts(alerts_df: pd.DataFrame, meta: dict) -> dict:
                 "anomaliTerkonfirmasi": bool(r["anomali_terkonfirmasi"]),
             },
         })
-    return {"summary": {"active": len(alerts), "thisMonth": len(alerts),
-                        "avgResponseTime": 0, "resolved": 0},
+    # `avgResponseTime` and `resolved` used to ship here as hardcoded zeros.
+    # Nothing in the product measures a response time or closes a distribution
+    # case, so the fields carried no measurement — only the appearance of one.
+    return {"summary": {"active": len(alerts), "thisMonth": len(alerts)},
             "alerts": alerts}
 
 
@@ -183,7 +187,27 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        "volume": round(float(r.volume_ton)),
                        "distance": round(float(r.jarak_km)),
                        "cost": round(float(r.biaya_rp)),
-                       "priority": PRIO_MAP.get(r.urgensi, "low")})
+                       "priority": PRIO_MAP.get(r.urgensi, "low"),
+                       # Population-based sizing. `volume` above stays rounded
+                       # for the existing display; volumeTon keeps the precision
+                       # the new figures need — routes are tens of tonnes now,
+                       # not hundreds, so rounding to integer loses real signal.
+                       "volumeTon": round(float(r.volume_ton), 2),
+                       "persenPasar": round(float(r.persen_pasar), 3),
+                       "postur": str(r.postur),
+                       "epsilon": round(float(r.epsilon), 3),
+                       "dasarTakaran": str(r.dasar_takaran),
+                       "kecukupanPersen": round(float(r.kecukupan_persen), 1),
+                       "epsilonSumber": str(r.epsilon_sumber),
+                       "volumeCiBawah": round(float(r.volume_ci_bawah), 2),
+                       "volumeCiAtas": round(float(r.volume_ci_atas), 2),
+                       "konsumsiTujuanTonBulan": round(float(r.konsumsi_tujuan_ton_bulan), 1),
+                       # The two prices the solver itself compared when it chose
+                       # this lane. A report that recomputed them from heatmap.json
+                       # could disagree with the plan it is describing.
+                       "hargaAsal": round(float(r.harga_asal)),
+                       "hargaTujuan": round(float(r.harga_tujuan)),
+                       "hematRp": round(float(r.hemat_rp))})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -197,36 +221,69 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                "activeRoutes": f"{int(plan.get('n_sumber', 0))} → "
                                f"{int(plan.get('n_tujuan', 0))}",
                "estimatedCost": round(float(plan.get("total_biaya",
-                                                     col_sum("biaya_rp"))))}
+                                                     col_sum("biaya_rp")))),
+               "anggaranNasionalTon": (None if plan.get("anggaran_nasional") is None
+                                       else round(float(plan["anggaran_nasional"]))),
+               # Why the plan looks the way it does, straight from the solver.
+               # The front end used to invent this sentence and got it wrong for
+               # every empty plan.
+               "status": str(plan["status"])}
     return {"summary": summary, "provinces": provinces, "routes": routes}
 
 
 def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
-    plan_meta = meta.get("plan_meta", {})
+    # No silent defaults: a meta.json without these keys means the pipeline did
+    # not run the posture loop, and quietly exporting a single posture with
+    # empty summaries would hide that.
+    if "plan_meta" not in meta or "postur_tersedia" not in meta:
+        raise KeyError(
+            "meta.json lacks 'plan_meta' and/or 'postur_tersedia' — rerun "
+            "rebuild_plan.py or train.py before exporting."
+        )
+    plan_meta = meta["plan_meta"]
+    posturs = meta["postur_tersedia"]
     out = {}
-    for wfp, (cid, _d, _u) in COMMODITY_ID.items():
-        sub = flows[flows.komoditas == wfp] if not flows.empty else flows
-        # A commodity the solver found nothing to move still gets an entry.
-        # Skipping it let the front-end's `data[commodity] ?? data["all"]`
-        # fall through to the aggregate, so selecting Bawang Merah displayed
-        # Beras routes under a Bawang Merah heading.
-        out[cid] = _response_for(sub, cid, plan_meta.get(wfp, {}))
-    with_routes = [r for r in out.values() if r["routes"]]
-    all_routes = [rt for resp in with_routes for rt in resp["routes"]]
-    all_net = {}
-    for resp in with_routes:
-        for p in resp["provinces"]:
-            sign = 1 if p["status"] == "surplus" else -1
-            all_net[p["name"]] = all_net.get(p["name"], 0) + sign * p["stock"]
-    out["all"] = {
-        "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
-                    "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
-                    "activeRoutes": f"{len(with_routes)} komoditas",
-                    "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes)},
-        "provinces": [{"id": slug(n), "name": n,
-                       "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
-                      for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],
-        "routes": all_routes}
+    for postur in posturs:
+        by_postur = (flows[flows.postur == postur]
+                     if not flows.empty and "postur" in flows.columns else flows)
+        per_kom = {}
+        for wfp, (cid, _d, _u) in COMMODITY_ID.items():
+            sub = by_postur[by_postur.komoditas == wfp] if not by_postur.empty else by_postur
+            # A commodity the solver found nothing to move still gets an entry.
+            # Skipping it let the front-end's `data[commodity] ?? data["all"]`
+            # fall through to the aggregate, so selecting Bawang Merah displayed
+            # Beras routes under a Bawang Merah heading.
+            key = f"{wfp}|{postur}"
+            if key not in plan_meta:
+                raise KeyError(
+                    f"plan_meta has no entry for {key!r}. Every commodity-posture "
+                    f"pair must be present, including empty ones — a missing entry "
+                    f"would render as an unexplained blank table."
+                )
+            per_kom[cid] = _response_for(sub, cid, plan_meta[key])
+        with_routes = [r for r in per_kom.values() if r["routes"]]
+        all_routes = [rt for resp in with_routes for rt in resp["routes"]]
+        all_net = {}
+        for resp in with_routes:
+            for p in resp["provinces"]:
+                sign = 1 if p["status"] == "surplus" else -1
+                all_net[p["name"]] = all_net.get(p["name"], 0) + sign * p["stock"]
+        per_kom["all"] = {
+            "summary": {"totalRoutes": sum(r["summary"]["totalRoutes"] for r in with_routes),
+                        "totalVolume": sum(r["summary"]["totalVolume"] for r in with_routes),
+                        "activeRoutes": f"{len(with_routes)} komoditas",
+                        "estimatedCost": sum(r["summary"]["estimatedCost"] for r in with_routes),
+                        # A national tonnage cap is per-commodity; summing it
+                        # across six commodities would be a number with no meaning.
+                        "anggaranNasionalTon": None,
+                        "status": "ok" if all_routes else "kosong"},
+            "provinces": [{"id": slug(n), "name": n,
+                           "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
+                          for n, v in sorted(all_net.items(), key=lambda kv: -kv[1])],
+            "routes": all_routes}
+        out[postur] = per_kom
+    # The dashboard's default view reads the balanced posture.
+    out["default"] = out.get("seimbang", next(iter(out.values())))
     return out
 
 
@@ -257,16 +314,28 @@ def headline_mape_h1(bench_final: pd.DataFrame, final_results: dict) -> float:
 
 def build_executive(A: dict) -> dict:
     mape = headline_mape_h1(A["bench_final"], A["final_results"])
-    acc = 100 - mape
     avg_chg = float(A["forecast"]["perubahan_persen"].mean())
-    n_routes = len(A["flows"])
+    # flows and plan_meta carry three postures since the population-sizing work.
+    # Aggregating without filtering counts the balanced plan and the food-security
+    # plan as if both would be executed — this tile read 2,276 t where the balanced
+    # plan is 1,026 t. Report the posture the dashboard actually shows.
+    tersedia = A["meta"].get("postur_tersedia", ["seimbang"])
+    postur_utama = "seimbang" if "seimbang" in tersedia else tersedia[0]
+    flows_utama = (A["flows"][A["flows"]["postur"] == postur_utama]
+                   if "postur" in A["flows"].columns else A["flows"])
+    n_routes = len(flows_utama)
     n_alerts = len(A["alerts"])
     n_series = len(A["forecast"])
     total_ton = round(sum(v.get("total_ton", 0)
-                          for v in A["meta"].get("plan_meta", {}).values()))
+                          for k, v in A["meta"].get("plan_meta", {}).items()
+                          if k.endswith(f"|{postur_utama}")))
     arah = "TURUN" if avg_chg < 0 else "NAIK"
     top = [
-        {"title": "AKURASI PREDIKSI", "value": f"{acc:.1f}%", "statusText": "STABIL",
+        # MAPE is a backtest error, not a probability of being right. Presenting
+        # 100-MAPE as "accuracy" invites reading 96.1% as a 96% chance the
+        # forecast is correct. Matches the Prediction page's wording exactly.
+        {"title": "KESALAHAN HISTORIS (MAPE)", "value": f"{mape:.2f}%",
+         "statusText": "EVALUASI 1 BULAN",
          "statusType": "stable", "chartType": "line-green"},
         {"title": "PERUBAHAN HARGA 3 BLN", "value": f"{abs(avg_chg):.1f}%",
          "statusText": arah, "statusType": "neutral",
@@ -277,8 +346,8 @@ def build_executive(A: dict) -> dict:
          "statusType": "surplus", "subtext": "Ton", "chartType": "bars"},
     ]
     shortcuts = [
-        {"title": "Predict", "id": "AKURASI", "value": f"{acc:.1f}%",
-         "label": f"MAPE {mape:.1f}%", "type": "predict", "color": "emerald"},
+        {"title": "Predict", "id": "MAPE", "value": f"{mape:.2f}%",
+         "label": "Evaluasi historis 1 bln", "type": "predict", "color": "emerald"},
         {"title": "Heatmap", "id": "PROVINSI", "value": "34", "label": "DIPANTAU",
          "type": "heatmap", "color": "blue"},
         {"title": "Match", "id": "RUTE AKTIF", "value": f"{n_routes}", "label": "ROUTES",
@@ -356,6 +425,7 @@ def main(argv=None) -> int:
     executive = build_executive(A)
     timeseries = build_timeseries(A["panel"], A["forecast_path"])
     commodity_mape = build_commodity_mape(A["bench_final"], A["final_results"])
+    buku_besar = A["buku_besar"]
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -366,6 +436,8 @@ def main(argv=None) -> int:
     _write(args.out, "executive.json", executive)
     _write(args.out, "timeseries.json", timeseries)
     _write(args.out, "commodity_mape.json", commodity_mape)
+    _write(args.out, "buku_besar.json", buku_besar)
+    _write(args.out, "narasi.json", A["narasi"])
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -377,7 +449,8 @@ def main(argv=None) -> int:
     assert alerts["alerts"], "no alerts produced"
     assert all(a["severity"] in {"kritis", "tinggi", "sedang", "rendah"}
                for a in alerts["alerts"])
-    assert "all" in redist and redist["all"]["routes"], "redistribution missing routes"
+    assert "default" in redist and redist["default"]["all"]["routes"], \
+        "redistribution missing routes"
     assert len(executive["topMetrics"]) == 4 and len(executive["shortcutCards"]) == 4
     for m in executive["topMetrics"]:
         assert re.fullmatch(r"\d+(\.\d+)?[^0-9.-]*", m["value"]), \
@@ -389,6 +462,16 @@ def main(argv=None) -> int:
         assert any(p["isToday"] for p in sample), "no isToday flag"
         assert sum(p["isFuture"] for p in sample) == 3, "expected 3 forecast points"
     assert len(commodity_mape) == 6, "commodity_mape must cover 6 commodities"
+    assert buku_besar and all(
+        {"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in buku_besar
+    ), "buku_besar entries are missing required fields"
+    assert all(e["status"] in {"terukur", "diasumsikan"} for e in buku_besar), \
+        "buku_besar status must be terukur or diasumsikan"
+    assert A["narasi"]["redistribusi"], "narasi.json has no redistribution text"
+    for postur, per_kom in redist.items():
+        for cid, resp in per_kom.items():
+            assert resp["summary"].get("status"), f"{postur}/{cid} has no status"
+            assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
     print("export_web: OK")
     return 0
 

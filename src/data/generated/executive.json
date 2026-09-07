@@ -1,9 +1,9 @@
 {
  "topMetrics": [
   {
-   "title": "AKURASI PREDIKSI",
-   "value": "96.1%",
-   "statusText": "STABIL",
+   "title": "KESALAHAN HISTORIS (MAPE)",
+   "value": "3.94%",
+   "statusText": "EVALUASI 1 BULAN",
    "statusType": "stable",
    "chartType": "line-green"
   },
@@ -25,7 +25,7 @@
   },
   {
    "title": "VOL. REDISTRIBUSI",
-   "value": "3200",
+   "value": "1026",
    "statusText": "REKOMENDASI",
    "statusType": "surplus",
    "subtext": "Ton",
@@ -35,9 +35,9 @@
  "shortcutCards": [
   {
    "title": "Predict",
-   "id": "AKURASI",
-   "value": "96.1%",
-   "label": "MAPE 3.9%",
+   "id": "MAPE",
+   "value": "3.94%",
+   "label": "Evaluasi historis 1 bln",
    "type": "predict",
    "color": "emerald"
   },
@@ -52,7 +52,7 @@
   {
    "title": "Match",
    "id": "RUTE AKTIF",
-   "value": "27",
+   "value": "36",
    "label": "ROUTES",
    "type": "match",
    "color": "rose"

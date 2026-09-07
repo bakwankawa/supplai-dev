@@ -14,13 +14,14 @@ import {
   ArrowRight,
   Database,
   ShieldAlert,
-  CheckCircle2,
   Truck
 } from "lucide-react";
 
 // IMPOR HOOK API REAL & TYPE
 import { useApi } from "@/hooks/use-api";
 import { AlertResponse } from "@/lib/types";
+import { Narasi } from "@/components/ui/narasi";
+import { narasiEksekutif } from "@/data/narasi";
 
 import {
   ResponsiveContainer,
@@ -185,6 +186,25 @@ export default function ExecutiveSummaryPage() {
       {/* ================= TOP METRICS CARDS INTEGRATION ================= */}
       <TopCards />
 
+      {/* ================= GENERATED EXECUTIVE NARRATION (MACHINE-WRITTEN) =================
+          The ninth of the nine generated narratives. It was built, verified and
+          shipped in narasi.json and then rendered nowhere, so the product
+          claimed nine and showed eight. It describes the balanced-posture
+          redistribution plan, which is why it is labelled as such rather than
+          left to read as a summary of the alerts above it. `narasiEksekutif` is
+          null when generation failed verification twice; nothing renders then. */}
+      {narasiEksekutif && (
+        <div className="space-y-2">
+          <div className="flex items-center gap-2">
+            <Truck className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-sm font-bold text-slate-800">
+              Ringkasan rencana redistribusi — postur Seimbang
+            </h3>
+          </div>
+          <Narasi teks={narasiEksekutif} />
+        </div>
+      )}
+
       {/* ================= CENTER MONITORING GRID ================= */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
@@ -196,7 +216,7 @@ export default function ExecutiveSummaryPage() {
                 <TrendingUp className="w-4 h-4 text-[#006c4a]" />
                 Peta Indeks Harga Baseline Strategis
               </h3>
-              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional (Data Realtime API).</p>
+              <p className="text-[11px] font-medium text-slate-400">Rangkuman harga pasar komoditas utama nasional (panel bulanan WFP/HDX).</p>
             </div>
             <div className="flex gap-1.5 text-[10px] font-mono font-bold shrink-0">
               <span className="px-2 py-0.5 rounded bg-rose-50 text-rose-600 border border-rose-100">Kritis</span>
@@ -209,7 +229,7 @@ export default function ExecutiveSummaryPage() {
           <div className="flex-1 w-full h-[300px] pt-3 flex items-center justify-center">
             {loading ? (
               <div className="w-full h-full animate-pulse bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                Memuat Grafik Realtime...
+                Memuat grafik...
               </div>
             ) : komoditasOverviewData.length === 0 ? (
               <div className="text-xs text-slate-400 font-medium">Data komoditas tidak ditemukan.</div>
@@ -252,10 +272,8 @@ export default function ExecutiveSummaryPage() {
           {/* Rentetan Log Operasional Terintegrasi Ringkasan API */}
           <div className="flex-1 space-y-3 overflow-y-auto pr-1">
             {[
-              { time: "Snapshot", type: "WARNING", msg: `${alertResponse?.summary?.thisMonth ?? 182} wilayah berstatus pantauan aktif`, icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
-              { time: "Snapshot", type: "INFO", msg: `${alertResponse?.summary?.resolved ?? 168} isu distribusi berhasil diselesaikan`, icon: AlertTriangle, bg: "bg-sky-50 text-sky-600 border-sky-100" },
+              { time: "Snapshot", type: "WARNING", msg: alertResponse?.summary?.thisMonth != null ? `${alertResponse.summary.thisMonth} wilayah berstatus pantauan aktif` : "— wilayah berstatus pantauan aktif", icon: ShieldAlert, bg: "bg-amber-50 text-amber-600 border-amber-100" },
               { time: "Snapshot", type: "MODEL", msg: "204 seri komoditas-provinsi dimodelkan bulanan", icon: Truck, bg: "bg-slate-50 text-slate-600 border-slate-100" },
-              { time: "Snapshot", type: "AKURASI", msg: `Rata-rata respons sistem: ${alertResponse?.summary?.avgResponseTime ?? 14} menit`, icon: CheckCircle2, bg: "bg-emerald-50 text-emerald-600 border-emerald-100" },
             ].map((log, idx) => {
               const LogIcon = log.icon;
               return (
