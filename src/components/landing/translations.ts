@@ -87,11 +87,11 @@ export const translations: Record<string, readonly [string, string]> = {
     "Bulan",
     "Months"
   ],
-  "Prediksi harga komoditas hingga 90 Hari ke Depan untuk mencegah inflasi pangan.": [
+  "Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga.": [
     "Proyeksi harga hingga tiga bulan untuk mendukung perencanaan pasokan dan mitigasi risiko harga.",
     "Price forecasts up to three months ahead to support supply planning and price risk mitigation."
   ],
-  "AKURASI PREDIKSI": [
+  "TARGET GALAT PREDIKSI": [
     "TARGET GALAT PREDIKSI",
     "TARGET FORECAST ERROR"
   ],
@@ -111,13 +111,13 @@ export const translations: Record<string, readonly [string, string]> = {
     "POTENSI KEMITRAAN",
     "PARTNERSHIP POTENTIAL"
   ],
-  "Triliun": [
-    "Triliun rupiah",
-    "Trillion rupiah"
+  "Satuan TPID": [
+    "Satuan TPID",
+    "TPID Units"
   ],
-  "Target potensi serapan melalui 500+ satuan TPID nasional.": [
-    "Sasaran potensi serapan melalui kerja sama dengan lebih dari 500 TPID di Indonesia.",
-    "A potential absorption target through collaboration with more than 500 regional inflation control teams across Indonesia."
+  "Jangkauan kemitraan strategis ke satuan TPID provinsi dan kabupaten/kota di seluruh Indonesia.": [
+    "Jangkauan kemitraan strategis ke satuan TPID provinsi dan kabupaten/kota di seluruh Indonesia.",
+    "Strategic partnership reach across provincial and district/city TPID units throughout Indonesia."
   ],
   "INPUT": [
     "MASUKAN",
@@ -147,7 +147,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Menghitung proyeksi harga komoditas",
     "Calculating commodity price forecasts"
   ],
-  "Akurasi: 95.2%": [
+  "Ilustrasi proses prediksi": [
     "Ilustrasi proses prediksi",
     "Forecast process illustration"
   ],
@@ -163,7 +163,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Match",
     "SupplAI Match"
   ],
-  "Algoritma optimasi matematis menganalisis fluktuasi harga secara real-time dan otomatis memetakan titik pasokan surplus untuk dialirkan ke wilayah defisit.": [
+  "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
     "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
     "Analyzes price movements and supply availability to recommend allocations from surplus to deficit regions."
   ],
@@ -175,9 +175,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Wilayah Surplus",
     "Surplus Region"
   ],
-  "Kediri (+12T)": [
-    "Kediri (+12 ton)",
-    "Kediri (+12 tonnes)"
+  "Sulawesi Barat (+57,41 Ton)": [
+    "Sulawesi Barat (+57,41 Ton)",
+    "West Sulawesi (+57.41 Tonnes)"
   ],
   "↓↓ Proses Alokasi Jalur ↓↓": [
     "↓↓ Proses Alokasi Distribusi ↓↓",
@@ -187,9 +187,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "Wilayah Defisit",
     "Deficit Region"
   ],
-  "Surabaya (-8T)": [
-    "Surabaya (-8 ton)",
-    "Surabaya (-8 tonnes)"
+  "Kalimantan Utara (-57,41 Ton)": [
+    "Kalimantan Utara (-57,41 Ton)",
+    "North Kalimantan (-57.41 Tonnes)"
   ],
   "Biaya Logistik minimum didapatkan": [
     "Rekomendasi biaya logistik tersedia",
@@ -207,7 +207,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Agent",
     "SupplAI Agent"
   ],
-  "Sistem otomatisasi yang menyajikan peta disparitas spasial nasional serta mengirimkan alarm Push-Alert darurat langsung ke 500 instansi TPID daerah.": [
+  "Menyajikan peta perbedaan harga dan ringkasan peringatan untuk mendukung koordinasi serta penetapan prioritas tindak lanjut oleh instansi terkait.": [
     "Menyajikan peta perbedaan harga dan ringkasan peringatan untuk mendukung koordinasi serta penetapan prioritas tindak lanjut oleh instansi terkait.",
     "Provides price disparity maps and alert summaries to support coordination and help institutions prioritize follow-up actions."
   ],
@@ -227,7 +227,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Peta Perbedaan Harga Tersedia",
     "Price Disparity Map Available"
   ],
-  "Notification broadcast completed successfully.": [
+  "Ringkasan peringatan siap ditinjau.": [
     "Ringkasan peringatan siap ditinjau.",
     "Alert summary ready for review."
   ],
@@ -275,9 +275,25 @@ export const translations: Record<string, readonly [string, string]> = {
     "Prediksi 3 Bulan",
     "3-Month Forecast"
   ],
-  "16/03 (Hari Ini)": [
-    "16/03 (Saat Ini)",
-    "16/03 (Current)"
+  "Bulan Ini": [
+    "Bulan Ini",
+    "This Month"
+  ],
+  "-2 Bulan": [
+    "-2 Bulan",
+    "-2 Months"
+  ],
+  "-1 Bulan": [
+    "-1 Bulan",
+    "-1 Month"
+  ],
+  "+1 Bulan": [
+    "+1 Bulan",
+    "+1 Month"
+  ],
+  "+3 Bulan": [
+    "+3 Bulan",
+    "+3 Months"
   ],
   "● Aktual: Rp14.500": [
     "● Aktual: Rp14.500",
@@ -307,7 +323,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Peta Pasokan Pangan Nasional",
     "National Food Supply Map"
   ],
-  "Live Sync": [
+  "Data Tersinkron": [
     "Data Tersinkron",
     "Data Synced"
   ],
@@ -391,31 +407,31 @@ export const translations: Record<string, readonly [string, string]> = {
     "Asal Pasokan:",
     "Supply Origin:"
   ],
-  "Subang Rice Hub (150 Tons)": [
-    "Sentra Beras Subang (150 ton)",
-    "Subang Rice Hub (150 tonnes)"
+  "Sulawesi Barat (Surplus 57,41 Ton)": [
+    "Sulawesi Barat (Surplus 57,41 Ton)",
+    "West Sulawesi (Surplus 57.41 Tonnes)"
   ],
   "Target Demand:": [
     "Tujuan Distribusi:",
     "Distribution Destination:"
   ],
-  "Bandung Core Market (120 Tons)": [
-    "Pasar Induk Bandung (120 ton)",
-    "Bandung Wholesale Market (120 tonnes)"
+  "Kalimantan Utara (1,30% Pasar Bulanan)": [
+    "Kalimantan Utara (1,30% Pasar Bulanan)",
+    "North Kalimantan (1.30% of Monthly Market)"
   ],
   "Optimized Cost:": [
     "Efisiensi Biaya:",
     "Cost Efficiency:"
   ],
-  "Saved ~18.4% vs Manual Route": [
-    "Estimasi penghematan 18,4%",
-    "Estimated savings of 18.4%"
+  "Estimasi Hemat ~Rp48,7 Juta": [
+    "Estimasi Hemat ~Rp48,7 Juta",
+    "Estimated Savings ~Rp48.7 Million"
   ],
   "Status: Route Computed": [
     "Status: Rute Tersedia",
     "Status: Route Available"
   ],
-  "● Operational": [
+  "● Siap Ditinjau": [
     "● Siap Ditinjau",
     "● Ready for Review"
   ],
@@ -499,7 +515,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Ya. Optimasi distribusi mempertimbangkan pasokan, kebutuhan, dan biaya angkut untuk menyusun alternatif alokasi dari wilayah surplus ke wilayah defisit. Rekomendasi dapat digunakan sebagai bahan pertimbangan operasional.",
     "Yes. Distribution optimization considers supply, demand, and transport costs to develop allocation options from surplus to deficit regions. Recommendations can inform operational decisions."
   ],
-  "Bagaimana cara instansi daerah (TPID) menerima alarm dari Early Warning System?": [
+  "Bagaimana instansi menindaklanjuti peringatan harga?": [
     "Bagaimana instansi menindaklanjuti peringatan harga?",
     "How can institutions respond to price alerts?"
   ],
@@ -547,7 +563,7 @@ export const translations: Record<string, readonly [string, string]> = {
     "Dasbor",
     "Dashboard"
   ],
-  "API Integration": [
+  "Integrasi Data": [
     "Integrasi Data",
     "Data Integration"
   ],

@@ -21,7 +21,7 @@ const faqData = [
     answer: "Ya. Algoritma Matchmaking Engine kami menggunakan pendekatan Linear Programming untuk mencari efisiensi volume distribusi maksimal dengan total biaya angkut (navigasi logistik) paling minimum dari wilayah surplus ke wilayah defisit."
   },
   {
-    question: "Bagaimana cara instansi daerah (TPID) menerima alarm dari Early Warning System?",
+    question: "Bagaimana instansi menindaklanjuti peringatan harga?",
     answer: "Pengguna dapat meninjau komoditas dan wilayah yang melewati ambang pemantauan melalui pusat peringatan pada dasbor. Ringkasan analisis dan laporan prediksi mendukung verifikasi kondisi serta koordinasi tindak lanjut."
   }
 ];

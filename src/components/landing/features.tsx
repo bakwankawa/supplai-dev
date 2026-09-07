@@ -74,17 +74,17 @@ const featuresData = [
                         </svg>
 
                         <div className="absolute left-[40%] top-[5%] bg-brand-card border border-brand-border shadow-md rounded-lg px-2 py-1 text-[9px] font-mono font-bold text-brand-textMain pointer-events-none flex flex-col">
-                            <span className="text-brand-textMuted text-[8px]"><LandingText text="16/03 (Hari Ini)" /></span>
+                            <span className="text-brand-textMuted text-[8px]"><LandingText text="Bulan Ini" /></span>
                             <span className="text-blue-600"><LandingText text="● Aktual: Rp14.500" /></span>
                         </div>
                     </div>
 
                     <div className="flex flex-wrap justify-between items-center gap-1 text-[9px] font-mono font-bold text-brand-textMuted/60 pt-1 border-t border-brand-border relative z-10">
-                        <span>06/03</span>
-                        <span>12/03</span>
-                        <span>16/03</span>
-                        <span>22/03</span>
-                        <span>30/03</span>
+                        <span><LandingText text="-2 Bulan" /></span>
+                        <span><LandingText text="-1 Bulan" /></span>
+                        <span><LandingText text="Bulan Ini" /></span>
+                        <span><LandingText text="+1 Bulan" /></span>
+                        <span><LandingText text="+3 Bulan" /></span>
                     </div>
                 </div>
 
@@ -116,7 +116,7 @@ const featuresData = [
                         <h4 className="text-xs font-bold text-brand-textMain"><LandingText text="National Supply Density Heatmap" /></h4>
                     </div>
                     <span className="flex items-center gap-1 text-[9px] text-brand-primary font-bold bg-brand-primary/10 px-2 py-0.5 rounded-md">
-                        <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" /> <LandingText text="Live Sync" /> </span>
+                        <span className="w-1.5 h-1.5 bg-brand-primary rounded-full animate-ping" /> <LandingText text="Data Tersinkron" /> </span>
                 </div>
 
                 <div className="relative w-full h-[220px] rounded-xl border border-brand-border overflow-hidden bg-brand-bgSubtle flex items-center justify-center">
@@ -158,13 +158,13 @@ const featuresData = [
 
                         {[
                             { x: 60, y: 72, label: "Aceh" },
-                            { x: 95, y: 108, label: "Medan" },
-                            { x: 220, y: 232, label: "Jakarta" },
-                            { x: 265, y: 242, label: "Bandung" },
-                            { x: 310, y: 250, label: "Surabaya" },
-                            { x: 290, y: 140, label: "Pontianak" },
-                            { x: 370, y: 135, label: "Samarinda" },
-                            { x: 450, y: 150, label: "Manado" },
+                            { x: 95, y: 108, label: "Sumatera Utara" },
+                            { x: 220, y: 232, label: "DKI Jakarta" },
+                            { x: 265, y: 242, label: "Jawa Barat" },
+                            { x: 310, y: 250, label: "Jawa Timur" },
+                            { x: 290, y: 140, label: "Kalimantan Barat" },
+                            { x: 370, y: 135, label: "Kalimantan Timur" },
+                            { x: 450, y: 150, label: "Sulawesi Utara" },
                             { x: 650, y: 195, label: "Papua" },
                         ].map((p) => (
                             <g key={p.label}>
@@ -210,20 +210,20 @@ const featuresData = [
                 <div className="space-y-3 flex-1 flex flex-col justify-center">
                     <div className="p-3 bg-brand-bgSubtle rounded-lg border border-brand-border flex flex-wrap justify-between items-center gap-1">
                         <span className="text-brand-textMain font-semibold"><LandingText text="Origin Supply:" /></span>
-                        <span><LandingText text="Subang Rice Hub (150 Tons)" /></span>
+                        <span><LandingText text="Sulawesi Barat (Surplus 57,41 Ton)" /></span>
                     </div>
                     <div className="p-3 bg-brand-bgSubtle rounded-lg border border-brand-border flex flex-wrap justify-between items-center gap-1">
                         <span className="text-brand-textMain font-semibold"><LandingText text="Target Demand:" /></span>
-                        <span><LandingText text="Bandung Core Market (120 Tons)" /></span>
+                        <span><LandingText text="Kalimantan Utara (1,30% Pasar Bulanan)" /></span>
                     </div>
                     <div className="p-3 bg-brand-primary/5 border border-brand-primary/20 rounded-lg flex flex-wrap justify-between items-center gap-1 text-brand-accentDark font-bold">
                         <span><LandingText text="Optimized Cost:" /></span>
-                        <span><LandingText text="Saved ~18.4% vs Manual Route" /></span>
+                        <span><LandingText text="Estimasi Hemat ~Rp48,7 Juta" /></span>
                     </div>
                 </div>
                 <div className="pt-2 border-t border-brand-border flex flex-wrap justify-between items-center gap-1 text-[10px]">
                     <span><LandingText text="Status: Route Computed" /></span>
-                    <span className="text-emerald-600 font-bold"><LandingText text="● Operational" /></span>
+                    <span className="text-emerald-600 font-bold"><LandingText text="● Siap Ditinjau" /></span>
                 </div>
             </div>
         )
