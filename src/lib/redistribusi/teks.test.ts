@@ -2,7 +2,10 @@ import { describe, expect, it } from "vitest"
 import { getRedistributionData } from "@/data/redistribution"
 import { analyzeRedistribusi } from "./analysis"
 import type { SebaranKelompokResult } from "./kesenjangan"
-import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap } from "./teks"
+import {
+  teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
+  teksMuatanBalik, teksPasar, teksModal,
+} from "./teks"
 
 const contoh = () =>
   analyzeRedistribusi(
@@ -261,5 +264,45 @@ describe("teksLanskap", () => {
     // sendiri, bukan cuma di kalimat lain pada array yang sama.
     const [klaim] = teksLanskap(LANSKAP, "Papua")
     expect(klaim).toMatch(/Gula Pasir \([^)]*tidak diramalkan[^)]*\)/)
+  })
+})
+
+describe("teksMuatanBalik", () => {
+  it("menyatakan kekosongan balik sebagai temuan tentang rencana kita sendiri", () => {
+    const teks = teksMuatanBalik({ nRute: 36, tonKm: 897063, pasanganBolakBalik: 0,
+                                   tonDirantai: 132.2, persenDirantai: 12.9 }).join(" ")
+    expect(teks).toMatch(/nol pasangan|tidak ada pasangan/i)
+    expect(teks).toContain("897.063")
+  })
+
+  it("menyebut mengapa angka perantaian rendah, bukan hanya angkanya", () => {
+    // 12,9% dihitung hanya atas enam komoditas yang kita modelkan. Tanpa kalimat
+    // itu, angkanya terbaca sebagai langit-langit padahal ia lantai.
+    const teks = teksMuatanBalik({ nRute: 36, tonKm: 897063, pasanganBolakBalik: 0,
+                                   tonDirantai: 132.2, persenDirantai: 12.9 }).join(" ")
+    expect(teks).toMatch(/enam komoditas/)
+  })
+
+  it("tidak mengaku tahu kapal mana yang pulang kosong", () => {
+    const teks = teksMuatanBalik({ nRute: 36, tonKm: 897063, pasanganBolakBalik: 0,
+                                   tonDirantai: 132.2, persenDirantai: 12.9 }).join(" ")
+    expect(teks.toLowerCase()).not.toMatch(/\bkapal (ini|itu|tersebut)\b/)
+  })
+})
+
+describe("teksPasar", () => {
+  it("menyebut pasar sebagai tempat harga diamati, bukan jaminan barang ada", () => {
+    const teks = teksPasar([{ nama: "Pasar Lapang", kabupaten: "Aceh Barat" }], "Aceh").join(" ")
+    expect(teks).toContain("Pasar Lapang")
+    expect(teks).toMatch(/diamati|pengamatan/)
+    expect(teks).not.toMatch(/tersedia di sana|dijamin/)
+  })
+})
+
+describe("teksModal", () => {
+  it("menyatakan imbal hasil sebagai satu transaksi, bukan setahun", () => {
+    const teks = teksModal([{ dari: "Bengkulu", modalRp: 3.22e9, marjinRp: 6e6, imbalHasilPersen: 0.2 }]).join(" ")
+    expect(teks).toMatch(/satu transaksi|sekali jalan/)
+    expect(teks).not.toMatch(/per tahun|tahunan/)
   })
 })

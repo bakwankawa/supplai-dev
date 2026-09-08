@@ -1,5 +1,6 @@
 import tingkatanData from "@/data/generated/tingkatan.json"
-import type { PosisiHarga } from "@/lib/types"
+import { formatRupiah } from "@/lib/format"
+import type { ModalRute, PasarProvinsi, PosisiHarga, RantaiMuatan } from "@/lib/types"
 import type { RedistribusiAnalysis } from "./analysis"
 import { angka, persen, ton } from "./format"
 import type { Kelompok, SebaranKelompokResult } from "./kesenjangan"
@@ -342,4 +343,173 @@ export function teksLanskap(baris: PosisiHarga[], provinsi: string): string[] {
     `${daftarDan(KOMODITAS_TANPA_RAMALAN)}.`
 
   return [klaim, bacaanHarga, penanda]
+}
+
+/** Bidang yang dipakai `teksMuatanBalik`, dipetik dari `RantaiMuatan`
+ *  (`@/lib/types`) -- fungsi ini tidak butuh `totalTon`, `simpul`, `rantai`,
+ *  maupun `tonKmKosongDihindari` untuk merangkai kalimatnya. */
+type MuatanBalikTeksInput = Pick<
+  RantaiMuatan, "nRute" | "tonKm" | "pasanganBolakBalik" | "tonDirantai" | "persenDirantai"
+>
+
+/** Bagian "Muatan balik" pada kerangka pedagang: apakah rencana ini punya
+ *  pasangan rute bolak-balik pada komoditas yang sama (yang bisa menagih
+ *  ongkos kaki pulang), dan apa yang ada sebagai gantinya.
+ *
+ *  `pasanganBolakBalik` nol BUKAN kegagalan menghitung -- ia TEMUAN tentang
+ *  rencana kita sendiri: tidak ada rute tujuan A->B yang berpasangan dengan
+ *  rute B->A pada komoditas yang sama. Konsekuensinya, bila setiap rute
+ *  berjalan sebagai perjalanan khusus, seluruh `tonKm` kaki pulang berjalan
+ *  kosong -- bukan sebagian, bukan sebuah dugaan.
+ *
+ *  Yang ADA, sebagai gantinya, adalah RANTAI: provinsi yang sekaligus
+ *  menerima dan mengirim komoditas berbeda, sehingga kaki masuknya bisa
+ *  disambung ke kaki keluarnya tanpa perjalanan pulang kosong. `persenDirantai`
+ *  dihitung HANYA atas enam komoditas yang kita modelkan -- sebuah agregator
+ *  muatan sungguhan juga melihat hasil bumi lokal yang tidak kita lihat sama
+ *  sekali -- jadi angka ini LANTAI, bukan langit-langit, dan kalimatnya harus
+ *  bilang begitu, bukan cuma mencetak angkanya.
+ *
+ *  Kami tidak punya model kendaraan (kapal, truk, atau moda apa pun): kapal
+ *  mana yang benar-benar menempuh kaki pulang yang kosong itu, atau bahkan
+ *  apakah satu kendaraan menempuh kedua kaki sekaligus, tidak diketahui di
+ *  sini. Kalimatnya tidak boleh terbaca seakan kami tahu.
+ *
+ *  `tonKm`, `tonDirantai`, dan `persenDirantai` bisa `null` (lihat
+ *  `RantaiMuatan` di `@/lib/types`): baris yang mendasarinya ada tapi
+ *  volumenya tidak diketahui -- dicetak sebagai "tidak diketahui", bukan 0. */
+export function teksMuatanBalik(d: MuatanBalikTeksInput): string[] {
+  if (d.nRute === 0) {
+    return [
+      "Rencana ini tidak memuat satu pun rute, sehingga tidak ada muatan " +
+        "balik yang dapat dinyatakan.",
+    ]
+  }
+
+  const pasangan =
+    d.pasanganBolakBalik === 0
+      ? "nol pasangan bolak-balik"
+      : `${angka(d.pasanganBolakBalik, 0)} pasangan bolak-balik`
+  const tonKmTeks = d.tonKm === null ? "tidak diketahui" : `${angka(d.tonKm, 0)} ton-km`
+
+  const temuan =
+    `Dari ${d.nRute} rute pada rencana ini, kami menemukan ${pasangan}: tidak ada ` +
+    `rute tujuan yang berpasangan dengan rute pulang pada komoditas yang sama. Bila ` +
+    `setiap rute berjalan sebagai perjalanan khusus, seluruh ${tonKmTeks} kaki pulang ` +
+    `berjalan kosong.`
+
+  const perantaian =
+    d.persenDirantai === null || d.tonDirantai === null
+      ? "Sebagai gantinya, seberapa banyak tonase yang bisa dirantai lewat provinsi " +
+        "yang sekaligus menerima dan mengirim tidak diketahui di sini -- bukan nol."
+      : `Sebagai gantinya, ${ton(d.tonDirantai)} (${persen(d.persenDirantai)}) tonase ` +
+        `bisa dirantai lewat provinsi yang sekaligus menerima dan mengirim komoditas ` +
+        `berbeda, memakai kaki masuknya sebagai kaki keluar. Angka ini dihitung hanya ` +
+        `atas enam komoditas yang kita modelkan, sehingga ia lantai, bukan langit-langit: ` +
+        `agregator muatan sungguhan juga melihat hasil bumi lokal yang tidak kita lihat ` +
+        `sama sekali.`
+
+  const batasKendaraan =
+    "Kami tidak punya model kendaraan: kapal mana yang benar-benar menempuh kaki " +
+    "pulang yang kosong itu, atau apakah satu kendaraan menempuh kedua kaki sekaligus, " +
+    "tidak diketahui di sini."
+
+  return [temuan, perantaian, batasKendaraan]
+}
+
+/** Bagian "Pasar bernama" pada kerangka pedagang: pasar WFP yang tercatat di
+ *  satu provinsi, tempat harga komoditas DIAMATI.
+ *
+ *  BATASNYA, dan ini bagian dari kontrak fungsi ini, bukan komentar pinggir:
+ *  menyebut nama pasar bukan jaminan barangnya tersedia di sana -- kami tidak
+ *  punya data pasokan tingkat pasar. Sebuah pasar yang muncul di sini berarti
+ *  "harga komoditas ini pernah tercatat di sini", bukan "barangnya ada
+ *  sekarang".
+ *
+ *  Urutan array yang dikembalikan adalah bagian dari kontraknya, seperti
+ *  `teksLanskap`: [klaim per-provinsi (nama-nama pasar), lalu kalimat batas
+ *  umum -- HANYA ada bila ada pasar untuk disebut]. Kalimat batas TIDAK
+ *  bergantung pada provinsi mana pun, jadi `report.ts` boleh mencetaknya
+ *  sekali untuk seluruh bagian, bukan diulang di tiap provinsi. */
+export function teksPasar(pasar: PasarProvinsi[], provinsi: string): string[] {
+  if (pasar.length === 0) {
+    return [
+      `Tidak ada pasar WFP yang tercatat untuk ${provinsi} dalam data kami, sehingga ` +
+        `tidak ada nama pasar yang dapat disebut di sini.`,
+    ]
+  }
+
+  const daftar = daftarDan(pasar.map((p) => `${p.nama} (${p.kabupaten})`))
+  return [
+    `Di ${provinsi}, harga komoditas ini diamati di ${daftar}.`,
+    `Nama pasar di sini menandai tempat pengamatan harga, bukan bukti bahwa barangnya ` +
+      `ada di lokasi itu saat rencana ini dibaca -- kami tidak punya data pasokan ` +
+      `tingkat pasar.`,
+  ]
+}
+
+/** Bidang yang dipakai `teksModal`, dipetik dari `ModalRute` (`@/lib/types`)
+ *  -- fungsi ini tidak butuh `ton`. */
+type ModalTeksInput = Pick<ModalRute, "dari" | "modalRp" | "marjinRp" | "imbalHasilPersen">
+
+/** Ambang imbal hasil per-transaksi (persen) di bawah mana sebuah rute pada
+ *  bagian "Modal dan imbal hasil" kami tandai tidak layak diambil.
+ *
+ *  Angka yang kami PILIH, bukan yang kami UKUR -- dicatat pula di buku besar
+ *  (`supplai/buku_besar.py`, entri "Ambang imbal hasil layak modal
+ *  pedagang"), karena ia menentukan klaim yang laporan ini buat, bukan cuma
+ *  detail rendering. Pada rencana "seimbang" saat ini, ambang ini memisahkan
+ *  Bengkulu (0,18%) dari delapan rute lain (>= 6,72%) -- pemisah yang jelas
+ *  pada data ini, bukan kalibrasi selera risiko pedagang sungguhan, yang
+ *  tidak kami ukur. */
+export const AMBANG_IMBAL_HASIL_LAYAK_PERSEN = 5
+
+/** Bagian "Modal dan imbal hasil" pada kerangka pedagang: modal yang
+ *  terkunci di tiap provinsi asal, dan imbal hasil yang diharapkan bila
+ *  kenaikan harga yang diprediksi benar-benar terjadi.
+ *
+ *  `imbalHasilPersen` adalah imbal hasil SATU TRANSAKSI -- sekali jalan --
+ *  BUKAN basis tahunan: kalimatnya tidak boleh terbaca seakan angka ini bisa
+ *  diulang begitu saja tiap tahun.
+ *
+ *  Rute yang imbal hasilnya di bawah `AMBANG_IMBAL_HASIL_LAYAK_PERSEN`
+ *  ditandai tidak layak diambil, dengan modal dan imbal hasilnya disebut
+ *  eksplisit -- bukan cuma persennya -- supaya pembaca tidak menyandingkan
+ *  begitu saja rute yang mengunci miliaran rupiah untuk imbal hasil di bawah
+ *  1% dengan rute berimbal hasil puluhan persen, seakan keduanya pilihan
+ *  yang sebanding.
+ *
+ *  `imbalHasilPersen` bisa `null` (lihat `ModalRute` di `@/lib/types`):
+ *  berarti modal pada rute itu nol, bukan imbal hasil nol atau tak hingga. */
+export function teksModal(modal: ModalTeksInput[]): string[] {
+  if (modal.length === 0) {
+    return ["Tidak ada rute dengan modal dan imbal hasil yang dapat dinyatakan di sini."]
+  }
+
+  const caveat =
+    `Imbal hasil di bawah ini adalah untuk satu transaksi -- sekali jalan -- dan ` +
+    `bersandar pada asumsi bahwa kenaikan harga yang diprediksi di provinsi tujuan ` +
+    `benar-benar terjadi. Modal yang terkunci dihitung dari harga beli di provinsi ` +
+    `asal saat rute ini dijalankan.`
+
+  const baris = modal.map((m) => {
+    if (m.imbalHasilPersen === null) {
+      return (
+        `${m.dari} tidak punya modal yang tercatat pada rute ini, sehingga imbal ` +
+        `hasilnya tidak diketahui -- bukan nol atau tak hingga.`
+      )
+    }
+    const layak = m.imbalHasilPersen >= AMBANG_IMBAL_HASIL_LAYAK_PERSEN
+    return (
+      `${m.dari} mengunci ${formatRupiah(m.modalRp)} modal untuk marjin harapan ` +
+      `${formatRupiah(m.marjinRp)}, imbal hasil ${persen(m.imbalHasilPersen)}` +
+      (layak
+        ? "."
+        : ` -- di bawah ambang layak ${persen(AMBANG_IMBAL_HASIL_LAYAK_PERSEN)} yang kami ` +
+          `tetapkan; kami tandai rute ini "tidak layak diambil", tidak sebanding ` +
+          `disandingkan begitu saja dengan rute berimbal hasil puluhan persen.`)
+    )
+  })
+
+  return [caveat, ...baris]
 }

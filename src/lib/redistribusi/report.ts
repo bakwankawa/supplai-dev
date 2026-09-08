@@ -1,15 +1,20 @@
 import { jsPDF } from "jspdf";
 import { bukuBesar } from "@/data/buku-besar";
 import lanskapData from "@/data/generated/lanskap.json";
+import muatanBalikData from "@/data/generated/muatan_balik.json";
+import tindakanData from "@/data/generated/tindakan.json";
 import tingkatanData from "@/data/generated/tingkatan.json";
 import { formatNumber, formatRupiah } from "@/lib/format";
-import type { PosisiHarga, TingkatanProvinsi } from "@/lib/types";
+import type { MuatanBalikByPostur, PasarProvinsi, PosisiHarga, TingkatanProvinsi, Tindakan } from "@/lib/types";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
 import { sebaranKelompok } from "./kesenjangan";
 import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
-import { teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap } from "./teks";
+import {
+  teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
+  teksMuatanBalik, teksPasar, teksModal,
+} from "./teks";
 import { jendelaWaktu } from "./waktu";
 
 // Tingkatan IKP Bapanas 2025 per provinsi, dan provinsi yang punya skor IKP
@@ -23,6 +28,20 @@ const IKP_TANPA_HARGA = tingkatanData.cakupan.ikpTanpaHarga as string[];
 // (lihat dokumentasi teksLanskap di ./teks). Dimuat sekali di tingkat modul,
 // sama seperti TINGKATAN_IKP di atas.
 const LANSKAP_BARIS = lanskapData.baris as PosisiHarga[];
+
+// Diagnosis muatan balik per postur (lihat dokumentasi teksMuatanBalik di
+// ./teks): rantai yang benar-benar ada, dan ton-km kaki kosong yang bisa
+// dihindari bila kiriman itu dirantai. Agregat LINTAS ENAM KOMODITAS untuk
+// postur rencana ini -- bukan hanya komoditas laporan ini -- karena
+// muatan_balik.json dibangun sekali per postur atas seluruh rencana.
+const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
+
+// Jalur tindakan pembaca (lihat dokumentasi teksPasar/teksModal di ./teks):
+// pasar bernama per provinsi dan modal-imbal hasil per provinsi asal.
+// Dibangun SEKALI untuk postur "seimbang" lintas enam komoditas -- lihat
+// build_tindakan() di scripts/export_web.py -- bukan per komoditas/postur
+// laporan ini, sehingga teksnya menyatakan itu secara eksplisit.
+const TINDAKAN = tindakanData as unknown as Tindakan;
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
@@ -263,7 +282,54 @@ export function createRedistribusiReport(
       paragraph(bacaanHarga, 10, green);
       paragraph(penanda, 9, muted);
     }
-    heading("04  Batasan");
+    heading("04  Muatan balik");
+    paragraph(
+      `Diagnosis berikut mencakup seluruh rencana postur ${POSTUR_LABEL[a.postur].nama} ` +
+      `lintas enam komoditas yang kami modelkan, bukan hanya rute ${a.komoditas} pada ` +
+      `laporan ini.`, 9, muted,
+    );
+    {
+      const [temuanBalik, ...sisaBalik] = teksMuatanBalik(MUATAN_BALIK[a.postur]);
+      paragraph(temuanBalik);
+      for (const s of sisaBalik) paragraph(s, 9, muted);
+    }
+    heading("05  Pasar bernama");
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada provinsi asal atau tujuan yang pasarnya relevan untuk disebut di sini.");
+    } else {
+      // pasar mencakup provinsi ASAL maupun TUJUAN -- lihat dokumentasi
+      // build_tindakan() di scripts/export_web.py -- karena tabel Bagian 02
+      // menampilkan keduanya, bukan hanya provinsi asal.
+      const provinsiTerlibat = [...new Set(a.routes.flatMap((r) => [r.from, r.to]))]
+        .sort((x, y) => x.localeCompare(y, "id"));
+      // teksPasar menjamin urutan [klaim per-provinsi, kalimat batas umum --
+      // hanya bila ada pasar untuk disebut]. Kalimat batas dicetak SEKALI
+      // untuk seluruh bagian ini, bukan diulang tiap provinsi -- lihat
+      // dokumentasi teksPasar di ./teks.
+      let batasDicetak = false;
+      for (const provinsi of provinsiTerlibat) {
+        const daftarPasar: PasarProvinsi[] = TINDAKAN.pasar[provinsi] ?? [];
+        const [klaim, batas] = teksPasar(daftarPasar, provinsi);
+        paragraph(klaim, 9);
+        if (!batasDicetak && batas) {
+          paragraph(batas, 9, muted);
+          batasDicetak = true;
+        }
+      }
+    }
+    heading("06  Modal dan imbal hasil");
+    paragraph(
+      `Modal dan imbal hasil berikut mencakup seluruh rencana "seimbang" lintas enam ` +
+      `komoditas yang kami modelkan, bukan hanya rute ${a.komoditas} pada laporan ini -- ` +
+      `provinsi asal yang sama sering mengirim lebih dari satu komoditas sekaligus.`,
+      9, muted,
+    );
+    {
+      const [caveatModal, ...barisModal] = teksModal(TINDAKAN.modal);
+      paragraph(caveatModal, 9, muted);
+      for (const b of barisModal) paragraph(b);
+    }
+    heading("07  Batasan");
     paragraph(a.catatanPedagang);
     // Mandatory, not best-effort. The freight rate is assumed and it carries
     // the whole trader framing, so the row declaring that has to print. Skipping
