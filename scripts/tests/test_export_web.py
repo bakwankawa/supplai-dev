@@ -116,7 +116,11 @@ def test_build_redistribution():
         "volume_ton": [500.0, 200.0], "jarak_km": [3800.0, 3000.0],
         "biaya_rp": [2.85e9, 9e8], "harga_asal": [14000, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
-        "urgensi": ["Warning", "Info"], "hemat_rp": [-1e8, -4e7],
+        "urgensi": ["Warning", "Info"], "marjin_harapan_rp": [-1e8, -4e7],
+        # Bulan sasaran dan horizon yang mendasarinya (Tasks 12-13) — konstan
+        # di seluruh flows, sama seperti supplai/match.py menjaminnya.
+        "bulan_prediksi": ["2026-09-01", "2026-09-01"],
+        "horizon_bulan": [3, 3],
         # Columns added by the population-sizing work (Tasks 8-9).
         "postur": ["seimbang", "seimbang"],
         "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
@@ -127,6 +131,14 @@ def test_build_redistribution():
         "volume_ci_atas": [550.0, 220.0],
         "dasar_takaran": ["terukur", "terukur"],
         "kecukupan_persen": [12.0, 12.0],
+        # Dampak harga (Tasks 12-13): poin persen kenaikan yang ditahan, its
+        # interval, dan bagian kenaikan yang tertutup. Second row is NaN, to
+        # exercise the "no supporting consumption data -> null, not zero"
+        # path through or_none() below.
+        "ditahan_pp": [2.0, float("nan")],
+        "ditahan_ci_bawah": [1.5, float("nan")],
+        "ditahan_ci_atas": [2.5, float("nan")],
+        "fraksi_ditahan": [0.5, float("nan")],
     })
     # build_redistribution now requires a plan_meta entry for every
     # commodity-posture pair (Step 6) — fill them all, then override the one
@@ -156,13 +168,39 @@ def test_build_redistribution():
     # f"{komoditas}|{postur}" lookup hit. The other summary values happen to
     # equal what the code computes from the rows when the lookup misses.
     assert beras["summary"]["activeRoutes"] == "2 → 1"
+    # Bulan sasaran dan horizon (Tasks 12-13): read once from flows and
+    # carried through untouched, including into the "all" aggregate below —
+    # they are properties of the forecast run, not of one commodity's plan.
+    assert beras["summary"]["bulanPrediksi"] == "2026-09-01"
+    assert beras["summary"]["horizonBulan"] == 3
     r0 = next(r for r in beras["routes"] if r["from"] == "Jawa Timur")
     assert r0["priority"] == "medium" and r0["commodity"] == "beras"
     assert r0["volumeTon"] == 500.0 and r0["dasarTakaran"] == "terukur"
+    # Marjin harapan (Rp, total rute, memakai harga tujuan SETELAH prediksi
+    # kenaikan) — carried straight from the pipeline's marjin_harapan_rp.
+    assert r0["marjinHarapanRp"] == -100_000_000
+    # ditahanPp/ditahanCiBawah/ditahanCiAtas/fraksiDitahan: real numbers for
+    # a route whose destination has supporting consumption data.
+    assert r0["ditahanPp"] == 2.0
+    assert r0["ditahanCiBawah"] == 1.5
+    assert r0["ditahanCiAtas"] == 2.5
+    assert r0["fraksiDitahan"] == 0.5
+    # Second row is NaN in the fixture, meaning no supporting consumption
+    # data for its destination — unknown must not read as zero, so it must
+    # serialize as None (-> JSON null), never as 0.
+    r1 = next(r for r in beras["routes"] if r["from"] == "Bali")
+    assert r1["ditahanPp"] is None
+    assert r1["ditahanCiBawah"] is None
+    assert r1["ditahanCiAtas"] is None
+    assert r1["fraksiDitahan"] is None
     provs = {p["name"]: p for p in beras["provinces"]}
     assert provs["Jawa Timur"]["status"] == "surplus"
     assert provs["Papua"]["status"] == "deficit" and provs["Papua"]["stock"] == 700
     assert "all" in res["seimbang"]
+    # The "all" aggregate carries the same bulanPrediksi/horizonBulan — they
+    # describe the whole forecast run, not any one commodity's slice of it.
+    assert res["seimbang"]["all"]["summary"]["bulanPrediksi"] == "2026-09-01"
+    assert res["seimbang"]["all"]["summary"]["horizonBulan"] == 3
 
     # A posture that produced no routes still gets an entry, with empty lists —
     # the UI must be able to say "this posture ships nothing" rather than fall
@@ -248,7 +286,7 @@ def test_executive_totals_describe_one_posture_only():
         "volume_ton": [100.0, 300.0], "jarak_km": [3000.0, 3000.0],
         "biaya_rp": [9e8, 9e8], "harga_asal": [14950, 14950],
         "harga_tujuan": [17000, 17000], "prediksi_kenaikan": [3.4, 3.4],
-        "urgensi": ["Info", "Info"], "hemat_rp": [-4e7, -4e7],
+        "urgensi": ["Info", "Info"], "marjin_harapan_rp": [-4e7, -4e7],
         "postur": ["seimbang", "aman_pangan"],
         "konsumsi_tujuan_ton_bulan": [20000.0, 20000.0],
         "persen_pasar": [0.5, 1.5], "epsilon": [0.385, 0.385],
@@ -331,10 +369,28 @@ def test_anggaran_key_present_even_on_all():
 def test_routes_carry_the_prices_the_solver_used():
     out = _redist()
     route = out["seimbang"]["beras"]["routes"][0]
-    for key in ("hargaAsal", "hargaTujuan", "hematRp"):
+    for key in ("hargaAsal", "hargaTujuan", "marjinHarapanRp"):
         assert key in route, f"route missing {key}"
     assert route["hargaTujuan"] > route["hargaAsal"], \
         "the solver ships from cheaper to dearer; this route inverts it"
+
+
+def test_summary_carries_bulan_prediksi_and_horizon():
+    # Tasks 12-13: every summary — per commodity and the "all" aggregate —
+    # must be able to say which month it targets and the deadline is built
+    # from (jendelaWaktu on the front end reads bulanPrediksi directly).
+    out = _redist()
+    for postur, per_kom in out.items():
+        for cid, resp in per_kom.items():
+            assert "bulanPrediksi" in resp["summary"], f"{postur}/{cid}"
+            assert "horizonBulan" in resp["summary"], f"{postur}/{cid}"
+            assert isinstance(resp["summary"]["horizonBulan"], int)
+            # ISO "YYYY-MM-DD", not a pandas Timestamp repr leaking through.
+            assert len(resp["summary"]["bulanPrediksi"]) == 10
+    # Constant across the whole export — one forecast run, one target month.
+    bulan = {resp["summary"]["bulanPrediksi"]
+             for per_kom in out.values() for resp in per_kom.values()}
+    assert len(bulan) == 1, f"bulanPrediksi is not constant across the export: {bulan}"
 
 
 def test_ledger_loads_and_is_well_formed():
@@ -355,6 +411,51 @@ def test_missing_plan_meta_entry_raises():
         ew.build_redistribution(flows, meta)
 
 
+def test_empty_flows_reaches_plan_meta_error_not_an_iloc_crash():
+    # Regression: reading flows.bulan_prediksi.iloc[0] before this KeyError
+    # check used to throw an unrelated AttributeError/IndexError on a
+    # completely empty flows frame (this fixture has no bulan_prediksi
+    # column at all), which masked the file's own deliberate empty-flows
+    # defence below. This is the same assertion as
+    # test_missing_plan_meta_entry_raises, kept separate and named for the
+    # regression so it does not silently start passing for the wrong reason
+    # again.
+    import pandas as pd, pytest
+    flows = pd.DataFrame(columns=["komoditas", "postur"])
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(KeyError, match="plan_meta"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_non_unique_bulan_prediksi_raises():
+    # supplai/match.py refuses to pick an arbitrary bulan_prediksi when a
+    # commodity carries more than one distinct value; build_redistribution
+    # must refuse the same way rather than silently take flows.iloc[0].
+    import pandas as pd, pytest
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium", "Beras Medium"],
+        "postur": ["seimbang", "seimbang"],
+        "bulan_prediksi": ["2026-09-01", "2026-10-01"],
+        "horizon_bulan": [3, 3],
+    })
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(ValueError, match="bulan_prediksi"):
+        ew.build_redistribution(flows, meta)
+
+
+def test_non_unique_horizon_bulan_raises():
+    import pandas as pd, pytest
+    flows = pd.DataFrame({
+        "komoditas": ["Beras Medium", "Beras Medium"],
+        "postur": ["seimbang", "seimbang"],
+        "bulan_prediksi": ["2026-09-01", "2026-09-01"],
+        "horizon_bulan": [3, 6],
+    })
+    meta = {"plan_meta": {}, "postur_tersedia": ["seimbang"]}
+    with pytest.raises(ValueError, match="horizon_bulan"):
+        ew.build_redistribution(flows, meta)
+
+
 def test_narasi_loads_and_is_keyed_by_commodity_and_posture():
     import pathlib
     art = pathlib.Path(__file__).resolve().parents[3] / "artifacts"
@@ -366,3 +467,117 @@ def test_narasi_loads_and_is_keyed_by_commodity_and_posture():
         komoditas, _, postur = key.partition("|")
         assert komoditas in ew.COMMODITY_ID, f"unknown commodity in narasi key: {key}"
         assert postur in {"konservatif", "seimbang", "aman_pangan"}, key
+
+
+def test_tingkatan_export_carries_all_thirty_eight_provinces(tmp_path):
+    import json
+    out = ew.build_tingkatan()
+    assert len(out["provinsi"]) == 38
+    assert set(out["label"]) == {"bawah", "tengah", "atas"}
+    assert "tertinggal" not in json.dumps(out).lower()
+
+
+def test_tingkatan_export_states_the_provinces_without_prices():
+    out = ew.build_tingkatan()
+    assert "Papua Pegunungan" in out["cakupan"]["ikpTanpaHarga"]
+
+
+def test_lanskap_export_covers_eight_commodities():
+    out = ew.build_lanskap()
+    assert len(out["komoditas"]) == 8
+    assert "Daging Sapi" in out["komoditas"]
+    assert "Gula Pasir" in out["komoditas"]
+
+
+def test_muatan_balik_export_states_zero_round_trips():
+    out = ew.build_muatan_balik()
+    assert out["seimbang"]["pasanganBolakBalik"] == 0
+    assert out["seimbang"]["nRute"] == 36
+
+
+def test_tindakan_export_carries_capacity_not_just_the_conversion():
+    out = ew.build_tindakan()
+    assert out["setaraKegiatan"]["kapasitasTahunan"] == 1888
+    assert out["setaraKegiatan"]["persenKapasitas"] > 50
+
+
+def test_tindakan_export_ranks_routes_by_return_not_by_capital():
+    out = ew.build_tindakan()
+    imbal = [r["imbalHasilPersen"] for r in out["modal"]]
+    assert imbal == sorted(imbal, reverse=True)
+
+
+def test_tindakan_modal_per_komoditas_is_keyed_by_postur_too():
+    """The trader report for one commodity is read at a specific posture
+    (konservatif/seimbang/aman_pangan); modal and marjin_harapan come from
+    flows.parquet, which genuinely differs per posture (different routes,
+    different volumes). Keying modalPerKomoditas by commodity alone -- as it
+    was before this test existed -- meant every posture's report showed the
+    same (in practice, "seimbang"-only) figures under its own heading."""
+    out = ew.build_tindakan()
+    assert set(out["modalPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}
+    seimbang = out["modalPerKomoditas"]["seimbang"]["Telur Ayam"]
+    aman_pangan = out["modalPerKomoditas"]["aman_pangan"]["Telur Ayam"]
+    assert seimbang and aman_pangan
+    assert seimbang != aman_pangan, \
+        "seimbang and aman_pangan must carry their own figures, not a shared/borrowed set"
+
+    bengkulu_seimbang = next(r for r in seimbang if r["dari"] == "Bengkulu")
+    bengkulu_aman_pangan = next(r for r in aman_pangan if r["dari"] == "Bengkulu")
+    assert bengkulu_seimbang["modalRp"] != bengkulu_aman_pangan["modalRp"]
+    assert bengkulu_seimbang["imbalHasilPersen"] != bengkulu_aman_pangan["imbalHasilPersen"]
+
+
+def test_tindakan_modal_per_komoditas_zero_route_pair_is_empty_not_borrowed():
+    """Bawang Merah has zero routes on every posture in the current data.
+    That pairing must map to an empty list -- not be omitted (a bare
+    heading over nothing) and not silently fall back to another posture's
+    or another commodity's rows."""
+    out = ew.build_tindakan()
+    assert out["modalPerKomoditas"]["seimbang"]["Bawang Merah"] == []
+    assert out["modalPerKomoditas"]["aman_pangan"]["Bawang Merah"] == []
+    assert out["modalPerKomoditas"]["konservatif"]["Telur Ayam"] == []
+
+
+def test_tindakan_pasar_per_komoditas_has_no_postur_dimension():
+    """Pasar bernama is where a commodity's price was historically observed
+    (wfp_food_prices_idn.csv); it has nothing to do with which redistribution
+    plan we picked. pasarPerKomoditas is keyed by commodity ONLY -- adding a
+    postur dimension here would imply a dependency the data does not have."""
+    out = ew.build_tindakan()
+    assert set(out["pasarPerKomoditas"]) == {c["name"] for c in ew.build_commodities()}
+    for markets_by_province in out["pasarPerKomoditas"].values():
+        assert isinstance(markets_by_province, dict)
+        first = next(iter(markets_by_province.values()))
+        assert isinstance(first, list)
+
+
+def test_missing_pipeline_package_raises_actionable_error(tmp_path, monkeypatch):
+    """supplai-dev and the pipeline (bakwankawa/supplai-pipeline) are separate
+    repos; the sibling layout export_web.py guesses at is only true on some
+    machines. When the pipeline can't be found there — a standalone
+    supplai-dev checkout, a teammate's machine, CI — the failure must name
+    what is missing, where it looked, and how to override it (
+    SUPPLAI_PIPELINE_ROOT), not surface a bare ModuleNotFoundError pointing
+    at a directory nobody recognizes.
+    """
+    import pytest
+
+    # Simulate "not found": drop any already-cached supplai modules (so the
+    # real package isn't served from sys.modules) and hide the real pipeline
+    # root from sys.path (so it can't be found there either), then point
+    # _PIPELINE_ROOT at an empty directory. monkeypatch restores all three
+    # afterward, so the rest of the suite keeps using the real package.
+    for name in list(sys.modules):
+        if name == "supplai" or name.startswith("supplai."):
+            monkeypatch.delitem(sys.modules, name, raising=False)
+    real_root = str(ew._PIPELINE_ROOT)
+    monkeypatch.setattr(sys, "path", [p for p in sys.path if p != real_root])
+    monkeypatch.setattr(ew, "_PIPELINE_ROOT", tmp_path)
+
+    with pytest.raises(ModuleNotFoundError) as exc_info:
+        ew._ensure_supplai_importable()
+    msg = str(exc_info.value)
+    assert "SUPPLAI_PIPELINE_ROOT" in msg, "must name the override"
+    assert "supplai-pipeline" in msg, "must name the missing repository"
+    assert str(tmp_path) in msg, "must say where it looked"

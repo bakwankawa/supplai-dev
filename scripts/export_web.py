@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -33,8 +34,53 @@ IND_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
 def _disp_month(ts) -> str:
     return f"{IND_MONTHS[ts.month]} {ts.year % 100:02d}"
 
-# scripts/ -> supplai-dev/ -> hackathon_phase2/  (artifacts live at the last)
-DEFAULT_ARTIFACTS = Path(__file__).resolve().parents[2] / "artifacts"
+def _pipeline_root() -> Path:
+    """Where the pipeline repo (bakwankawa/supplai-pipeline) lives.
+
+    supplai-dev and the pipeline are two independent repositories — the
+    pipeline's own .gitignore excludes supplai-dev/, so nothing declares this
+    layout. On this machine supplai-dev happens to sit two directories inside
+    a pipeline checkout (scripts/ -> supplai-dev/ -> pipeline root, where
+    artifacts/ and data/ live), and that sibling guess is the fallback here.
+    It is not guaranteed elsewhere: a standalone supplai-dev checkout, a
+    teammate's machine, CI. Set SUPPLAI_PIPELINE_ROOT to override it.
+    """
+    override = os.environ.get("SUPPLAI_PIPELINE_ROOT")
+    return Path(override).resolve() if override else Path(__file__).resolve().parents[2]
+
+
+_PIPELINE_ROOT = _pipeline_root()
+# artifacts/ and data/ are expected to live under the pipeline root regardless
+# of whether that root came from the env override or the sibling guess.
+DEFAULT_ARTIFACTS = _PIPELINE_ROOT / "artifacts"
+DEFAULT_DATA = _PIPELINE_ROOT / "data"
+
+
+def _ensure_supplai_importable() -> None:
+    """Put the pipeline package on sys.path, failing loudly and specifically
+    if it isn't there to be found.
+
+    Called lazily from build_tingkatan()/build_lanskap() — the rest of this
+    module's tests never touch the pipeline package and must not start
+    failing because it is missing. When it IS needed and can't be found, a
+    bare ModuleNotFoundError would point at nothing useful (a directory the
+    reader has never heard of); this raises one that names the missing repo,
+    where it looked, and how to point it somewhere else.
+    """
+    root = str(_PIPELINE_ROOT)
+    if root not in sys.path:
+        sys.path.insert(0, root)
+    try:
+        import supplai  # noqa: F401
+    except ModuleNotFoundError as e:
+        raise ModuleNotFoundError(
+            f"cannot import 'supplai': the pipeline repository "
+            f"(bakwankawa/supplai-pipeline) was not found at {_PIPELINE_ROOT}. "
+            f"export_web.py guesses that location by assuming supplai-dev sits "
+            f"inside a pipeline checkout, which is only true on some machines. "
+            f"Set the SUPPLAI_PIPELINE_ROOT environment variable to a checkout "
+            f"of bakwankawa/supplai-pipeline to fix this."
+        ) from e
 
 
 def slug(s: str) -> str:
@@ -58,7 +104,20 @@ def load_artifacts(art: Path) -> dict:
         "buku_besar": json.loads((art / "buku_besar.json").read_text()),
         "narasi": json.loads((art / "narasi.json").read_text()),
         "final_results": json.loads((art / "final_results.json").read_text()),
+        "uji_ongkos": json.loads((art / "uji_ongkos.json").read_text()),
     }
+
+
+def or_none(x, ndigits: int):
+    # No data, no number: an unknown value (NaN) must not read as zero, and
+    # json.dumps(..., allow_nan=False) rejects a bare NaN float outright — it
+    # would rather fail loudly at write time than let one leak into the JSON
+    # as a token the browser's JSON.parse chokes on. None survives the trip
+    # and serializes to `null`, which keeps "unknown" representable. Shared
+    # by every builder below rather than reimplemented per call site — see
+    # anggaranNasionalTon in build_redistribution for the original precedent.
+    x = float(x)
+    return None if pd.isna(x) else round(x, ndigits)
 
 
 # --------------------------------------------------------------------------- #
@@ -180,8 +239,15 @@ def build_alerts(alerts_df: pd.DataFrame, meta: dict) -> dict:
             "alerts": alerts}
 
 
-def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
+def _response_for(sub: pd.DataFrame, cid: str, plan: dict,
+                  bulan_prediksi: str, horizon_bulan: int) -> dict:
     routes, net = [], {}
+
+    # ditahan_pp and its three companions are deliberately NaN for a route
+    # with no supporting consumption data (kebutuhan.dampak_harga simply
+    # omits that province, so a .map() lookup comes back NaN) — unknown must
+    # not read as zero. or_none() (module level, above) is the shared helper
+    # for that; mirrors anggaranNasionalTon's None-if-missing precedent below.
     for r in sub.itertuples():
         routes.append({"from": r.dari, "to": r.ke, "commodity": cid,
                        "volume": round(float(r.volume_ton)),
@@ -207,7 +273,14 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                        # could disagree with the plan it is describing.
                        "hargaAsal": round(float(r.harga_asal)),
                        "hargaTujuan": round(float(r.harga_tujuan)),
-                       "hematRp": round(float(r.hemat_rp))})
+                       "marjinHarapanRp": round(float(r.marjin_harapan_rp)),
+                       # Poin persen kenaikan yang ditahan rute ini. Mewarisi
+                       # dasarTakaran: NaN (-> null) di sini berarti tidak ada
+                       # data konsumsi pendukung untuk provinsi tujuannya.
+                       "ditahanPp": or_none(r.ditahan_pp, 3),
+                       "ditahanCiBawah": or_none(r.ditahan_ci_bawah, 3),
+                       "ditahanCiAtas": or_none(r.ditahan_ci_atas, 3),
+                       "fraksiDitahan": or_none(r.fraksi_ditahan, 4)})
         net[r.dari] = net.get(r.dari, 0.0) + float(r.volume_ton)
         net[r.ke] = net.get(r.ke, 0.0) - float(r.volume_ton)
     provinces = [{"id": slug(name), "name": name,
@@ -224,6 +297,10 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict) -> dict:
                                                      col_sum("biaya_rp")))),
                "anggaranNasionalTon": (None if plan.get("anggaran_nasional") is None
                                        else round(float(plan["anggaran_nasional"]))),
+               # Bulan yang diramal dan horizon yang mendasarinya — konstan di
+               # seluruh flows, diteruskan apa adanya dari build_redistribution.
+               "bulanPrediksi": bulan_prediksi,
+               "horizonBulan": horizon_bulan,
                # Why the plan looks the way it does, straight from the solver.
                # The front end used to invent this sentence and got it wrong for
                # every empty plan.
@@ -242,6 +319,46 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
         )
     plan_meta = meta["plan_meta"]
     posturs = meta["postur_tersedia"]
+    # Single forecast run -> one target month and one horizon, constant across
+    # every row of flows. Read once here rather than per commodity/posture
+    # subset, since an empty subset (a commodity the solver moved nothing of)
+    # has no row to read .iloc[0] from.
+    #
+    # An entirely empty *flows* (no commodity produced a single route, or no
+    # column even exists yet) has nothing to read .iloc[0] from either. That
+    # used to throw here — an IndexError/AttributeError with no context —
+    # before the loop below ever got a chance to raise ITS own, more specific
+    # KeyError about a missing plan_meta entry. Deferring this read until
+    # flows is known to be non-empty restores that ordering: the file's
+    # deliberate empty-flows defence (the plan_meta KeyError below) fires
+    # first, the way it did before this branch added these two lines.
+    #
+    # supplai/match.py refuses to pick an arbitrary bulan_prediksi/
+    # horizon_bulan when a commodity carries more than one distinct value —
+    # it raises rather than silently take the first row. Mirror that guard
+    # here: flows is meant to carry exactly one forecast run, so more than
+    # one distinct value is a structural bug upstream, not a `.iloc[0]` away.
+    if flows.empty:
+        bulan_prediksi, horizon_bulan = "", 0
+    else:
+        unique_bulan = flows["bulan_prediksi"].unique()
+        unique_horizon = flows["horizon_bulan"].unique()
+        if len(unique_bulan) != 1:
+            raise ValueError(
+                f"flows carries {len(unique_bulan)} distinct bulan_prediksi "
+                f"values {sorted(unique_bulan)}, but the whole export must "
+                f"target exactly one month. Falling back to the first row "
+                f"would silently pick an arbitrary month."
+            )
+        if len(unique_horizon) != 1:
+            raise ValueError(
+                f"flows carries {len(unique_horizon)} distinct horizon_bulan "
+                f"values {sorted(unique_horizon)}, but the whole export must "
+                f"have exactly one horizon. Falling back to the first row "
+                f"would silently pick an arbitrary horizon."
+            )
+        bulan_prediksi = str(flows.bulan_prediksi.iloc[0])
+        horizon_bulan = int(flows.horizon_bulan.iloc[0])
     out = {}
     for postur in posturs:
         by_postur = (flows[flows.postur == postur]
@@ -260,7 +377,8 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
                     f"pair must be present, including empty ones — a missing entry "
                     f"would render as an unexplained blank table."
                 )
-            per_kom[cid] = _response_for(sub, cid, plan_meta[key])
+            per_kom[cid] = _response_for(sub, cid, plan_meta[key],
+                                         bulan_prediksi, horizon_bulan)
         with_routes = [r for r in per_kom.values() if r["routes"]]
         all_routes = [rt for resp in with_routes for rt in resp["routes"]]
         all_net = {}
@@ -276,6 +394,8 @@ def build_redistribution(flows: pd.DataFrame, meta: dict) -> dict:
                         # A national tonnage cap is per-commodity; summing it
                         # across six commodities would be a number with no meaning.
                         "anggaranNasionalTon": None,
+                        "bulanPrediksi": bulan_prediksi,
+                        "horizonBulan": horizon_bulan,
                         "status": "ok" if all_routes else "kosong"},
             "provinces": [{"id": slug(n), "name": n,
                            "status": "surplus" if v >= 0 else "deficit", "stock": abs(v)}
@@ -397,11 +517,316 @@ def build_commodity_mape(bench_final: pd.DataFrame, final_results: dict) -> dict
             for k, v in m.items() if k in COMMODITY_ID}
 
 
+def build_tingkatan() -> dict:
+    """Tiga kelompok IKP, plus provinsi mana yang tidak berpasangan.
+
+    Cakupan ikut dikirim, bukan disembunyikan: empat provinsi Papua punya skor
+    tetapi tidak punya harga, dan salah satunya ber-IKP terendah di negeri ini.
+    """
+    _ensure_supplai_importable()
+    from supplai import tingkatan
+
+    t = tingkatan.muat(DEFAULT_DATA)
+    prov_model = sorted(pd.read_parquet(DEFAULT_ARTIFACTS / "forecast.parquet").provinsi.unique())
+    c = tingkatan.cakupan(prov_model, DEFAULT_DATA)
+    return {
+        "label": {k: tingkatan.LABEL[k] for k in tingkatan.KELOMPOK},
+        "provinsi": [
+            {"provinsi": p, "ikp": round(float(r.ikp), 2),
+             "peringkat": int(r.peringkat), "kelompok": str(r.kelompok)}
+            for p, r in t.iterrows()
+        ],
+        "cakupan": {
+            "cocok": c["cocok"],
+            "ikpTanpaHarga": c["ikp_tanpa_harga"],
+            "hargaTanpaIkp": c["harga_tanpa_ikp"],
+        },
+    }
+
+
+def build_lanskap() -> dict:
+    """Posisi harga tiap komoditas di tiap provinsi terhadap median nasional."""
+    _ensure_supplai_importable()
+    from supplai import lanskap
+
+    p = lanskap.posisi_harga(DEFAULT_DATA)
+    return {
+        "komoditas": sorted(p.komoditas.unique().tolist()),
+        "baris": [
+            {"komoditas": r.komoditas, "provinsi": r.provinsi,
+             "harga": round(float(r.harga)),
+             "medianNasional": round(float(r.median_nasional)),
+             "relatifPersen": round(float(r.relatif_persen), 2),
+             "posisi": r.posisi}
+            for r in p.itertuples()
+        ],
+    }
+
+
+def build_muatan_balik() -> dict:
+    """Diagnosis muatan balik per postur: bentuk rute (rantai, bukan pulang-
+    pergi), dan ton-km reposisi kosong yang bisa dihindari bila kiriman-kiriman
+    itu dirantai.
+
+    camelCase mengikuti pemetaan yang dinyatakan di Self-Review rencana:
+    n_rute -> nRute, total_ton -> totalTon, ton_km -> tonKm,
+    pasangan_bolak_balik -> pasanganBolakBalik, ton_dirantai -> tonDirantai,
+    persen_dirantai -> persenDirantai. `rantai` per postur adalah tabel per
+    simpul (hub) yang menerima sekaligus mengirim — batasnya sama dengan
+    modul sumbernya (supplai/muatan_balik.py): ini rute PENGIRIMAN yang
+    dipasangkan, bukan kapal; ia tidak mengaku tahu kapal mana yang pulang
+    kosong. `or_none()` menahan setiap field yang bisa NaN — termasuk
+    `rantai[].tonDirantai`, yang bisa NaN bila `total_max` di
+    `muatan_balik.rantai()` sendiri tak diketahui — dari terbaca sebagai nol.
+    """
+    _ensure_supplai_importable()
+    from supplai import muatan_balik as mb
+
+    flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
+    meta = json.loads((DEFAULT_ARTIFACTS / "meta.json").read_text())
+    posturs = meta.get("postur_tersedia", ["seimbang"])
+
+    out = {}
+    for postur in posturs:
+        d = mb.diagnosa(flows, postur)
+        r = mb.ringkas(flows, postur)
+        rantai_df = mb.rantai(flows, postur)
+        out[postur] = {
+            "nRute": int(d["n_rute"]),
+            "totalTon": or_none(d["total_ton"], 2),
+            "tonKm": or_none(d["ton_km"], 1),
+            "pasanganBolakBalik": int(d["pasangan_bolak_balik"]),
+            "simpul": list(d["simpul"]),
+            "tonDirantai": or_none(r["ton_dirantai"], 2),
+            "persenDirantai": or_none(r["persen_dirantai"], 2),
+            "tonKmKosongDihindari": or_none(r["ton_km_kosong_dihindari"], 1),
+            "rantai": [
+                {"hub": row.hub, "dari": row.dari, "ke": row.ke,
+                 "komoditasMasuk": row.komoditas_masuk,
+                 "komoditasKeluar": row.komoditas_keluar,
+                 "tonDirantai": or_none(row.ton_dirantai, 2)}
+                for row in rantai_df.itertuples()
+            ],
+        }
+    # The dashboard's default view reads the balanced posture — same
+    # precedent as build_redistribution's "default" key.
+    out["default"] = out.get("seimbang", next(iter(out.values())))
+    return out
+
+
+def _struktur_ongkos_out(s: dict) -> dict:
+    return {
+        "totalTon": round(float(s["total_ton"]), 2),
+        "nRute": int(s["n_rute"]),
+        "rute": [list(r) for r in s["rute"]],
+        "totalOngkos": round(float(s["total_ongkos"])),
+        "tonKeSepertigaBawah": or_none(s["ton_ke_sepertiga_bawah"], 2),
+        "persenKeSepertigaBawah": or_none(s["persen_ke_sepertiga_bawah"], 2),
+        "ongkosTetapTerkalibrasi": round(float(s["ongkos_tetap_terkalibrasi"]), 2),
+    }
+
+
+def build_uji_ongkos(uo: dict) -> dict:
+    """Reshape bench_ongkos.py's uji_ongkos.json into camelCase for the FE.
+
+    Every honesty field the source script carries that a current surface
+    actually reads is carried across: `keterbatasan` is the whole point of
+    the experiment — the flat-cost objective is degenerate (total tonnage is
+    pinned by the demand floor, so a uniform per-ton cost makes every
+    feasible assignment equally optimal and the solver returns an arbitrary
+    vertex of the tied face), so `ruteBerubah` on its own is not an economic
+    result. `keterbatasan` records that this experiment cannot distinguish
+    "distance doesn't matter economically" from "we only modelled distance",
+    and it does reach the reader (report.ts prints it verbatim).
+
+    `postur`, `ruteBerubahTetapPlusJarak`, `tetapDegenerate`, and
+    `statusPerKomoditas` (the whole-of-plan aggregate fields, as opposed to
+    their per-commodity counterparts) are deliberately NOT carried across:
+    nothing in either repo reads them from this export -- the per-commodity
+    finding they each summarize is what a reader actually sees instead
+    (`degenerasiTetapDetail[komoditas].stabil` for the degeneracy question,
+    and `ruteBerubahKomoditas()`/`teksUjiOngkosKomoditas` in
+    `./redistribusi/teks.ts` for the route-change question).
+
+    `persenBawahJarak`/`persenBawahTetap` are a deliberate flattening (not in
+    the source JSON) of `struktur.jarak`/`struktur.tetap`'s
+    `persen_ke_sepertiga_bawah`, added at this export boundary because the
+    text-rendering task downstream reads those two names directly. The
+    per-struktur nesting is kept alongside them — nothing is dropped, this is
+    purely a convenience.
+    """
+    struktur = {
+        "jarak": _struktur_ongkos_out(uo["struktur"]["jarak"]),
+        "tetap": _struktur_ongkos_out(uo["struktur"]["tetap"]),
+        "tetapPlusJarak": _struktur_ongkos_out(uo["struktur"]["tetap_plus_jarak"]),
+    }
+
+    degenerasi_detail = {}
+    for kom, d in uo["degenerasi_tetap_detail"].items():
+        row = {"diuji": bool(d["diuji"])}
+        if d["diuji"]:
+            row["nUlang"] = int(d["n_ulang"])
+            row["nHimpunanUnik"] = int(d["n_himpunan_unik"])
+            row["stabil"] = bool(d["stabil"])
+        else:
+            row["alasan"] = str(d["alasan"])
+        degenerasi_detail[kom] = row
+
+    return {
+        "komoditas": list(uo["komoditas"]),
+        "struktur": struktur,
+        "ruteBerubah": int(uo["rute_berubah"]),
+        "ongkosTetapTerkalibrasi": round(float(uo["ongkos_tetap_terkalibrasi"]), 2),
+        "degenerasiTetapDetail": degenerasi_detail,
+        "keterbatasan": str(uo["keterbatasan"]),
+        "persenBawahJarak": struktur["jarak"]["persenKeSepertigaBawah"],
+        "persenBawahTetap": struktur["tetap"]["persenKeSepertigaBawah"],
+    }
+
+
+def build_tindakan() -> dict:
+    """Jalur tindakan pembaca setelah membaca rencana: kapasitas instrumen,
+    pasar bernama, dan modal-imbal hasil. `setaraKegiatan`/`modal` (tanpa
+    akhiran) tetap postur seimbang — laporan yang memakai angka ini
+    menyatakan bulan sasarannya sendiri.
+
+    `modal`/`setaraKegiatan` (tanpa akhiran) adalah agregat LINTAS SELURUH
+    ENAM KOMODITAS. Tidak ada permukaan produk yang membacanya (laporan
+    kerangka pedagang/pemerintah membaca `modalPerKomoditas`/
+    `setaraKegiatanPerKomoditas`); keduanya dipertahankan hanya karena
+    `scripts/tests/test_export_web.py` mengujinya langsung. `pasar` (tanpa
+    akhiran) TIDAK dipertahankan lagi -- `pasar_provinsi()` tetap ada
+    (dipakai `pasarPerKomoditas` di bawah dan diuji langsung di
+    `tests/test_tindakan.py`), tapi registri lintas-komoditas mentahnya
+    tidak pernah dibaca satu permukaan pun; kunci `pasar` yang dulu
+    membawanya dihapus dari ekspor ini.
+    `modalPerKomoditas`/`pasarPerKomoditas`/`setaraKegiatanPerKomoditas`
+    adalah yang WAJIB dipakai laporan per komoditas: sebuah laporan untuk
+    SATU komoditas tidak boleh menyandingkan modal, pasar, atau setara
+    kegiatan milik komoditas lain (atau milik gabungan enam komoditas)
+    sebagai miliknya sendiri -- itu klaim yang datanya tidak dukung. Ini
+    ronde perbaikan yang menutup celah yang persis sama untuk kapasitas
+    instrumen (Bagian 08 kerangka pemerintah): laporan sebelumnya
+    menampilkan `setaraKegiatan` agregat di bawah judul komoditas tunggal.
+
+    `modalPerKomoditas`/`setaraKegiatanPerKomoditas` keyed DUA tingkat,
+    postur lalu komoditas: modal, marjin harapan, dan setara kegiatan
+    berasal dari `flows.parquet`, yang genuinely berbeda per postur (rute
+    dan volumenya berbeda per postur) -- laporan rencana Aman Pangan tidak
+    boleh menampilkan imbal hasil atau setara kegiatan yang sebenarnya
+    milik rencana Seimbang, persis defek yang sama dengan klaim pasar,
+    hanya di dimensi postur alih-alih komoditas. Postur yang tidak punya
+    rute sama sekali (konservatif, pada data saat ini) dan pasangan
+    postur-komoditas yang rutenya nol (Bawang Merah, Minyak Goreng, di
+    kedua postur yang punya rute) memetakan ke daftar kosong / nilai NOL
+    lewat jalur `s.empty`/`.sum()` seri kosong yang sudah ada di
+    `modal_imbal_hasil()`/`setara_kegiatan()` -- bukan dihilangkan, dan
+    bukan jatuh balik ke postur atau komoditas lain. Nol di sini adalah
+    fakta terukur "tidak mengirim", bukan ketiadaan data -- kapasitas
+    tahunan GPM (1.888 kegiatan) itu sendiri TIDAK ikut disaring per
+    komoditas: ia konstanta program nasional, sama untuk laporan komoditas
+    manapun.
+
+    `pasarPerKomoditas` SENGAJA TIDAK diberi dimensi postur: pasar bernama
+    adalah tempat harga PERNAH DIAMATI secara historis
+    (`wfp_food_prices_idn.csv`), sama sekali tidak bergantung pada rencana
+    redistribusi mana yang kami pilih. `pasar_provinsi_komoditas()` bahkan
+    tidak menerima parameter postur -- menambah dimensi itu di sini akan
+    menyiratkan ketergantungan yang tidak ada pada datanya.
+
+    `modal`/setiap daftar di `modalPerKomoditas` diurutkan menurun menurut
+    `imbalHasilPersen`, BUKAN menurut modal: pembaca yang memutuskan
+    memindahkan barang ingin tahu rute mana yang paling menghasilkan per
+    rupiah yang dikunci, bukan rute mana yang mengunci paling banyak. Setiap
+    peta di `pasarPerKomoditas` mencakup ke-34 provinsi model (bukan hanya
+    provinsi asal di `modal`), karena tabel rute kerangka pedagang
+    menampilkannya untuk provinsi asal MAUPUN tujuan.
+    """
+    _ensure_supplai_importable()
+    from supplai import tindakan as td
+    from supplai.data import COMMODITIES
+
+    flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
+    postur = "seimbang"
+
+    def _setara_kegiatan_row(s: dict) -> dict:
+        return {
+            "ton": round(float(s["ton"]), 1),
+            "nilaiRp": round(float(s["nilai_rp"])),
+            "kegiatan": round(float(s["kegiatan"])),
+            "kapasitasTahunan": int(s["kapasitas_tahunan"]),
+            "persenKapasitas": round(float(s["persen_kapasitas"]), 1),
+        }
+
+    setara_kegiatan = _setara_kegiatan_row(td.setara_kegiatan(flows, postur))
+
+    def _modal_rows(m: pd.DataFrame) -> list:
+        m = m.sort_values("imbal_hasil_persen", ascending=False)
+        return [
+            {"dari": dari, "ton": round(float(row.ton), 2),
+             "modalRp": round(float(row.modal_rp)),
+             "marjinRp": round(float(row.marjin_rp)),
+             "imbalHasilPersen": or_none(row.imbal_hasil_persen, 2)}
+            for dari, row in m.iterrows()
+        ]
+
+    modal = _modal_rows(td.modal_imbal_hasil(flows, postur))
+
+    # Postur yang benar-benar dijalankan solvernya (lihat meta.json,
+    # ditulis oleh pipeline prediksi) -- konservatif dianggap juga, sama
+    # seperti build_muatan_balik() di atas, walau flows.parquet-nya nol
+    # baris untuk postur itu pada data saat ini: modal_imbal_hasil() sudah
+    # menangani itu lewat jalur s.empty, mengembalikan daftar kosong, bukan
+    # error atau jatuh balik ke postur lain.
+    meta = json.loads((DEFAULT_ARTIFACTS / "meta.json").read_text())
+    posturs = meta.get("postur_tersedia", ["seimbang"])
+    modal_per_komoditas = {
+        p: {kom: _modal_rows(td.modal_imbal_hasil(flows, p, komoditas=kom)) for kom in COMMODITIES}
+        for p in posturs
+    }
+
+    # Setara-kegiatan PER POSTUR dan PER KOMODITAS -- sama persis alasannya
+    # dengan modal_per_komoditas di atas: sebuah laporan untuk satu komoditas
+    # tidak boleh menyandingkan setara-kegiatan yang sebenarnya milik
+    # gabungan enam komoditas (`setara_kegiatan` tanpa akhiran, di atas)
+    # sebagai miliknya sendiri. Pasangan (postur, komoditas) yang tidak
+    # mengirim apa pun (mis. Bawang Merah/Minyak Goreng) memetakan ke nilai
+    # NOL lewat setara_kegiatan() sendiri (lihat dokumentasinya di
+    # supplai/tindakan.py) -- fakta terukur "tidak mengirim", bukan
+    # dihilangkan ataupun jatuh balik ke komoditas lain.
+    setara_kegiatan_per_komoditas = {
+        p: {kom: _setara_kegiatan_row(td.setara_kegiatan(flows, p, komoditas=kom)) for kom in COMMODITIES}
+        for p in posturs
+    }
+
+    prov_model = sorted(
+        pd.read_parquet(DEFAULT_ARTIFACTS / "centroids.parquet").provinsi.unique())
+    pasar_per_komoditas = {
+        kom: {prov: td.pasar_provinsi_komoditas(prov, kom, DEFAULT_DATA) for prov in prov_model}
+        for kom in COMMODITIES
+    }
+
+    return {
+        "setaraKegiatan": setara_kegiatan,
+        "setaraKegiatanPerKomoditas": setara_kegiatan_per_komoditas,
+        "modal": modal,
+        "modalPerKomoditas": modal_per_komoditas,
+        "pasarPerKomoditas": pasar_per_komoditas,
+    }
+
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
 def _write(out_dir: Path, name: str, obj) -> None:
-    (out_dir / name).write_text(json.dumps(obj, ensure_ascii=False, indent=1))
+    # allow_nan=False: json.dumps defaults to writing bare NaN/Infinity tokens
+    # for a float that carries them, which is not valid JSON and JSON.parse
+    # rejects in the browser. Every builder above is expected to convert a
+    # missing value to None (-> JSON null) before it gets here — see or_none
+    # above — so a NaN reaching this call means a builder forgot, and that
+    # should fail the export loudly rather than ship broken JSON.
+    (out_dir / name).write_text(
+        json.dumps(obj, ensure_ascii=False, indent=1, allow_nan=False))
     print(f"  wrote {name}")
 
 
@@ -426,6 +851,11 @@ def main(argv=None) -> int:
     timeseries = build_timeseries(A["panel"], A["forecast_path"])
     commodity_mape = build_commodity_mape(A["bench_final"], A["final_results"])
     buku_besar = A["buku_besar"]
+    tingkatan = build_tingkatan()
+    lanskap = build_lanskap()
+    muatan_balik = build_muatan_balik()
+    uji_ongkos = build_uji_ongkos(A["uji_ongkos"])
+    tindakan = build_tindakan()
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -438,6 +868,11 @@ def main(argv=None) -> int:
     _write(args.out, "commodity_mape.json", commodity_mape)
     _write(args.out, "buku_besar.json", buku_besar)
     _write(args.out, "narasi.json", A["narasi"])
+    _write(args.out, "tingkatan.json", tingkatan)
+    _write(args.out, "lanskap.json", lanskap)
+    _write(args.out, "muatan_balik.json", muatan_balik)
+    _write(args.out, "uji_ongkos.json", uji_ongkos)
+    _write(args.out, "tindakan.json", tindakan)
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -465,13 +900,76 @@ def main(argv=None) -> int:
     assert buku_besar and all(
         {"input", "nilai", "sumber", "tahun", "status"} <= set(e) for e in buku_besar
     ), "buku_besar entries are missing required fields"
-    assert all(e["status"] in {"terukur", "diasumsikan"} for e in buku_besar), \
-        "buku_besar status must be terukur or diasumsikan"
+    assert all(e["status"] in {"terukur", "diasumsikan", "diturunkan"} for e in buku_besar), \
+        "buku_besar status must be terukur, diasumsikan, or diturunkan"
     assert A["narasi"]["redistribusi"], "narasi.json has no redistribution text"
     for postur, per_kom in redist.items():
         for cid, resp in per_kom.items():
             assert resp["summary"].get("status"), f"{postur}/{cid} has no status"
             assert "anggaranNasionalTon" in resp["summary"], f"{postur}/{cid}"
+    assert len(tingkatan["provinsi"]) == 38, "tingkatan must cover all 38 IKP provinces"
+    assert set(tingkatan["label"]) == {"bawah", "tengah", "atas"}
+    assert "tertinggal" not in json.dumps(tingkatan).lower(), \
+        "'tertinggal' is a kabupaten designation (Perpres 63/2020); wrong at province level"
+    assert tingkatan["cakupan"]["ikpTanpaHarga"], \
+        "expected provinces with an IKP score but no price data (the 2022 Papua split)"
+    assert len(lanskap["komoditas"]) == 8, "lanskap must cover 8 commodities"
+    assert lanskap["baris"], "lanskap produced no rows"
+    assert muatan_balik["seimbang"]["nRute"] == 36 and \
+        muatan_balik["seimbang"]["pasanganBolakBalik"] == 0, \
+        "muatan_balik seimbang must show 36 routes and zero round trips"
+    assert "default" in muatan_balik, "muatan_balik missing the default posture"
+    assert uji_ongkos["keterbatasan"], \
+        "uji_ongkos must carry keterbatasan — printed verbatim in report.ts as the " \
+        "experiment's caveat. The aggregate ruteBerubah itself never reaches any " \
+        "report; only the per-commodity recomputation via ruteBerubahKomoditas() does, " \
+        "each with its own inline caveat."
+    assert uji_ongkos["persenBawahJarak"] is not None and \
+        uji_ongkos["persenBawahTetap"] is not None, \
+        "uji_ongkos missing the flattened persenBawah* keys Task 8 reads"
+    assert tindakan["setaraKegiatan"]["kapasitasTahunan"] == 1888
+    imbal = [r["imbalHasilPersen"] for r in tindakan["modal"]]
+    assert imbal == sorted(imbal, reverse=True), \
+        "modal must be sorted by return, descending, not by capital"
+    komoditas_names = {c["name"] for c in commodities}
+    assert set(tindakan["modalPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}, \
+        "modalPerKomoditas must have one entry per postur, not just seimbang"
+    for postur_key, per_kom in tindakan["modalPerKomoditas"].items():
+        assert set(per_kom) == komoditas_names, \
+            f"modalPerKomoditas[{postur_key!r}] must have one entry per modelled commodity"
+        for kom, rows in per_kom.items():
+            vals = [r["imbalHasilPersen"] for r in rows if r["imbalHasilPersen"] is not None]
+            assert vals == sorted(vals, reverse=True), \
+                f"modalPerKomoditas[{postur_key!r}][{kom!r}] must be sorted by return, descending"
+    # A commodity/postur pair with genuinely zero routes (e.g. Bawang Merah,
+    # which has no routes on any postur in the current data) must map to an
+    # empty list, not silently borrow another postur's rows.
+    assert tindakan["modalPerKomoditas"]["seimbang"]["Bawang Merah"] == [], \
+        "a commodity with zero routes must map to an empty modal list, not fall back to another postur"
+    assert tindakan["modalPerKomoditas"]["seimbang"] != tindakan["modalPerKomoditas"]["aman_pangan"], \
+        "seimbang and aman_pangan must not carry identical modal figures"
+    assert set(tindakan["setaraKegiatanPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}, \
+        "setaraKegiatanPerKomoditas must have one entry per postur, not just seimbang"
+    for postur_key, per_kom in tindakan["setaraKegiatanPerKomoditas"].items():
+        assert set(per_kom) == komoditas_names, \
+            f"setaraKegiatanPerKomoditas[{postur_key!r}] must have one entry per modelled commodity"
+        for kom, row in per_kom.items():
+            assert row["kapasitasTahunan"] == 1888, \
+                f"setaraKegiatanPerKomoditas[{postur_key!r}][{kom!r}] kapasitasTahunan must stay the national constant"
+    # A commodity/postur pair with genuinely zero routes must map to zero
+    # values apa adanya (a measured fact, not missing data) -- not fall back
+    # to another commodity's figures.
+    assert tindakan["setaraKegiatanPerKomoditas"]["seimbang"]["Bawang Merah"]["kegiatan"] == 0, \
+        "a commodity with zero routes must map to zero kegiatan, not fall back to another commodity"
+    # A single commodity's slice must never exceed the combined six-commodity
+    # aggregate it was filtered out of.
+    for kom, row in tindakan["setaraKegiatanPerKomoditas"]["seimbang"].items():
+        assert row["kegiatan"] <= tindakan["setaraKegiatan"]["kegiatan"], \
+            f"setaraKegiatanPerKomoditas['seimbang'][{kom!r}] exceeds the six-commodity aggregate"
+    assert set(tindakan["pasarPerKomoditas"]) == komoditas_names, \
+        "pasarPerKomoditas must have one entry per modelled commodity"
+    assert all(len(v) == 34 for v in tindakan["pasarPerKomoditas"].values()), \
+        "pasarPerKomoditas must cover all 34 model provinces for every commodity"
     print("export_web: OK")
     return 0
 

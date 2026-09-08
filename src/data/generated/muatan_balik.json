@@ -1,0 +1,582 @@
+{
+ "konservatif": {
+  "nRute": 0,
+  "totalTon": 0.0,
+  "tonKm": 0.0,
+  "pasanganBolakBalik": 0,
+  "simpul": [],
+  "tonDirantai": 0.0,
+  "persenDirantai": 0.0,
+  "tonKmKosongDihindari": 0.0,
+  "rantai": []
+ },
+ "seimbang": {
+  "nRute": 36,
+  "totalTon": 1025.74,
+  "tonKm": 897063.1,
+  "pasanganBolakBalik": 0,
+  "simpul": [
+   "Bali",
+   "Bengkulu",
+   "Gorontalo",
+   "Kalimantan Barat",
+   "Kepulauan Riau",
+   "Sulawesi Tenggara"
+  ],
+  "tonDirantai": 132.23,
+  "persenDirantai": 12.89,
+  "tonKmKosongDihindari": 129762.5,
+  "rantai": [
+   {
+    "hub": "Bali",
+    "dari": "Sulawesi Tenggara",
+    "ke": "Maluku",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 5.32
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 2.75
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Utara",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 1.36
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Kalimantan Selatan",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.73
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 2.39
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.02
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "DKI Jakarta",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.43
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Gorontalo",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.06
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 15.9
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.39
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 0.65
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.6
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 4.42
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 5.74
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Papua Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.85
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 5.28
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 7.63
+   },
+   {
+    "hub": "Kepulauan Riau",
+    "dari": "Sumatera Selatan",
+    "ke": "DKI Jakarta",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 32.72
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Bali",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 9.25
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 5.1
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 15.65
+   }
+  ]
+ },
+ "aman_pangan": {
+  "nRute": 36,
+  "totalTon": 1249.94,
+  "tonKm": 1001022.9,
+  "pasanganBolakBalik": 0,
+  "simpul": [
+   "Bali",
+   "Bengkulu",
+   "Gorontalo",
+   "Kalimantan Barat",
+   "Kepulauan Riau",
+   "Sulawesi Tenggara"
+  ],
+  "tonDirantai": 162.32,
+  "persenDirantai": 12.99,
+  "tonKmKosongDihindari": 151313.2,
+  "rantai": [
+   {
+    "hub": "Bali",
+    "dari": "Sulawesi Tenggara",
+    "ke": "Maluku",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 10.03
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 5.37
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Utara",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 1.69
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 4.62
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.7
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Gorontalo",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.9
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 29.88
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 5.36
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 1.01
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 4.26
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.97
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 9.99
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Papua Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.65
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 6.36
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 9.69
+   },
+   {
+    "hub": "Kepulauan Riau",
+    "dari": "Sumatera Selatan",
+    "ke": "DKI Jakarta",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 33.22
+   },
+   {
+    "hub": "Kepulauan Riau",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 0.96
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Bali",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 12.15
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.11
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Selatan",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 0.8
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 3.71
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 11.89
+   }
+  ]
+ },
+ "default": {
+  "nRute": 36,
+  "totalTon": 1025.74,
+  "tonKm": 897063.1,
+  "pasanganBolakBalik": 0,
+  "simpul": [
+   "Bali",
+   "Bengkulu",
+   "Gorontalo",
+   "Kalimantan Barat",
+   "Kepulauan Riau",
+   "Sulawesi Tenggara"
+  ],
+  "tonDirantai": 132.23,
+  "persenDirantai": 12.89,
+  "tonKmKosongDihindari": 129762.5,
+  "rantai": [
+   {
+    "hub": "Bali",
+    "dari": "Sulawesi Tenggara",
+    "ke": "Maluku",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 5.32
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 2.75
+   },
+   {
+    "hub": "Bengkulu",
+    "dari": "Lampung",
+    "ke": "Sumatera Utara",
+    "komoditasMasuk": "Daging Ayam",
+    "komoditasKeluar": "Telur Ayam",
+    "tonDirantai": 1.36
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Kalimantan Selatan",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.73
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 2.39
+   },
+   {
+    "hub": "Gorontalo",
+    "dari": "Kalimantan Barat",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Bawang Putih",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 1.02
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "DKI Jakarta",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.43
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Gorontalo",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.06
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 15.9
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.39
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Kalimantan Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 0.65
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 3.6
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Maluku Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 4.42
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Timur",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 5.74
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Papua Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 2.85
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sulawesi Utara",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 5.28
+   },
+   {
+    "hub": "Kalimantan Barat",
+    "dari": "Sumatera Selatan",
+    "ke": "Sumatera Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 7.63
+   },
+   {
+    "hub": "Kepulauan Riau",
+    "dari": "Sumatera Selatan",
+    "ke": "DKI Jakarta",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Bawang Putih",
+    "tonDirantai": 32.72
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Bali",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 9.25
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Jawa Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 5.1
+   },
+   {
+    "hub": "Sulawesi Tenggara",
+    "dari": "Sumatera Selatan",
+    "ke": "Nusa Tenggara Barat",
+    "komoditasMasuk": "Telur Ayam",
+    "komoditasKeluar": "Daging Ayam",
+    "tonDirantai": 15.65
+   }
+  ]
+ }
+}

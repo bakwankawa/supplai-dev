@@ -1,12 +1,89 @@
 import { jsPDF } from "jspdf";
 import { bukuBesar } from "@/data/buku-besar";
+import lanskapData from "@/data/generated/lanskap.json";
+import muatanBalikData from "@/data/generated/muatan_balik.json";
+import tindakanData from "@/data/generated/tindakan.json";
+import tingkatanData from "@/data/generated/tingkatan.json";
+import ujiOngkosData from "@/data/generated/uji_ongkos.json";
 import { formatNumber, formatRupiah } from "@/lib/format";
+import type {
+  DegenerasiKomoditas, MuatanBalikByPostur, PasarProvinsi, PosisiHarga, TingkatanProvinsi, Tindakan,
+  UjiOngkos,
+} from "@/lib/types";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
+import { sebaranKelompok } from "./kesenjangan";
 import { POSTUR_LABEL } from "./postur";
+import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
+import {
+  teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
+  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos, teksUjiOngkosKomoditas,
+} from "./teks";
+import { ruteBerubahKomoditas } from "./uji-ongkos";
+import { jendelaWaktu } from "./waktu";
+
+// Tingkatan IKP Bapanas 2025 per provinsi, dan provinsi yang punya skor IKP
+// tapi tidak pernah dimodelkan harganya (lihat dokumentasi teksKesenjangan di
+// ./teks untuk kenapa dua hal ini tidak boleh tertukar). Dimuat sekali di
+// tingkat modul: datanya statis per build, sama seperti `bukuBesar` di atas.
+const TINGKATAN_IKP = tingkatanData.provinsi as TingkatanProvinsi[];
+const IKP_TANPA_HARGA = tingkatanData.cakupan.ikpTanpaHarga as string[];
+
+// Posisi harga tiap komoditas di tiap provinsi terhadap median nasional
+// (lihat dokumentasi teksLanskap di ./teks). Dimuat sekali di tingkat modul,
+// sama seperti TINGKATAN_IKP di atas.
+const LANSKAP_BARIS = lanskapData.baris as PosisiHarga[];
+
+// Diagnosis muatan balik per postur (lihat dokumentasi teksMuatanBalik di
+// ./teks): rantai yang benar-benar ada, dan ton-km kaki kosong yang bisa
+// dihindari bila kiriman itu dirantai. Agregat LINTAS ENAM KOMODITAS untuk
+// postur rencana ini -- bukan hanya komoditas laporan ini -- karena
+// muatan_balik.json dibangun sekali per postur atas seluruh rencana.
+const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
+
+// Jalur tindakan pembaca (lihat dokumentasi teksPasar/teksModal di ./teks):
+// pasar bernama per provinsi dan modal-imbal hasil per provinsi asal.
+// `pasar`/`modal` (tanpa akhiran) tetap agregat lintas enam komoditas pada
+// postur "seimbang" saja -- lihat build_tindakan() di scripts/export_web.py
+// -- dan TIDAK dipakai kerangka pedagang di bawah untuk itu.
+// `modalPerKomoditas` SUDAH disaring per POSTUR dan KOMODITAS laporan ini
+// (lihat dokumentasi Tindakan di @/lib/types): modal dan imbal hasil
+// genuinely berbeda per postur, jadi laporan Aman Pangan tidak boleh
+// menampilkan angka milik rencana Seimbang. `pasarPerKomoditas` SUDAH
+// disaring per komoditas TAPI SENGAJA TIDAK per postur -- pasar bernama
+// adalah tempat harga pernah diamati secara historis, tidak bergantung pada
+// rencana redistribusi mana yang kami pilih.
+const TINDAKAN = tindakanData as unknown as Tindakan;
+
+// Uji apakah jarak benar-benar menyetir rencana (lihat dokumentasi
+// teksUjiOngkos/teksUjiOngkosKomoditas di ./teks, dan UjiOngkos di
+// @/lib/types): tiga struktur ongkos LP (jarak, ongkos datar, ongkos datar
+// DI ATAS jarak), dijalankan SEKALI untuk postur "seimbang" -- lihat
+// bench_ongkos.py -- tapi SEBAGAI ENAM SOLVE TERPISAH, satu per komoditas.
+// `struktur.jarak/tetap/tetapPlusJarak.rute` dan `degenerasiTetapDetail`
+// karena itu SUDAH per komoditas di sumbernya; `ruteBerubahKomoditas()`
+// (./uji-ongkos) menyaring dan membandingkan ulang dari situ per komoditas
+// laporan ini -- BUKAN mengambil pecahan dari `ruteBerubah` agregat, yang
+// terbukti menyesatkan per komoditas (agregat 22/36 = 61%, sedangkan Bawang
+// Putih sendirian 0/10 = 0%). Hanya `ongkosTetapTerkalibrasi` dan
+// `persenBawahJarak`/`persenBawahTetap` TETAP whole-of-program: kalibrasi
+// tarif datar dan pembagian ke sepertiga terbawah IKP dihitung atas
+// GABUNGAN flow, tidak ada pecahan per komoditas untuk keduanya. `postur`
+// TETAP "seimbang" selalu -- eksperimen ini tidak pernah dijalankan pada
+// postur lain -- jadi `report.ts` menyatakan itu secara eksplisit sebelum
+// angka per komoditas mana pun dicetak, terlepas dari postur laporan ini.
+const UJI_ONGKOS = ujiOngkosData as unknown as UjiOngkos;
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
 export type Pembaca = (typeof PEMBACA)[number];
+
+/** Table width constants (all sum to 174mm drawable width) */
+export const KERANGKA_PEMERINTAH_RUTE_WIDTH = [34, 34, 26, 22, 30, 28];
+// Kolom terakhir diberi 16mm, bukan 12: "Menutup" tidak punya spasi untuk
+// dibungkus, jadi pada 12mm splitTextToSize memotong katanya sendiri dan
+// header itu tercetak "Menu / tup". Tambahannya diambil dari Tujuan dan
+// Jarak, yang isinya masih muat. Jumlahnya tetap 174 -- dijaga oleh tes.
+export const KERANGKA_PEDAGANG_WIDTH = [21, 20, 19, 20, 15, 19, 20, 24, 16];
 
 /** The same plan, told twice. The government framing has to answer "on whose
  *  measurement?"; the trader framing has to answer "does the price gap pay for
@@ -14,7 +91,9 @@ export type Pembaca = (typeof PEMBACA)[number];
  *
  *  Drawn as vector text, mirroring src/lib/prediction/report.ts, so this
  *  codebase has one report idiom instead of two. */
-export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pembaca) {
+export function createRedistribusiReport(
+  a: RedistribusiAnalysis, pembaca: Pembaca, sekarang: Date = new Date(),
+) {
   const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
   const left = 18, width = 174, bottom = 272;
   const green = "#006C4A", ink = "#182B38", muted = "#536775";
@@ -72,7 +151,7 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
   const LEDGER_WIDTH = [30, 33, 71, 18, 22];
   const ledgerRow = (entry: (typeof bukuBesar)[number]) => [
     entry.input, entry.nilai, entry.sumber, entry.tahun,
-    entry.status === "terukur" ? "Terukur" : "Diasumsikan",
+    BUKU_BESAR_STATUS_LABEL[entry.status].label,
   ];
 
   header();
@@ -85,8 +164,25 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
   });
   heading("Laporan Rencana Redistribusi Pangan");
   paragraph(`${a.komoditas} | Postur ${POSTUR_LABEL[a.postur].nama} | ${judulPembaca}`, 12);
-  paragraph(`Dibuat: ${new Date().toLocaleString("id-ID", { timeZone: "Asia/Jakarta" })} WIB`, 8, muted);
   paragraph(`${POSTUR_LABEL[a.postur].arti} Status pemecah rute: "${a.status}".`, 9, muted);
+
+  // Kepala laporan menyebut bulan sasaran dan sisa waktu di badan laporan,
+  // bukan catatan kaki: baris ini menentukan apakah rencana ini masih boleh
+  // dipakai sama sekali. teksJendela hanya mengembalikan teks; gaya baris
+  // kedua (ukuran/warna) berubah menurut jendelaWaktu, dihitung terpisah di
+  // sini karena teks.ts murni tidak membawa keputusan tampilan.
+  //
+  // Tanggal pembuatan dicetak SEKALI, di baris pertama teksJendela, dari jam
+  // yang disuntikkan (`sekarang`) -- bukan di sini lagi dari `new Date()`.
+  // Dua pencetakan dari dua jam berbeda bisa mencetak dua tanggal berbeda
+  // pada laporan yang sama.
+  const [jendelaBaris1, jendelaBaris2] = teksJendela(a.bulanPrediksi, sekarang);
+  paragraph(jendelaBaris1, 9, muted);
+  if (jendelaWaktu(a.bulanPrediksi, sekarang).sudahLewat) {
+    paragraph(jendelaBaris2, 10);
+  } else {
+    paragraph(jendelaBaris2, 9, muted);
+  }
 
   if (pembaca === "pemerintah") {
     heading("01  Ringkasan");
@@ -96,7 +192,35 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
       ["JUMLAH RUTE", formatNumber(a.totalRute)],
       ["ONGKOS ANGKUT", formatRupiah(a.totalBiaya)],
     ]);
-    heading("02  Rute dan takaran");
+    heading("02  Penekanan harga");
+    const [klaimHarga, takaranHarga, basisHarga] = teksPenekananHarga(a);
+    paragraph(klaimHarga);
+    paragraph(takaranHarga, 9, muted);
+    paragraph(basisHarga, 9, muted);
+    heading("03  Kesenjangan IKP");
+    if (a.totalRute === 0) {
+      // Sama seperti "02 Penekanan harga": rencana kosong tidak punya sebaran
+      // untuk dinyatakan, jadi bagian ini menyatakan itu -- bukan mencetak
+      // 0,00% ke ketiga kelompok seakan itu hasil pengukuran atas sebuah
+      // rencana yang tidak pernah ada.
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada sebaran kelompok IKP yang dapat dinyatakan.");
+    } else {
+      const sebaran = sebaranKelompok(
+        a.routes.map((r) => ({ ke: r.to, volumeTon: r.volumeTon })),
+        TINGKATAN_IKP,
+      );
+      const teksSebaran = teksKesenjangan(sebaran, IKP_TANPA_HARGA);
+      // teksKesenjangan menjamin urutan: [utama, jangkauan model (hanya bila
+      // IKP_TANPA_HARGA tidak kosong), lalu sisanya]. Kalimat jangkauan model
+      // BUKAN aside -- ia menyatakan provinsi yang tidak akan pernah
+      // terjangkau produk ini sama sekali -- jadi ia dicetak senormal
+      // kalimat utama, bukan abu-abu 9pt seperti kalimat kondisional lain.
+      let i = 0;
+      paragraph(teksSebaran[i++]);
+      if (IKP_TANPA_HARGA.length > 0) paragraph(teksSebaran[i++]);
+      for (; i < teksSebaran.length; i++) paragraph(teksSebaran[i], 9, muted);
+    }
+    heading("04  Rute dan takaran");
     if (a.routes.length) {
       paragraph("Kolom \"% pasar\" adalah bagian kiriman terhadap konsumsi bulanan provinsi tujuan. Kolom \"Kecukupan GPM\" bukan tentang kiriman ini: ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah, program intervensi yang memang sudah berjalan di provinsi tujuan. Angka itu melekat pada tujuannya, jadi setiap rute yang masuk ke provinsi yang sama menunjukkan nilai yang sama.", 9, muted);
       paragraph("Tiga peringatan melekat pada Kecukupan GPM dan harus dibaca bersamanya: (1) GPM hanya satu dari beberapa instrumen — penyaluran Cadangan Pangan Pemerintah jauh lebih besar dan tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran.", 9, muted);
@@ -106,10 +230,10 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
           r.from, r.to, ton(r.volumeTon), persen(r.persenPasar),
           takaranLabel(r.dasarTakaran).teks, persen(r.kecukupanPersen),
         ]),
-        [34, 34, 26, 22, 30, 28],
+        KERANGKA_PEMERINTAH_RUTE_WIDTH,
       );
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada tabel yang dapat ditampilkan.");
-    heading("03  Dasar takaran");
+    heading("05  Dasar takaran");
     paragraph(a.catatanTakaran);
     paragraph(
       a.totalRute === 0
@@ -120,7 +244,7 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
       10, green,
     );
     paragraph("Peringatan ini berada di badan laporan, bukan di catatan kaki, karena ia menentukan seberapa jauh rencana ini boleh dipakai.", 9, muted);
-    heading("04  Pagu anggaran");
+    heading("06  Pagu anggaran");
     if (a.anggaranNasionalTon === null) {
       paragraph("Komoditas ini tidak memiliki neraca nasional yang dapat dijadikan pagu, sehingga rencana berjalan tanpa batas anggaran. Keterbatasan ini dinyatakan, bukan diabaikan.");
     } else {
@@ -128,10 +252,100 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
       paragraph(`Neraca ketersediaan dan kebutuhan nasional menetapkan pagu ${ton(a.anggaranNasionalTon)} untuk ${a.komoditas}. Rencana ini memakai ${ton(a.totalTon)}, atau ${persen(bagian, bagian > 0 && bagian < 0.01 ? 4 : 2)} dari pagu tersebut.`);
       paragraph("Pagu membatasi tonase nasional, bukan biaya angkut. Ongkos angkut pada Bagian 01 dihitung terpisah dan tidak diuji terhadap pagu ini.", 9, muted);
     }
-    heading("05  Asal-usul angka");
+    heading("07  Asal-usul angka");
     const terukurLedger = bukuBesar.filter((e) => e.status === "terukur").length;
-    paragraph(`Setiap masukan yang dipakai perhitungan ini, beserta asalnya. ${terukurLedger} dari ${bukuBesar.length} berasal dari sumber yang dapat diperiksa; ${bukuBesar.length - terukurLedger} sisanya kami tetapkan sendiri dan ditandai demikian.`, 9);
+    const diasumsikanLedger = bukuBesar.filter((e) => e.status === "diasumsikan").length;
+    const diturunkanLedger = bukuBesar.filter((e) => e.status === "diturunkan").length;
+    paragraph(`Setiap masukan yang dipakai perhitungan ini, beserta asalnya. ${terukurLedger} dari ${bukuBesar.length} berasal dari sumber yang dapat diperiksa. ${diasumsikanLedger} kami tetapkan sendiri berdasarkan penilaian profesional. ${diturunkanLedger} dihitung dari masukan lain dan mewarisi tingkat kepercayaan mereka. Semua ditandai sesuai jenisnya.`, 9);
     table(LEDGER_HEAD, bukuBesar.map(ledgerRow), LEDGER_WIDTH);
+
+    heading("08  Kapasitas instrumen");
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada setara kegiatan GPM yang dapat dinyatakan untuk komoditas dan postur ini.");
+    } else {
+      // Disaring per POSTUR dan KOMODITAS laporan ini
+      // (setaraKegiatanPerKomoditas), bukan agregat lintas enam komoditas
+      // pada postur "seimbang" saja (TINDAKAN.setaraKegiatan): ronde
+      // perbaikan ini menutup celah yang sama dengan modalPerKomoditas --
+      // laporan rencana Aman Pangan atau untuk satu komoditas tidak boleh
+      // menampilkan setara-kegiatan yang sebenarnya milik rencana Seimbang
+      // atau gabungan enam komoditas. `?? undefined` menutupi pasangan
+      // postur-komoditas yang genuinely tak diketahui (seharusnya tak
+      // terjadi, mengingat setiap postur/komoditas dienumerasi saat
+      // ekspor) tanpa jatuh balik diam-diam ke agregat.
+      const setaraKomoditas = TINDAKAN.setaraKegiatanPerKomoditas[a.postur]?.[a.komoditas];
+      if (!setaraKomoditas) {
+        paragraph("Data setara kegiatan GPM untuk komoditas dan postur ini tidak diketahui.");
+      } else {
+        const [klaimInstrumen, sanggupInstrumen, takaranInstrumen] = teksInstrumen(setaraKomoditas);
+        paragraph(klaimInstrumen);
+        paragraph(sanggupInstrumen, 10, green);
+        paragraph(takaranInstrumen, 9, muted);
+      }
+    }
+
+    heading("09  Uji ongkos: apakah jarak menyetir rencana");
+    {
+      // BAGIAN PER KOMODITAS: ruteBerubah dan detail degenerasi, disaring
+      // ke a.komoditas -- lihat dokumentasi ruteBerubahKomoditas di
+      // ./uji-ongkos dan teksUjiOngkosKomoditas di ./teks untuk kenapa ini
+      // TIDAK BOLEH diambil sebagai pecahan dari angka agregat. Eksperimen
+      // ini hanya pernah dijalankan pada postur Seimbang -- BUKAN postur
+      // laporan ini -- jadi kalimat pembuka menyatakan itu eksplisit,
+      // apa pun postur laporan ini.
+      paragraph(
+        `Baris berikut, khusus ${a.komoditas}, dihitung dari rencana postur Seimbang` +
+        (a.postur === "seimbang"
+          ? ", postur laporan ini juga -- tapi itu kebetulan, bukan jaminan: "
+          : `, BUKAN postur ${POSTUR_LABEL[a.postur].nama} pada laporan ini. `) +
+        `Uji ongkos ini hanya pernah dijalankan pada postur Seimbang, sehingga angka di bawah ` +
+        `tidak berubah menurut postur laporan ini.`,
+        10, green,
+      );
+      const degKomoditas: DegenerasiKomoditas | undefined = UJI_ONGKOS.degenerasiTetapDetail[a.komoditas];
+      const tetap = ruteBerubahKomoditas(UJI_ONGKOS.struktur.jarak, UJI_ONGKOS.struktur.tetap, a.komoditas);
+      const tpj = ruteBerubahKomoditas(UJI_ONGKOS.struktur.jarak, UJI_ONGKOS.struktur.tetapPlusJarak, a.komoditas);
+      const ujiKomoditasInput =
+        !degKomoditas || !degKomoditas.diuji || !tetap
+          ? { komoditas: a.komoditas, diuji: false, alasan: degKomoditas?.alasan }
+          : {
+              komoditas: a.komoditas,
+              diuji: true,
+              ruteBerubah: tetap.ruteBerubah,
+              nRuteJarak: tetap.nRuteJarak,
+              ruteBerubahTetapPlusJarak: tpj?.ruteBerubah,
+              nUlang: degKomoditas.nUlang,
+              nHimpunanUnik: degKomoditas.nHimpunanUnik,
+              stabil: degKomoditas.stabil,
+            };
+      for (const t of teksUjiOngkosKomoditas(ujiKomoditasInput)) paragraph(t);
+
+      // BAGIAN WHOLE-OF-PROGRAM: kalibrasi ongkos datar dan siapa yang
+      // dilayani, keduanya genuinely tidak bisa dipecah per komoditas --
+      // lihat dokumentasi teksUjiOngkos di ./teks. Kalimat pembuka di sini
+      // hanya menyandang cakupan DUA angka ini, bukan seluruh bagian --
+      // satu kalimat cakupan yang menutupi angka per komoditas DAN angka
+      // whole-of-program sekaligus adalah menyesatkan dengan cara yang
+      // lebih halus, persis yang ronde perbaikan ini memperbaiki.
+      paragraph(
+        `Dua angka berikut TETAP agregat SELURUH rencana postur Seimbang, gabungan enam ` +
+        `komoditas -- kalibrasi ongkos datar dan porsi tonase ke sepertiga terbawah IKP tidak ` +
+        `bisa dipecah per komoditas pada data yang kami miliki.`,
+        10, green,
+      );
+      const teksUji = teksUjiOngkos({
+        ongkosTetapTerkalibrasi: UJI_ONGKOS.ongkosTetapTerkalibrasi,
+        persenBawahJarak: UJI_ONGKOS.persenBawahJarak,
+        persenBawahTetap: UJI_ONGKOS.persenBawahTetap,
+      });
+      for (const t of teksUji) paragraph(t);
+
+      // `keterbatasan` dicetak APA ADANYA dari uji_ongkos.json, bukan
+      // diparafrase ulang di sini -- ia berlaku atas SELURUH eksperimen
+      // (baik angka per komoditas maupun whole-of-program di atas), jadi
+      // dicetak sekali sebagai penutup bagian, bukan diulang per subbagian.
+      paragraph(UJI_ONGKOS.keterbatasan, 10, green);
+    }
   } else {
     heading("01  Ringkasan");
     paragraph(
@@ -146,21 +360,115 @@ export function createRedistribusiReport(a: RedistribusiAnalysis, pembaca: Pemba
     ]);
     heading("02  Selisih harga terhadap ongkos angkut");
     if (a.routes.length) {
-      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
+      paragraph("Harga dalam rupiah per kg di provinsi asal dan tujuan. Ongkos/kg adalah jarak dikali tarif angkut; Margin/kg adalah selisih harga dikurangi ongkos itu, memakai harga hari ini tanpa prediksi. Marjin harapan adalah total rute, dalam rupiah, memakai harga tujuan SETELAH kenaikan yang diprediksi, dikurangi ongkos angkut. Margin negatif ditampilkan apa adanya dan ditandai \"Tidak\" pada kolom terakhir.", 9, muted);
       table(
-        ["Asal", "Tujuan", "Harga asal", "Harga tujuan", "Jarak", "Ongkos/kg", "Margin/kg", "Menutup"],
+        ["Asal", "Tujuan", "Harga asal", "Harga tujuan", "Jarak", "Ongkos/kg", "Margin/kg", "Marjin harapan", "Menutup"],
         [...a.routes]
           .sort((x, z) => z.marginRpPerKg - x.marginRpPerKg)
           .map((r) => [
             r.from, r.to, formatRupiah(r.hargaAsal), formatRupiah(r.hargaTujuan),
             `${formatNumber(r.distance)} km`, formatRupiah(r.ongkosRpPerKg),
-            formatRupiah(r.marginRpPerKg), r.menutupOngkos ? "Ya" : "Tidak",
+            formatRupiah(r.marginRpPerKg), formatRupiah(r.marjinHarapanRp), r.menutupOngkos ? "Ya" : "Tidak",
           ]),
-        [25, 25, 21, 22, 20, 21, 22, 18],
+        KERANGKA_PEDAGANG_WIDTH,
       );
       paragraph(`Rekapitulasi: ${a.menutup} rute menutup ongkos, ${a.totalRute - a.menutup} rute tidak, dari ${a.totalRute} rute yang seluruhnya tercantum di atas.`, 10, green);
+      paragraph(teksMarjin(), 9, muted);
     } else paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada selisih harga yang dapat diuji terhadap ongkos angkut.");
-    heading("03  Batasan");
+    heading("03  Lanskap komoditas");
+    if (a.routes.length === 0) {
+      // Sama seperti Bagian 02: rencana kosong tidak punya provinsi tujuan
+      // untuk dibaca lanskapnya, jadi bagian ini menyatakan itu -- bukan
+      // mencetak posisi harga seakan ada tujuan yang sungguh dituju.
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada provinsi tujuan yang lanskap komoditasnya relevan untuk ditampilkan.");
+    } else {
+      paragraph(
+        "Posisi harga kedelapan komoditas yang lanskap ini baca -- termasuk dua yang tidak kami " +
+        "ramalkan -- di tiap provinsi tujuan rencana ini, terhadap median nasional.", 9, muted,
+      );
+      const tujuan = [...new Set(a.routes.map((r) => r.to))].sort((x, y) => x.localeCompare(y, "id"));
+      // teksLanskap menjamin urutan [klaim per-provinsi, bacaan-harga bukan
+      // bacaan-pasokan, penanda enam-diramalkan/dua-tidak]. Dua elemen
+      // terakhir adalah pernyataan umum tentang produk ini, bukan simpulan
+      // atas baris data provinsi tertentu -- lihat dokumentasi teksLanskap di
+      // ./teks -- sehingga aman dicetak SEKALI untuk seluruh bagian ini,
+      // diambil dari provinsi tujuan pertama, alih-alih diulang tiap provinsi.
+      for (const provinsi of tujuan) {
+        const [klaim] = teksLanskap(LANSKAP_BARIS, provinsi);
+        paragraph(klaim);
+      }
+      const [, bacaanHarga, penanda] = teksLanskap(LANSKAP_BARIS, tujuan[0]);
+      paragraph(bacaanHarga, 10, green);
+      paragraph(penanda, 9, muted);
+    }
+    heading("04  Muatan balik");
+    paragraph(
+      `Diagnosis berikut mencakup seluruh rencana postur ${POSTUR_LABEL[a.postur].nama} ` +
+      `lintas enam komoditas yang kami modelkan, bukan hanya rute ${a.komoditas} pada ` +
+      `laporan ini.`, 9, muted,
+    );
+    {
+      const [temuanBalik, ...sisaBalik] = teksMuatanBalik(MUATAN_BALIK[a.postur]);
+      paragraph(temuanBalik);
+      for (const s of sisaBalik) paragraph(s, 9, muted);
+    }
+    heading("05  Pasar bernama");
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada provinsi asal atau tujuan yang pasarnya relevan untuk disebut di sini.");
+    } else {
+      // pasar mencakup provinsi ASAL maupun TUJUAN -- lihat dokumentasi
+      // build_tindakan() di scripts/export_web.py -- karena tabel Bagian 02
+      // menampilkan keduanya, bukan hanya provinsi asal.
+      const provinsiTerlibat = [...new Set(a.routes.flatMap((r) => [r.from, r.to]))]
+        .sort((x, y) => x.localeCompare(y, "id"));
+      // Disaring per KOMODITAS laporan ini (pasarPerKomoditas), bukan
+      // registri pasar mentah (pasar_provinsi(), tidak lagi diekspor di
+      // tingkat atas -- lihat dokumentasi build_tindakan() di
+      // scripts/export_web.py): teksPasar mencetak "harga komoditas ini
+      // diamati di ..." dan klaim itu hanya benar bila daftar yang diberikan
+      // sudah disaring ke komoditas ini -- lihat dokumentasi
+      // pasar_provinsi_komoditas() di supplai/tindakan.py.
+      const pasarKomoditas = TINDAKAN.pasarPerKomoditas[a.komoditas] ?? {};
+      // teksPasar menjamin urutan [klaim per-provinsi, kalimat batas umum --
+      // hanya bila ada pasar untuk disebut]. Kalimat batas dicetak SEKALI
+      // untuk seluruh bagian ini, bukan diulang tiap provinsi -- lihat
+      // dokumentasi teksPasar di ./teks.
+      let batasDicetak = false;
+      for (const provinsi of provinsiTerlibat) {
+        const daftarPasar: PasarProvinsi[] = pasarKomoditas[provinsi] ?? [];
+        const [klaim, batas] = teksPasar(daftarPasar, provinsi);
+        paragraph(klaim, 9);
+        if (!batasDicetak && batas) {
+          paragraph(batas, 9, muted);
+          batasDicetak = true;
+        }
+      }
+    }
+    heading("06  Modal dan imbal hasil");
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada modal atau imbal hasil yang relevan untuk ditampilkan di sini.");
+    } else {
+      // Disaring per POSTUR dan KOMODITAS laporan ini (modalPerKomoditas),
+      // bukan agregat lintas enam komoditas pada postur "seimbang" saja
+      // (TINDAKAN.modal): modal dan marjin harapan berasal dari
+      // flows.parquet, yang genuinely berbeda per postur (rute dan
+      // volumenya berbeda) -- laporan rencana Aman Pangan tidak boleh
+      // menampilkan imbal hasil yang sebenarnya milik rencana Seimbang.
+      // `?? []` (bukan jatuh balik ke postur/komoditas lain) menutupi baik
+      // postur tanpa rute sama sekali maupun pasangan postur-komoditas yang
+      // rutenya nol -- lihat dokumentasi Tindakan di @/lib/types.
+      const [caveatModal, ...barisModal] = teksModal(
+        TINDAKAN.modalPerKomoditas[a.postur]?.[a.komoditas] ?? [],
+      );
+      // caveatModal menyatakan batas yang menentukan seberapa jauh angka ini
+      // boleh dipakai (satu transaksi, bersandar pada prediksi yang belum
+      // tentu terjadi) -- bukan catatan kaki, jadi ia mendapat perlakuan
+      // sama seperti "Peringatan" di Bagian 05 kerangka pemerintah: 10pt
+      // hijau, bukan abu-abu 9pt yang dipakai catatan sekunder.
+      paragraph(caveatModal, 10, green);
+      for (const b of barisModal) paragraph(b);
+    }
+    heading("07  Batasan");
     paragraph(a.catatanPedagang);
     // Mandatory, not best-effort. The freight rate is assumed and it carries
     // the whole trader framing, so the row declaring that has to print. Skipping

@@ -1,0 +1,6130 @@
+{
+ "setaraKegiatan": {
+  "ton": 1025.7,
+  "nilaiRp": 33622721572,
+  "kegiatan": 1278,
+  "kapasitasTahunan": 1888,
+  "persenKapasitas": 67.7
+ },
+ "setaraKegiatanPerKomoditas": {
+  "konservatif": {
+   "Beras Medium": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Daging Ayam": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Telur Ayam": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  },
+  "seimbang": {
+   "Beras Medium": {
+    "ton": 57.4,
+    "nilaiRp": 975916353,
+    "kegiatan": 37,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 2.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 88.3,
+    "nilaiRp": 3680012393,
+    "kegiatan": 140,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 7.4
+   },
+   "Daging Ayam": {
+    "ton": 268.2,
+    "nilaiRp": 10450534760,
+    "kegiatan": 397,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 21.0
+   },
+   "Telur Ayam": {
+    "ton": 611.8,
+    "nilaiRp": 18516258067,
+    "kegiatan": 704,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 37.3
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  },
+  "aman_pangan": {
+   "Beras Medium": {
+    "ton": 59.2,
+    "nilaiRp": 1005714047,
+    "kegiatan": 38,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 2.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 113.0,
+    "nilaiRp": 4654137844,
+    "kegiatan": 177,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 9.4
+   },
+   "Daging Ayam": {
+    "ton": 425.8,
+    "nilaiRp": 16602565287,
+    "kegiatan": 631,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 33.4
+   },
+   "Telur Ayam": {
+    "ton": 652.0,
+    "nilaiRp": 19726099644,
+    "kegiatan": 750,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 39.7
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  }
+ },
+ "modal": [
+  {
+   "dari": "Kepulauan Riau",
+   "ton": 35.6,
+   "modalRp": 1068070066,
+   "marjinRp": 426567993,
+   "imbalHasilPersen": 39.94
+  },
+  {
+   "dari": "Gorontalo",
+   "ton": 39.53,
+   "modalRp": 1205673144,
+   "marjinRp": 325684358,
+   "imbalHasilPersen": 27.01
+  },
+  {
+   "dari": "Sulawesi Barat",
+   "ton": 96.39,
+   "modalRp": 1996682591,
+   "marjinRp": 343033728,
+   "imbalHasilPersen": 17.18
+  },
+  {
+   "dari": "Kalimantan Barat",
+   "ton": 92.25,
+   "modalRp": 3287830457,
+   "marjinRp": 451526322,
+   "imbalHasilPersen": 13.73
+  },
+  {
+   "dari": "Bali",
+   "ton": 5.32,
+   "modalRp": 155874134,
+   "marjinRp": 20205910,
+   "imbalHasilPersen": 12.96
+  },
+  {
+   "dari": "Lampung",
+   "ton": 93.71,
+   "modalRp": 3256440534,
+   "marjinRp": 335658768,
+   "imbalHasilPersen": 10.31
+  },
+  {
+   "dari": "Sulawesi Tenggara",
+   "ton": 56.47,
+   "modalRp": 1983684009,
+   "marjinRp": 163118614,
+   "imbalHasilPersen": 8.22
+  },
+  {
+   "dari": "Sumatera Selatan",
+   "ton": 494.75,
+   "modalRp": 13358360060,
+   "marjinRp": 898092722,
+   "imbalHasilPersen": 6.72
+  },
+  {
+   "dari": "Bengkulu",
+   "ton": 111.72,
+   "modalRp": 3217497477,
+   "marjinRp": 5836699,
+   "imbalHasilPersen": 0.18
+  }
+ ],
+ "modalPerKomoditas": {
+  "konservatif": {
+   "Beras Medium": [],
+   "Bawang Merah": [],
+   "Bawang Putih": [],
+   "Daging Ayam": [],
+   "Telur Ayam": [],
+   "Minyak Goreng": []
+  },
+  "seimbang": {
+   "Beras Medium": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 57.41,
+     "modalRp": 846750953,
+     "marjinRp": 48734180,
+     "imbalHasilPersen": 5.76
+    }
+   ],
+   "Bawang Merah": [],
+   "Bawang Putih": [
+    {
+     "dari": "Kepulauan Riau",
+     "ton": 35.6,
+     "modalRp": 1068070066,
+     "marjinRp": 426567993,
+     "imbalHasilPersen": 39.94
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 52.75,
+     "modalRp": 1846159952,
+     "marjinRp": 295865548,
+     "imbalHasilPersen": 16.03
+    }
+   ],
+   "Daging Ayam": [
+    {
+     "dari": "Gorontalo",
+     "ton": 39.53,
+     "modalRp": 1205673144,
+     "marjinRp": 325684358,
+     "imbalHasilPersen": 27.01
+    },
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 38.98,
+     "modalRp": 1149931638,
+     "marjinRp": 294299549,
+     "imbalHasilPersen": 25.59
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 39.5,
+     "modalRp": 1441670505,
+     "marjinRp": 155660775,
+     "imbalHasilPersen": 10.8
+    },
+    {
+     "dari": "Lampung",
+     "ton": 93.71,
+     "modalRp": 3256440534,
+     "marjinRp": 335658768,
+     "imbalHasilPersen": 10.31
+    },
+    {
+     "dari": "Sulawesi Tenggara",
+     "ton": 56.47,
+     "modalRp": 1983684009,
+     "marjinRp": 163118614,
+     "imbalHasilPersen": 8.22
+    }
+   ],
+   "Telur Ayam": [
+    {
+     "dari": "Bali",
+     "ton": 5.32,
+     "modalRp": 155874134,
+     "marjinRp": 20205910,
+     "imbalHasilPersen": 12.96
+    },
+    {
+     "dari": "Sumatera Selatan",
+     "ton": 494.75,
+     "modalRp": 13358360060,
+     "marjinRp": 898092722,
+     "imbalHasilPersen": 6.72
+    },
+    {
+     "dari": "Bengkulu",
+     "ton": 111.72,
+     "modalRp": 3217497477,
+     "marjinRp": 5836699,
+     "imbalHasilPersen": 0.18
+    }
+   ],
+   "Minyak Goreng": []
+  },
+  "aman_pangan": {
+   "Beras Medium": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 59.16,
+     "modalRp": 872604834,
+     "marjinRp": 88479125,
+     "imbalHasilPersen": 10.14
+    }
+   ],
+   "Bawang Merah": [],
+   "Bawang Putih": [
+    {
+     "dari": "Kepulauan Riau",
+     "ton": 35.6,
+     "modalRp": 1068070066,
+     "marjinRp": 473037794,
+     "imbalHasilPersen": 44.29
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 77.35,
+     "modalRp": 2707233056,
+     "marjinRp": 428631118,
+     "imbalHasilPersen": 15.83
+    }
+   ],
+   "Daging Ayam": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 38.98,
+     "modalRp": 1149931638,
+     "marjinRp": 601434914,
+     "imbalHasilPersen": 52.3
+    },
+    {
+     "dari": "Gorontalo",
+     "ton": 39.53,
+     "modalRp": 1205673144,
+     "marjinRp": 511186422,
+     "imbalHasilPersen": 42.4
+    },
+    {
+     "dari": "Lampung",
+     "ton": 204.59,
+     "modalRp": 7109346336,
+     "marjinRp": 1668142318,
+     "imbalHasilPersen": 23.46
+    },
+    {
+     "dari": "Sulawesi Tenggara",
+     "ton": 56.47,
+     "modalRp": 1983684009,
+     "marjinRp": 465164686,
+     "imbalHasilPersen": 23.45
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 86.23,
+     "modalRp": 3147404294,
+     "marjinRp": 689654871,
+     "imbalHasilPersen": 21.91
+    }
+   ],
+   "Telur Ayam": [
+    {
+     "dari": "Bali",
+     "ton": 10.03,
+     "modalRp": 293884490,
+     "marjinRp": 63856117,
+     "imbalHasilPersen": 21.73
+    },
+    {
+     "dari": "Sumatera Selatan",
+     "ton": 524.54,
+     "modalRp": 14162460363,
+     "marjinRp": 2046965614,
+     "imbalHasilPersen": 14.45
+    },
+    {
+     "dari": "Bengkulu",
+     "ton": 117.46,
+     "modalRp": 3382794051,
+     "marjinRp": 263168403,
+     "imbalHasilPersen": 7.78
+    }
+   ],
+   "Minyak Goreng": []
+  }
+ },
+ "pasarPerKomoditas": {
+  "Beras Medium": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Tingkat",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Baru",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    },
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  },
+  "Bawang Merah": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    },
+    {
+     "nama": "Pasar Seketeng",
+     "kabupaten": "SUMBAWA"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Tingkat",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Baru",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    },
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    },
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Poyowa Kecil",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  },
+  "Bawang Putih": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    },
+    {
+     "nama": "Pasar Seketeng",
+     "kabupaten": "SUMBAWA"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Tingkat",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Baru",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    },
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    },
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Poyowa Kecil",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  },
+  "Daging Ayam": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    },
+    {
+     "nama": "Pasar Seketeng",
+     "kabupaten": "SUMBAWA"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    },
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    },
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Poyowa Kecil",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  },
+  "Telur Ayam": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    },
+    {
+     "nama": "Pasar Seketeng",
+     "kabupaten": "SUMBAWA"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Baru",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Tingkat",
+     "kabupaten": "SIKKA"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    },
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    },
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Poyowa Kecil",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  },
+  "Minyak Goreng": {
+   "Aceh": [
+    {
+     "nama": "Pasar Lapang",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Ujong Baro",
+     "kabupaten": "ACEH BARAT"
+    },
+    {
+     "nama": "Pasar Peunayong",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Ulee Kareng",
+     "kabupaten": "KOTA BANDA ACEH"
+    },
+    {
+     "nama": "Pasar Inpres",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    },
+    {
+     "nama": "Pasar Kota Lhokseumawe",
+     "kabupaten": "KOTA LHOKSEUMAWE"
+    }
+   ],
+   "Bali": [
+    {
+     "nama": "Pasar Anyar (Kab. Buleleng)",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Banyuasri",
+     "kabupaten": "BULELENG"
+    },
+    {
+     "nama": "Pasar Badung",
+     "kabupaten": "KOTA DENPASAR"
+    },
+    {
+     "nama": "Pasar Kreneng",
+     "kabupaten": "KOTA DENPASAR"
+    }
+   ],
+   "Banten": [
+    {
+     "nama": "Pasar Kelapa",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Kranggot",
+     "kabupaten": "KOTA CILEGON"
+    },
+    {
+     "nama": "Pasar Rawu",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Royal Lama",
+     "kabupaten": "KOTA SERANG"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Tangerang)",
+     "kabupaten": "KOTA TANGERANG"
+    },
+    {
+     "nama": "Pasar Cileduk",
+     "kabupaten": "KOTA TANGERANG"
+    }
+   ],
+   "Bengkulu": [
+    {
+     "nama": "Pasar Barukoto (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Pagar Dewa",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Panorama",
+     "kabupaten": "KOTA BENGKULU"
+    },
+    {
+     "nama": "Pasar Minggu (Kota Bengkulu)",
+     "kabupaten": "KOTA BENGKULU"
+    }
+   ],
+   "DI Yogyakarta": [
+    {
+     "nama": "Pasar Beringharjo",
+     "kabupaten": "KOTA YOGYAKARTA"
+    },
+    {
+     "nama": "Pasar Kranggan",
+     "kabupaten": "KOTA YOGYAKARTA"
+    }
+   ],
+   "DKI Jakarta": [
+    {
+     "nama": "Pasar Minggu (Kota Jakarta Selatan)",
+     "kabupaten": "KOTA JAKARTA SELATAN"
+    },
+    {
+     "nama": "Pasar Jatinegara",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    },
+    {
+     "nama": "Pasar Kramatjati",
+     "kabupaten": "KOTA JAKARTA TIMUR"
+    }
+   ],
+   "Gorontalo": [
+    {
+     "nama": "Pasar Kayubulan Limboto",
+     "kabupaten": "GORONTALO"
+    },
+    {
+     "nama": "Pasar Liluwo",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Gorontalo)",
+     "kabupaten": "KOTA GORONTALO"
+    },
+    {
+     "nama": "Pasar Tua Biawu",
+     "kabupaten": "KOTA GORONTALO"
+    }
+   ],
+   "Jambi": [
+    {
+     "nama": "Pasar Bungur",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Seroja",
+     "kabupaten": "BUNGO"
+    },
+    {
+     "nama": "Pasar Angso Duo Jambi",
+     "kabupaten": "KOTA JAMBI"
+    },
+    {
+     "nama": "Pasar Talang Banjar Jambi",
+     "kabupaten": "KOTA JAMBI"
+    }
+   ],
+   "Jawa Barat": [
+    {
+     "nama": "Pasar Mundu",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Weru",
+     "kabupaten": "CIREBON"
+    },
+    {
+     "nama": "Pasar Kiara Condong",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kosambi",
+     "kabupaten": "KOTA BANDUNG"
+    },
+    {
+     "nama": "Pasar Kranji",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Pondok Gede (Kota Bekasi)",
+     "kabupaten": "KOTA BEKASI"
+    },
+    {
+     "nama": "Pasar Anyar (Kota Bogor)",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Warung Jambu 2",
+     "kabupaten": "KOTA BOGOR"
+    },
+    {
+     "nama": "Pasar Kanoman",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Kramat",
+     "kabupaten": "KOTA CIREBON"
+    },
+    {
+     "nama": "Pasar Agung",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Cisalak",
+     "kabupaten": "KOTA DEPOK"
+    },
+    {
+     "nama": "Pasar Gudang",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Pelita",
+     "kabupaten": "KOTA SUKABUMI"
+    },
+    {
+     "nama": "Pasar Cikurubuk",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Pancasila",
+     "kabupaten": "KOTA TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Manonjaya",
+     "kabupaten": "TASIKMALAYA"
+    },
+    {
+     "nama": "Pasar Singaparna",
+     "kabupaten": "TASIKMALAYA"
+    }
+   ],
+   "Jawa Tengah": [
+    {
+     "nama": "Pasar Manis",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Wage",
+     "kabupaten": "BANYUMAS"
+    },
+    {
+     "nama": "Pasar Kota Boyolali (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Sunggingan (Kab. Boyolali)",
+     "kabupaten": "BOYOLALI"
+    },
+    {
+     "nama": "Pasar Gede (Kab. Cilacap)",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Sidodadi",
+     "kabupaten": "CILACAP"
+    },
+    {
+     "nama": "Pasar Bejen (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Jungke (Kab. Karanganyar)",
+     "kabupaten": "KARANGANYAR"
+    },
+    {
+     "nama": "Pasar Delanggu",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Klaten Kota",
+     "kabupaten": "KLATEN"
+    },
+    {
+     "nama": "Pasar Johar",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Peterongan",
+     "kabupaten": "KOTA SEMARANG"
+    },
+    {
+     "nama": "Pasar Gede (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Legi (Kota Surakarta)",
+     "kabupaten": "KOTA SURAKARTA"
+    },
+    {
+     "nama": "Pasar Anyar Martoloyo (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Tegal)",
+     "kabupaten": "KOTA TEGAL"
+    },
+    {
+     "nama": "Pasar Bitingan",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Kliwon",
+     "kabupaten": "KUDUS"
+    },
+    {
+     "nama": "Pasar Bunder",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Gemolong",
+     "kabupaten": "SRAGEN"
+    },
+    {
+     "nama": "Pasar Kartasura",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Sukoharjo",
+     "kabupaten": "SUKOHARJO"
+    },
+    {
+     "nama": "Pasar Kota Wonogiri",
+     "kabupaten": "WONOGIRI"
+    },
+    {
+     "nama": "Pasar Ngadirojo",
+     "kabupaten": "WONOGIRI"
+    }
+   ],
+   "Jawa Timur": [
+    {
+     "nama": "Pasar Banyuwangi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Rogojampi",
+     "kabupaten": "BANYUWANGI"
+    },
+    {
+     "nama": "Pasar Kreyongan",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Mangli",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Jember)",
+     "kabupaten": "JEMBER"
+    },
+    {
+     "nama": "Pasar Legi (Kota Blitar)",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pon",
+     "kabupaten": "KOTA BLITAR"
+    },
+    {
+     "nama": "Pasar Pahing",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Setono Betek",
+     "kabupaten": "KOTA KEDIRI"
+    },
+    {
+     "nama": "Pasar Besar (Kota Madiun)",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Sleko",
+     "kabupaten": "KOTA MADIUN"
+    },
+    {
+     "nama": "Pasar Besar (Kota Malang)",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Dinoyo",
+     "kabupaten": "KOTA MALANG"
+    },
+    {
+     "nama": "Pasar Baru (Kota Probolinggo)",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Wonoasih",
+     "kabupaten": "KOTA PROBOLINGGO"
+    },
+    {
+     "nama": "Pasar Tambah Rejo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Wonokromo",
+     "kabupaten": "KOTA SURABAYA"
+    },
+    {
+     "nama": "Pasar Anom",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Bangka",
+     "kabupaten": "SUMENEP"
+    },
+    {
+     "nama": "Pasar Merjosari",
+     "kabupaten": "KOTA MALANG"
+    }
+   ],
+   "Kalimantan Barat": [
+    {
+     "nama": "Pasar Dahlia",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Flamboyan",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Puring",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Teratai",
+     "kabupaten": "KOTA PONTIANAK"
+    },
+    {
+     "nama": "Pasar Beringin",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Kuala Alianyang",
+     "kabupaten": "KOTA SINGKAWANG"
+    },
+    {
+     "nama": "Pasar Junjung Buih",
+     "kabupaten": "SINTANG"
+    },
+    {
+     "nama": "Pasar Masuka",
+     "kabupaten": "SINTANG"
+    }
+   ],
+   "Kalimantan Selatan": [
+    {
+     "nama": "Pasar Antasari",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Lama",
+     "kabupaten": "KOTA BANJARMASIN"
+    },
+    {
+     "nama": "Pasar Kemakmuran",
+     "kabupaten": "KOTA BARU"
+    },
+    {
+     "nama": "Pasar Tanjung (Kab. Tabalong)",
+     "kabupaten": "TABALONG"
+    }
+   ],
+   "Kalimantan Tengah": [
+    {
+     "nama": "Pasar Besar (Kota Palangka Raya)",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kahayan",
+     "kabupaten": "KOTA PALANGKA RAYA"
+    },
+    {
+     "nama": "Pasar Kramat Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Pusat Pembelanjaan Mentaya (ppm)",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    },
+    {
+     "nama": "Pasar Subuh Sampit",
+     "kabupaten": "KOTAWARINGIN TIMUR"
+    }
+   ],
+   "Kalimantan Timur": [
+    {
+     "nama": "Pasar Klandasan",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Pandan Sari",
+     "kabupaten": "KOTA BALIKPAPAN"
+    },
+    {
+     "nama": "Pasar Loktuan",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Rawa Indah",
+     "kabupaten": "KOTA BONTANG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Samarinda)",
+     "kabupaten": "KOTA SAMARINDA"
+    },
+    {
+     "nama": "Pasar Segiri",
+     "kabupaten": "KOTA SAMARINDA"
+    }
+   ],
+   "Kalimantan Utara": [
+    {
+     "nama": "Pasar Agro Politan",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Induk Tj Selor",
+     "kabupaten": "BULUNGAN"
+    },
+    {
+     "nama": "Pasar Gusher",
+     "kabupaten": "KOTA TARAKAN"
+    },
+    {
+     "nama": "Pasar Tenguyun",
+     "kabupaten": "KOTA TARAKAN"
+    }
+   ],
+   "Kepulauan Bangka Belitung": [
+    {
+     "nama": "Pasar Hatta",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Tanjungpandan (Kab. Belitung)",
+     "kabupaten": "BELITUNG"
+    },
+    {
+     "nama": "Pasar Pagi (Kota Pangkal Pinang)",
+     "kabupaten": "KOTA PANGKALPINANG"
+    },
+    {
+     "nama": "Pasar Pembangunan",
+     "kabupaten": "KOTA PANGKALPINANG"
+    }
+   ],
+   "Kepulauan Riau": [
+    {
+     "nama": "Pasar Aviari",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Sagulung",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Tos 3000 Jodoh",
+     "kabupaten": "KOTA BATAM"
+    },
+    {
+     "nama": "Pasar Bintan Centre",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    },
+    {
+     "nama": "Pasar Pelantar Kud",
+     "kabupaten": "KOTA TANJUNGPINANG"
+    }
+   ],
+   "Lampung": [
+    {
+     "nama": "Pasar Smep",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Tugu",
+     "kabupaten": "KOTA BANDAR LAMPUNG"
+    },
+    {
+     "nama": "Pasar Kopindo",
+     "kabupaten": "KOTA METRO"
+    },
+    {
+     "nama": "Pasar Tejo Agung 24",
+     "kabupaten": "KOTA METRO"
+    }
+   ],
+   "Maluku": [
+    {
+     "nama": "Pasar Gotong Royong",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Mardika",
+     "kabupaten": "KOTA AMBON"
+    },
+    {
+     "nama": "Pasar Tual",
+     "kabupaten": "KOTA TUAL"
+    },
+    {
+     "nama": "Pasar Langgur",
+     "kabupaten": "MALUKU TENGGARA"
+    }
+   ],
+   "Maluku Utara": [
+    {
+     "nama": "Pasar Bastiong",
+     "kabupaten": "KOTA TERNATE"
+    },
+    {
+     "nama": "Pasar Gamalama",
+     "kabupaten": "KOTA TERNATE"
+    }
+   ],
+   "Nusa Tenggara Barat": [
+    {
+     "nama": "Pasar Amahami",
+     "kabupaten": "KOTA BIMA"
+    },
+    {
+     "nama": "Pasar Kebon Roek",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Mandalika",
+     "kabupaten": "KOTA MATARAM"
+    },
+    {
+     "nama": "Pasar Aikmel",
+     "kabupaten": "LOMBOK TIMUR"
+    },
+    {
+     "nama": "Pasar Seketeng",
+     "kabupaten": "SUMBAWA"
+    }
+   ],
+   "Nusa Tenggara Timur": [
+    {
+     "nama": "Pasar Inpres Naikoten",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Oeba",
+     "kabupaten": "KOTA KUPANG"
+    },
+    {
+     "nama": "Pasar Alok",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Tingkat",
+     "kabupaten": "SIKKA"
+    },
+    {
+     "nama": "Pasar Baru",
+     "kabupaten": "SUMBA TIMUR"
+    },
+    {
+     "nama": "Pasar Matawai",
+     "kabupaten": "SUMBA TIMUR"
+    }
+   ],
+   "Papua": [
+    {
+     "nama": "Pasar Baru Sentani (Kab. Jayapura)",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Lama Sentani",
+     "kabupaten": "JAYAPURA"
+    },
+    {
+     "nama": "Pasar Entrop Atau Hamadi",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Yotefa Abepura",
+     "kabupaten": "KOTA JAYAPURA"
+    },
+    {
+     "nama": "Pasar Baru (Kab. Merauke)",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Wamanggu",
+     "kabupaten": "MERAUKE"
+    },
+    {
+     "nama": "Pasar Baru Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Lama Timika",
+     "kabupaten": "MIMIKA"
+    },
+    {
+     "nama": "Pasar Baru Wamena",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Potikelek",
+     "kabupaten": "JAYAWIJAYA"
+    },
+    {
+     "nama": "Pasar Kalibobo",
+     "kabupaten": "NABIRE"
+    },
+    {
+     "nama": "Pasar Karang Tumaritis",
+     "kabupaten": "NABIRE"
+    }
+   ],
+   "Papua Barat": [
+    {
+     "nama": "Pasar Boswezen",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Remu",
+     "kabupaten": "KOTA SORONG"
+    },
+    {
+     "nama": "Pasar Sanggeng",
+     "kabupaten": "MANOKWARI"
+    },
+    {
+     "nama": "Pasar Wosi",
+     "kabupaten": "MANOKWARI"
+    }
+   ],
+   "Riau": [
+    {
+     "nama": "Pasar Kayu Jati",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Terapung",
+     "kabupaten": "INDRAGIRI HILIR"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kab. Kampar)",
+     "kabupaten": "KAMPAR"
+    },
+    {
+     "nama": "Pasar Pulau Payung",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Senggol",
+     "kabupaten": "KOTA DUMAI"
+    },
+    {
+     "nama": "Pasar Arengka",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Cik Puan",
+     "kabupaten": "KOTA PEKANBARU"
+    },
+    {
+     "nama": "Pasar Dupa",
+     "kabupaten": "KOTA PEKANBARU"
+    }
+   ],
+   "Sulawesi Barat": [
+    {
+     "nama": "Pasar Baru (regional Mamuju) (Kab. Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Lama (sentral Mamuju)",
+     "kabupaten": "MAMUJU"
+    },
+    {
+     "nama": "Pasar Wonomulyo",
+     "kabupaten": "POLEWALI MANDAR"
+    },
+    {
+     "nama": "Pasar Baru (sentral Majene) (Kab. Majene)",
+     "kabupaten": "MAJENE"
+    }
+   ],
+   "Sulawesi Selatan": [
+    {
+     "nama": "Pasar Bajoe",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bone)",
+     "kabupaten": "BONE"
+    },
+    {
+     "nama": "Pasar Cekkeng",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Sentral (Kab. Bulukumba)",
+     "kabupaten": "BULUKUMBA"
+    },
+    {
+     "nama": "Pasar Daya",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Pabaeng - Baeng",
+     "kabupaten": "KOTA MAKASSAR"
+    },
+    {
+     "nama": "Pasar Andi Tadda",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Sentral (Kota Palopo)",
+     "kabupaten": "KOTA PALOPO"
+    },
+    {
+     "nama": "Pasar Labukkang",
+     "kabupaten": "KOTA PAREPARE"
+    },
+    {
+     "nama": "Pasar Lakessi",
+     "kabupaten": "KOTA PAREPARE"
+    }
+   ],
+   "Sulawesi Tengah": [
+    {
+     "nama": "Pasar Simpong",
+     "kabupaten": "BANGGAI"
+    },
+    {
+     "nama": "Pasar Manonda",
+     "kabupaten": "KOTA PALU"
+    },
+    {
+     "nama": "Pasar Masomba",
+     "kabupaten": "KOTA PALU"
+    }
+   ],
+   "Sulawesi Tenggara": [
+    {
+     "nama": "Pasar Karya Nugraha",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Wameo",
+     "kabupaten": "KOTA BAU-BAU"
+    },
+    {
+     "nama": "Pasar Kota",
+     "kabupaten": "KOTA KENDARI"
+    },
+    {
+     "nama": "Pasar Mandonga",
+     "kabupaten": "KOTA KENDARI"
+    }
+   ],
+   "Sulawesi Utara": [
+    {
+     "nama": "Pasar 23 Maret",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Poyowa Kecil",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    },
+    {
+     "nama": "Pasar Bersehati",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Karombasan",
+     "kabupaten": "KOTA MANADO"
+    },
+    {
+     "nama": "Pasar Serasi",
+     "kabupaten": "KOTA KOTAMOBAGU"
+    }
+   ],
+   "Sumatera Barat": [
+    {
+     "nama": "Pasar Aur Kuning",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Bawah",
+     "kabupaten": "KOTA BUKITTINGGI"
+    },
+    {
+     "nama": "Pasar Raya",
+     "kabupaten": "KOTA PADANG"
+    },
+    {
+     "nama": "Pasar Siteba",
+     "kabupaten": "KOTA PADANG"
+    }
+   ],
+   "Sumatera Selatan": [
+    {
+     "nama": "Pasar Inpres Lubuklinggau",
+     "kabupaten": "KOTA LUBUKLINGGAU"
+    },
+    {
+     "nama": "Pasar Cinde",
+     "kabupaten": "KOTA PALEMBANG"
+    },
+    {
+     "nama": "Pasar Lemabang",
+     "kabupaten": "KOTA PALEMBANG"
+    }
+   ],
+   "Sumatera Utara": [
+    {
+     "nama": "Pasar Beringin Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Nou Gunungsitoli",
+     "kabupaten": "KOTA GUNUNGSITOLI"
+    },
+    {
+     "nama": "Pasar Aksara",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Brayan",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Petisah",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Sukaramai (Kota Medan)",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pusat Pasar",
+     "kabupaten": "KOTA MEDAN"
+    },
+    {
+     "nama": "Pasar Batu",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Sangkumpal Bonang",
+     "kabupaten": "KOTA PADANGSIDIMPUAN"
+    },
+    {
+     "nama": "Pasar Dwikora",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Horas",
+     "kabupaten": "KOTA PEMATANGSIANTAR"
+    },
+    {
+     "nama": "Pasar Aek Habil",
+     "kabupaten": "KOTA SIBOLGA"
+    },
+    {
+     "nama": "Pasar Nauli Sibolga",
+     "kabupaten": "KOTA SIBOLGA"
+    }
+   ]
+  }
+ }
+}

@@ -12,6 +12,15 @@ export const ton = (value: number): string => `${nf(2, 2).format(value)} t`
 export const persen = (value: number, digits = 2): string =>
   `${nf(digits, digits).format(value)}%`
 
+/** Same comma-decimal rendering as `persen`, but with no unit at all —
+ *  not even a bare "%". For values that are already named in words, such as
+ *  "poin persen" (percentage points): appending "%" to a percentage-point
+ *  figure asserts a different, smaller quantity — X percentage points of a
+ *  Y% rise is not the same number as X% of that rise. Use this where the
+ *  unit is stated in prose beside the number, and `persen` only where the
+ *  number is itself a percentage. */
+export const angka = (value: number, digits = 2): string => nf(digits, digits).format(value)
+
 /** Upper bound of the % pasar bar. Every route in the balanced plan falls
  *  between 0,023% and 3,642%; the heuristic this work replaced reached 18,08%
  *  and would run off the end, which is the honest visual impression. */

@@ -18,6 +18,10 @@ export type RedistribusiAnalysis = {
   komoditas: string
   postur: Postur
   status: string
+  /** Bulan yang diramal rencana ini, ISO "YYYY-MM-DD", diteruskan apa adanya
+   *  dari `RedistributionResponse.summary.bulanPrediksi`. Tenggat tindakan
+   *  adalah AWAL bulan ini, bukan akhirnya — lihat `jendelaWaktu` di `./waktu`. */
+  bulanPrediksi: string
   totalRute: number
   totalTon: number
   totalBiaya: number
@@ -29,6 +33,58 @@ export type RedistribusiAnalysis = {
   ringkasan: string
   catatanTakaran: string
   catatanPedagang: string
+  /** Dampak harga dibobot volume, dirata dari seluruh rute. `null` — bukan
+   *  rata-rata dari rute yang diketahui saja — bila SATU SAJA rute dalam
+   *  rencana ini tidak punya data konsumsi pendukung (ditahanPp/fraksiDitahan
+   *  null di sumbernya). Ini menjaga agar figur ini tidak berselisih dengan
+   *  blok fakta Python yang menghilangkan angka dampaknya seluruhnya dalam
+   *  situasi yang sama, alih-alih diam-diam merata-ratakan sisanya.
+   *
+   *  `kenaikanRata` bukan kolom sumber: ia rata-rata dibobot volume dari
+   *  kenaikan yang diprediksi TIAP RUTE, dan setiap rute hanya membawa
+   *  ditahanPp/fraksiDitahan, bukan kenaikan_persen mentah. kebutuhan.py
+   *  mendefinisikan fraksi_ditahan = ditahan_pp / kenaikan_persen persis,
+   *  jadi kenaikan_persen rute itu pulih dengan ditahanPp / fraksiDitahan —
+   *  identitas yang sama, dibaca terbalik. Ini dipakai satu tempat saja:
+   *  restatement "X% lebih rendah dibanding tanpa intervensi" di teks.ts,
+   *  yang butuh kenaikan itu sendiri, bukan fraksinya. */
+  dampak: {
+    ditahanPpRata: number | null
+    fraksiRata: number | null
+    kenaikanRata: number | null
+  }
+}
+
+/**
+ * Rata-rata dibobot tonase.
+ *
+ * Rata-rata baris memberi bobot sama pada rute 5 ton dan rute 500 ton; yang
+ * menekan harga adalah tonasenya. Pembobotan ini juga membuat dua rute menuju
+ * provinsi yang sama — yang membawa ditahanPp identik — tidak menggeser hasil
+ * hanya karena mereka dua baris.
+ *
+ * Rencana kosong (atau bertotal bobot nol) mengembalikan 0, bukan NaN: NaN
+ * lolos setiap pemeriksaan rentang dan muncul di PDF sebagai "NaN%". Ini
+ * berbeda dari null: 0 berarti kami tahu rencana ini tidak menahan apa-apa,
+ * null berarti kami tidak tahu.
+ *
+ * Mengembalikan `null` bila SATU SAJA rute dalam seleksi ini punya nilai null
+ * untuk kolom yang diambil — bukan rata-rata dari rute yang diketahui saja.
+ * Nilai null berasal dari provinsi tujuan tanpa data konsumsi pendukung, dan
+ * blok fakta Python yang memberi angka ini ke laporan sudah membuat pilihan
+ * yang sama: ia menghilangkan seluruh figur dampaknya, bukan diam-diam
+ * merata-ratakan sisa rute yang datanya ada. Dua lapisan yang menampilkan
+ * angka dari sumber yang sama tidak boleh berselisih pendapat soal apa arti
+ * "tidak diketahui".
+ */
+export function rataBobotVolume<T extends { volumeTon: number }>(
+  rute: T[],
+  ambil: (r: T) => number | null,
+): number | null {
+  const total = rute.reduce((s, r) => s + r.volumeTon, 0)
+  if (total <= 0) return 0
+  if (rute.some((r) => ambil(r) === null)) return null
+  return rute.reduce((s, r) => s + (ambil(r) as number) * r.volumeTon, 0) / total
 }
 
 export function analyzeRedistribusi(
@@ -72,10 +128,25 @@ export function analyzeRedistribusi(
     `Tanda selisih harganya sendiri bersifat bawaan: pemecah rute hanya menarik jalur dari provinsi berharga di bawah median nasional ke provinsi di atasnya, ` +
     `sehingga selisih positif sudah pasti ada sejak awal. Yang benar-benar diuji di sini adalah besar selisih itu terhadap ongkos angkut.`
 
+  const dampak = {
+    ditahanPpRata: rataBobotVolume(routes, (r) => r.ditahanPp),
+    fraksiRata: rataBobotVolume(routes, (r) => r.fraksiDitahan),
+    // kenaikan_persen rute ini, dipulihkan dari ditahanPp / fraksiDitahan
+    // (lihat komentar tipe dampak di atas). fraksiDitahan nol membuat
+    // pembagian ini tidak terdefinisi, bukan nol — diperlakukan sebagai
+    // tidak diketahui, sama seperti ditahanPp/fraksiDitahan null sendiri.
+    kenaikanRata: rataBobotVolume(routes, (r) =>
+      r.ditahanPp === null || r.fraksiDitahan === null || r.fraksiDitahan === 0
+        ? null
+        : r.ditahanPp / r.fraksiDitahan,
+    ),
+  }
+
   return {
     komoditas,
     postur,
     status,
+    bulanPrediksi: data.summary.bulanPrediksi,
     totalRute: routes.length,
     totalTon,
     totalBiaya: data.summary.estimatedCost,
@@ -87,5 +158,6 @@ export function analyzeRedistribusi(
     ringkasan,
     catatanTakaran,
     catatanPedagang,
+    dampak,
   }
 }

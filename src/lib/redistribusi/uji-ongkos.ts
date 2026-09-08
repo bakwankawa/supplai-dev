@@ -1,0 +1,47 @@
+import type { StrukturOngkos } from "@/lib/types"
+
+/** Rute SATU KOMODITAS yang berubah antara dua struktur ongkos LP, dihitung
+ *  dari daftar rute `[komoditas, dari, ke]` yang SUDAH ada di
+ *  `uji_ongkos.json` (`StrukturOngkos.rute`) -- ini TIDAK menjalankan ulang
+ *  LP apa pun, hanya menyaring dan membandingkan himpunan yang sudah
+ *  dihitung `bench_ongkos.py`.
+ *
+ *  ALASAN FUNGSI INI ADA: `uji_ongkos.json` sendiri hanya membawa
+ *  `ruteBerubah` sebagai satu angka AGREGAT lintas enam komoditas (selisih
+ *  simetris atas gabungan seluruh rute). Angka gabungan itu terbukti
+ *  menyesatkan per komoditas -- pada data rilis ini, agregat melaporkan
+ *  22/36 (61%) rute berubah, padahal Bawang Putih sendirian menunjukkan
+ *  0/10 (0%) dan komoditas lain menunjukkan proporsi yang berbeda lagi.
+ *  Seorang pembaca dengan laporan Bawang Putih yang melihat 61% sedang
+ *  melihat angka yang bukan tentang komoditasnya, dan salah untuk
+ *  komoditasnya seburuk-buruknya cara sebuah angka bisa salah. Fungsi ini
+ *  menghitung ULANG selisih itu, disaring ke SATU komoditas, dari data
+ *  mentah yang sama -- bukan mengambil pecahan dari angka agregat, yang
+ *  tidak akan pernah benar secara aljabar (selisih simetris tidak
+ *  terdistribusi linear atas gabungan himpunan).
+ *
+ *  Mengembalikan `null` bila komoditas ini tidak muncul di `jarak.rute` sama
+ *  sekali -- yaitu tidak diuji pada struktur "jarak" (lihat
+ *  `UjiOngkos.degenerasiTetapDetail[komoditas]` untuk alasannya, mis. "tidak
+ *  ada pasangan surplus-defisit") -- BUKAN 0 rute berubah dari 0 rute total,
+ *  yang akan terbaca seolah komoditas ini diuji dan hasilnya nol. */
+export function ruteBerubahKomoditas(
+  jarak: Pick<StrukturOngkos, "rute">,
+  pembanding: Pick<StrukturOngkos, "rute">,
+  komoditas: string,
+): { ruteBerubah: number; nRuteJarak: number } | null {
+  const kunci = (r: string[]) => JSON.stringify(r)
+  const jarakSet = new Set(
+    jarak.rute.filter((r) => r[0] === komoditas).map(kunci),
+  )
+  if (jarakSet.size === 0) return null
+
+  const pembandingSet = new Set(
+    pembanding.rute.filter((r) => r[0] === komoditas).map(kunci),
+  )
+  let berubah = 0
+  for (const k of jarakSet) if (!pembandingSet.has(k)) berubah++
+  for (const k of pembandingSet) if (!jarakSet.has(k)) berubah++
+
+  return { ruteBerubah: berubah, nRuteJarak: jarakSet.size }
+}

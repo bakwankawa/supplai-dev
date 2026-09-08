@@ -163,9 +163,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Match",
     "SupplAI Match"
   ],
-  "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
-    "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
-    "Analyzes price movements and supply availability to recommend allocations from surplus to deficit regions."
+  "Menganalisis perubahan harga untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
+    "Menganalisis perubahan harga untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
+    "Analyzes price movements to recommend allocations from surplus to deficit regions."
   ],
   "Optimasi Jalur Distribusi": [
     "Optimasi Jalur Distribusi",
@@ -391,13 +391,13 @@ export const translations: Record<string, readonly [string, string]> = {
     "Kalimantan Utara (1,30% Pasar Bulanan)",
     "North Kalimantan (1.30% of Monthly Market)"
   ],
-  "Optimized Cost:": [
-    "Efisiensi Biaya:",
-    "Cost Efficiency:"
+  "Expected Margin:": [
+    "Marjin Harapan:",
+    "Expected Margin:"
   ],
-  "Estimasi Hemat ~Rp48,7 Juta": [
-    "Estimasi Hemat ~Rp48,7 Juta",
-    "Estimated Savings ~Rp48.7 Million"
+  "Marjin Harapan ~Rp48,7 Juta": [
+    "Marjin Harapan ~Rp48,7 Juta",
+    "Expected Margin ~Rp48.7 Million"
   ],
   "Status: Route Computed": [
     "Status: Rute Tersedia",

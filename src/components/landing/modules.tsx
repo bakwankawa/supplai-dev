@@ -41,7 +41,7 @@ const modulesData = [
     step: "PROSES",
     stepLabel: "AI & Matchmaking Engine",
     title: "SupplAi Match",
-    description: "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
+    description: "Menganalisis perubahan harga untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
     icon: Zap,
     imageBg: "from-teal-500/10 to-brand-primary/5",
     mockupContent: (

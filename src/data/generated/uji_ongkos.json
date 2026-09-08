@@ -1,0 +1,621 @@
+{
+ "komoditas": [
+  "Bawang Merah",
+  "Bawang Putih",
+  "Beras Medium",
+  "Daging Ayam",
+  "Minyak Goreng",
+  "Telur Ayam"
+ ],
+ "struktur": {
+  "jarak": {
+   "totalTon": 1025.74,
+   "nRute": 36,
+   "rute": [
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "DKI Jakarta"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Gorontalo"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Nusa Tenggara Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Papua Barat"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Sulawesi Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kepulauan Riau",
+     "DKI Jakarta"
+    ],
+    [
+     "Beras Medium",
+     "Sulawesi Barat",
+     "Kalimantan Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Timur"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Sulawesi Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Sumatera Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Lampung",
+     "Bengkulu"
+    ],
+    [
+     "Daging Ayam",
+     "Lampung",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Bali"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Nusa Tenggara Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Bali",
+     "Maluku"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Sumatera Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Sumatera Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Tengah"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Timur"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kepulauan Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Maluku"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Papua Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sulawesi Tenggara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sumatera Utara"
+    ]
+   ],
+   "totalOngkos": 2242657775,
+   "tonKeSepertigaBawah": 85.77,
+   "persenKeSepertigaBawah": 8.36,
+   "ongkosTetapTerkalibrasi": 2186372.64
+  },
+  "tetap": {
+   "totalTon": 1025.74,
+   "nRute": 36,
+   "rute": [
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "DKI Jakarta"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Gorontalo"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Nusa Tenggara Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Papua Barat"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Sulawesi Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kepulauan Riau",
+     "DKI Jakarta"
+    ],
+    [
+     "Beras Medium",
+     "Sumatera Utara",
+     "Kalimantan Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Timur"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Sumatera Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Bali"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Nusa Tenggara Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Sulawesi Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Lampung",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Bali"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Bengkulu"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Telur Ayam",
+     "Bali",
+     "Kalimantan Tengah"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Papua Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Sumatera Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Tengah"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Timur"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kepulauan Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Maluku"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sulawesi Tenggara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sumatera Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sumatera Utara"
+    ]
+   ],
+   "totalOngkos": 2242657775,
+   "tonKeSepertigaBawah": 85.77,
+   "persenKeSepertigaBawah": 8.36,
+   "ongkosTetapTerkalibrasi": 2186372.64
+  },
+  "tetapPlusJarak": {
+   "totalTon": 1025.74,
+   "nRute": 36,
+   "rute": [
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "DKI Jakarta"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Gorontalo"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Kalimantan Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Maluku Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Nusa Tenggara Timur"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Papua Barat"
+    ],
+    [
+     "Bawang Putih",
+     "Kalimantan Barat",
+     "Sulawesi Utara"
+    ],
+    [
+     "Bawang Putih",
+     "Kepulauan Riau",
+     "DKI Jakarta"
+    ],
+    [
+     "Beras Medium",
+     "Sulawesi Barat",
+     "Kalimantan Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Kalimantan Timur"
+    ],
+    [
+     "Daging Ayam",
+     "Gorontalo",
+     "Sulawesi Utara"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Kalimantan Barat",
+     "Sumatera Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Lampung",
+     "Bengkulu"
+    ],
+    [
+     "Daging Ayam",
+     "Lampung",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Barat",
+     "Kalimantan Selatan"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Bali"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Jawa Barat"
+    ],
+    [
+     "Daging Ayam",
+     "Sulawesi Tenggara",
+     "Nusa Tenggara Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Bali",
+     "Maluku"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Sumatera Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Bengkulu",
+     "Sumatera Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Tengah"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Timur"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kalimantan Utara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Kepulauan Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Maluku"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Papua Barat"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Riau"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sulawesi Tenggara"
+    ],
+    [
+     "Telur Ayam",
+     "Sumatera Selatan",
+     "Sumatera Utara"
+    ]
+   ],
+   "totalOngkos": 4485315550,
+   "tonKeSepertigaBawah": 85.77,
+   "persenKeSepertigaBawah": 8.36,
+   "ongkosTetapTerkalibrasi": 2186372.64
+  }
+ },
+ "ruteBerubah": 22,
+ "ongkosTetapTerkalibrasi": 2186372.64,
+ "degenerasiTetapDetail": {
+  "Bawang Merah": {
+   "diuji": false,
+   "alasan": "tidak ada pasangan surplus-defisit"
+  },
+  "Bawang Putih": {
+   "diuji": true,
+   "nUlang": 6,
+   "nHimpunanUnik": 6,
+   "stabil": false
+  },
+  "Beras Medium": {
+   "diuji": true,
+   "nUlang": 6,
+   "nHimpunanUnik": 6,
+   "stabil": false
+  },
+  "Daging Ayam": {
+   "diuji": true,
+   "nUlang": 6,
+   "nHimpunanUnik": 6,
+   "stabil": false
+  },
+  "Minyak Goreng": {
+   "diuji": false,
+   "alasan": "tidak ada pasangan surplus-defisit"
+  },
+  "Telur Ayam": {
+   "diuji": true,
+   "nUlang": 6,
+   "nHimpunanUnik": 5,
+   "stabil": false
+  }
+ },
+ "keterbatasan": "Eksperimen ini hanya bisa mengatakan sesuatu tentang MODEL ini, bukan tentang logistik pangan Indonesia: di dalam LP ini, jarak per km adalah satu-satunya hal yang membedakan satu rute dari rute lain, karena ia satu-satunya suku ongkos yang berubah per rute. Menghapusnya menghapus satu-satunya kriteria yang pernah dimiliki solver untuk memilih; menambahkan ongkos tetap per ton DI ATAS jarak tidak menggeser rencananya sama sekali. Eksperimen ini TIDAK BISA membedakan antara 'jarak memang tidak penting secara ekonomi' dan 'yang kami modelkan cuma jarak' -- tidak ada suku ongkos bongkar-muat, kemacetan pelabuhan, birokrasi, atau nilai-waktu-kesegaran di dalam vektor ongkos untuk dimatikan dan dibandingkan. Mengklaim yang pertama atas bukti ini adalah persis jenis klaim berlebih yang ingin dihindari produk ini.",
+ "persenBawahJarak": 8.36,
+ "persenBawahTetap": 8.36
+}

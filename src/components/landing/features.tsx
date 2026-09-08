@@ -217,8 +217,8 @@ const featuresData = [
                         <span><LandingText text="Kalimantan Utara (1,30% Pasar Bulanan)" /></span>
                     </div>
                     <div className="p-3 bg-brand-primary/5 border border-brand-primary/20 rounded-lg flex flex-wrap justify-between items-center gap-1 text-brand-accentDark font-bold">
-                        <span><LandingText text="Optimized Cost:" /></span>
-                        <span><LandingText text="Estimasi Hemat ~Rp48,7 Juta" /></span>
+                        <span><LandingText text="Expected Margin:" /></span>
+                        <span><LandingText text="Marjin Harapan ~Rp48,7 Juta" /></span>
                     </div>
                 </div>
                 <div className="pt-2 border-t border-brand-border flex flex-wrap justify-between items-center gap-1 text-[10px]">

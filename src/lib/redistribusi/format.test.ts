@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ton, persen, SKALA_PERSEN_PASAR, takaranLabel } from "./format";
+import { ton, persen, angka, SKALA_PERSEN_PASAR, takaranLabel } from "./format";
 
 describe("Indonesian number formatting", () => {
   it("uses a comma for decimals, not a dot", () => {
@@ -7,6 +7,15 @@ describe("Indonesian number formatting", () => {
     // is one thousand two hundred ninety-eight, not 1.298.
     expect(ton(57.41)).toBe("57,41 t");
     expect(persen(1.298)).toBe("1,30%");
+  });
+
+  it("angka renders the same decimal as persen but carries no unit", () => {
+    // Percentage points and percent are different quantities on the same
+    // number: appending "%" to a percentage-point figure asserts something
+    // smaller than intended, so the unitless renderer must not emit one.
+    expect(angka(1.298)).toBe("1,30");
+    expect(angka(1.298)).not.toContain("%");
+    expect(angka(57.41)).toBe(persen(57.41).replace("%", ""));
   });
 
   it("uses a dot for thousands", () => {

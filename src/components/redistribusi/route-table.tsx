@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import type { RedistributionRoute, Postur } from "@/lib/types"
 import { formatRupiah, formatNumber } from "@/lib/format"
 import { jelaskanStatus } from "@/lib/redistribusi/status"
-import { ton, persen, SKALA_PERSEN_PASAR, takaranLabel } from "@/lib/redistribusi/format"
+import { ton, persen, angka, SKALA_PERSEN_PASAR, takaranLabel } from "@/lib/redistribusi/format"
 import { ChevronsUpDown } from "lucide-react";
 
 /** No "distance": the distance is a sub-line of the Biaya cell now, not a
@@ -147,6 +147,12 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
                 <ChevronsUpDown className={`w-3 h-3 ${sortKey === "persenPasar" ? "text-[#006c4a]" : "text-slate-300"}`} />
               </div>
             </TableHead>
+            <TableHead
+              className="text-right font-bold text-slate-700 py-3 whitespace-nowrap"
+              title="Poin persen dari kenaikan harga yang diprediksi, yang ditahan rute ini di provinsi tujuan. 'Tidak diketahui' berarti provinsi tujuan tidak punya data konsumsi pendukung untuk menghitungnya — bukan nol."
+            >
+              Menekan harga
+            </TableHead>
             <TableHead className="font-bold text-slate-700 py-3 whitespace-nowrap">Dasar takaran</TableHead>
             <TableHead
               onClick={() => toggleSort("kecukupanPersen")}
@@ -197,6 +203,23 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
                     {persen(route.persenPasar)}
                   </span>
                 </div>
+              </TableCell>
+              <TableCell className="text-right tabular-nums">
+                {route.ditahanPp === null ? (
+                  <span
+                    className="text-[11px] font-medium italic text-slate-400"
+                    title="Provinsi tujuan tidak punya data konsumsi pendukung, sehingga penekanan harga rute ini tidak diketahui — bukan nol."
+                  >
+                    tidak diketahui
+                  </span>
+                ) : (
+                  <>
+                    <div className="font-bold text-slate-700">{angka(route.ditahanPp)} pp</div>
+                    <span className="block text-[10px] text-slate-400">
+                      {route.dasarTakaran === "terukur" ? "terukur" : "diasumsikan"}
+                    </span>
+                  </>
+                )}
               </TableCell>
               <TableCell>
                 <Badge

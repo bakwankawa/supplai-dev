@@ -1,0 +1,247 @@
+{
+ "label": {
+  "bawah": "Sepertiga terbawah IKP Bapanas 2025",
+  "tengah": "Sepertiga tengah IKP Bapanas 2025",
+  "atas": "Sepertiga teratas IKP Bapanas 2025"
+ },
+ "provinsi": [
+  {
+   "provinsi": "Kalimantan Selatan",
+   "ikp": 81.98,
+   "peringkat": 1,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Kalimantan Timur",
+   "ikp": 80.82,
+   "peringkat": 2,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Bali",
+   "ikp": 79.89,
+   "peringkat": 3,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Sumatera Selatan",
+   "ikp": 79.31,
+   "peringkat": 4,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Kepulauan Bangka Belitung",
+   "ikp": 78.2,
+   "peringkat": 5,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Banten",
+   "ikp": 77.78,
+   "peringkat": 6,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Sumatera Barat",
+   "ikp": 77.72,
+   "peringkat": 7,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "DI Yogyakarta",
+   "ikp": 77.44,
+   "peringkat": 8,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Jambi",
+   "ikp": 76.16,
+   "peringkat": 9,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Jawa Barat",
+   "ikp": 74.95,
+   "peringkat": 10,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Nusa Tenggara Barat",
+   "ikp": 74.7,
+   "peringkat": 11,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Sulawesi Selatan",
+   "ikp": 74.3,
+   "peringkat": 12,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Jawa Tengah",
+   "ikp": 73.73,
+   "peringkat": 13,
+   "kelompok": "atas"
+  },
+  {
+   "provinsi": "Kalimantan Tengah",
+   "ikp": 73.62,
+   "peringkat": 14,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Lampung",
+   "ikp": 73.06,
+   "peringkat": 15,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Jawa Timur",
+   "ikp": 72.67,
+   "peringkat": 16,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Kalimantan Utara",
+   "ikp": 72.56,
+   "peringkat": 17,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Sulawesi Utara",
+   "ikp": 72.49,
+   "peringkat": 18,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Kepulauan Riau",
+   "ikp": 71.96,
+   "peringkat": 19,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "DKI Jakarta",
+   "ikp": 71.52,
+   "peringkat": 20,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Kalimantan Barat",
+   "ikp": 71.52,
+   "peringkat": 21,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Sumatera Utara",
+   "ikp": 71.47,
+   "peringkat": 22,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Riau",
+   "ikp": 70.42,
+   "peringkat": 23,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Sulawesi Tengah",
+   "ikp": 70.4,
+   "peringkat": 24,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Aceh",
+   "ikp": 70.0,
+   "peringkat": 25,
+   "kelompok": "tengah"
+  },
+  {
+   "provinsi": "Bengkulu",
+   "ikp": 69.89,
+   "peringkat": 26,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Gorontalo",
+   "ikp": 69.75,
+   "peringkat": 27,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Sulawesi Tenggara",
+   "ikp": 67.56,
+   "peringkat": 28,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Sulawesi Barat",
+   "ikp": 67.08,
+   "peringkat": 29,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua Barat",
+   "ikp": 58.61,
+   "peringkat": 30,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Maluku Utara",
+   "ikp": 58.27,
+   "peringkat": 31,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Nusa Tenggara Timur",
+   "ikp": 58.24,
+   "peringkat": 32,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua",
+   "ikp": 57.45,
+   "peringkat": 33,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Maluku",
+   "ikp": 57.18,
+   "peringkat": 34,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua Barat Daya",
+   "ikp": 57.15,
+   "peringkat": 35,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua Selatan",
+   "ikp": 53.96,
+   "peringkat": 36,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua Tengah",
+   "ikp": 41.61,
+   "peringkat": 37,
+   "kelompok": "bawah"
+  },
+  {
+   "provinsi": "Papua Pegunungan",
+   "ikp": 31.96,
+   "peringkat": 38,
+   "kelompok": "bawah"
+  }
+ ],
+ "cakupan": {
+  "cocok": 34,
+  "ikpTanpaHarga": [
+   "Papua Barat Daya",
+   "Papua Pegunungan",
+   "Papua Selatan",
+   "Papua Tengah"
+  ],
+  "hargaTanpaIkp": []
+ }
+}
