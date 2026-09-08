@@ -575,8 +575,9 @@ def build_muatan_balik() -> dict:
     simpul (hub) yang menerima sekaligus mengirim — batasnya sama dengan
     modul sumbernya (supplai/muatan_balik.py): ini rute PENGIRIMAN yang
     dipasangkan, bukan kapal; ia tidak mengaku tahu kapal mana yang pulang
-    kosong. `or_none()` menahan setiap total yang bisa NaN (seluruh baris
-    yang ADA tapi volumenya tak diketahui) dari terbaca sebagai nol.
+    kosong. `or_none()` menahan setiap field yang bisa NaN — termasuk
+    `rantai[].tonDirantai`, yang bisa NaN bila `total_max` di
+    `muatan_balik.rantai()` sendiri tak diketahui — dari terbaca sebagai nol.
     """
     _ensure_supplai_importable()
     from supplai import muatan_balik as mb
@@ -603,7 +604,7 @@ def build_muatan_balik() -> dict:
                 {"hub": row.hub, "dari": row.dari, "ke": row.ke,
                  "komoditasMasuk": row.komoditas_masuk,
                  "komoditasKeluar": row.komoditas_keluar,
-                 "tonDirantai": round(float(row.ton_dirantai), 2)}
+                 "tonDirantai": or_none(row.ton_dirantai, 2)}
                 for row in rantai_df.itertuples()
             ],
         }

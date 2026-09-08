@@ -200,7 +200,10 @@ export interface RantaiBaris {
   ke: string
   komoditasMasuk: string
   komoditasKeluar: string
-  tonDirantai: number
+  /** `null` bila sisi masuk atau keluar hub ini sama sekali tidak diketahui
+   *  (`total_max` di `muatan_balik.rantai()` NaN) — tidak diketahui, bukan
+   *  nol. */
+  tonDirantai: number | null
 }
 
 /** Diagnosis muatan balik untuk satu postur: bentuk rute yang benar-benar ada
