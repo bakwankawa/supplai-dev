@@ -60,17 +60,17 @@ export function KesenjanganPanel({ routes, loading }: KesenjanganPanelProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-[11px] font-medium text-slate-500 leading-relaxed">{utama}</p>
+      <p className="text-sm font-medium leading-6 text-slate-600">{utama}</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
         {sebaran.kelompok.map((k) => (
           <div key={k.kelompok} className="rounded-xl border border-slate-100 bg-slate-50 p-3 space-y-1">
-            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
+            <span className="text-xs font-bold uppercase tracking-wide text-slate-500">
               {LABEL_KELOMPOK[k.kelompok]}
             </span>
             <p className="text-base font-black text-slate-800 tracking-tight">{ton(k.ton)}</p>
-            <p className="text-xs font-bold text-[#006c4a]">{persen(k.persen)} dari total rencana</p>
-            <p className="text-[10px] text-slate-400">{k.nProvinsi} provinsi tujuan</p>
+            <p className="text-sm font-bold text-[#006c4a]">{persen(k.persen)} dari total rencana</p>
+            <p className="text-xs text-slate-500">{k.nProvinsi} provinsi tujuan</p>
           </div>
         ))}
       </div>
@@ -80,13 +80,13 @@ export function KesenjanganPanel({ routes, loading }: KesenjanganPanelProps) {
        *  batas jangkauan model, senormal ketiga kartu di atasnya, bukan
        *  catatan kaki abu-abu seperti kalimat kondisional lain di bawahnya. */}
       {jangkauanModel && (
-        <p className="text-[11px] font-semibold text-slate-700 leading-relaxed bg-amber-50 border border-amber-100 rounded-xl p-3">
+        <p className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm font-semibold leading-6 text-slate-700">
           {jangkauanModel}
         </p>
       )}
 
       {sisanya.map((kalimat, idx) => (
-        <p key={idx} className="text-[10px] text-slate-400 leading-relaxed">
+        <p key={idx} className="text-xs leading-5 text-slate-500">
           {kalimat}
         </p>
       ))}

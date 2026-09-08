@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { HeatmapResponse } from "@/lib/types";
 import { commodities } from "@/data/commodities";
@@ -12,7 +12,7 @@ import { ElasticDatePicker } from "@/components/layout/elastic-date-picker";
 import { NationalHeatmap } from "@/components/heatmap/national-heatmap";
 import { ALL_PROVINCES } from "@/data/province-groups";
 import { Button } from "@/components/ui/button";
-import { MapPin, SlidersHorizontal, Info, ChevronDown, Search, Check } from "lucide-react";
+import { MapPin, SlidersHorizontal, Info, ChevronDown, Search, Check, LayoutGrid, Map } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -38,9 +38,27 @@ const itemVariants = {
   },
 } as const;
 
+const viewPanelVariants = {
+  hidden: { opacity: 0, y: 16, scale: 0.98 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 120, damping: 15 },
+  },
+  exit: {
+    opacity: 0,
+    y: -10,
+    scale: 0.99,
+    transition: { duration: 0.16, ease: "easeOut" },
+  },
+} as const;
+
 export default function HeatmapPage() {
+  const reducedMotion = useReducedMotion();
   const [commodity, setCommodity] = useState("beras");
   const [range, setRange] = useState(12);
+  const [view, setView] = useState<"heatmap" | "map">("heatmap");
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
 
   // ================= STATE CUSTOM SEARCHABLE DROPDOWN =================
@@ -94,6 +112,19 @@ export default function HeatmapPage() {
     return commodities.find((c) => c.id === commodity)?.name ?? "Pilih Komoditas";
   }, [commodity]);
 
+  const filteredTopCritical = useMemo(
+    () => (data?.topCritical ?? []).filter((item) => appliedCities.includes(item.region)).slice(0, 5),
+    [data, appliedCities]
+  );
+
+  const insight = useMemo(() => {
+    if (loading) return "Insight sedang disusun berdasarkan filter yang dipilih.";
+    if (filteredTopCritical.length === 0) return `Belum ada wilayah kritis untuk ${selectedCommodityLabel} pada cakupan yang dipilih.`;
+    const highest = filteredTopCritical[0];
+    const average = filteredTopCritical.reduce((total, item) => total + item.change, 0) / filteredTopCritical.length;
+    return `${highest.region} mencatat proyeksi kenaikan tertinggi untuk ${selectedCommodityLabel}, yaitu ${highest.change.toFixed(1)}%. Rata-rata kenaikan pada ${filteredTopCritical.length} wilayah prioritas mencapai ${average.toFixed(1)}%. Data ini dapat digunakan untuk memprioritaskan verifikasi pasokan dan koordinasi distribusi.`;
+  }, [filteredTopCritical, loading, selectedCommodityLabel]);
+
   return (
     <motion.div
       variants={containerVariants}
@@ -102,8 +133,8 @@ export default function HeatmapPage() {
       className="space-y-6 max-w-[1600px] mx-auto font-sans pb-12 text-slate-800"
     >
 
-      {/* ================= ROW 1: CONTROLS & HEADER ================= */}
-      <motion.div variants={itemVariants} className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 border-b border-slate-200/60 pb-4">
+      {/* ================= ROW 1: PAGE HEADER ================= */}
+      <motion.div variants={itemVariants} className="border-b border-slate-200/60 pb-4">
         <div>
           <h1 className="text-3xl font-extrabold text-[#065F46] tracking-tight">Heatmap Prediksi Harga per Wilayah</h1>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
@@ -111,7 +142,18 @@ export default function HeatmapPage() {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto">
+      </motion.div>
+
+      {/* ================= ROW 2: SHARED HEATMAP FILTERS ================= */}
+      <motion.div variants={itemVariants} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-xs">
+        <div className="mb-5 flex items-center gap-2 border-b border-slate-100 pb-4 font-mono text-xs font-bold uppercase tracking-wider text-slate-400">
+          <SlidersHorizontal className="h-4 w-4 text-[#006c4a]" />
+          Pengaturan Heatmap
+        </div>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+        <div className="flex flex-wrap items-end gap-4">
+        <div className="space-y-1.5">
+          <label className="block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-400">Komoditas Strategis</label>
 
           {/* ================= SEARCHABLE COMMODITY DROPDOWN ================= */}
           <div className="relative min-w-[200px]" ref={dropdownRef}>
@@ -120,7 +162,7 @@ export default function HeatmapPage() {
               aria-label="Pilih komoditas heatmap"
               aria-expanded={isCommodityOpen}
               onClick={() => setIsCommodityOpen(!isCommodityOpen)}
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-[#065F46] outline-none flex items-center justify-between cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-sm font-bold text-slate-700 outline-none flex items-center justify-between cursor-pointer focus:border-[#006c4a] focus:ring-2 focus:ring-emerald-50 shadow-xs h-10 transition-all"
             >
               <span className="truncate">{selectedCommodityLabel}</span>
               <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isCommodityOpen ? "rotate-180" : ""}`} />
@@ -133,7 +175,7 @@ export default function HeatmapPage() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 6, scale: 0.98 }}
                   transition={{ duration: 0.12 }}
-                  className="absolute right-0 mt-1.5 w-60 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-2 text-slate-800 overflow-hidden"
+                  className="absolute left-0 mt-1.5 w-60 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 p-2 text-slate-800 overflow-hidden"
                 >
                   {/* SEARCH INPUT FIELD */}
                   <div className="relative mb-1.5">
@@ -149,7 +191,7 @@ export default function HeatmapPage() {
                   </div>
 
                   {/* LIST COMMODITIES */}
-                  <div className="max-h-48 overflow-y-auto space-y-0.5">
+                  <div className="max-h-48 overflow-y-auto space-y-0.5 [scrollbar-width:thin] [scrollbar-color:#cbd5e1_transparent]">
                     {filteredCommodities.length === 0 ? (
                       <div className="p-3 text-center text-xs text-slate-400 font-medium">
                         Komoditas tidak ditemukan
@@ -183,7 +225,36 @@ export default function HeatmapPage() {
             </AnimatePresence>
           </div>
 
+        </div>
+        <div className="space-y-1.5 [&>div]:border-slate-200 [&>div]:bg-slate-50">
+          <label className="block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-400">Periode Analisis</label>
           <ElasticDatePicker onRangeChange={(days) => setRange(days)} />
+        </div>
+        <div className="space-y-1.5">
+          <label className="block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-400">Cakupan Wilayah</label>
+          <Button
+            onClick={() => setIsFilterModalOpen(true)}
+            variant="outline"
+            className="flex h-10 items-center gap-2 border-slate-200 bg-slate-50 px-3 text-xs font-bold text-slate-700 shadow-xs hover:bg-slate-100"
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5 text-slate-500" />
+            <span>Filter wilayah ({appliedCities.length})</span>
+          </Button>
+        </div>
+        </div>
+        <div className="space-y-1.5">
+          <span className="block font-mono text-[11px] font-bold uppercase tracking-wider text-slate-400">Tampilan Data</span>
+          <div role="group" aria-label="Pilih tampilan heatmap" className="flex h-10 overflow-hidden rounded-lg border border-slate-200 bg-slate-50 p-0.5 shadow-xs">
+            <motion.button type="button" aria-pressed={view === "heatmap"} onClick={() => setView("heatmap")} whileTap={reducedMotion ? undefined : { scale: 0.97 }} className={`relative flex items-center gap-2 rounded-md px-3 text-xs font-bold transition-colors ${view === "heatmap" ? "text-[#006c4a]" : "text-slate-500 hover:text-slate-800"}`}>
+              {view === "heatmap" && <motion.span layoutId="heatmap-view-active" className="absolute inset-0 rounded-md bg-emerald-50 shadow-xs" transition={{ type: "spring", stiffness: 360, damping: 30 }} />}
+              <LayoutGrid className="relative h-4 w-4" /><span className="relative">Heatmap</span>
+            </motion.button>
+            <motion.button type="button" aria-pressed={view === "map"} onClick={() => setView("map")} whileTap={reducedMotion ? undefined : { scale: 0.97 }} className={`relative flex items-center gap-2 rounded-md px-3 text-xs font-bold transition-colors ${view === "map" ? "text-[#006c4a]" : "text-slate-500 hover:text-slate-800"}`}>
+              {view === "map" && <motion.span layoutId="heatmap-view-active" className="absolute inset-0 rounded-md bg-emerald-50 shadow-xs" transition={{ type: "spring", stiffness: 360, damping: 30 }} />}
+              <Map className="relative h-4 w-4" /><span className="relative">Peta Nasional</span>
+            </motion.button>
+          </div>
+        </div>
         </div>
       </motion.div>
 
@@ -211,30 +282,20 @@ export default function HeatmapPage() {
         </motion.div>
       )}
 
-      {/* ================= ROW 2: PETA NASIONAL ================= */}
-      <motion.div variants={itemVariants} className="border border-slate-200 bg-white rounded-2xl p-2 shadow-xs">
-        <NationalHeatmap selectedCommodity={commodity} />
-      </motion.div>
-
-      {/* ================= ROW 3: MATRIKS, DIIKUTI WILAYAH KRITIS ================= */}
-      <div className="flex flex-col gap-6">
-
-        {/* HEATMAP PRICE MATRIX (8 COLS) */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs min-w-0 overflow-hidden">
+      {/* ================= ROW 3: SELECTED DATA VIEW ================= */}
+      <AnimatePresence mode="wait" initial={false}>
+      {view === "map" ? (
+        <motion.div key="national-map" variants={viewPanelVariants} initial={reducedMotion ? false : "hidden"} animate="show" exit={reducedMotion ? undefined : "exit"} className="border border-slate-200 bg-white rounded-2xl p-6 shadow-xs">
+          <NationalHeatmap selectedCommodity={commodity} selectedRegions={appliedCities} />
+        </motion.div>
+      ) : (
+        <motion.div key="heatmap-matrix" variants={viewPanelVariants} initial={reducedMotion ? false : "hidden"} animate="show" exit={reducedMotion ? undefined : "exit"} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs min-w-0 overflow-hidden">
           <div className="flex flex-wrap justify-between items-center border-b border-slate-100 pb-4 mb-4 gap-4">
             <div className="flex items-center gap-2">
               <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
-              <h3 className="text-lg font-bold text-slate-800">Matriks Perubahan Harga per Wilayah</h3>
+              <h3 className="text-lg font-bold text-slate-800">Heatmap</h3>
             </div>
 
-            <Button
-              onClick={() => setIsFilterModalOpen(true)}
-              variant="outline"
-              className="flex items-center gap-2 font-bold border-slate-300 bg-white hover:bg-slate-50 rounded-xl shadow-xs text-xs h-9 py-0 cursor-pointer"
-            >
-              <SlidersHorizontal className="w-3.5 h-3.5 text-slate-500" />
-              <span>Filter Wilayah ({appliedCities.length})</span>
-            </Button>
           </div>
 
           <div className="w-full overflow-x-auto">
@@ -251,9 +312,12 @@ export default function HeatmapPage() {
             )}
           </div>
         </motion.div>
+      )}
+      </AnimatePresence>
 
-        {/* TOP 5 CRITICAL PANEL (4 COLS) */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+      {/* ================= ROW 4: PRIORITY REGIONS & NARRATIVE ================= */}
+      <motion.div variants={itemVariants} className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.65fr)]">
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
               <MapPin className="w-4 h-4 text-rose-600" />
@@ -275,7 +339,7 @@ export default function HeatmapPage() {
                 </p>
               </div>
             ) : (
-              <TopCritical data={data?.topCritical ?? []} loading={loading} />
+              <TopCritical data={filteredTopCritical} loading={loading} />
             )}
           </div>
 
@@ -285,8 +349,17 @@ export default function HeatmapPage() {
               Penetapan status kritis mengacu pada deviasi harga &gt; 10% dari Harga Eceran Tertinggi (HET) nasional dalam kurun waktu 12 bulan terakhir.
             </p>
           </div>
-        </motion.div>
-      </div>
+        </div>
+
+        <aside className="h-fit rounded-2xl border border-emerald-200 bg-emerald-50/60 p-6 shadow-xs">
+          <div className="flex items-center gap-2 border-b border-emerald-200/70 pb-4">
+            <Info className="h-4 w-4 text-[#006c4a]" />
+            <h3 className="text-lg font-bold text-[#006c4a]">Insight SupplAI</h3>
+          </div>
+          <p className="mt-4 text-sm font-medium leading-7 text-slate-600">{insight}</p>
+          <p className="mt-4 text-[10px] leading-5 text-slate-400">Narasi dibuat otomatis dari hasil prediksi pada filter aktif dan perlu diverifikasi bersama data operasional.</p>
+        </aside>
+      </motion.div>
 
       {/* LAUNCH CITY FILTER MODAL */}
       {isFilterModalOpen && <CityFilterModal

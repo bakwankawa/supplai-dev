@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { Suspense, useState, useMemo, useEffect, useRef, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "motion/react";
 import { useApi } from "@/hooks/use-api";
 import { commodities } from "@/data/commodities";
@@ -14,14 +15,15 @@ import { KesenjanganPanel } from "@/components/redistribusi/kesenjangan-panel";
 import { LanskapPanel } from "@/components/redistribusi/lanskap-panel";
 import { MuatanBalikPanel } from "@/components/redistribusi/muatan-balik-panel";
 import { TindakanPanel } from "@/components/redistribusi/tindakan-panel";
-import { AnimatedNumber } from "@/components/ui/animated-number";
+import { RedistributionSectionNavigator } from "@/components/redistribusi/section-navigator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Narasi, Penjelas } from "@/components/ui/narasi";
+import { Narasi } from "@/components/ui/narasi";
+import { InfoTooltip } from "@/components/ui/info-tooltip";
 import { narasiRedistribusi } from "@/data/narasi";
-import { formatRupiah } from "@/lib/format";
-import { POSTUR_LABEL } from "@/lib/redistribusi/postur";
+import { isPostur, POSTUR_LABEL } from "@/lib/redistribusi/postur";
 import { jendelaWaktu } from "@/lib/redistribusi/waktu";
-import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download, Scale, BarChart3, Repeat, ListChecks } from "lucide-react";
+import { getBrowserReportGenerator } from "@/lib/report-generator";
+import { AlertTriangle, CheckCircle2, ChevronDown, Route, Layers3, Search, Download, X } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,12 +49,29 @@ const itemVariants = {
   },
 } as const;
 
-export default function RedistribusiPage() {
-  const [commodity, setCommodity] = useState("beras");
-  const [postur, setPostur] = useState<Postur>("seimbang");
+function StickyRedistributionGuide({ children }: { children: ReactNode }) {
+  return (
+    <div className="sticky -top-6 z-30 -mx-6 space-y-2 bg-slate-50 px-6 py-2">
+      {children}
+    </div>
+  );
+}
+
+function RedistribusiContent() {
+  const searchParams = useSearchParams();
+  const requestedCommodity = searchParams.get("commodity");
+  const requestedPostur = searchParams.get("postur");
+  const [commodity, setCommodity] = useState(() => commodities.some((item) => item.id === requestedCommodity) ? requestedCommodity! : "beras");
+  const [postur, setPostur] = useState<Postur>(() => requestedPostur && isPostur(requestedPostur) ? requestedPostur : "seimbang");
   const [searchComm, setSearchComm] = useState("");
   const [isCommOpen, setIsCommOpen] = useState(false);
+  const [selectedProducer, setSelectedProducer] = useState<string | null>(null);
+  const [downloadingReport, setDownloadingReport] = useState<"pemerintah" | "pedagang" | null>(null);
+  const [reportError, setReportError] = useState("");
+  const [downloadNotice, setDownloadNotice] = useState<{ url: string; filename: string } | null>(null);
   const commDropdownRef = useRef<HTMLDivElement>(null);
+  const mapSectionRef = useRef<HTMLDivElement>(null);
+  const downloadUrlRef = useRef<string | null>(null);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -62,6 +81,10 @@ export default function RedistribusiPage() {
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => () => {
+    if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
   }, []);
 
   const filteredCommodities = useMemo(() => {
@@ -88,6 +111,49 @@ export default function RedistribusiPage() {
   const surplusProvinces = provinces.filter((p) => p.status === "surplus");
   const deficitProvinces = provinces.filter((p) => p.status === "deficit");
 
+  const selectProducer = (name: string) => {
+    setSelectedProducer(name);
+    mapSectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  };
+
+  const triggerDownload = (url: string, filename: string) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  };
+
+  const downloadReport = async (pembaca: "pemerintah" | "pedagang") => {
+    setDownloadingReport(pembaca);
+    setReportError("");
+    try {
+      const response = await fetch(
+        `/api/redistribution-report?commodity=${commodity}&postur=${postur}&pembaca=${pembaca}&generatedBy=${encodeURIComponent(getBrowserReportGenerator())}`,
+      );
+      if (!response.ok) throw new Error("Laporan belum berhasil disiapkan. Silakan coba lagi.");
+
+      const blob = await response.blob();
+      if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+      const url = URL.createObjectURL(blob);
+      const filename = `Laporan-Redistribusi-${commodity}-${postur}-${pembaca}.pdf`;
+      downloadUrlRef.current = url;
+      setDownloadNotice({ url, filename });
+      triggerDownload(url, filename);
+    } catch (downloadError) {
+      setReportError(downloadError instanceof Error ? downloadError.message : "Laporan belum berhasil diunduh.");
+    } finally {
+      setDownloadingReport(null);
+    }
+  };
+
+  const closeDownloadNotice = () => {
+    if (downloadUrlRef.current) URL.revokeObjectURL(downloadUrlRef.current);
+    downloadUrlRef.current = null;
+    setDownloadNotice(null);
+  };
+
   return (
     <motion.div
       variants={containerVariants}
@@ -102,72 +168,65 @@ export default function RedistribusiPage() {
           <p className="text-sm text-slate-400 font-medium mt-0.5">
             Rekomendasi pergerakan logistik domestik dari wilayah surplus menuju wilayah defisit secara efisien.
           </p>
-          <div className="mt-3">
-            <PostureSwitch value={postur} onChange={setPostur} />
-          </div>
         </div>
 
         <div className="flex items-center gap-3 self-end lg:self-auto lg:mt-1">
-          <div className="relative min-w-[200px]" ref={commDropdownRef}>
-            <div
-              onClick={() => setIsCommOpen(!isCommOpen)}
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 outline-none cursor-pointer hover:border-slate-400 shadow-xs h-10 transition-all flex items-center justify-between"
-            >
-              <span>{currentCommodityName}</span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400 stroke-[2.5]" />
-            </div>
-
-            <AnimatePresence>
-              {isCommOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 5 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 5 }}
-                  className="absolute left-0 right-0 mt-1 bg-white border border-slate-200 rounded-xl shadow-xl z-50 p-2 space-y-2"
-                >
-                  <div className="relative flex items-center">
-                    <Search className="absolute left-2.5 w-3.5 h-3.5 text-slate-400" />
-                    <input
-                      type="text"
-                      placeholder="Cari komoditas..."
-                      value={searchComm}
-                      onChange={(e) => setSearchComm(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 rounded-lg pl-8 pr-3 py-1.5 text-xs outline-none focus:border-[#006c4a] font-bold text-slate-700"
-                    />
-                  </div>
-                  <div className="max-h-48 overflow-y-auto space-y-0.5">
-                    {filteredCommodities.map((c) => (
-                      <div
-                        key={c.id}
-                        onClick={() => {
-                          setCommodity(c.id);
-                          setIsCommOpen(false);
-                          setSearchComm("");
-                        }}
-                        className={`px-3 py-2 text-xs font-bold rounded-lg cursor-pointer transition-colors ${c.id === commodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"
-                          }`}
-                      >
-                        {c.name}
-                      </div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-
           {(["pemerintah", "pedagang"] as const).map((pembaca) => (
-            <a
+            <button
+              type="button"
               key={pembaca}
-              href={`/api/redistribution-report?commodity=${commodity}&postur=${postur}&pembaca=${pembaca}`}
-              className="h-10 inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-slate-300 bg-white px-3 text-xs font-bold text-slate-700 hover:border-slate-400 shadow-xs transition-all"
+              onClick={() => downloadReport(pembaca)}
+              disabled={downloadingReport !== null}
+              className="h-10 inline-flex items-center gap-2 whitespace-nowrap rounded-xl border border-slate-300 bg-white px-3 text-xs font-bold text-slate-700 hover:border-slate-400 shadow-xs transition-all disabled:cursor-wait disabled:opacity-60"
             >
               <Download className="w-3.5 h-3.5" />
-              Laporan {pembaca === "pemerintah" ? "Pemerintah" : "Pedagang"}
-            </a>
+              {downloadingReport === pembaca
+                ? "Menyiapkan laporan…"
+                : `Laporan ${pembaca === "pemerintah" ? "Pemerintah" : "Pedagang"}`}
+            </button>
           ))}
         </div>
       </div>
+
+      {reportError && (
+        <div role="alert" className="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-xs font-medium text-rose-700">
+          {reportError}
+        </div>
+      )}
+
+      <AnimatePresence>
+        {downloadNotice && (
+          <motion.div
+            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 12, scale: 0.98 }}
+            role="status"
+            className="fixed bottom-6 right-6 z-[100] w-[min(24rem,calc(100vw-3rem))] rounded-xl border border-emerald-200 bg-white p-4 shadow-xl"
+          >
+            <div className="flex items-start gap-3">
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#006c4a]" />
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-bold text-slate-800">Dokumen telah terunduh</p>
+                <button
+                  type="button"
+                  onClick={() => triggerDownload(downloadNotice.url, downloadNotice.filename)}
+                  className="mt-1 text-left text-xs font-semibold leading-5 text-[#006c4a] underline decoration-[#006c4a]/30 underline-offset-2 hover:decoration-[#006c4a]"
+                >
+                  Klik di sini jika dokumen belum terunduh otomatis.
+                </button>
+              </div>
+              <button
+                type="button"
+                onClick={closeDownloadNotice}
+                aria-label="Tutup notifikasi unduhan"
+                className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ================= LOAD FAILURE (NOT AN EMPTY PLAN) ================= */}
       {gagalMuat ? (
@@ -193,19 +252,67 @@ export default function RedistribusiPage() {
         </motion.div>
       ) : (
         <>
+        <motion.div id="ringkasan-rencana" variants={itemVariants} className="relative scroll-mt-24 grid grid-cols-1 overflow-visible rounded-xl border border-slate-200 bg-white sm:grid-cols-2 lg:grid-cols-[1.15fr_1.45fr_repeat(3,minmax(0,0.8fr))]">
+          <div className={`relative min-w-0 p-4 ${isCommOpen ? "z-50" : "z-auto"}`} ref={commDropdownRef}>
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Komoditas dipilih</p>
+            <button
+              type="button"
+              onClick={() => setIsCommOpen(!isCommOpen)}
+              aria-expanded={isCommOpen}
+              className="mt-1 flex w-full items-center justify-between gap-3 text-left text-base font-bold text-slate-800 outline-none hover:text-[#006c4a] focus-visible:ring-2 focus-visible:ring-[#006c4a]/30"
+            >
+              <span className="truncate">{currentCommodityName}</span>
+              <ChevronDown className="h-4 w-4 shrink-0 text-slate-400" />
+            </button>
+            <AnimatePresence>
+              {isCommOpen && (
+                <motion.div initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 5 }} className="absolute left-4 right-4 top-full z-50 mt-1 space-y-2 rounded-xl border border-slate-200 bg-white p-2 shadow-xl">
+                  <div className="relative flex items-center">
+                    <Search className="absolute left-2.5 h-3.5 w-3.5 text-slate-400" />
+                    <input type="text" placeholder="Cari komoditas..." value={searchComm} onChange={(e) => setSearchComm(e.target.value)} className="w-full rounded-lg border border-slate-200 bg-slate-50 py-1.5 pl-8 pr-3 text-xs font-bold text-slate-700 outline-none focus:border-[#006c4a]" />
+                  </div>
+                  <div className="max-h-48 space-y-0.5 overflow-y-auto">
+                    {filteredCommodities.map((c) => (
+                      <button type="button" key={c.id} onClick={() => { setCommodity(c.id); setSelectedProducer(null); setIsCommOpen(false); setSearchComm(""); }} className={`w-full cursor-pointer rounded-lg px-3 py-2 text-left text-xs font-bold transition-colors ${c.id === commodity ? "bg-emerald-50 text-[#006c4a]" : "text-slate-600 hover:bg-slate-50"}`}>
+                        {c.name}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+          <div className="min-w-0 border-t border-slate-200 p-4 sm:border-l sm:border-t-0">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Tipe prediksi</p>
+            <div className="mt-1">
+              <PostureSwitch value={postur} onChange={setPostur} compact />
+            </div>
+          </div>
+          {[
+            ["Wilayah asal", `${surplusProvinces.length} wilayah`],
+            ["Wilayah tujuan", `${deficitProvinces.length} wilayah`],
+            ["Total saran rute", `${routes.length} alokasi`],
+          ].map(([label, value]) => (
+            <div key={label} className="min-w-0 border-t border-slate-200 p-4 sm:border-l sm:border-t-0">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">{label}</p>
+              {loading ? <Skeleton className="mt-2 h-6 w-28" /> : <p className="mt-1 truncate text-base font-bold text-slate-800" title={value}>{value}</p>}
+            </div>
+          ))}
+        </motion.div>
+
+        {/* ================= NARRATION & SECTION NAVIGATION ================= */}
+        <StickyRedistributionGuide>
+          <Narasi teks={narasiRedistribusi(commodity, postur)} />
+          <RedistributionSectionNavigator />
+        </StickyRedistributionGuide>
+
         {/* ================= TARGET MONTH WINDOW BANNER ================= */}
         {loading ? (
           <Skeleton className="h-10 w-full max-w-md rounded-lg" />
         ) : summary ? (() => {
           const j = jendelaWaktu(summary.bulanPrediksi, new Date());
           return (
-            <div
-              className={
-                j.sudahLewat
-                  ? "border-l-2 border-red-500 pl-3 py-2"
-                  : "border-l-2 border-slate-300 pl-3 py-2"
-              }
-            >
+            <div className={j.sudahLewat ? "border-l-2 border-red-500 py-2 pl-3" : "border-l-2 border-slate-300 py-2 pl-3"}>
               <p className="text-sm text-slate-700">
                 Rencana untuk <strong>{j.labelBulan}</strong>
                 {j.sudahLewat
@@ -216,83 +323,9 @@ export default function RedistribusiPage() {
           );
         })() : null}
 
-        {/* ================= SUMMARY CARDS ================= */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {/* Total Routes */}
-          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-            <div className="space-y-0.5">
-              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Rute Alokasi</p>
-              {loading ? (
-                <Skeleton className="h-8 w-14 mt-1" />
-              ) : (
-                <h4 className="text-2xl font-black text-slate-800 tracking-tight">
-                  {/* PERBAIKAN 2: Mengembalikan ke penulisan self-closing tag murni tanpa children */}
-                  <AnimatedNumber value={summary?.totalRoutes ?? 0} />
-                </h4>
-              )}
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
-              <Route className="w-5 h-5" />
-            </div>
-          </motion.div>
-
-          {/* Total Volume */}
-          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-            <div className="space-y-0.5">
-              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Total Volume Angkut</p>
-              {loading ? (
-                <Skeleton className="h-8 w-24 mt-1" />
-              ) : (
-                <h4 className="text-2xl font-black text-slate-800 tracking-tight flex items-baseline">
-                  {/* PERBAIKAN 3: Menggunakan tag tunggal aman */}
-                  <AnimatedNumber value={summary?.totalVolume ?? 0} />
-                  <span className="text-xs font-bold font-sans text-slate-400 ml-1">ton</span>
-                </h4>
-              )}
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center text-[#006c4a]">
-              <TrendingUp className="w-5 h-5" />
-            </div>
-          </motion.div>
-
-          {/* Prioritas Aktif */}
-          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-            <div className="space-y-0.5">
-              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Prioritas Aktif</p>
-              {loading ? (
-                <Skeleton className="h-8 w-28 mt-1" />
-              ) : (
-                <p className="text-base font-extrabold text-slate-800 tracking-tight pt-1 leading-none">
-                  {summary?.activeRoutes ?? "-"}
-                </p>
-              )}
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <MapPin className="w-5 h-5" />
-            </div>
-          </motion.div>
-
-          {/* Estimasi Biaya */}
-          <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-xs flex items-center justify-between">
-            <div className="space-y-0.5">
-              <p className="text-[11px] font-bold font-mono tracking-wider text-slate-400 uppercase">Estimasi Biaya Kargo</p>
-              {loading ? (
-                <Skeleton className="h-8 w-28 mt-1" />
-              ) : (
-                <p className="text-lg font-black text-slate-800 tracking-tight pt-0.5">
-                  {formatRupiah(summary?.estimatedCost ?? 0)}
-                </p>
-              )}
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-600">
-              <Wallet className="w-5 h-5" />
-            </div>
-          </motion.div>
-        </div>
-
-        {/* ================= ROW 1: SPATIAL ALOCATION & METHOD ================= */}
+        {/* ================= SPATIAL ALLOCATION ================= */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-          <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] flex flex-col justify-between">
+          <motion.div id="peta-alokasi" ref={mapSectionRef} variants={itemVariants} className="scroll-mt-24 lg:col-span-8 bg-white border border-slate-200/80 rounded-xl p-6 flex flex-col justify-between">
             <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
               <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
               <h3 className="text-lg font-bold text-slate-800">Peta Aliran Distribusi Logistik</h3>
@@ -302,56 +335,47 @@ export default function RedistribusiPage() {
                 provinces={provinces}
                 routes={routes}
                 loading={loading}
+                selectedProvince={selectedProducer}
+                onProvinceSelect={setSelectedProducer}
               />
             </div>
           </motion.div>
 
-          <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-            <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
+          <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-xl p-6">
+            <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+              <Layers3 className="w-4 h-4 text-[#006c4a]" />
+              <h3 className="text-lg font-bold text-slate-800">Wilayah Asal (Surplus)</h3>
+              <InfoTooltip text="Bukan kelebihan produksi yang terukur—data produksi per provinsi belum tersedia. Wilayah ini dipilih sebagai kandidat asal karena harga komoditasnya berada di bawah median nasional dan tidak diprediksi melonjak." />
+            </div>
+            <p className="mb-3 text-[11px] text-slate-500">Pilih wilayah untuk menandainya pada peta.</p>
+            <SurplusPanel provinces={surplusProvinces} selectedProvince={selectedProducer} onSelect={selectProducer} />
           </motion.div>
         </div>
 
-        {/* ================= NARRATION (MACHINE-WRITTEN, MAY BE ABSENT) ================= */}
-        <Narasi teks={narasiRedistribusi(commodity, postur)} />
-
-        {/* ================= ROW 2: ROUTE TABLE & SURPLUS LIST ================= */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <motion.div variants={itemVariants} className="lg:col-span-8 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] overflow-hidden min-w-0">
+        {/* ================= ROUTE TABLE ================= */}
+        <div>
+          <motion.div id="matriks-rute" variants={itemVariants} className="scroll-mt-24 bg-white border border-slate-200/80 rounded-xl p-6 min-w-0">
             <div className="border-b border-slate-100 pb-4 mb-4 flex items-center gap-2">
               <Route className="w-5 h-5 text-[#006c4a]" />
               <div className="flex flex-col">
-                <h3 className="text-lg font-bold text-slate-800">Matriks Rute Distribusi Direkomendasikan</h3>
-                <p className="text-[10px] font-medium text-slate-400">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
+                <div className="flex items-center gap-1.5">
+                  <h3 className="text-lg font-bold text-slate-800">Matriks Rute Distribusi Direkomendasikan</h3>
+                  <InfoTooltip text="Setiap baris merupakan usulan pengiriman dari provinsi asal ke tujuan. Persentase pasar menunjukkan perbandingan kiriman dengan konsumsi bulanan tujuan. Menekan harga menunjukkan estimasi poin persentase kenaikan yang dapat ditahan. Dasar takaran menjelaskan apakah volume berasal dari kebutuhan terukur atau batas asumsi. Biaya memuat ongkos angkut dan jarak rute." />
+                </div>
+                <p className="mt-1 text-xs text-slate-500">Biaya dihitung otomatis berdasarkan formula komparatif Rp2.500/ton/km.</p>
               </div>
             </div>
-            <Penjelas
-              judul="Cara membaca tabel ini"
-              isi="Tiap baris adalah satu usulan pengiriman dari provinsi asal ke provinsi tujuan. Kolom '% pasar tujuan' menunjukkan seberapa besar kiriman itu dibanding konsumsi bulanan wilayah tujuan — makin kecil, makin kecil pula risiko menekan harga pedagang setempat; batangnya digambar pada skala tetap 0–5%. Kolom 'Menekan harga' menyatakan berapa poin persen dari kenaikan yang diprediksi tertahan oleh rute itu; 'tidak diketahui' berarti provinsi tujuan tidak punya data konsumsi pendukung untuk menghitungnya, bukan nol. Kolom 'Dasar takaran' menyatakan apakah volumenya dihitung dari kebutuhan terukur, atau dibatasi aturan yang kami tetapkan sendiri. Kolom 'Biaya' memuat ongkos angkut rute itu, dengan jarak tempuhnya dalam kilometer di baris bawahnya."
-            />
-            <div className="mt-3">
-              <Penjelas
-                judul="Kecukupan GPM bukan cakupan kiriman ini"
-                isi="Kolom 'Kecukupan GPM' tidak mengukur rute pada baris itu. Ia adalah bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah — program intervensi yang memang sudah berjalan di provinsi tujuan — sehingga nilainya melekat pada tujuan, bukan pada kiriman: setiap rute yang masuk ke provinsi yang sama menunjukkan angka yang sama. Tiga peringatan melekat padanya: (1) GPM hanya satu dari beberapa instrumen, dan penyaluran Cadangan Pangan Pemerintah jauh lebih besar serta tidak terhitung di sini; (2) anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi 2026; (3) GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu komoditas bersifat indikatif, bukan takaran."
-              />
-            </div>
-            <div className="w-full overflow-x-auto mt-4">
+            <div className="w-full overflow-x-auto">
               <RouteTable
                 routes={routes}
                 loading={loading}
                 status={summary?.status ?? null}
-              gagalMuat={gagalMuat}
+                gagalMuat={gagalMuat}
                 postur={postur}
                 komoditas={currentCommodityName}
+                commodityId={commodity}
               />
             </div>
-          </motion.div>
-
-          <motion.div variants={itemVariants} className="lg:col-span-4 bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
-            <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-              <Layers3 className="w-4 h-4 text-[#006c4a]" />
-              <h3 className="text-lg font-bold text-slate-800">Wilayah Asal (Surplus)</h3>
-            </div>
-            <SurplusPanel provinces={surplusProvinces} />
           </motion.div>
         </div>
 
@@ -360,24 +384,19 @@ export default function RedistribusiPage() {
          *  disisipkan ke baris yang sudah terisi dan memotong tabel rute di
          *  atas -- panel ini karena itu diberi barisnya sendiri, bukan
          *  disisipkan ke grid Row 2. */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div id="kesenjangan-ikp" variants={itemVariants} className="scroll-mt-24 rounded-xl border border-slate-200/80 bg-white p-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <Scale className="w-4 h-4 text-[#006c4a]" />
+            <div className="h-5 w-2 rounded-full bg-[#006c4a]" />
             <h3 className="text-lg font-bold text-slate-800">Kesenjangan Antarkelompok IKP</h3>
+            <InfoTooltip text="Kelompok bawah, tengah, dan atas merupakan pembagian atas 38 provinsi yang memiliki skor IKP Bapanas 2025, bukan hanya 34 provinsi yang harganya dapat dimodelkan. Jumlah kecil dapat menunjukkan kelompok yang kecil atau keterbatasan jangkauan model." />
           </div>
           <KesenjanganPanel routes={routes} loading={loading} />
-          <div className="mt-4">
-            <Penjelas
-              judul="Sepertiga dihitung atas 38 provinsi, bukan 34"
-              isi="Ketiga kelompok di atas — bawah, tengah, dan atas — adalah sepertiga dari seluruh 38 provinsi yang punya skor IKP Bapanas 2025, bukan sepertiga dari 34 provinsi yang harganya bisa kami model. Sebuah kelompok yang isinya kecil di sini bisa berarti kelompok itu memang kecil, atau bisa berarti sebagian provinsi anggotanya berada di luar jangkauan model — dua hal berbeda yang baris di atas, bila ada, membedakannya."
-            />
-          </div>
         </motion.div>
 
         {/* ================= ROW 2.6: LANSKAP KOMODITAS (FULL WIDTH, OWN ROW) ================= */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div id="lanskap-komoditas" variants={itemVariants} className="scroll-mt-24 rounded-xl border border-slate-200/80 bg-white p-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <BarChart3 className="w-4 h-4 text-[#006c4a]" />
+            <div className="h-5 w-2 rounded-full bg-[#006c4a]" />
             <h3 className="text-lg font-bold text-slate-800">Lanskap Komoditas</h3>
           </div>
           <LanskapPanel provinsiAwal={routes[0]?.to} />
@@ -387,12 +406,12 @@ export default function RedistribusiPage() {
          *  Barisnya sendiri, sama seperti Row 2.5/2.6 di atas -- lihat catatan
          *  di kedua baris itu soal regresi tata letak yang pernah terjadi
          *  ketika sebuah panel disisipkan ke baris yang sudah terisi. */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div id="muatan-balik" variants={itemVariants} className="scroll-mt-24 rounded-xl border border-slate-200/80 bg-white p-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <Repeat className="w-4 h-4 text-[#006c4a]" />
+            <div className="h-5 w-2 rounded-full bg-[#006c4a]" />
             <h3 className="text-lg font-bold text-slate-800">Muatan Balik</h3>
           </div>
-          <p className="text-[11px] font-medium text-slate-400 leading-relaxed mb-3">
+          <p className="mb-3 text-sm font-medium leading-6 text-slate-500">
             Diagnosis ini mencakup seluruh rencana postur {POSTUR_LABEL[postur].nama} lintas
             enam komoditas yang kami modelkan, bukan hanya rute {currentCommodityName} yang
             sedang ditampilkan di atas.
@@ -401,9 +420,9 @@ export default function RedistribusiPage() {
         </motion.div>
 
         {/* ================= ROW 2.8: JALUR TINDAKAN (FULL WIDTH, OWN ROW) ================= */}
-        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+        <motion.div id="jalur-tindakan" variants={itemVariants} className="scroll-mt-24 rounded-xl border border-slate-200/80 bg-white p-6">
           <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-            <ListChecks className="w-4 h-4 text-[#006c4a]" />
+            <div className="h-5 w-2 rounded-full bg-[#006c4a]" />
             <h3 className="text-lg font-bold text-slate-800">Jalur Tindakan</h3>
           </div>
           <TindakanPanel postur={postur} komoditas={currentCommodityName} nRute={routes.length} loading={loading} />
@@ -412,19 +431,24 @@ export default function RedistribusiPage() {
       )}
 
       {/* ================= ROW 3: HONESTY LEDGER (FULL WIDTH) ================= */}
-      <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+      <motion.div id="asal-usul-angka" variants={itemVariants} className="scroll-mt-24 rounded-xl border border-slate-200/80 bg-white p-6">
         <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-          <Layers3 className="w-4 h-4 text-[#006c4a]" />
+          <div className="h-5 w-2 rounded-full bg-[#006c4a]" />
           <h3 className="text-lg font-bold text-slate-800">Asal-usul Angka</h3>
+          <InfoTooltip text="Daftar ini menyebut setiap masukan perhitungan beserta sumber dan tahunnya agar dapat diperiksa, sekaligus membedakan angka yang diukur, diturunkan, dan ditetapkan melalui asumsi." />
         </div>
-        <Penjelas
-          judul="Mengapa daftar ini ada"
-          isi="Angka yang tidak diketahui asalnya tidak bisa diperiksa siapa pun. Daftar ini menyebut setiap masukan perhitungan beserta sumber dan tahunnya, dan menandai mana yang kami ukur dan mana yang kami tetapkan sendiri."
-        />
-        <div className="mt-4">
+        <div>
           <BukuBesarPanel />
         </div>
       </motion.div>
+
+      <motion.div id="metode-alokasi" variants={itemVariants} className="scroll-mt-24">
+        <MethodPanel sources={surplusProvinces.length} destinations={deficitProvinces.length} />
+      </motion.div>
     </motion.div>
   );
+}
+
+export default function RedistribusiPage() {
+  return <Suspense fallback={<div className="text-sm text-slate-500">Memuat data redistribusi…</div>}><RedistribusiContent /></Suspense>;
 }

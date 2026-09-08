@@ -11,7 +11,7 @@ export function BukuBesarPanel() {
 
   return (
     <div className="space-y-3">
-      <p className="text-[11px] font-medium text-slate-500 leading-relaxed">
+      <p className="text-sm font-medium leading-6 text-slate-500">
         Setiap angka yang dipakai perhitungan ini, beserta asalnya.{" "}
         <span className="font-bold text-slate-700">
           {terukur} dari {bukuBesar.length}
@@ -29,9 +29,9 @@ export function BukuBesarPanel() {
                 {BUKU_BESAR_STATUS_LABEL[e.status].label}
               </Badge>
             </div>
-            <p className="text-[11px] font-bold text-[#006c4a]">{e.nilai}</p>
-            <p className="text-[10px] text-slate-500 leading-relaxed">{e.sumber}</p>
-            <p className="text-[10px] text-slate-400">Tahun: {e.tahun}</p>
+            <p className="text-xs font-bold text-[#006c4a]">{e.nilai}</p>
+            <p className="text-xs leading-5 text-slate-500">{e.sumber}</p>
+            <p className="text-xs text-slate-400">Tahun: {e.tahun}</p>
           </div>
         ))}
       </div>

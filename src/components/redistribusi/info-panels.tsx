@@ -2,26 +2,18 @@
 
 import type { RedistributionProvince } from "@/lib/types";
 import { formatNumber } from "@/lib/format";
-import { Penjelas } from "@/components/ui/narasi";
 
 interface SurplusPanelProps {
   provinces: RedistributionProvince[];
+  selectedProvince?: string | null;
+  onSelect?: (name: string) => void;
 }
 
-export function SurplusPanel({ provinces }: SurplusPanelProps) {
+export function SurplusPanel({ provinces, selectedProvince, onSelect }: SurplusPanelProps) {
   const surplusData = provinces.filter(p => p.status === "surplus");
 
   return (
     <div className="w-full space-y-3">
-      {/* "Surplus" di sini bukan kelebihan produksi terukur -- data produksi
-       *  per provinsi tidak tersedia bagi kami (lihat Asal-usul Angka di
-       *  bawah). Wilayah ini masuk daftar karena harganya di bawah median
-       *  nasional dan tidak diprediksi melonjak, bukan karena stoknya
-       *  diketahui berlebih. */}
-      <Penjelas
-        judul="Apa arti 'surplus' di sini"
-        isi="Bukan kelebihan produksi yang terukur -- data produksi per provinsi tidak tersedia bagi kami. Wilayah ini dipilih pemecah rute sebagai kandidat asal karena harga komoditasnya di bawah median nasional dan tidak diprediksi melonjak, itu saja."
-      />
       {surplusData.length === 0 ? (
         <p className="text-xs text-slate-400 py-6 text-center italic">Tidak ada data wilayah surplus.</p>
       ) : (
@@ -30,13 +22,19 @@ export function SurplusPanel({ provinces }: SurplusPanelProps) {
             .slice()
             .sort((a, b) => b.stock - a.stock)
             .map((p) => (
-              <div key={p.id} className="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 border border-slate-100 hover:border-emerald-100 transition-colors">
+              <button
+                type="button"
+                key={p.id}
+                onClick={() => onSelect?.(p.name)}
+                aria-pressed={selectedProvince === p.name}
+                className={`w-full flex items-center justify-between p-2.5 rounded-lg border text-left transition-colors ${selectedProvince === p.name ? "border-slate-700 bg-slate-100" : "border-slate-100 bg-slate-50 hover:border-slate-300"}`}
+              >
                 <div className="flex items-center gap-2 min-w-0">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
                   <span className="text-xs font-bold text-slate-700 truncate">{p.name}</span>
                 </div>
                 <span className="text-xs font-mono font-bold text-[#006c4a]">{formatNumber(p.stock)} t</span>
-              </div>
+              </button>
             ))}
         </div>
       )}
@@ -50,12 +48,17 @@ export function SurplusPanel({ provinces }: SurplusPanelProps) {
 export function MethodPanel({ sources = 0, destinations = 0 }: { sources?: number; destinations?: number }) {
   const label = (n: number, unit: string) => `${n} ${unit}`;
   return (
-    <div className="space-y-5 h-full flex flex-col justify-between">
-      <div className="space-y-3">
-        <div className="border-b border-slate-100 pb-4 flex items-center gap-2">
+    <details className="group bg-white border border-slate-200 rounded-xl">
+      <summary className="cursor-pointer list-none p-4 flex items-center justify-between gap-3 [&::-webkit-details-marker]:hidden">
+        <div className="flex items-center gap-2">
           <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
           <h3 className="text-lg font-bold text-slate-800">Metode Alokasi</h3>
         </div>
+        <span className="text-xs font-semibold text-slate-500 group-open:hidden">Lihat metode</span>
+        <span className="text-xs font-semibold text-slate-500 hidden group-open:inline">Tutup</span>
+      </summary>
+      <div className="space-y-5 border-t border-slate-100 p-4 sm:p-5">
+        <div className="space-y-3">
         <p className="text-xs text-slate-500 leading-relaxed font-medium">
           Rencana ini dipecahkan sebagai <span className="font-bold text-[#006c4a]">program linier</span> oleh{" "}
           <span className="font-bold text-[#006c4a]">HiGHS</span> (<span className="font-mono">scipy.optimize.linprog</span>,{" "}
@@ -108,7 +111,8 @@ export function MethodPanel({ sources = 0, destinations = 0 }: { sources?: numbe
             </li>
           </ul>
         </div>
+        </div>
       </div>
-    </div>
+    </details>
   );
 }

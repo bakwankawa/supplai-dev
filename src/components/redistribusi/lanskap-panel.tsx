@@ -24,11 +24,20 @@ interface LanskapPanelProps {
    *  pemakai memilih provinsi sendiri, lalu berhenti mengikuti. Kosong atau
    *  di luar cakupan lanskap.json berarti tetap pada pilihan yang berlaku. */
   provinsiAwal?: string;
+  /** Batasi pilihan provinsi untuk konteks investigasi tertentu. Halaman
+   *  redistribusi utama tidak mengirim prop ini dan tetap menampilkan semua
+   *  provinsi yang tersedia. */
+  provinsiPilihan?: string[];
+  komoditasPilihan?: string[];
 }
 
-export function LanskapPanel({ provinsiAwal }: LanskapPanelProps) {
+export function LanskapPanel({ provinsiAwal, provinsiPilihan, komoditasPilihan }: LanskapPanelProps) {
+  const pilihan = provinsiPilihan
+    ? PROVINSI_LANSKAP.filter((nama) => provinsiPilihan.includes(nama))
+    : PROVINSI_LANSKAP;
+  const opsiProvinsi = pilihan.length > 0 ? pilihan : PROVINSI_LANSKAP;
   const [provinsi, setProvinsi] = useState(
-    provinsiAwal && PROVINSI_LANSKAP.includes(provinsiAwal) ? provinsiAwal : PROVINSI_LANSKAP[0],
+    provinsiAwal && opsiProvinsi.includes(provinsiAwal) ? provinsiAwal : opsiProvinsi[0],
   );
   // `useApi` resolves asynchronously, jadi render pertama SELALU melihat
   // `provinsiAwal` kosong (routes belum sampai) -- state awal di atas nyaris
@@ -53,16 +62,18 @@ export function LanskapPanel({ provinsiAwal }: LanskapPanelProps) {
     }
   }
 
-  const baris = BARIS.filter((b) => b.provinsi === provinsi).sort((x, y) =>
-    x.komoditas.localeCompare(y.komoditas, "id"),
-  );
+  const baris = BARIS
+    .filter((b) => b.provinsi === provinsi && (!komoditasPilihan || komoditasPilihan.includes(b.komoditas)))
+    .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"));
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-2 flex-wrap">
-        <p className="text-[11px] font-medium text-slate-500 leading-relaxed max-w-md">
-          Posisi kedelapan komoditas yang lanskap ini baca, di provinsi terpilih, terhadap median
-          nasional. Ini bacaan harga, bukan bacaan pasokan.
+        <p className="max-w-md text-sm font-medium leading-6 text-slate-600">
+          {komoditasPilihan
+            ? "Posisi komoditas alert di wilayah terkait terhadap median nasional."
+            : "Posisi kedelapan komoditas yang lanskap ini baca, di provinsi terpilih, terhadap median nasional."}{" "}
+          Ini bacaan harga, bukan bacaan pasokan.
         </p>
         <select
           value={provinsi}
@@ -72,7 +83,7 @@ export function LanskapPanel({ provinsiAwal }: LanskapPanelProps) {
           }}
           className="text-xs font-bold text-slate-700 border border-slate-300 rounded-lg px-2.5 py-1.5 bg-white outline-none hover:border-slate-400 focus:border-[#006c4a] shadow-xs shrink-0"
         >
-          {PROVINSI_LANSKAP.map((p) => (
+          {opsiProvinsi.map((p) => (
             <option key={p} value={p}>
               {p}
             </option>

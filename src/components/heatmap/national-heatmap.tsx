@@ -3,8 +3,7 @@
 import { useEffect, useRef, useState, useMemo } from "react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
-import { commodities } from "@/data/commodities";
-import { AlertTriangle, Eye, MapPin, ClipboardList, X } from "lucide-react";
+import { AlertTriangle, Eye, MapPin } from "lucide-react";
 
 // Canvas coordinates for all 34 provinces, computed from each province's path
 // in /indonesia.svg (largest-landmass centroid, mapped through the same
@@ -61,19 +60,14 @@ type MapPoint = {
   coord: { x: number; y: number };
 };
 
-export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: string }) {
+export function NationalHeatmap({ selectedCommodity, selectedRegions }: { selectedCommodity: string; selectedRegions: string[] }) {
   const mapRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(mapRef);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   // States Modal Rekomendasi & Hover Tooltip
-  const [isRecoModalOpen, setIsRecoModalOpen] = useState(false);
   const [hoveredCity, setHoveredCity] = useState<MapPoint | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
-
-  const currentCommodityName = useMemo(() => {
-    return commodities.find(c => c.id === selectedCommodity)?.name || "Beras Medium";
-  }, [selectedCommodity]);
 
   // Real per-province price + 3-month projection for the selected commodity,
   // derived from the monthly series (current month vs last forecast month).
@@ -93,9 +87,14 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
     return out;
   }, [selectedCommodity]);
 
+  const visibleProvinceData = useMemo(
+    () => provinceData.filter((point) => selectedRegions.includes(point.region)),
+    [provinceData, selectedRegions]
+  );
+
   const criticalCount = useMemo(
-    () => provinceData.filter(p => p.status === "CRITICAL").length,
-    [provinceData]
+    () => visibleProvinceData.filter(p => p.status === "CRITICAL").length,
+    [visibleProvinceData]
   );
 
   // LOGIKA MOUSE HOVER CANVAS TOOLTIP
@@ -109,7 +108,7 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
 
     let foundCity: MapPoint | null = null;
 
-    provinceData.forEach((item) => {
+    visibleProvinceData.forEach((item) => {
       const coord = item.coord;
 
       const distance = Math.sqrt(Math.pow(mouseX - coord.x, 2) + Math.pow(mouseY - coord.y, 2));
@@ -149,24 +148,24 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
       }
 
       // Render Thermal Gradien Blur
-      provinceData.forEach((item) => {
+      visibleProvinceData.forEach((item) => {
         const coord = item.coord;
 
         const radius = 48;
         const gradient = ctx.createRadialGradient(coord.x, coord.y, 2, coord.x, coord.y, radius);
 
         if (item.status === "CRITICAL") {
-          gradient.addColorStop(0, "rgba(239, 68, 68, 0.85)");   
-          gradient.addColorStop(0.3, "rgba(249, 115, 22, 0.55)"); 
-          gradient.addColorStop(0.6, "rgba(234, 179, 8, 0.25)");  
+          gradient.addColorStop(0, "rgba(239, 68, 68, 0.85)");
+          gradient.addColorStop(0.3, "rgba(249, 115, 22, 0.55)");
+          gradient.addColorStop(0.6, "rgba(234, 179, 8, 0.25)");
           gradient.addColorStop(1, "rgba(59, 130, 246, 0.0)");
         } else if (item.status === "SURPLUS") {
-          gradient.addColorStop(0, "rgba(16, 185, 129, 0.75)");  
-          gradient.addColorStop(0.4, "rgba(52, 211, 153, 0.35)"); 
+          gradient.addColorStop(0, "rgba(16, 185, 129, 0.75)");
+          gradient.addColorStop(0.4, "rgba(52, 211, 153, 0.35)");
           gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
         } else {
-          gradient.addColorStop(0, "rgba(59, 130, 246, 0.55)");   
-          gradient.addColorStop(0.5, "rgba(147, 197, 253, 0.25)"); 
+          gradient.addColorStop(0, "rgba(59, 130, 246, 0.55)");
+          gradient.addColorStop(0.5, "rgba(147, 197, 253, 0.25)");
           gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
         }
 
@@ -177,7 +176,7 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
       });
 
       // Render Titik Anchor Kota & Teks Label
-      provinceData.forEach((item) => {
+    visibleProvinceData.forEach((item) => {
         const coord = item.coord;
 
         ctx.fillStyle = item.status === "CRITICAL" ? "#ef4444" : "#1e293b";
@@ -203,20 +202,18 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
     baseMap.onload = () => paint(baseMap);
     baseMap.src = "/indonesia.svg";
     return () => { baseMap.onload = null; };
-  }, [provinceData]);
+  }, [visibleProvinceData]);
 
   return (
-    <div className="space-y-6 max-w-[1600px] mx-auto font-sans pb-4 p-2 text-slate-800">
-      
-      {/* ================= BAR CONTROLLER ATAS & TOMBOL MODAL ================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/50 pb-4">
-        <div>
-          <h2 className="text-xl font-bold text-[#006c4a] tracking-tight">Peta Nasional — {currentCommodityName}</h2>
-          <p className="text-sm text-slate-500 font-medium mt-0.5">
-            Proyeksi perubahan harga 3 bulan ke depan untuk komoditas yang dipilih di atas.
-          </p>
+    <div className="space-y-6 max-w-[1600px] mx-auto font-sans text-slate-800">
+
+      {/* ================= MAP SUMMARY ================= */}
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-5 bg-[#006c4a] rounded-full" />
+          <h2 className="text-lg font-bold text-slate-800">Peta Nasional</h2>
         </div>
-        
+
         <div className="flex items-center gap-3">
           {/* Legend Indikator Status */}
           <div className="hidden md:flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-500 shadow-3xs h-10">
@@ -225,20 +222,12 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
             <span>Defisit</span>
           </div>
 
-          {/* NEW ACTION BUTTON: Pemicu Pop-Up Rekomendasi Wilayah */}
-          <button
-            onClick={() => setIsRecoModalOpen(true)}
-            className="flex items-center gap-2 bg-[#006c4a] hover:bg-[#005238] text-white px-4 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all active:scale-97 cursor-pointer h-10 shrink-0"
-          >
-            <ClipboardList className="w-4 h-4" />
-            <span>Lihat Rekomendasi Wilayah</span>
-          </button>
         </div>
       </div>
 
       {/* ================= MAIN INTERFACE (FULL WIDESCREEN VIEW) ================= */}
       <div className="w-full">
-        
+
         {/* WORKSPACE PETA INDONESIA BESAR MAKSIMAL (KANAN - 9 COLS) */}
         <div className="bg-white border border-slate-200 rounded-2xl p-5 shadow-xs flex flex-col relative w-full overflow-hidden">
           <div className="w-full flex flex-wrap gap-3 items-center justify-between border-b border-slate-100 pb-3 mb-4">
@@ -251,12 +240,12 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
               {criticalCount} Wilayah Status Kritis
             </div>
           </div>
-          
+
           <div ref={mapRef} className="w-full relative bg-slate-50 rounded-2xl border border-slate-200/40 flex justify-center items-center overflow-hidden">
-            <canvas 
-              ref={canvasRef} 
-              width={1000} 
-              height={500} 
+            <canvas
+              ref={canvasRef}
+              width={1000}
+              height={500}
               onMouseMove={handleMouseMove}
               onMouseLeave={() => setHoveredCity(null)}
               className="rounded-xl shadow-2xs w-full h-auto cursor-crosshair"
@@ -268,7 +257,7 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
               aria-hidden="true"
             >
               <g className="motion-safe:animate-pulse" style={{ animationPlayState: isInView ? "running" : "paused" }}>
-                {provinceData.filter((point) => point.status === "CRITICAL").map((point) => (
+                {visibleProvinceData.filter((point) => point.status === "CRITICAL").map((point) => (
                   <circle
                     key={point.region}
                     cx={point.coord.x}
@@ -298,9 +287,8 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                       {hoveredCity.region}
                     </span>
-                    <span className={`text-[9px] font-mono font-black px-1.5 py-0.5 rounded ${
-                      hoveredCity.status === 'CRITICAL' ? 'bg-rose-600' : 'bg-emerald-600'
-                    }`}>
+                    <span className={`text-[9px] font-mono font-black px-1.5 py-0.5 rounded ${hoveredCity.status === 'CRITICAL' ? 'bg-rose-600' : 'bg-emerald-600'
+                      }`}>
                       {hoveredCity.status}
                     </span>
                   </div>
@@ -315,65 +303,6 @@ export function NationalHeatmap({ selectedCommodity }: { selectedCommodity: stri
         </div>
 
       </div>
-
-      {/* ================= MODAL INTERAKTIF POP-UP REKOMENDASI PER WILAYAH ================= */}
-      <AnimatePresence>
-        {isRecoModalOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            {/* Backdrop Overlay */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsRecoModalOpen(false)}
-              className="absolute inset-0 bg-slate-900/40 backdrop-blur-xs"
-            />
-            
-            {/* Modal Box */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              transition={{ type: "spring", duration: 0.4 }}
-              className="bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl relative z-10 overflow-hidden text-slate-800"
-            >
-              {/* Modal Header */}
-              <div className="px-6 py-4 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-[#006c4a]">
-                  <ClipboardList className="w-5 h-5 text-[#006c4a]" />
-                  <h3 className="text-sm font-black uppercase tracking-wider font-mono">Matriks Rekomendasi SupplAi per Wilayah</h3>
-                </div>
-                <button 
-                  onClick={() => setIsRecoModalOpen(false)}
-                  className="p-1.5 rounded-lg hover:bg-slate-200 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer"
-                >
-                  <X className="w-4 h-4 stroke-[2.5]" />
-                </button>
-              </div>
-
-              {/* Modal Grid Content List */}
-              <div className="p-6 space-y-3.5 max-h-[70vh] overflow-y-auto">
-                <div className="p-4 border border-slate-100 rounded-xl bg-slate-50/80 space-y-1">
-                  <h5 className="text-xs font-black text-[#006c4a]">Kawasan Jabodetabek</h5>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">Stabilisasi stok via Pasar Induk Cipinang dan Kramat Jati perlu ditingkatkan segera. Hambatan variansi harga eceran terpantau menipis.</p>
-                </div>
-                <div className="p-4 border border-slate-100 rounded-xl bg-slate-50/80 space-y-1">
-                  <h5 className="text-xs font-black text-[#006c4a]">Kawasan Pulau Jawa</h5>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">Pasokan cabai dan bawang menuju Jabodetabek terpantau aman, namun awasi volatilitas krisis penawaran di sentra tani Brebes.</p>
-                </div>
-                <div className="p-4 border border-slate-100 rounded-xl bg-slate-50/80 space-y-1">
-                  <h5 className="text-xs font-black text-[#006c4a]">Kawasan Pulau Sumatera</h5>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">Distribusikan tambahan logistik jalur darat lintas Trans-Sumatera guna menekan potensi defisit pasokan musiman akibat cuaca buruk.</p>
-                </div>
-                <div className="p-4 border border-slate-100 rounded-xl bg-slate-50/80 space-y-1">
-                  <h5 className="text-xs font-black text-[#006c4a]">Sulawesi & Kawasan Timur</h5>
-                  <p className="text-xs text-slate-600 font-medium leading-relaxed">Rekomendasi taktis substitusi moda armada logistik laut terpadu untuk menekan disparitas lonjakan harga tinggi antar pulau.</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
 
     </div>
   );

@@ -52,13 +52,13 @@ export function CityFilterModal({ isOpen, onClose, currentSelected, onApply }: C
       <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-xs" onClick={onClose} />
       
       {/* Modal Box */}
-      <div role="dialog" aria-modal="true" aria-label="Filter Cakupan Wilayah Matriks" className="relative bg-white border border-slate-200 w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150">
+      <div role="dialog" aria-modal="true" aria-label="Filter cakupan wilayah heatmap" className="relative bg-white border border-slate-200 w-full max-w-3xl rounded-2xl shadow-2xl flex flex-col max-h-[85vh] overflow-hidden animate-in fade-in-50 zoom-in-95 duration-150">
         
         {/* Header */}
         <div className="p-5 border-b border-slate-100 flex justify-between items-center">
           <div className="flex items-center gap-2 font-bold text-slate-800">
             <SlidersHorizontal className="w-4 h-4 text-[#006c4a]" />
-            Filter Cakupan Wilayah Matriks
+            Filter Cakupan Wilayah
           </div>
           <button aria-label="Tutup filter wilayah" onClick={onClose} className="hover:bg-slate-100 p-1.5 rounded-full transition-colors">
             <X className="w-5 h-5 text-slate-500" />

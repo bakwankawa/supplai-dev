@@ -9,6 +9,10 @@ const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
 
 interface MuatanBalikPanelProps {
   postur: Postur;
+  relevantRegions?: string[];
+  commodityName?: string;
+  routeCount?: number;
+  totalRouteVolume?: number;
 }
 
 /** Panel "Muatan balik": nol pasangan rute bolak-balik pada rencana ini, dan
@@ -27,9 +31,74 @@ interface MuatanBalikPanelProps {
  *  `nRute === 0` di bawah): `teksMuatanBalik` mengembalikan satu kalimat
  *  saja untuk kasus itu, dan panel ini berhenti di situ -- tidak ada kartu,
  *  tidak ada tabel rantai yang dirender dari rencana yang tidak pernah ada. */
-export function MuatanBalikPanel({ postur }: MuatanBalikPanelProps) {
+export function MuatanBalikPanel({
+  postur,
+  relevantRegions,
+  commodityName,
+  routeCount = 0,
+  totalRouteVolume = 0,
+}: MuatanBalikPanelProps) {
   const d = MUATAN_BALIK[postur];
   const teks = teksMuatanBalik(d);
+
+  if (relevantRegions && commodityName) {
+    const regionSet = new Set(relevantRegions);
+    const rantaiTerkait = d.rantai.filter((r) =>
+      (r.komoditasMasuk === commodityName || r.komoditasKeluar === commodityName)
+      && regionSet.has(r.hub)
+      && regionSet.has(r.dari)
+      && regionSet.has(r.ke),
+    );
+    const tonaseTerkait = rantaiTerkait.reduce<number | null>((sum, r) =>
+      sum === null || r.tonDirantai === null ? null : sum + r.tonDirantai,
+    0);
+    const simpulTerkait = [...new Set(rantaiTerkait.map((r) => r.hub))];
+
+    return (
+      <div className="space-y-3">
+        <p className="text-sm font-medium leading-6 text-slate-600">
+          Diagnostik ini dibatasi pada {commodityName} serta wilayah yang terhubung langsung dengan alert.
+        </p>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="space-y-1 rounded-xl border border-slate-100 bg-slate-50 p-3">
+            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Rute investigasi</span>
+            <p className="text-base font-black text-slate-800">{angka(routeCount, 0)}</p>
+          </div>
+          <div className="space-y-1 rounded-xl border border-slate-100 bg-slate-50 p-3">
+            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Volume rute</span>
+            <p className="text-base font-black text-slate-800">{ton(totalRouteVolume)}</p>
+          </div>
+          <div className="space-y-1 rounded-xl border border-slate-100 bg-slate-50 p-3">
+            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Rantai terkait</span>
+            <p className="text-base font-black text-slate-800">{angka(rantaiTerkait.length, 0)}</p>
+          </div>
+          <div className="space-y-1 rounded-xl border border-slate-100 bg-slate-50 p-3">
+            <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">Tonase dirantai</span>
+            <p className="text-base font-black text-[#006c4a]">{tonaseTerkait === null ? "Tidak diketahui" : ton(tonaseTerkait)}</p>
+          </div>
+        </div>
+
+        {rantaiTerkait.length === 0 ? (
+          <p className="py-4 text-center text-xs font-medium italic text-slate-500">
+            Tidak ada rantai muatan balik yang melibatkan komoditas dan wilayah investigasi ini.
+          </p>
+        ) : (
+          <>
+            <div className="flex flex-wrap gap-1.5">
+              {simpulTerkait.map((simpul) => <span key={simpul} className="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-[#006c4a]">{simpul}</span>)}
+            </div>
+            <div className="w-full overflow-x-auto">
+              <table className="w-full text-xs">
+                <thead><tr className="border-b border-slate-100 text-left text-[10px] font-bold uppercase tracking-wide text-slate-500"><th className="py-2 pr-2">Simpul</th><th className="py-2 pr-2">Dari</th><th className="py-2 pr-2">Ke</th><th className="py-2 pr-2">Komoditas masuk</th><th className="py-2 pr-2">Komoditas keluar</th><th className="py-2 pr-2 text-right">Ton dirantai</th></tr></thead>
+                <tbody>{rantaiTerkait.map((r, idx) => <tr key={`${r.hub}-${r.dari}-${r.ke}-${idx}`} className="border-b border-slate-50 last:border-0"><td className="whitespace-nowrap py-2 pr-2 font-bold text-slate-700">{r.hub}</td><td className="whitespace-nowrap py-2 pr-2 text-slate-600">{r.dari}</td><td className="whitespace-nowrap py-2 pr-2 text-slate-600">{r.ke}</td><td className="whitespace-nowrap py-2 pr-2 text-slate-600">{r.komoditasMasuk}</td><td className="whitespace-nowrap py-2 pr-2 text-slate-600">{r.komoditasKeluar}</td><td className="whitespace-nowrap py-2 pr-2 text-right font-bold text-[#006c4a]">{r.tonDirantai === null ? "Tidak diketahui" : ton(r.tonDirantai)}</td></tr>)}</tbody>
+              </table>
+            </div>
+          </>
+        )}
+        <p className="text-xs leading-5 text-slate-500">Ketersediaan kendaraan dan kapasitas kaki pulang tetap perlu dikonfirmasi kepada operator.</p>
+      </div>
+    );
+  }
 
   if (d.nRute === 0) {
     return (
@@ -41,7 +110,7 @@ export function MuatanBalikPanel({ postur }: MuatanBalikPanelProps) {
 
   return (
     <div className="space-y-3">
-      <p className="text-[11px] font-medium text-slate-500 leading-relaxed">{temuan}</p>
+      <p className="text-sm font-medium leading-6 text-slate-600">{temuan}</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
         <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 space-y-1">
@@ -80,7 +149,7 @@ export function MuatanBalikPanel({ postur }: MuatanBalikPanelProps) {
         </div>
       </div>
 
-      <p className="text-[11px] font-semibold text-slate-700 leading-relaxed bg-amber-50 border border-amber-100 rounded-xl p-3">
+      <p className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm font-semibold leading-6 text-slate-700">
         {perantaian}
       </p>
 
@@ -132,7 +201,7 @@ export function MuatanBalikPanel({ postur }: MuatanBalikPanelProps) {
         </div>
       )}
 
-      <p className="text-[10px] text-slate-400 leading-relaxed">{batasKendaraan}</p>
+      <p className="text-xs leading-5 text-slate-500">{batasKendaraan}</p>
     </div>
   );
 }

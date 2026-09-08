@@ -17,13 +17,25 @@ const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
 // Province centroids [longitude, latitude], sourced from artifacts/centroids.parquet
 // (the same centroids the model uses to compute shipping distances)
 const PROVINCE_COORDS: Record<string, [number, number]> = {
+  "Sumatera Utara":     [98.74,   2.54],
+  "Sumatera Barat":     [100.37, -0.61],
+  "Riau":               [101.79,  0.61],
+  "Kepulauan Riau":     [104.18,  1.02],
+  "Bengkulu":           [102.29, -3.81],
   "Jawa Timur":        [112.75,  -7.5],
   "Jawa Barat":        [107.6,   -6.9],
   "Jawa Tengah":       [110.0,   -7.15],
+  "DKI Jakarta":        [106.86, -6.26],
+  "DI Yogyakarta":      [110.37, -7.8],
   "Sulawesi Selatan":  [119.9,   -3.8],
+  "Sulawesi Barat":     [118.98, -3.04],
+  "Sulawesi Tenggara":  [122.56, -4.67],
   "Sumatera Selatan":  [104.5,   -3.5],
   "Lampung":           [105.3,   -4.6],
   "Kalimantan Selatan":[115.4,   -3.0],
+  "Kalimantan Tengah":  [113.51, -2.35],
+  "Kalimantan Timur":   [117.14, -0.56],
+  "Kalimantan Utara":   [117.49,  3.09],
   "Bali":              [115.2,   -8.4],
   "Papua":             [138.0,   -4.5],
   "Papua Barat":       [134.0,   -1.3],
@@ -35,18 +47,7 @@ const PROVINCE_COORDS: Record<string, [number, number]> = {
   "Maluku Utara":      [127.5,    1.5],
   "Nusa Tenggara Barat": [116.92, -8.54],
   "Sulawesi Utara":    [124.8,    1.3],
-  "Bengkulu":           [102.29,  -3.81],
-  "DKI Jakarta":        [106.86,  -6.26],
   "Gorontalo":          [123.05,   0.56],
-  "Kalimantan Tengah":  [113.51,  -2.35],
-  "Kalimantan Timur":   [117.14,  -0.56],
-  "Kalimantan Utara":   [117.49,   3.09],
-  "Kepulauan Riau":     [104.18,   1.02],
-  "Riau":               [101.79,   0.61],
-  "Sulawesi Barat":     [118.98,  -3.04],
-  "Sulawesi Tenggara":  [122.56,  -4.67],
-  "Sumatera Barat":     [100.37,  -0.61],
-  "Sumatera Utara":      [98.74,   2.54],
 }
 
 interface TooltipState {
@@ -61,9 +62,11 @@ interface IndonesiaMapProps {
   provinces: RedistributionProvince[]
   routes: RedistributionRoute[]
   loading: boolean
+  selectedProvince?: string | null
+  onProvinceSelect?: (name: string) => void
 }
 
-export function IndonesiaMap({ provinces, routes, loading }: IndonesiaMapProps) {
+export function IndonesiaMap({ provinces, routes, loading, selectedProvince, onProvinceSelect }: IndonesiaMapProps) {
   const [tooltip, setTooltip] = useState<TooltipState | null>(null)
 
   if (loading) {
@@ -158,6 +161,7 @@ export function IndonesiaMap({ provinces, routes, loading }: IndonesiaMapProps) 
           if (!province) return null
 
           const isSurplus = province.status === "surplus"
+          const isSelected = selectedProvince === name
           const fill = isSurplus ? "#22c55e" : "#ef4444"
           const r = isSurplus ? 6 : 5
 
@@ -165,6 +169,7 @@ export function IndonesiaMap({ provinces, routes, loading }: IndonesiaMapProps) 
             <Marker
               key={name}
               coordinates={coords}
+              onClick={() => onProvinceSelect?.(name)}
               onMouseEnter={(e: React.MouseEvent) => {
                 const rect = (e.currentTarget as SVGElement)
                   .closest("svg")
@@ -180,12 +185,13 @@ export function IndonesiaMap({ provinces, routes, loading }: IndonesiaMapProps) 
               onMouseLeave={() => setTooltip(null)}
             >
               {/* Outer pulse ring for surplus provinces */}
-              {isSurplus && (
+              {(isSurplus || isSelected) && (
                 <circle
-                  r={r + 4}
+                  r={isSelected ? r + 7 : r + 4}
                   fill={fill}
-                  fillOpacity={0.2}
-                  stroke="none"
+                  fillOpacity={isSelected ? 0.28 : 0.2}
+                  stroke={isSelected ? "#0f172a" : "none"}
+                  strokeWidth={isSelected ? 1 : 0}
                 />
               )}
               <circle

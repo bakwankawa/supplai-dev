@@ -4,11 +4,8 @@ import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { TopCards } from "@/components/executive-summary/top-cards";
 import { ShortcutCards } from "@/components/executive-summary/shortcut-cards";
-import { Button } from "@/components/ui/button";
 import { motion } from "motion/react";
 import {
-  Download,
-  Calendar,
   AlertTriangle,
   TrendingUp,
   ArrowRight,
@@ -22,6 +19,8 @@ import { useApi } from "@/hooks/use-api";
 import { AlertResponse } from "@/lib/types";
 import { Narasi } from "@/components/ui/narasi";
 import { narasiEksekutif } from "@/data/narasi";
+import { commodities } from "@/data/commodities";
+import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 
 import {
   ResponsiveContainer,
@@ -58,40 +57,24 @@ export default function ExecutiveSummaryPage() {
 
   // 3. OLAH DATA REAL DARI API UNTUK GRAFIK BAR CHART
   const komoditasOverviewData = useMemo(() => {
-    if (!alertResponse?.alerts || alertResponse.alerts.length === 0) return [];
-
-    // One bar per commodity, not per alert. Taking the top 5 alerts outright
-    // drew the same commodity several times — four bars all labelled "Bawang
-    // Putih" — because alerts are ranked by severity and one commodity can
-    // hold several of the top slots. Keep each commodity's most severe alert.
-    const perCommodity = new Map<string, (typeof alertResponse.alerts)[number]>();
-    for (const a of alertResponse.alerts) {
-      if (!perCommodity.has(a.commodity)) perCommodity.set(a.commodity, a);
-    }
-
-    return Array.from(perCommodity.values()).slice(0, 6).map((alertItem) => {
-      const isCritical = alertItem.severity === "kritis";
-      const isWarning = alertItem.severity === "tinggi";
-
-      const formattedName = alertItem.commodity
-        .split("-")
-        .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-        .join(" ");
-
+    const alerts = alertResponse?.alerts ?? [];
+    return commodities.map((commodity) => {
+      const commodityAlerts = alerts.filter((alert) => alert.commodity === commodity.id);
+      const isCritical = commodityAlerts.some((alert) => alert.severity === "kritis");
+      const isWarning = commodityAlerts.some((alert) => alert.severity === "tinggi");
+      const baselinePrices = Object.values(generatedTimeSeriesMaster[commodity.id] ?? {})
+        .flatMap((series) => series.filter((point) => point.isToday).map((point) => point.price));
+      const averageBaseline = baselinePrices.length
+        ? baselinePrices.reduce((sum, price) => sum + price, 0) / baselinePrices.length
+        : 0;
       return {
-        name: formattedName,
-        price: alertItem.detail.hargaKini,
-        change: alertItem.change,
+        name: commodity.name,
+        price: Math.round(averageBaseline),
         status: isCritical ? "CRITICAL" : isWarning ? "WARNING" : "STABLE",
         fill: isCritical ? "#e11d48" : isWarning ? "#d97706" : "#006c4a",
       };
     });
   }, [alertResponse]);
-
-  // Handler cetak dokumen ringkasan dashboard
-  const handlePrintSummary = () => {
-    window.print();
-  };
 
   return (
     <div className="space-y-6 max-w-[1600px] mx-auto font-sans text-slate-800 printable-summary">
@@ -107,7 +90,7 @@ export default function ExecutiveSummaryPage() {
       `}</style>
 
       {/* ================= HEADER SECTION ================= */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-200/60 pb-4">
+      <div className="border-b border-slate-200/60 pb-4">
         <div>
           <h1 className="text-3xl font-black text-slate-800 tracking-tight">Executive Summary</h1>
           <p className="text-sm text-slate-500 font-medium mt-0.5">
@@ -115,26 +98,6 @@ export default function ExecutiveSummaryPage() {
           </p>
         </div>
 
-        <div className="flex items-center gap-3 no-print-btn">
-          <Button
-            onClick={handlePrintSummary}
-            variant="outline"
-            size="default"
-            className="flex items-center gap-2 font-bold border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 transition-all shadow-3xs cursor-pointer"
-          >
-            <Download className="w-4 h-4" />
-            Export Summary
-          </Button>
-
-          <Button
-            variant="default"
-            size="default"
-            className="flex items-center gap-2 font-bold bg-[#006c4a] hover:bg-[#005238] text-white rounded-xl shadow-sm transition-all cursor-default"
-          >
-            <Calendar className="w-4 h-4" />
-            Juli 2026
-          </Button>
-        </div>
       </div>
 
       {/* ================= CRITICAL SYSTEM ALERT ANCHOR BANNER (REAL DATA) ================= */}
@@ -227,11 +190,7 @@ export default function ExecutiveSummaryPage() {
 
           {/* Visualisasi Grafik Komparasi Komoditas Real API */}
           <div className="flex-1 w-full h-[300px] pt-3 flex items-center justify-center">
-            {loading ? (
-              <div className="w-full h-full animate-pulse bg-slate-50 rounded-xl flex items-center justify-center text-xs text-slate-400 font-mono">
-                Memuat grafik...
-              </div>
-            ) : komoditasOverviewData.length === 0 ? (
+            {komoditasOverviewData.length === 0 ? (
               <div className="text-xs text-slate-400 font-medium">Data komoditas tidak ditemukan.</div>
             ) : (
               <ResponsiveContainer width="100%" height="100%">
@@ -239,7 +198,7 @@ export default function ExecutiveSummaryPage() {
                   <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
                   <XAxis dataKey="name" tickLine={false} axisLine={false} stroke="#94a3b8" style={{ fontSize: "11px", fontWeight: "600" }} />
                   <YAxis tickLine={false} axisLine={false} stroke="#94a3b8" tickFormatter={(v) => `Rp ${v.toLocaleString()}`} style={{ fontSize: "10px", fontFamily: "monospace" }} />
-                  <RechartsTooltip formatter={(v: any) => [`Rp ${Number(v).toLocaleString("id-ID")}/kg`, "Harga Pasar"]} contentStyle={{ borderRadius: "var(--radius-lg)" }} />
+                  <RechartsTooltip formatter={(value) => [`Rp ${Number(value).toLocaleString("id-ID")}/kg`, "Harga Pasar"]} contentStyle={{ borderRadius: "var(--radius-lg)" }} />
                   <Bar dataKey="price" radius={[6, 6, 0, 0]} maxBarSize={38}>
                     {komoditasOverviewData.map((entry, index) => (
                       <Cell key={`cell-${index}`} fill={entry.fill} />

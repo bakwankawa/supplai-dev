@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { motion, AnimatePresence } from "motion/react";
@@ -12,6 +13,8 @@ import { regionalComparisonMaster } from "@/data/regional-data";
 import { generatedTimeSeriesMaster } from "@/data/prediction-chart";
 import { analyzePrediction, monthLabel } from "@/lib/prediction/analysis";
 import { PredictionNarrative } from "@/components/dashboard/prediction-narrative";
+import { useApi } from "@/hooks/use-api";
+import type { RedistributionResponse } from "@/lib/types";
 
 import {
   ResponsiveContainer,
@@ -35,7 +38,8 @@ import {
   X,
   Plus,
   Search,
-  Info
+  Info,
+  ArrowUpRight
 } from "lucide-react";
 
 const ThinChevron = () => (
@@ -168,6 +172,31 @@ export default function PricePredictionEnginePage() {
     return commodities.find(c => c.id === commodityId)?.name || "Beras Medium";
   }, [commodityId]);
 
+  const {
+    data: redistributionData,
+    loading: redistributionLoading,
+    error: redistributionError,
+  } = useApi<RedistributionResponse>(
+    `/api/redistribution?commodity=${encodeURIComponent(commodityId)}&postur=seimbang`,
+  );
+
+  const relatedRedistributionRoutes = useMemo(() => {
+    const selected = new Set(selectedRegions);
+    return (redistributionData?.routes ?? []).filter(
+      (route) => selected.has(route.from) || selected.has(route.to),
+    );
+  }, [redistributionData, selectedRegions]);
+
+  const redistributionRole = useMemo(() => {
+    const selected = new Set(selectedRegions);
+    const origins = new Set(relatedRedistributionRoutes.filter((route) => selected.has(route.from)).map((route) => route.from));
+    const destinations = new Set(relatedRedistributionRoutes.filter((route) => selected.has(route.to)).map((route) => route.to));
+    if (origins.size && destinations.size) return "sebagai wilayah asal dan tujuan";
+    if (origins.size) return "sebagai wilayah asal";
+    if (destinations.size) return "sebagai wilayah tujuan";
+    return "";
+  }, [relatedRedistributionRoutes, selectedRegions]);
+
   // Sumbu waktu memakai IRISAN bulan, bukan gabungan.
   //
   // Sumber data tidak lengkap merata: Januari 2026, misalnya, hanya tercatat di
@@ -267,10 +296,11 @@ export default function PricePredictionEnginePage() {
         <Button 
           onClick={handleExportPDF}
           disabled={isExporting || !startDate || !endDate || startDate > endDate}
-          className="no-print flex items-center gap-2 font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl py-4 sm:py-5 px-5 sm:px-6 transition-all cursor-pointer shadow-sm active:scale-97 justify-center text-xs sm:text-sm w-full sm:w-auto"
+          variant="outline"
+          className="no-print inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded-xl border-slate-300 bg-white px-3 text-xs font-bold text-slate-700 shadow-xs transition-all hover:border-slate-400 hover:bg-white hover:text-slate-700 disabled:cursor-not-allowed sm:w-auto"
         >
-          <Download className="w-4 h-4" />
-          {isExporting ? "Menyiapkan laporan..." : "Unduh Laporan PDF"}
+          <Download className="h-3.5 w-3.5" />
+          {isExporting ? "Menyiapkan laporan..." : "Laporan Prediksi"}
         </Button>
       </div>
 
@@ -294,9 +324,10 @@ export default function PricePredictionEnginePage() {
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 items-start">
         
         {/* PARAMETERS PANEL (KIRI) */}
-        <motion.div 
+        <div className="space-y-4 xl:col-span-3">
+        <motion.div
           initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={transitionSmooth}
-          className="xl:col-span-3 bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-5 shadow-xs"
+          className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-5 shadow-xs"
         >
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">
             <Sliders className="w-3.5 h-3.5 text-[#006c4a]" />
@@ -391,6 +422,49 @@ export default function PricePredictionEnginePage() {
           </div>
         </motion.div>
 
+        <motion.section
+          initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ ...transitionSmooth, delay: 0.05 }}
+          className="rounded-2xl border border-slate-200 bg-white p-4 shadow-xs sm:p-5"
+          aria-labelledby="redistribution-recommendation-title"
+        >
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-400">Tindak lanjut</p>
+              <h2 id="redistribution-recommendation-title" className="mt-1 text-sm font-bold text-slate-800">Rekomendasi redistribusi</h2>
+            </div>
+            {relatedRedistributionRoutes.length > 0 && !redistributionLoading && !redistributionError && (
+              <Link
+                href={`/redistribusi?commodity=${encodeURIComponent(commodityId)}&postur=seimbang`}
+                aria-label={`Buka rekomendasi redistribusi ${currentCommodityName}`}
+                className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-slate-200 text-[#006c4a] transition-colors hover:border-[#006c4a] hover:bg-emerald-50"
+              >
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            )}
+          </div>
+
+          {redistributionLoading ? (
+            <div className="mt-4 space-y-2" aria-label="Memuat rekomendasi redistribusi">
+              <div className="h-3 w-full animate-pulse rounded bg-slate-100" />
+              <div className="h-3 w-4/5 animate-pulse rounded bg-slate-100" />
+            </div>
+          ) : relatedRedistributionRoutes.length > 0 ? (
+            <div className="mt-3">
+              <p className="text-xs leading-5 text-slate-600">
+                <span className="font-bold text-slate-800">{relatedRedistributionRoutes.length} rute</span> untuk {currentCommodityName} terhubung dengan wilayah yang dipilih {redistributionRole}.
+              </p>
+              <p className="mt-2 text-[10px] font-semibold text-[#006c4a]">Postur Seimbang</p>
+            </div>
+          ) : (
+            <p className="mt-3 text-xs leading-5 text-slate-500">
+              {redistributionError
+                ? "Data rekomendasi redistribusi belum dapat dimuat."
+                : `Belum ada data redistribusi ${currentCommodityName} untuk wilayah yang dipilih.`}
+            </p>
+          )}
+        </motion.section>
+        </div>
+
         {/* WORKSPACE GRAPH CONTAINER (KANAN) */}
         <div className="xl:col-span-9 space-y-6 w-full min-w-0">
           
@@ -424,7 +498,7 @@ export default function PricePredictionEnginePage() {
             </motion.div>
 
             <motion.div variants={cardItemVariants} className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-3xs min-h-[110px] sm:min-h-[120px]">
-              <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">KESALAHAN HISTORIS (MAPE)</span>
+              <span className="text-[9px] sm:text-[10px] font-bold tracking-wider text-slate-400 font-mono uppercase">MAPE (MEAN ABSOLUTE PERCENTAGE ERROR)</span>
               <h4 className="text-xl sm:text-2xl font-black tracking-tight text-amber-600 mt-1">
                 {avgMape === null ? "Belum tersedia" : `${avgMape.toLocaleString("id-ID")}%`}
               </h4>
@@ -518,12 +592,9 @@ export default function PricePredictionEnginePage() {
       {/* NATIONAL BASELINE COMPLEMENT BAR CHART */}
       <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={transitionSmooth} className="border border-slate-200 bg-white rounded-2xl p-4 sm:p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-100 pb-4 mb-4">
-          <div className="flex items-center gap-2">
-            <MapPin className="w-4 h-4 text-[#006c4a]" />
-            <div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-800 tracking-tight">Perbandingan Harga Acuan Antarwilayah</h3>
-              <p className="text-xs text-slate-500 mt-1">Harga terakhir yang teramati pada {analysis.baselineDate ? monthLabel(analysis.baselineDate) : "bulan acuan"}; rentang grafik di atas tidak mengubah acuan ini.</p>
-            </div>
+          <div>
+            <h3 className="flex items-center gap-2 text-base sm:text-lg font-bold text-slate-900 tracking-tight"><MapPin className="w-4 h-4" />Perbandingan Harga Acuan Antarwilayah</h3>
+            <p className="text-xs text-slate-500 mt-1">Harga terakhir yang teramati pada {analysis.baselineDate ? monthLabel(analysis.baselineDate) : "bulan acuan"}; rentang grafik di atas tidak mengubah acuan ini.</p>
           </div>
           <span className="text-[9px] sm:text-[10px] font-mono font-bold px-2.5 py-1 rounded-md bg-slate-50 text-slate-400 border border-slate-200 self-start sm:self-auto">
             Cakupan data: {regionalBarData.length} Wilayah

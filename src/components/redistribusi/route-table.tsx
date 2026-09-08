@@ -9,6 +9,8 @@ import { formatRupiah, formatNumber } from "@/lib/format"
 import { jelaskanStatus } from "@/lib/redistribusi/status"
 import { ton, persen, angka, SKALA_PERSEN_PASAR, takaranLabel } from "@/lib/redistribusi/format"
 import { ChevronsUpDown } from "lucide-react";
+import Link from "next/link";
+import { InfoTooltip } from "@/components/ui/info-tooltip";
 
 /** No "distance": the distance is a sub-line of the Biaya cell now, not a
  *  column of its own, so there is nothing for a distance sort to reorder.
@@ -17,7 +19,6 @@ import { ChevronsUpDown } from "lucide-react";
 type SortKey = "from" | "to" | "volumeTon" | "cost" | "priority" | "persenPasar" | "kecukupanPersen";
 
 const PRIORITY_ORDER: Record<RedistributionRoute["priority"], number> = { high: 0, medium: 1, low: 2 };
-
 interface RouteTableProps {
   routes: RedistributionRoute[];
   loading: boolean;
@@ -31,9 +32,11 @@ interface RouteTableProps {
   gagalMuat?: string | null;
   postur: Postur;
   komoditas: string;
+  commodityId: string;
+  emptyState?: { title: string; reason: string };
 }
 
-export function RouteTable({ routes, loading, status, gagalMuat, postur, komoditas }: RouteTableProps) {
+export function RouteTable({ routes, loading, status, gagalMuat, postur, komoditas, commodityId, emptyState }: RouteTableProps) {
   const [sortKey, setSortKey] = useState<SortKey>("priority");
   const [sortAsc, setSortAsc] = useState(true);
 
@@ -65,7 +68,9 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
   // An empty plan is a result, not a gap — and there is more than one way to
   // get one. The solver says which; we show that rather than guessing.
   if (routes.length === 0) {
-    const { judul, alasan } = jelaskanStatus(status, postur, komoditas);
+    const { judul, alasan } = emptyState
+      ? { judul: emptyState.title, alasan: emptyState.reason }
+      : jelaskanStatus(status, postur, komoditas);
     return (
       <div className="py-12 px-6 text-center space-y-1.5">
         <p className="text-xs font-bold text-slate-500">{judul}</p>
@@ -77,8 +82,8 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
   }
 
   const sorted = [...routes].sort((a, b) => {
-    let aVal = sortKey === "priority" ? PRIORITY_ORDER[a.priority] : a[sortKey];
-    let bVal = sortKey === "priority" ? PRIORITY_ORDER[b.priority] : b[sortKey];
+    const aVal = sortKey === "priority" ? PRIORITY_ORDER[a.priority] : a[sortKey];
+    const bVal = sortKey === "priority" ? PRIORITY_ORDER[b.priority] : b[sortKey];
 
     if (typeof aVal === "string" && typeof bVal === "string") {
       return sortAsc ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
@@ -99,11 +104,11 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
     // without it because the summary paragraph, not the header row, sits at
     // the top of this box. The table declares a min width so the scrollbar
     // engages rather than the columns squeezing.
-    <div className="rounded-xl border border-slate-200 bg-white">
+    <div className="bg-white">
       {(() => {
         const terukur = routes.filter((r) => r.dasarTakaran === "terukur").length;
         return (
-          <p className="text-[11px] font-medium text-slate-500 mb-3 leading-relaxed">
+          <p className="mb-3 text-sm font-medium leading-6 text-slate-500">
             <span className="font-bold text-slate-700">{terukur} dari {routes.length} rute</span>{" "}
             volumenya ditetapkan dari kebutuhan terukur. Sisanya dibatasi aturan sisi asal
             yang kami tetapkan sendiri, bukan yang kami ukur — makin agresif posturnya,
@@ -114,7 +119,7 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
           </p>
         );
       })()}
-      <Table className="text-xs min-w-[860px]">
+      <Table className="min-w-[860px] text-sm">
         <TableHeader className="bg-slate-50">
           <TableRow className="hover:bg-transparent">
             {(["from", "to"] as const).map((col) => (
@@ -158,8 +163,9 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
               onClick={() => toggleSort("kecukupanPersen")}
               className="text-right cursor-pointer select-none font-bold text-slate-700 hover:text-[#006c4a] transition-colors py-3 whitespace-nowrap"
             >
-              <div className="flex items-center gap-1 justify-end">
+              <div className="flex items-center justify-end gap-1">
                 Kecukupan GPM
+                <InfoTooltip text="Kecukupan GPM menunjukkan bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah di provinsi tujuan, bukan cakupan rute pada baris tersebut. Nilainya melekat pada wilayah tujuan dan bersifat indikatif karena satu kegiatan GPM mencakup beberapa komoditas." />
                 <ChevronsUpDown className={`w-3 h-3 ${sortKey === "kecukupanPersen" ? "text-[#006c4a]" : "text-slate-300"}`} />
               </div>
             </TableHead>
@@ -175,6 +181,7 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
                 </div>
               </TableHead>
             ))}
+            <TableHead className="font-bold text-slate-700 py-3 text-right">Detail</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -184,7 +191,7 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
               <TableCell className="font-medium text-slate-600">{route.to}</TableCell>
               <TableCell className="text-right tabular-nums">
                 <div className="font-bold text-slate-700">{ton(route.volumeTon)}</div>
-                <div className="text-[10px] text-slate-400">
+                <div className="text-xs text-slate-400">
                   {ton(route.volumeCiBawah).replace(" t", "")}–{ton(route.volumeCiAtas)}
                 </div>
               </TableCell>
@@ -197,7 +204,7 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
                     />
                   </div>
                   <span
-                    className="text-[11px] font-bold tabular-nums text-slate-600"
+                    className="text-xs font-bold tabular-nums text-slate-600"
                     title={`Konsumsi bulanan ${route.to}: ${ton(route.konsumsiTujuanTonBulan)}`}
                   >
                     {persen(route.persenPasar)}
@@ -234,12 +241,20 @@ export function RouteTable({ routes, loading, status, gagalMuat, postur, komodit
               </TableCell>
               <TableCell className="tabular-nums" title={`Jarak ${route.from} ke ${route.to}: ${formatNumber(route.distance)} km`}>
                 <div className="font-mono font-bold text-slate-800">{formatRupiah(route.cost)}</div>
-                <div className="text-[10px] text-slate-400">{formatNumber(route.distance)} km</div>
+                <div className="text-xs text-slate-400">{formatNumber(route.distance)} km</div>
               </TableCell>
               <TableCell>
-                {route.priority === "high" && <Badge className="bg-rose-500 hover:bg-rose-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Tinggi</Badge>}
-                {route.priority === "medium" && <Badge className="bg-amber-500 hover:bg-amber-600 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Sedang</Badge>}
-                {route.priority === "low" && <Badge className="bg-slate-400 hover:bg-slate-500 text-white border-none rounded-md px-2 py-0.5 text-[10px]">Rendah</Badge>}
+                {route.priority === "high" && <Badge className="rounded-md border-none bg-rose-500 px-2 py-0.5 text-xs text-white hover:bg-rose-600">Tinggi</Badge>}
+                {route.priority === "medium" && <Badge className="rounded-md border-none bg-amber-500 px-2 py-0.5 text-xs text-white hover:bg-amber-600">Sedang</Badge>}
+                {route.priority === "low" && <Badge className="rounded-md border-none bg-slate-400 px-2 py-0.5 text-xs text-white hover:bg-slate-500">Rendah</Badge>}
+              </TableCell>
+              <TableCell className="text-right">
+                <Link
+                  href={`/redistribusi/detail?commodity=${encodeURIComponent(commodityId)}&postur=${postur}&from=${encodeURIComponent(route.from)}&to=${encodeURIComponent(route.to)}`}
+                  className="inline-flex h-8 items-center rounded-lg border border-slate-300 px-3 text-xs font-bold text-slate-700 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400"
+                >
+                  Lihat detail
+                </Link>
               </TableCell>
             </TableRow>
           ))}

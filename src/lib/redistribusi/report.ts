@@ -1,5 +1,6 @@
 import { jsPDF } from "jspdf";
 import { bukuBesar } from "@/data/buku-besar";
+import { narasiModel } from "@/data/narasi";
 import lanskapData from "@/data/generated/lanskap.json";
 import muatanBalikData from "@/data/generated/muatan_balik.json";
 import tindakanData from "@/data/generated/tindakan.json";
@@ -92,12 +93,17 @@ export const KERANGKA_PEDAGANG_WIDTH = [21, 20, 19, 20, 15, 19, 20, 24, 16];
  *  Drawn as vector text, mirroring src/lib/prediction/report.ts, so this
  *  codebase has one report idiom instead of two. */
 export function createRedistribusiReport(
-  a: RedistribusiAnalysis, pembaca: Pembaca, sekarang: Date = new Date(),
+  a: RedistribusiAnalysis,
+  pembaca: Pembaca,
+  sekarang: Date = new Date(),
+  generatedBy = "Pengguna SupplAI",
 ) {
   const doc = new jsPDF({ unit: "mm", format: "a4", compress: true });
   const left = 18, width = 174, bottom = 272;
   const green = "#006C4A", ink = "#182B38", muted = "#536775";
   let y = 29;
+  let tocPage = 0;
+  const tocEntries: { title: string; page: number }[] = [];
   const clean = (text: string) => text.replace(/[–—−]/g, "-").replace(/\u00a0/g, " ");
   const header = () => {
     doc.setFillColor(green); doc.rect(0, 0, 210, 4, "F");
@@ -113,7 +119,11 @@ export function createRedistribusiReport(
     y += 2;
   };
   const heading = (text: string) => {
-    ensure(20); doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(green); doc.text(clean(text), left, y); y += 8;
+    ensure(20);
+    if (/^\d{2}\s/.test(text) || text === "Glosarium") {
+      tocEntries.push({ title: clean(text), page: doc.getCurrentPageInfo().pageNumber });
+    }
+    doc.setFont("helvetica", "bold"); doc.setFontSize(13); doc.setTextColor(green); doc.text(clean(text), left, y); y += 8;
   };
   const cards = (items: [string, string][]) => {
     ensure(27);
@@ -153,13 +163,39 @@ export function createRedistribusiReport(
     entry.input, entry.nilai, entry.sumber, entry.tahun,
     BUKU_BESAR_STATUS_LABEL[entry.status].label,
   ];
+  const glossary = [
+    [
+      "Wilayah asal (surplus)",
+      "Bukan kelebihan produksi yang terukur - data produksi per provinsi belum tersedia. Wilayah ini dipilih sebagai kandidat asal karena harga komoditasnya berada di bawah median nasional dan tidak diprediksi melonjak.",
+    ],
+    [
+      "Cara membaca matriks rute",
+      "Setiap baris merupakan usulan pengiriman dari provinsi asal ke tujuan. Persentase pasar menunjukkan perbandingan kiriman dengan konsumsi bulanan tujuan. Menekan harga menunjukkan estimasi poin persentase kenaikan yang dapat ditahan. Dasar takaran menjelaskan apakah volume berasal dari kebutuhan terukur atau batas asumsi. Biaya memuat ongkos angkut dan jarak rute.",
+    ],
+    [
+      "Kecukupan GPM",
+      "Kecukupan GPM tidak mengukur cakupan kiriman pada baris tersebut. Angka ini menunjukkan bagian kebutuhan terukur yang sudah ditutup Gerakan Pangan Murah di provinsi tujuan, sehingga setiap rute menuju provinsi yang sama menampilkan nilai yang sama.",
+    ],
+    [
+      "Kelompok IKP",
+      "Kelompok bawah, tengah, dan atas merupakan pembagian atas 38 provinsi yang memiliki skor IKP Bapanas 2025, bukan hanya 34 provinsi yang harganya dapat dimodelkan. Jumlah kecil dapat menunjukkan kelompok yang kecil atau keterbatasan jangkauan model.",
+    ],
+    [
+      "Asal-usul angka",
+      "Daftar ini menyebut setiap masukan perhitungan beserta sumber dan tahunnya agar dapat diperiksa, sekaligus membedakan angka yang diukur, diturunkan, dan ditetapkan melalui asumsi.",
+    ],
+    [
+      "Ditulis model bahasa",
+      `Disusun ${narasiModel} dari angka yang sudah dihitung pipeline, lalu diperiksa ulang: setiap angka dalam teks ini harus cocok dengan angka aslinya. Penalarannya tidak ikut diperiksa.`,
+    ],
+  ] as const;
 
   header();
   const judulPembaca = pembaca === "pemerintah" ? "Kerangka Pemerintah" : "Kerangka Pedagang";
   doc.setProperties({
     title: `Laporan Redistribusi ${a.komoditas} - ${judulPembaca}`,
     subject: "Rencana pengiriman antarprovinsi beserta dasar takaran dan asal-usul angkanya",
-    author: "SupplAI",
+    author: generatedBy,
     creator: "SupplAI - Laporan Redistribusi",
   });
   heading("Laporan Rencana Redistribusi Pangan");
@@ -183,6 +219,10 @@ export function createRedistribusiReport(
   } else {
     paragraph(jendelaBaris2, 9, muted);
   }
+
+  nextPage();
+  tocPage = doc.getCurrentPageInfo().pageNumber;
+  nextPage();
 
   if (pembaca === "pemerintah") {
     heading("01  Ringkasan");
@@ -487,11 +527,49 @@ export function createRedistribusiReport(
     table(LEDGER_HEAD, [ledgerRow(ongkos)], LEDGER_WIDTH);
   }
 
+  heading("Glosarium");
+  paragraph(
+    "Penjelasan yang tersedia sebagai tooltip pada dashboard dicantumkan kembali agar laporan ini dapat dibaca secara mandiri.",
+    9,
+    muted,
+  );
+  for (const [term, explanation] of glossary) {
+    ensure(13);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(10);
+    doc.setTextColor(ink);
+    doc.text(clean(term), left, y);
+    y += 5.5;
+    paragraph(explanation, 9, muted);
+  }
+
+  const lastContentPage = doc.getCurrentPageInfo().pageNumber;
+  doc.setPage(tocPage);
+  doc.setFont("helvetica", "bold"); doc.setFontSize(16); doc.setTextColor(green); doc.text("Daftar Isi", left, 34);
+  doc.setDrawColor("#DCE5E7"); doc.line(left, 40, 192, 40);
+  let tocY = 51;
+  for (const entry of tocEntries) {
+    doc.setFont("helvetica", "normal"); doc.setFontSize(10); doc.setTextColor(ink); doc.text(entry.title, left, tocY);
+    doc.setDrawColor("#CCD8D3"); doc.setLineDashPattern([1, 1.5], 0); doc.line(left + 72, tocY - 1, 184, tocY - 1);
+    doc.setFont("helvetica", "bold"); doc.text(String(entry.page), 192, tocY, { align: "right" });
+    tocY += 9;
+  }
+  doc.setLineDashPattern([], 0);
+  doc.setPage(lastContentPage);
+
+  const generatedAt = sekarang.toLocaleString("id-ID", {
+    timeZone: "Asia/Jakarta",
+    dateStyle: "medium",
+    timeStyle: "medium",
+  });
   const pages = doc.getNumberOfPages();
   for (let page = 1; page <= pages; page++) {
-    doc.setPage(page); doc.setDrawColor("#DCE5E7"); doc.line(left, 280, 192, 280);
+    doc.setPage(page);
+    doc.setFont("helvetica", "bold"); doc.setFontSize(11); doc.setTextColor("#E2E8E5");
+    doc.text(clean(`Dibuat oleh ${generatedBy} | ${generatedAt} WIB`), 105, 151, { align: "center", angle: 35 });
+    doc.setDrawColor("#DCE5E7"); doc.line(left, 280, 192, 280);
     doc.setFont("helvetica", "normal"); doc.setFontSize(8); doc.setTextColor(muted);
-    doc.text("SupplAI | Bahan telaah, bukan keputusan otomatis", left, 286);
+    doc.text("Generated by SupplAI | Bahan telaah, bukan keputusan otomatis", left, 286);
     doc.text(`${page} / ${pages}`, 192, 286, { align: "right" });
   }
   return new Uint8Array(doc.output("arraybuffer"));

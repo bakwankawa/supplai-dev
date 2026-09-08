@@ -25,6 +25,9 @@ interface TindakanPanelProps {
    *  rute untuk SETIAP komoditas. */
   nRute: number;
   loading: boolean;
+  /** Batasi modal dan imbal hasil ke wilayah asal yang benar-benar terhubung
+   *  dengan alert. Tanpa prop ini, halaman utama tetap memakai seluruh rute. */
+  relevantOrigins?: string[];
 }
 
 /** Panel "Jalur tindakan": setara kegiatan GPM beserta kapasitas tahunannya
@@ -39,7 +42,7 @@ interface TindakanPanelProps {
  *  enam komoditas pada postur "seimbang" saja, dan menampilkannya di bawah
  *  judul komoditas/postur laporan ini adalah persis defek yang membuat
  *  Task 7 dan 8 dikembalikan. */
-export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPanelProps) {
+export function TindakanPanel({ postur, komoditas, nRute, loading, relevantOrigins }: TindakanPanelProps) {
   if (loading) {
     return (
       <div className="space-y-3">
@@ -60,13 +63,16 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
 
   const setaraKomoditas = TINDAKAN.setaraKegiatanPerKomoditas[postur]?.[komoditas];
   const modalKomoditas = TINDAKAN.modalPerKomoditas[postur]?.[komoditas] ?? [];
+  const modalTersaring = relevantOrigins
+    ? modalKomoditas.filter((item) => relevantOrigins.includes(item.dari))
+    : modalKomoditas;
 
   // Diurutkan menurun menurut imbal hasil, bukan menurut modal (lihat catatan
   // Task 6 di brief: tabel modal di spec keliru diurutkan menurut modal,
   // menaruh Sulawesi Barat 17,2% di atas Kepulauan Riau 39,9%). `null`
   // (modal nol pada rute itu, bukan imbal hasil nol atau tak hingga) ditaruh
   // di dasar, tidak ikut dibandingkan secara numerik dengan yang diketahui.
-  const modalTerurut = [...modalKomoditas].sort((x, y) => {
+  const modalTerurut = [...modalTersaring].sort((x, y) => {
     if (x.imbalHasilPersen === null && y.imbalHasilPersen === null) return 0;
     if (x.imbalHasilPersen === null) return 1;
     if (y.imbalHasilPersen === null) return -1;
@@ -80,6 +86,14 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
   return (
     <div className="space-y-6">
       {/* ===== Setara kegiatan GPM ===== */}
+      {relevantOrigins ? (
+        <div className="space-y-2">
+          <h4 className="text-sm font-bold text-slate-800">Setara kegiatan GPM</h4>
+          <p className="rounded-xl border border-slate-100 bg-slate-50 p-3 text-xs leading-5 text-slate-500">
+            Angka setara kegiatan GPM hanya tersedia pada tingkat komoditas, bukan per wilayah. Angka agregat tersebut tidak ditampilkan dalam investigasi wilayah ini.
+          </p>
+        </div>
+      ) : (
       <div className="space-y-3">
         <h4 className="text-sm font-bold text-slate-800">Setara kegiatan GPM</h4>
         {!setaraKomoditas || !instrumen ? (
@@ -88,7 +102,7 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
           </p>
         ) : (
           <>
-            <p className="text-[11px] font-medium text-slate-500 leading-relaxed">{instrumen[0]}</p>
+            <p className="text-sm font-medium leading-6 text-slate-600">{instrumen[0]}</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
               <div className="rounded-xl border border-slate-100 bg-slate-50 p-3 space-y-1">
                 <span className="text-[10px] font-bold uppercase tracking-wide text-slate-500">
@@ -130,7 +144,7 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
               </div>
             </div>
             <p
-              className={`text-[11px] font-semibold leading-relaxed rounded-xl border p-3 ${
+              className={`rounded-xl border p-3 text-sm font-semibold leading-6 ${
                 akanMelewatiTahunan
                   ? "text-rose-700 bg-rose-50 border-rose-100"
                   : "text-slate-700 bg-amber-50 border-amber-100"
@@ -138,10 +152,11 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
             >
               {instrumen[1]}
             </p>
-            <p className="text-[10px] text-slate-400 leading-relaxed">{instrumen[2]}</p>
+            <p className="text-xs leading-5 text-slate-500">{instrumen[2]}</p>
           </>
         )}
       </div>
+      )}
 
       {/* ===== Modal dan imbal hasil ===== */}
       <div className="space-y-3">
@@ -152,11 +167,11 @@ export function TindakanPanel({ postur, komoditas, nRute, loading }: TindakanPan
           </p>
         ) : (
           <>
-            <p className="text-[11px] font-semibold text-slate-700 leading-relaxed bg-amber-50 border border-amber-100 rounded-xl p-3">
+            <p className="rounded-xl border border-amber-100 bg-amber-50 p-3 text-sm font-semibold leading-6 text-slate-700">
               {caveatModal}
             </p>
             <div className="w-full overflow-x-auto">
-              <table className="w-full text-xs">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-slate-100 text-left text-[10px] font-bold uppercase tracking-wide text-slate-500">
                     <th className="py-2 pr-2">Dari</th>

@@ -1,7 +1,7 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { formatPercent } from "@/lib/format"
 
@@ -35,9 +35,9 @@ function toRegionId(region: string): string {
 function TopCriticalSkeleton() {
   return (
     <Card className="bg-white shadow-sm">
-      <CardHeader>
+      <div className="p-6 pb-2">
         <Skeleton className="h-5 w-40" />
-      </CardHeader>
+      </div>
       <CardContent className="space-y-3">
         {Array.from({ length: 5 }).map((_, i) => (
           <div key={i} className="flex items-center gap-3">
@@ -65,12 +65,7 @@ export function TopCritical({ data, loading }: TopCriticalProps) {
 
   return (
     <Card className="bg-white shadow-sm h-fit">
-      <CardHeader>
-        <CardTitle className="text-base font-semibold text-[#1e293b]">
-          Top 5 Wilayah Kritis
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-2">
+      <CardContent className="space-y-2 pt-6">
         {items.length === 0 && (
           <p className="text-sm text-muted-foreground text-center py-4">
             Tidak ada data

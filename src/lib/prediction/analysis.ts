@@ -45,6 +45,13 @@ export function analyzePrediction(input: AnalysisInput) {
   const narrative = complete && currentPrice !== null && predictedPrice !== null && changePercent !== null
     ? `Harga ${commodity.name.toLowerCase()} di ${regions.length === 1 ? regions[0].region : `${regions.length} wilayah terpilih`} diproyeksikan ${direction.toLowerCase()}, dari ${money(currentPrice)}/${commodity.unit} pada ${monthLabel(baselineDate!)} menjadi ${money(predictedPrice)}/${commodity.unit} pada ${monthLabel(forecastDate!)}. Perubahan rata-rata sebesar ${percent(changePercent)} atau ${money(Math.abs(change!))}/${commodity.unit}. Rata-rata ini memberi bobot yang sama pada setiap wilayah, bukan berdasarkan volume perdagangan.`
     : `Belum tersedia proyeksi yang dapat dibandingkan untuk seluruh wilayah pada rentang ini. Pilih periode yang mencakup bulan prediksi dan wilayah dengan data lengkap. Data historis tetap dapat diperiksa pada grafik.`;
+  const factorNarrative = changePercent === null
+    ? "Faktor perubahan harga belum dapat diperkirakan karena proyeksi pembanding belum lengkap."
+    : changePercent > 0.5
+      ? "Dugaan faktor kenaikan yang perlu diverifikasi mencakup penurunan pasokan atau hasil panen, gangguan cuaca dan distribusi, serta peningkatan permintaan pada periode proyeksi."
+      : changePercent < -0.5
+        ? "Dugaan faktor penurunan yang perlu diverifikasi mencakup peningkatan pasokan atau hasil panen, distribusi yang lebih lancar, serta penurunan permintaan pada periode proyeksi."
+        : "Harga yang relatif stabil dapat mengindikasikan pasokan dan permintaan yang lebih seimbang, tetapi kondisi stok, cuaca, dan distribusi tetap perlu diverifikasi.";
   const regionalNarratives = regions.map((row) => row.baseline && row.last && row.changePercent !== null
     ? `${row.region}: ${money(row.baseline.price)} menjadi ${money(row.last.price)}/${commodity.unit} (${percent(row.changePercent)}) pada ${monthLabel(row.last.date)}.`
     : `${row.region}: tidak tersedia pasangan harga acuan dan prediksi pada rentang terpilih.`);
@@ -74,6 +81,6 @@ export function analyzePrediction(input: AnalysisInput) {
     "Rekomendasi merupakan bahan telaah. Konfirmasi kondisi lapangan, kontrak, kewenangan, dan biaya sebelum keputusan bisnis atau kelembagaan.",
     ...(missingMonths.length ? [`Data tidak lengkap untuk seluruh wilayah pada ${missingMonths.map(monthLabel).join(", ")}. Bulan tersebut tidak digabungkan dalam grafik perbandingan.`] : []),
   ];
-  return { ...input, commodity, regions, complete, currentPrice, predictedPrice, change, changePercent, baselineDate, forecastDate, mape, direction, signal, narrative, regionalNarratives, costPerTon, budgetNarrative, businessActions, institutionalActions, history, caveats };
+  return { ...input, commodity, regions, complete, currentPrice, predictedPrice, change, changePercent, baselineDate, forecastDate, mape, direction, signal, narrative, factorNarrative, regionalNarratives, costPerTon, budgetNarrative, businessActions, institutionalActions, history, caveats };
 }
 export type PredictionAnalysis = ReturnType<typeof analyzePrediction>;
