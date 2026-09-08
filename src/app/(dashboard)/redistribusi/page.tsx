@@ -12,6 +12,8 @@ import { SurplusPanel, MethodPanel } from "@/components/redistribusi/info-panels
 import { BukuBesarPanel } from "@/components/redistribusi/buku-besar-panel";
 import { KesenjanganPanel } from "@/components/redistribusi/kesenjangan-panel";
 import { LanskapPanel } from "@/components/redistribusi/lanskap-panel";
+import { MuatanBalikPanel } from "@/components/redistribusi/muatan-balik-panel";
+import { TindakanPanel } from "@/components/redistribusi/tindakan-panel";
 import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Narasi, Penjelas } from "@/components/ui/narasi";
@@ -19,7 +21,7 @@ import { narasiRedistribusi } from "@/data/narasi";
 import { formatRupiah } from "@/lib/format";
 import { POSTUR_LABEL } from "@/lib/redistribusi/postur";
 import { jendelaWaktu } from "@/lib/redistribusi/waktu";
-import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download, Scale, BarChart3 } from "lucide-react";
+import { AlertTriangle, ChevronDown, Route, Layers3, TrendingUp, MapPin, Wallet, Search, Download, Scale, BarChart3, Repeat, ListChecks } from "lucide-react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -379,6 +381,32 @@ export default function RedistribusiPage() {
             <h3 className="text-lg font-bold text-slate-800">Lanskap Komoditas</h3>
           </div>
           <LanskapPanel provinsiAwal={routes[0]?.to} />
+        </motion.div>
+
+        {/* ================= ROW 2.7: MUATAN BALIK (FULL WIDTH, OWN ROW) =================
+         *  Barisnya sendiri, sama seperti Row 2.5/2.6 di atas -- lihat catatan
+         *  di kedua baris itu soal regresi tata letak yang pernah terjadi
+         *  ketika sebuah panel disisipkan ke baris yang sudah terisi. */}
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+            <Repeat className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-lg font-bold text-slate-800">Muatan Balik</h3>
+          </div>
+          <p className="text-[11px] font-medium text-slate-400 leading-relaxed mb-3">
+            Diagnosis ini mencakup seluruh rencana postur {POSTUR_LABEL[postur].nama} lintas
+            enam komoditas yang kami modelkan, bukan hanya rute {currentCommodityName} yang
+            sedang ditampilkan di atas.
+          </p>
+          <MuatanBalikPanel postur={postur} />
+        </motion.div>
+
+        {/* ================= ROW 2.8: JALUR TINDAKAN (FULL WIDTH, OWN ROW) ================= */}
+        <motion.div variants={itemVariants} className="bg-white border border-slate-200/80 rounded-2xl p-6 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)]">
+          <div className="flex items-center gap-2 border-b border-slate-100 pb-4 mb-4">
+            <ListChecks className="w-4 h-4 text-[#006c4a]" />
+            <h3 className="text-lg font-bold text-slate-800">Jalur Tindakan</h3>
+          </div>
+          <TindakanPanel postur={postur} komoditas={currentCommodityName} nRute={routes.length} loading={loading} />
         </motion.div>
         </>
       )}
