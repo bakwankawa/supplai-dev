@@ -189,3 +189,150 @@ export interface PosisiHarga {
   relatifPersen: number
   posisi: "di bawah median" | "setara median" | "di atas median"
 }
+
+/** Satu pasangan kaki-masuk/kaki-keluar di satu simpul (hub) yang menerima
+ *  sekaligus mengirim dalam rencana. BATASNYA: ini rute PENGIRIMAN yang
+ *  dipasangkan, bukan kapal — modul sumbernya tidak mengaku tahu kapal mana
+ *  yang pulang kosong. */
+export interface RantaiBaris {
+  hub: string
+  dari: string
+  ke: string
+  komoditasMasuk: string
+  komoditasKeluar: string
+  tonDirantai: number
+}
+
+/** Diagnosis muatan balik untuk satu postur: bentuk rute yang benar-benar ada
+ *  (rantai — nol simpul menerima DAN mengirim ke/dari pihak yang sama, bukan
+ *  pulang-pergi), dan ton-km reposisi kosong yang bisa dihindari bila
+ *  kiriman-kiriman itu dirantai.
+ *
+ *  BATASNYA: `persenDirantai`/`tonDirantai` dihitung HANYA atas enam
+ *  komoditas yang dimodelkan — agregator muatan sungguhan juga melihat hasil
+ *  bumi lokal, jadi angka ini LANTAI, bukan langit-langit. Jarak kaki pulang
+ *  memakai jarak kaki masuk sebagai proksi (asumsi simetri matriks jarak,
+ *  dinyatakan bukan diuji secara empiris). `null` — bukan 0 — berarti baris
+ *  yang mendasarinya ada tapi volumenya tidak diketahui. */
+export interface RantaiMuatan {
+  nRute: number
+  totalTon: number | null
+  tonKm: number | null
+  pasanganBolakBalik: number
+  simpul: string[]
+  tonDirantai: number | null
+  persenDirantai: number | null
+  tonKmKosongDihindari: number | null
+  rantai: RantaiBaris[]
+}
+
+export type MuatanBalikByPostur = Record<Postur | "default", RantaiMuatan>
+
+/** Satu struktur ongkos di dalam uji tesis jarak (Bagian 3). `rute` adalah
+ *  daftar `[komoditas, dari, ke]` per rute layak (volume > 0). */
+export interface StrukturOngkos {
+  totalTon: number
+  nRute: number
+  rute: string[][]
+  totalOngkos: number
+  /** `null` bila struktur ini tidak mengirim apa pun sama sekali — bukan 0%. */
+  tonKeSepertigaBawah: number | null
+  persenKeSepertigaBawah: number | null
+  ongkosTetapTerkalibrasi: number
+}
+
+export interface DegenerasiKomoditas {
+  diuji: boolean
+  /** Hanya ada bila `diuji` false — alasan komoditas ini dilewati (mis. tidak
+   *  ada pasangan surplus-defisit). */
+  alasan?: string
+  nUlang?: number
+  nHimpunanUnik?: number
+  /** false berarti perturbasi ~1 per sejuta pada ongkos datar mengubah
+   *  himpunan rute — bukti bahwa objektifnya degenerate, bukan berpreferensi. */
+  stabil?: boolean
+}
+
+/** Hasil uji apakah jarak benar-benar menyetir rencana, dengan mengganti
+ *  fungsi ongkos LP (jarak vs. ongkos datar vs. keduanya) dan melihat apakah
+ *  rencananya bergeser.
+ *
+ *  BATASNYA (field `keterbatasan`, wajib disertakan setiap kali `ruteBerubah`
+ *  ditampilkan): eksperimen ini hanya bisa mengatakan sesuatu tentang MODEL
+ *  ini, bukan logistik pangan Indonesia sungguhan — jarak per km adalah
+ *  satu-satunya suku ongkos yang berubah per rute di LP ini, sehingga
+ *  eksperimen ini tidak bisa membedakan "jarak tidak penting secara ekonomi"
+ *  dari "kami hanya memodelkan jarak". Ketika `tetapDegenerate` true, objektif
+ *  ongkos-datar tidak punya preferensi sama sekali — himpunan rute yang
+ *  dikembalikan solver pada pasangan itu adalah artefak pemecah LP, bukan
+ *  preferensi ekonomi. */
+export interface UjiOngkos {
+  postur: string
+  komoditas: string[]
+  struktur: {
+    jarak: StrukturOngkos
+    tetap: StrukturOngkos
+    tetapPlusJarak: StrukturOngkos
+  }
+  ruteBerubah: number
+  ruteBerubahTetapPlusJarak: number
+  ongkosTetapTerkalibrasi: number
+  tetapDegenerate: boolean
+  degenerasiTetapDetail: Record<string, DegenerasiKomoditas>
+  statusPerKomoditas: {
+    jarak: Record<string, string>
+    tetap: Record<string, string>
+    tetapPlusJarak: Record<string, string>
+  }
+  keterbatasan: string
+  /** Persen tonase yang mengalir ke provinsi IKP sepertiga terbawah di bawah
+   *  struktur jarak/tetap — diratakan dari `struktur.jarak`/`struktur.tetap`
+   *  di batas ekspor untuk teks kerangka pemerintah. `null` mengikuti
+   *  `persenKeSepertigaBawah` di atas: tidak diketahui, bukan nol. */
+  persenBawahJarak: number | null
+  persenBawahTetap: number | null
+}
+
+/** Konversi tonase rencana menjadi jumlah kegiatan Gerakan Pangan Murah, dan
+ *  kapasitas tahunan instrumen itu sebagai pembanding. Angkanya INDIKATIF dan
+ *  mewarisi tiga peringatan yang sudah melekat pada Kecukupan GPM: GPM satu
+ *  instrumen di antara beberapa, anggaran per kegiatan adalah rencana 2027
+ *  atas realisasi 2026, dan GPM menjual beberapa komoditas sekaligus. */
+export interface SetaraKegiatan {
+  ton: number
+  nilaiRp: number
+  kegiatan: number
+  kapasitasTahunan: number
+  persenKapasitas: number
+}
+
+/** Satu pasar WFP yang tercatat di sebuah provinsi. BATASNYA: ini tempat
+ *  harga DIAMATI, bukan jaminan barang tersedia di sana — tidak ada data
+ *  pasokan tingkat pasar. */
+export interface PasarProvinsi {
+  nama: string
+  kabupaten: string
+}
+
+/** Modal yang terkunci di satu provinsi asal, dan imbal hasilnya. BATASNYA:
+ *  `imbalHasilPersen` adalah imbal hasil SATU TRANSAKSI, bukan setahun, dan
+ *  bersandar pada kenaikan harga yang diprediksi benar-benar terjadi. `null`
+ *  berarti modal nol (tidak diketahui), bukan imbal hasil nol atau tak hingga. */
+export interface ModalRute {
+  dari: string
+  ton: number
+  modalRp: number
+  marjinRp: number
+  imbalHasilPersen: number | null
+}
+
+/** Jalur tindakan pembaca setelah membaca rencana redistribusi (Bagian 5):
+ *  instrumen dan kapasitasnya, pasar bernama per provinsi, dan modal-imbal
+ *  hasil. `modal` sudah diurutkan menurun menurut `imbalHasilPersen` — bukan
+ *  menurut modal — karena pembaca yang memutuskan memindahkan barang ingin
+ *  tahu rute mana yang paling menghasilkan per rupiah yang dikunci. */
+export interface Tindakan {
+  setaraKegiatan: SetaraKegiatan
+  modal: ModalRute[]
+  pasar: Record<string, PasarProvinsi[]>
+}

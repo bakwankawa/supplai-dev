@@ -104,7 +104,20 @@ def load_artifacts(art: Path) -> dict:
         "buku_besar": json.loads((art / "buku_besar.json").read_text()),
         "narasi": json.loads((art / "narasi.json").read_text()),
         "final_results": json.loads((art / "final_results.json").read_text()),
+        "uji_ongkos": json.loads((art / "uji_ongkos.json").read_text()),
     }
+
+
+def or_none(x, ndigits: int):
+    # No data, no number: an unknown value (NaN) must not read as zero, and
+    # json.dumps(..., allow_nan=False) rejects a bare NaN float outright — it
+    # would rather fail loudly at write time than let one leak into the JSON
+    # as a token the browser's JSON.parse chokes on. None survives the trip
+    # and serializes to `null`, which keeps "unknown" representable. Shared
+    # by every builder below rather than reimplemented per call site — see
+    # anggaranNasionalTon in build_redistribution for the original precedent.
+    x = float(x)
+    return None if pd.isna(x) else round(x, ndigits)
 
 
 # --------------------------------------------------------------------------- #
@@ -230,17 +243,11 @@ def _response_for(sub: pd.DataFrame, cid: str, plan: dict,
                   bulan_prediksi: str, horizon_bulan: int) -> dict:
     routes, net = [], {}
 
-    def or_none(x, ndigits):
-        # ditahan_pp and its three companions are deliberately NaN for a route
-        # with no supporting consumption data (kebutuhan.dampak_harga simply
-        # omits that province, so a .map() lookup comes back NaN) — unknown
-        # must not read as zero. json.dumps would otherwise write a bare NaN
-        # token, which JSON.parse in the browser rejects; None serializes to
-        # `null`, which survives the trip and keeps "unknown" representable.
-        # Mirrors anggaranNasionalTon's existing None-if-missing precedent below.
-        x = float(x)
-        return None if pd.isna(x) else round(x, ndigits)
-
+    # ditahan_pp and its three companions are deliberately NaN for a route
+    # with no supporting consumption data (kebutuhan.dampak_harga simply
+    # omits that province, so a .map() lookup comes back NaN) — unknown must
+    # not read as zero. or_none() (module level, above) is the shared helper
+    # for that; mirrors anggaranNasionalTon's None-if-missing precedent below.
     for r in sub.itertuples():
         routes.append({"from": r.dari, "to": r.ke, "commodity": cid,
                        "volume": round(float(r.volume_ton)),
@@ -556,6 +563,169 @@ def build_lanskap() -> dict:
     }
 
 
+def build_muatan_balik() -> dict:
+    """Diagnosis muatan balik per postur: bentuk rute (rantai, bukan pulang-
+    pergi), dan ton-km reposisi kosong yang bisa dihindari bila kiriman-kiriman
+    itu dirantai.
+
+    camelCase mengikuti pemetaan yang dinyatakan di Self-Review rencana:
+    n_rute -> nRute, total_ton -> totalTon, ton_km -> tonKm,
+    pasangan_bolak_balik -> pasanganBolakBalik, ton_dirantai -> tonDirantai,
+    persen_dirantai -> persenDirantai. `rantai` per postur adalah tabel per
+    simpul (hub) yang menerima sekaligus mengirim — batasnya sama dengan
+    modul sumbernya (supplai/muatan_balik.py): ini rute PENGIRIMAN yang
+    dipasangkan, bukan kapal; ia tidak mengaku tahu kapal mana yang pulang
+    kosong. `or_none()` menahan setiap total yang bisa NaN (seluruh baris
+    yang ADA tapi volumenya tak diketahui) dari terbaca sebagai nol.
+    """
+    _ensure_supplai_importable()
+    from supplai import muatan_balik as mb
+
+    flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
+    meta = json.loads((DEFAULT_ARTIFACTS / "meta.json").read_text())
+    posturs = meta.get("postur_tersedia", ["seimbang"])
+
+    out = {}
+    for postur in posturs:
+        d = mb.diagnosa(flows, postur)
+        r = mb.ringkas(flows, postur)
+        rantai_df = mb.rantai(flows, postur)
+        out[postur] = {
+            "nRute": int(d["n_rute"]),
+            "totalTon": or_none(d["total_ton"], 2),
+            "tonKm": or_none(d["ton_km"], 1),
+            "pasanganBolakBalik": int(d["pasangan_bolak_balik"]),
+            "simpul": list(d["simpul"]),
+            "tonDirantai": or_none(r["ton_dirantai"], 2),
+            "persenDirantai": or_none(r["persen_dirantai"], 2),
+            "tonKmKosongDihindari": or_none(r["ton_km_kosong_dihindari"], 1),
+            "rantai": [
+                {"hub": row.hub, "dari": row.dari, "ke": row.ke,
+                 "komoditasMasuk": row.komoditas_masuk,
+                 "komoditasKeluar": row.komoditas_keluar,
+                 "tonDirantai": round(float(row.ton_dirantai), 2)}
+                for row in rantai_df.itertuples()
+            ],
+        }
+    # The dashboard's default view reads the balanced posture — same
+    # precedent as build_redistribution's "default" key.
+    out["default"] = out.get("seimbang", next(iter(out.values())))
+    return out
+
+
+def _struktur_ongkos_out(s: dict) -> dict:
+    return {
+        "totalTon": round(float(s["total_ton"]), 2),
+        "nRute": int(s["n_rute"]),
+        "rute": [list(r) for r in s["rute"]],
+        "totalOngkos": round(float(s["total_ongkos"])),
+        "tonKeSepertigaBawah": or_none(s["ton_ke_sepertiga_bawah"], 2),
+        "persenKeSepertigaBawah": or_none(s["persen_ke_sepertiga_bawah"], 2),
+        "ongkosTetapTerkalibrasi": round(float(s["ongkos_tetap_terkalibrasi"]), 2),
+    }
+
+
+def build_uji_ongkos(uo: dict) -> dict:
+    """Reshape bench_ongkos.py's uji_ongkos.json into camelCase for the FE.
+
+    Every honesty field the source script carries is carried across, not
+    dropped: `tetapDegenerate` and `keterbatasan` are the whole point of the
+    experiment — the flat-cost objective is degenerate (total tonnage is
+    pinned by the demand floor, so a uniform per-ton cost makes every
+    feasible assignment equally optimal and the solver returns an arbitrary
+    vertex of the tied face), so `ruteBerubah` on its own is not an economic
+    result. `keterbatasan` records that this experiment cannot distinguish
+    "distance doesn't matter economically" from "we only modelled distance".
+
+    `persenBawahJarak`/`persenBawahTetap` are a deliberate flattening (not in
+    the source JSON) of `struktur.jarak`/`struktur.tetap`'s
+    `persen_ke_sepertiga_bawah`, added at this export boundary because the
+    text-rendering task downstream reads those two names directly. The
+    per-struktur nesting is kept alongside them — nothing is dropped, this is
+    purely a convenience.
+    """
+    struktur = {
+        "jarak": _struktur_ongkos_out(uo["struktur"]["jarak"]),
+        "tetap": _struktur_ongkos_out(uo["struktur"]["tetap"]),
+        "tetapPlusJarak": _struktur_ongkos_out(uo["struktur"]["tetap_plus_jarak"]),
+    }
+
+    degenerasi_detail = {}
+    for kom, d in uo["degenerasi_tetap_detail"].items():
+        row = {"diuji": bool(d["diuji"])}
+        if d["diuji"]:
+            row["nUlang"] = int(d["n_ulang"])
+            row["nHimpunanUnik"] = int(d["n_himpunan_unik"])
+            row["stabil"] = bool(d["stabil"])
+        else:
+            row["alasan"] = str(d["alasan"])
+        degenerasi_detail[kom] = row
+
+    status = uo["status_per_komoditas"]
+    return {
+        "postur": str(uo["postur"]),
+        "komoditas": list(uo["komoditas"]),
+        "struktur": struktur,
+        "ruteBerubah": int(uo["rute_berubah"]),
+        "ruteBerubahTetapPlusJarak": int(uo["rute_berubah_tetap_plus_jarak"]),
+        "ongkosTetapTerkalibrasi": round(float(uo["ongkos_tetap_terkalibrasi"]), 2),
+        "tetapDegenerate": bool(uo["tetap_degenerate"]),
+        "degenerasiTetapDetail": degenerasi_detail,
+        "statusPerKomoditas": {
+            "jarak": dict(status["jarak"]),
+            "tetap": dict(status["tetap"]),
+            "tetapPlusJarak": dict(status["tetap_plus_jarak"]),
+        },
+        "keterbatasan": str(uo["keterbatasan"]),
+        "persenBawahJarak": struktur["jarak"]["persenKeSepertigaBawah"],
+        "persenBawahTetap": struktur["tetap"]["persenKeSepertigaBawah"],
+    }
+
+
+def build_tindakan() -> dict:
+    """Jalur tindakan pembaca setelah membaca rencana: kapasitas instrumen,
+    pasar bernama, dan modal-imbal hasil. Postur seimbang — laporan yang
+    memakai angka ini menyatakan bulan sasarannya sendiri.
+
+    `modal` diurutkan menurun menurut `imbalHasilPersen`, BUKAN menurut modal:
+    pembaca yang memutuskan memindahkan barang ingin tahu rute mana yang
+    paling menghasilkan per rupiah yang dikunci, bukan rute mana yang
+    mengunci paling banyak. `pasar` mencakup ke-34 provinsi model (bukan
+    hanya provinsi asal di `modal`), karena tabel rute kerangka pedagang
+    menampilkannya untuk provinsi asal MAUPUN tujuan.
+    """
+    _ensure_supplai_importable()
+    from supplai import tindakan as td
+
+    flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
+    postur = "seimbang"
+
+    s = td.setara_kegiatan(flows, postur)
+    setara_kegiatan = {
+        "ton": round(float(s["ton"]), 1),
+        "nilaiRp": round(float(s["nilai_rp"])),
+        "kegiatan": round(float(s["kegiatan"])),
+        "kapasitasTahunan": int(s["kapasitas_tahunan"]),
+        "persenKapasitas": round(float(s["persen_kapasitas"]), 1),
+    }
+
+    m = td.modal_imbal_hasil(flows, postur).sort_values(
+        "imbal_hasil_persen", ascending=False)
+    modal = [
+        {"dari": dari, "ton": round(float(row.ton), 2),
+         "modalRp": round(float(row.modal_rp)),
+         "marjinRp": round(float(row.marjin_rp)),
+         "imbalHasilPersen": or_none(row.imbal_hasil_persen, 2)}
+        for dari, row in m.iterrows()
+    ]
+
+    prov_model = sorted(
+        pd.read_parquet(DEFAULT_ARTIFACTS / "centroids.parquet").provinsi.unique())
+    pasar = {prov: td.pasar_provinsi(prov, DEFAULT_DATA) for prov in prov_model}
+
+    return {"setaraKegiatan": setara_kegiatan, "modal": modal, "pasar": pasar}
+
+
 # --------------------------------------------------------------------------- #
 # CLI
 # --------------------------------------------------------------------------- #
@@ -564,8 +734,8 @@ def _write(out_dir: Path, name: str, obj) -> None:
     # for a float that carries them, which is not valid JSON and JSON.parse
     # rejects in the browser. Every builder above is expected to convert a
     # missing value to None (-> JSON null) before it gets here — see or_none
-    # in _response_for — so a NaN reaching this call means a builder forgot,
-    # and that should fail the export loudly rather than ship broken JSON.
+    # above — so a NaN reaching this call means a builder forgot, and that
+    # should fail the export loudly rather than ship broken JSON.
     (out_dir / name).write_text(
         json.dumps(obj, ensure_ascii=False, indent=1, allow_nan=False))
     print(f"  wrote {name}")
@@ -594,6 +764,9 @@ def main(argv=None) -> int:
     buku_besar = A["buku_besar"]
     tingkatan = build_tingkatan()
     lanskap = build_lanskap()
+    muatan_balik = build_muatan_balik()
+    uji_ongkos = build_uji_ongkos(A["uji_ongkos"])
+    tindakan = build_tindakan()
 
     _write(args.out, "commodities.json", commodities)
     _write(args.out, "regions.json", regions)
@@ -608,6 +781,9 @@ def main(argv=None) -> int:
     _write(args.out, "narasi.json", A["narasi"])
     _write(args.out, "tingkatan.json", tingkatan)
     _write(args.out, "lanskap.json", lanskap)
+    _write(args.out, "muatan_balik.json", muatan_balik)
+    _write(args.out, "uji_ongkos.json", uji_ongkos)
+    _write(args.out, "tindakan.json", tindakan)
 
     # ---- fail-closed self-check ----
     assert len(commodities) == 6, "expected 6 commodities"
@@ -650,6 +826,21 @@ def main(argv=None) -> int:
         "expected provinces with an IKP score but no price data (the 2022 Papua split)"
     assert len(lanskap["komoditas"]) == 8, "lanskap must cover 8 commodities"
     assert lanskap["baris"], "lanskap produced no rows"
+    assert muatan_balik["seimbang"]["nRute"] == 36 and \
+        muatan_balik["seimbang"]["pasanganBolakBalik"] == 0, \
+        "muatan_balik seimbang must show 36 routes and zero round trips"
+    assert "default" in muatan_balik, "muatan_balik missing the default posture"
+    assert uji_ongkos["keterbatasan"], \
+        "uji_ongkos must carry keterbatasan — the caveat that makes ruteBerubah honest"
+    assert "tetapDegenerate" in uji_ongkos, "uji_ongkos missing tetapDegenerate"
+    assert uji_ongkos["persenBawahJarak"] is not None and \
+        uji_ongkos["persenBawahTetap"] is not None, \
+        "uji_ongkos missing the flattened persenBawah* keys Task 8 reads"
+    assert tindakan["setaraKegiatan"]["kapasitasTahunan"] == 1888
+    imbal = [r["imbalHasilPersen"] for r in tindakan["modal"]]
+    assert imbal == sorted(imbal, reverse=True), \
+        "modal must be sorted by return, descending, not by capital"
+    assert len(tindakan["pasar"]) == 34, "tindakan pasar must cover all 34 model provinces"
     print("export_web: OK")
     return 0
 

@@ -96,5 +96,12 @@
   "sumber": "Ditolak sebagai dasar tingkatan. Berkas itu bulanan berskala 1-3; IKP resmi tahunan berskala 0-100. Korelasi peringkat keduanya hanya 0,42 (terhadap rata-rata dua belas rilis bulanan 2025), dan berkas itu menempatkan Papua Pegunungan — peringkat 38 secara resmi, terendah di negeri ini — di atas median. Membangun analisis kesenjangan di atasnya akan membalik posisi pemerintah pada provinsi yang paling menentukan. Dicatat di sini supaya orang berikutnya yang melihat berkas itu tidak mengulanginya.",
   "tahun": "—",
   "status": "diasumsikan"
+ },
+ {
+  "input": "Bagian kaki kosong yang ditagihkan",
+  "nilai": "1,0 (seluruh kaki pulang dianggap ditagihkan)",
+  "sumber": "Angka yang kami pilih, bukan yang kami ukur. Kami tidak punya model kendaraan maupun tarif pengangkut, sehingga berapa bagian perjalanan pulang yang benar-benar masuk tagihan tidak diketahui. Ia parameter di supplai/muatan_balik.py, dan penghematan yang dilaporkan berbanding lurus dengannya.",
+  "tahun": "—",
+  "status": "diasumsikan"
  }
 ]

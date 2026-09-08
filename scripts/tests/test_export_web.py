@@ -489,6 +489,24 @@ def test_lanskap_export_covers_eight_commodities():
     assert "Gula Pasir" in out["komoditas"]
 
 
+def test_muatan_balik_export_states_zero_round_trips():
+    out = ew.build_muatan_balik()
+    assert out["seimbang"]["pasanganBolakBalik"] == 0
+    assert out["seimbang"]["nRute"] == 36
+
+
+def test_tindakan_export_carries_capacity_not_just_the_conversion():
+    out = ew.build_tindakan()
+    assert out["setaraKegiatan"]["kapasitasTahunan"] == 1888
+    assert out["setaraKegiatan"]["persenKapasitas"] > 50
+
+
+def test_tindakan_export_ranks_routes_by_return_not_by_capital():
+    out = ew.build_tindakan()
+    imbal = [r["imbalHasilPersen"] for r in out["modal"]]
+    assert imbal == sorted(imbal, reverse=True)
+
+
 def test_missing_pipeline_package_raises_actionable_error(tmp_path, monkeypatch):
     """supplai-dev and the pipeline (bakwankawa/supplai-pipeline) are separate
     repos; the sibling layout export_web.py guesses at is only true on some
