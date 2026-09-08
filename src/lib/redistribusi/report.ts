@@ -38,9 +38,13 @@ const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
 
 // Jalur tindakan pembaca (lihat dokumentasi teksPasar/teksModal di ./teks):
 // pasar bernama per provinsi dan modal-imbal hasil per provinsi asal.
-// Dibangun SEKALI untuk postur "seimbang" lintas enam komoditas -- lihat
-// build_tindakan() di scripts/export_web.py -- bukan per komoditas/postur
-// laporan ini, sehingga teksnya menyatakan itu secara eksplisit.
+// Dibangun SEKALI untuk postur "seimbang" -- lihat build_tindakan() di
+// scripts/export_web.py -- bukan per postur laporan ini, sehingga teksnya
+// menyatakan itu secara eksplisit. `pasarPerKomoditas`/`modalPerKomoditas`
+// SUDAH disaring per komoditas laporan ini (lihat dokumentasi Tindakan di
+// @/lib/types) -- kerangka pedagang di bawah memakai keduanya, bukan
+// `pasar`/`modal` mentah, karena yang mentah adalah agregat lintas enam
+// komoditas dan tidak boleh dibaca seakan milik satu komoditas saja.
 const TINDAKAN = tindakanData as unknown as Tindakan;
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
@@ -302,13 +306,19 @@ export function createRedistribusiReport(
       // menampilkan keduanya, bukan hanya provinsi asal.
       const provinsiTerlibat = [...new Set(a.routes.flatMap((r) => [r.from, r.to]))]
         .sort((x, y) => x.localeCompare(y, "id"));
+      // Disaring per KOMODITAS laporan ini (pasarPerKomoditas), bukan
+      // registri pasar mentah (TINDAKAN.pasar): teksPasar mencetak "harga
+      // komoditas ini diamati di ..." dan klaim itu hanya benar bila daftar
+      // yang diberikan sudah disaring ke komoditas ini -- lihat dokumentasi
+      // pasar_provinsi_komoditas() di supplai/tindakan.py.
+      const pasarKomoditas = TINDAKAN.pasarPerKomoditas[a.komoditas] ?? {};
       // teksPasar menjamin urutan [klaim per-provinsi, kalimat batas umum --
       // hanya bila ada pasar untuk disebut]. Kalimat batas dicetak SEKALI
       // untuk seluruh bagian ini, bukan diulang tiap provinsi -- lihat
       // dokumentasi teksPasar di ./teks.
       let batasDicetak = false;
       for (const provinsi of provinsiTerlibat) {
-        const daftarPasar: PasarProvinsi[] = TINDAKAN.pasar[provinsi] ?? [];
+        const daftarPasar: PasarProvinsi[] = pasarKomoditas[provinsi] ?? [];
         const [klaim, batas] = teksPasar(daftarPasar, provinsi);
         paragraph(klaim, 9);
         if (!batasDicetak && batas) {
@@ -318,15 +328,26 @@ export function createRedistribusiReport(
       }
     }
     heading("06  Modal dan imbal hasil");
-    paragraph(
-      `Modal dan imbal hasil berikut mencakup seluruh rencana "seimbang" lintas enam ` +
-      `komoditas yang kami modelkan, bukan hanya rute ${a.komoditas} pada laporan ini -- ` +
-      `provinsi asal yang sama sering mengirim lebih dari satu komoditas sekaligus.`,
-      9, muted,
-    );
-    {
-      const [caveatModal, ...barisModal] = teksModal(TINDAKAN.modal);
-      paragraph(caveatModal, 9, muted);
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada modal atau imbal hasil yang relevan untuk ditampilkan di sini.");
+    } else {
+      paragraph(
+        `Modal dan imbal hasil berikut untuk ${a.komoditas} dihitung atas rencana postur ` +
+        `"Seimbang" -- postur referensi kami untuk bagian ini, terlepas dari postur yang ` +
+        `sedang dibaca laporan ini.`,
+        9, muted,
+      );
+      // Disaring per komoditas laporan ini (modalPerKomoditas), bukan agregat
+      // lintas enam komoditas (TINDAKAN.modal): modal dan marjin yang
+      // sebenarnya terkunci untuk komoditas lain di provinsi asal yang sama
+      // bukan milik laporan ${a.komoditas} ini.
+      const [caveatModal, ...barisModal] = teksModal(TINDAKAN.modalPerKomoditas[a.komoditas] ?? []);
+      // caveatModal menyatakan batas yang menentukan seberapa jauh angka ini
+      // boleh dipakai (satu transaksi, bersandar pada prediksi yang belum
+      // tentu terjadi) -- bukan catatan kaki, jadi ia mendapat perlakuan
+      // sama seperti "Peringatan" di Bagian 05 kerangka pemerintah: 10pt
+      // hijau, bukan abu-abu 9pt yang dipakai catatan sekunder.
+      paragraph(caveatModal, 10, green);
       for (const b of barisModal) paragraph(b);
     }
     heading("07  Batasan");

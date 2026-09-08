@@ -333,9 +333,21 @@ export interface ModalRute {
  *  instrumen dan kapasitasnya, pasar bernama per provinsi, dan modal-imbal
  *  hasil. `modal` sudah diurutkan menurun menurut `imbalHasilPersen` — bukan
  *  menurut modal — karena pembaca yang memutuskan memindahkan barang ingin
- *  tahu rute mana yang paling menghasilkan per rupiah yang dikunci. */
+ *  tahu rute mana yang paling menghasilkan per rupiah yang dikunci.
+ *
+ *  `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS pada postur
+ *  "seimbang" -- dipertahankan untuk pemakai yang genuinely butuh pandangan
+ *  lintas komoditas itu. `modalPerKomoditas`/`pasarPerKomoditas`, keyed oleh
+ *  nama komoditas ("Telur Ayam", dst.), adalah yang WAJIB dipakai kerangka
+ *  pedagang: laporan untuk satu komoditas tidak boleh menyandingkan modal
+ *  atau menyebut pasar milik komoditas lain sebagai miliknya sendiri --
+ *  itulah persis klaim ("harga KOMODITAS INI diamati di sini") yang
+ *  definisi `pasar` (registri pasar, tanpa kolom komoditas) tidak dukung.
+ *  Lihat dokumentasi `pasar_provinsi_komoditas()` di `supplai/tindakan.py`. */
 export interface Tindakan {
   setaraKegiatan: SetaraKegiatan
   modal: ModalRute[]
+  modalPerKomoditas: Record<string, ModalRute[]>
   pasar: Record<string, PasarProvinsi[]>
+  pasarPerKomoditas: Record<string, Record<string, PasarProvinsi[]>>
 }

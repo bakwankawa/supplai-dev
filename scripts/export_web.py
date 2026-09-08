@@ -688,15 +688,25 @@ def build_tindakan() -> dict:
     pasar bernama, dan modal-imbal hasil. Postur seimbang — laporan yang
     memakai angka ini menyatakan bulan sasarannya sendiri.
 
-    `modal` diurutkan menurun menurut `imbalHasilPersen`, BUKAN menurut modal:
-    pembaca yang memutuskan memindahkan barang ingin tahu rute mana yang
-    paling menghasilkan per rupiah yang dikunci, bukan rute mana yang
-    mengunci paling banyak. `pasar` mencakup ke-34 provinsi model (bukan
+    `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS, dipertahankan
+    karena sesuatu di tempat lain mungkin genuinely butuh pandangan lintas
+    komoditas itu (bandingkan diagnosis muatan balik, yang memang lintas
+    komoditas by design). `modalPerKomoditas`/`pasarPerKomoditas` adalah yang
+    dipakai kerangka pedagang: laporan untuk SATU komoditas tidak boleh
+    menyandingkan modal atau menyebut pasar milik komoditas lain sebagai
+    miliknya sendiri -- itu klaim yang datanya tidak dukung.
+
+    `modal`/setiap daftar di `modalPerKomoditas` diurutkan menurun menurut
+    `imbalHasilPersen`, BUKAN menurut modal: pembaca yang memutuskan
+    memindahkan barang ingin tahu rute mana yang paling menghasilkan per
+    rupiah yang dikunci, bukan rute mana yang mengunci paling banyak. `pasar`/
+    setiap peta di `pasarPerKomoditas` mencakup ke-34 provinsi model (bukan
     hanya provinsi asal di `modal`), karena tabel rute kerangka pedagang
     menampilkannya untuk provinsi asal MAUPUN tujuan.
     """
     _ensure_supplai_importable()
     from supplai import tindakan as td
+    from supplai.data import COMMODITIES
 
     flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
     postur = "seimbang"
@@ -710,21 +720,37 @@ def build_tindakan() -> dict:
         "persenKapasitas": round(float(s["persen_kapasitas"]), 1),
     }
 
-    m = td.modal_imbal_hasil(flows, postur).sort_values(
-        "imbal_hasil_persen", ascending=False)
-    modal = [
-        {"dari": dari, "ton": round(float(row.ton), 2),
-         "modalRp": round(float(row.modal_rp)),
-         "marjinRp": round(float(row.marjin_rp)),
-         "imbalHasilPersen": or_none(row.imbal_hasil_persen, 2)}
-        for dari, row in m.iterrows()
-    ]
+    def _modal_rows(m: pd.DataFrame) -> list:
+        m = m.sort_values("imbal_hasil_persen", ascending=False)
+        return [
+            {"dari": dari, "ton": round(float(row.ton), 2),
+             "modalRp": round(float(row.modal_rp)),
+             "marjinRp": round(float(row.marjin_rp)),
+             "imbalHasilPersen": or_none(row.imbal_hasil_persen, 2)}
+            for dari, row in m.iterrows()
+        ]
+
+    modal = _modal_rows(td.modal_imbal_hasil(flows, postur))
+    modal_per_komoditas = {
+        kom: _modal_rows(td.modal_imbal_hasil(flows, postur, komoditas=kom))
+        for kom in COMMODITIES
+    }
 
     prov_model = sorted(
         pd.read_parquet(DEFAULT_ARTIFACTS / "centroids.parquet").provinsi.unique())
     pasar = {prov: td.pasar_provinsi(prov, DEFAULT_DATA) for prov in prov_model}
+    pasar_per_komoditas = {
+        kom: {prov: td.pasar_provinsi_komoditas(prov, kom, DEFAULT_DATA) for prov in prov_model}
+        for kom in COMMODITIES
+    }
 
-    return {"setaraKegiatan": setara_kegiatan, "modal": modal, "pasar": pasar}
+    return {
+        "setaraKegiatan": setara_kegiatan,
+        "modal": modal,
+        "modalPerKomoditas": modal_per_komoditas,
+        "pasar": pasar,
+        "pasarPerKomoditas": pasar_per_komoditas,
+    }
 
 
 # --------------------------------------------------------------------------- #
@@ -842,6 +868,17 @@ def main(argv=None) -> int:
     assert imbal == sorted(imbal, reverse=True), \
         "modal must be sorted by return, descending, not by capital"
     assert len(tindakan["pasar"]) == 34, "tindakan pasar must cover all 34 model provinces"
+    komoditas_names = {c["name"] for c in commodities}
+    assert set(tindakan["modalPerKomoditas"]) == komoditas_names, \
+        "modalPerKomoditas must have one entry per modelled commodity"
+    for kom, rows in tindakan["modalPerKomoditas"].items():
+        vals = [r["imbalHasilPersen"] for r in rows if r["imbalHasilPersen"] is not None]
+        assert vals == sorted(vals, reverse=True), \
+            f"modalPerKomoditas[{kom!r}] must be sorted by return, descending"
+    assert set(tindakan["pasarPerKomoditas"]) == komoditas_names, \
+        "pasarPerKomoditas must have one entry per modelled commodity"
+    assert all(len(v) == 34 for v in tindakan["pasarPerKomoditas"].values()), \
+        "pasarPerKomoditas must cover all 34 model provinces for every commodity"
     print("export_web: OK")
     return 0
 

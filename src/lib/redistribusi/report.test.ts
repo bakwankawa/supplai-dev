@@ -1,3 +1,4 @@
+import zlib from "node:zlib"
 import { describe, expect, it } from "vitest"
 import { bukuBesar } from "@/data/buku-besar"
 import { commodities } from "@/data/commodities"
@@ -14,6 +15,48 @@ const analisis = (id: string, postur: (typeof POSTUR)[number]) =>
   )
 
 const head = (pdf: Uint8Array) => new TextDecoder().decode(pdf.slice(0, 5))
+
+/** Pulls the visible text back out of a jsPDF buffer, so a test can assert on
+ *  what a reader actually sees instead of on the string arguments we happened
+ *  to pass to `paragraph()`/`table()` -- a gate or a data-source swap that
+ *  never reaches the rendered page is exactly the bug this helper exists to
+ *  catch.
+ *
+ *  `createRedistribusiReport` builds its jsPDF document with `compress: true`,
+ *  so every content stream is FlateDecode-d; this walks each `stream ...
+ *  endstream` block, inflates it, and pulls text out of the `(...) Tj` /
+ *  `[(...) ...] TJ` show-text operators. Streams that are not Flate (fonts,
+ *  images) fail to inflate and are skipped, not fatal. */
+function extractPdfText(pdf: Uint8Array): string {
+  const bytes = Buffer.from(pdf)
+  let out = ""
+  let idx = 0
+  for (;;) {
+    const s = bytes.indexOf("stream", idx)
+    if (s === -1) break
+    let dataStart = s + "stream".length
+    if (bytes[dataStart] === 0x0d) dataStart++
+    if (bytes[dataStart] === 0x0a) dataStart++
+    const e = bytes.indexOf("endstream", dataStart)
+    if (e === -1) break
+    try {
+      const content = zlib.inflateSync(bytes.subarray(dataStart, e)).toString("latin1")
+      for (const m of content.matchAll(/\(((?:\\.|[^()\\])*)\)\s*Tj/g)) {
+        out += m[1].replace(/\\(.)/g, "$1") + " "
+      }
+      for (const arr of content.matchAll(/\[((?:[^[\]]|\\.)*)\]\s*TJ/g)) {
+        for (const part of arr[1].matchAll(/\(((?:\\.|[^()\\])*)\)/g)) {
+          out += part[1].replace(/\\(.)/g, "$1")
+        }
+        out += " "
+      }
+    } catch {
+      // Not a Flate stream (font/image data) -- expected, skip it.
+    }
+    idx = e + "endstream".length
+  }
+  return out
+}
 
 describe("createRedistribusiReport", () => {
   /** Ten of the eighteen commodity/posture combinations produce no routes at
@@ -61,5 +104,48 @@ describe("createRedistribusiReport", () => {
     const pemeriksaanPedagang = KERANGKA_PEDAGANG_WIDTH.reduce((sum, w) => sum + w, 0)
     expect(pemeriksaanPemerintah).toBe(DRAWABLE_WIDTH)
     expect(pemeriksaanPedagang).toBe(DRAWABLE_WIDTH)
+  })
+
+  /** Fix round 1, Critical #2: "konservatif" always has zero routes (every
+   *  commodity), yet Section 06 used to read TINDAKAN.modal -- the "seimbang"
+   *  plan's aggregate -- unconditionally, so a reader of a plan that ships
+   *  nothing still saw a full Rupiah return table borrowed from a different
+   *  plan. This renders the actual PDF and reads the text back, rather than
+   *  asserting on report.ts's internals, so a regression that re-introduces
+   *  the missing gate is caught here even if it takes a different shape. */
+  it("prints no modal table for a posture whose own plan has zero routes", () => {
+    const a = analisis("telur-ayam", "konservatif")
+    expect(a.totalRute).toBe(0)
+    const text = extractPdfText(createRedistribusiReport(a, "pedagang"))
+    expect(text).toContain("06  Modal dan imbal hasil")
+    expect(text).toContain("tidak ada modal atau imbal hasil")
+    // None of the "seimbang" plan's per-province Rupiah figures (borrowed
+    // from a totally different, non-empty plan) may leak onto this page.
+    expect(text).not.toMatch(/mengunci Rp/)
+    expect(text).not.toContain("Kepulauan Riau")
+  })
+
+  /** Fix round 1, Critical #1: pasar_provinsi() (the market REGISTRY) has no
+   *  commodity join, so "harga komoditas ini diamati di ..." was false for
+   *  every line -- Pasar Jodoh is registered in Kepulauan Riau but never once
+   *  reports a Beras Medium price in wfp_food_prices_idn.csv. Section 05 now
+   *  reads TINDAKAN.pasarPerKomoditas[a.komoditas], the commodity-filtered
+   *  view built by pasar_provinsi_komoditas() (supplai/tindakan.py). This
+   *  renders the actual PDF for a fixture whose commodity is "Beras Medium"
+   *  and whose route touches Kepulauan Riau, and checks Pasar Jodoh -- which
+   *  WOULD appear if Section 05 read the raw registry -- is absent. */
+  it("names only markets that actually report this commodity's price, not the whole province registry", () => {
+    const base = analisis("telur-ayam", "seimbang")
+    expect(base.routes.length).toBeGreaterThan(0)
+    const fixture = {
+      ...base,
+      komoditas: "Beras Medium",
+      totalRute: 1,
+      routes: [{ ...base.routes[0], from: "Kepulauan Riau" }],
+    }
+    const text = extractPdfText(createRedistribusiReport(fixture, "pedagang"))
+    expect(text).toContain("Kepulauan Riau")
+    expect(text).toMatch(/harga komoditas ini diamati di/)
+    expect(text).not.toContain("Pasar Jodoh")
   })
 })
