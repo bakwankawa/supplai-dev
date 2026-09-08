@@ -82,7 +82,19 @@ export function LanskapPanel({ provinsiAwal }: LanskapPanelProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2">
         {baris.map((b) => {
-          const diAtas = b.posisi === "di atas median";
+          // Tiga status, bukan dua: "setara median" adalah kasus biasa untuk
+          // harga berpatokan HET (persis Rp24.000 di tiga provinsi Minyak
+          // Goreng, dsb.), bukan hasil aneh yang perlu dirutekan ke salah
+          // satu warna alarm. Warnanya netral (slate) supaya berbeda kasat
+          // mata dari "di bawah" (emerald) dan "di atas" (rose) TANPA
+          // terbaca sebagai peringatan -- selisih 0,00% memang tidak
+          // membuktikan arah manapun.
+          const warna =
+            b.posisi === "di atas median"
+              ? { badge: "bg-rose-50 text-rose-600", angka: "text-rose-600", label: "Di atas" }
+              : b.posisi === "setara median"
+                ? { badge: "bg-slate-200 text-slate-600", angka: "text-slate-600", label: "Setara" }
+                : { badge: "bg-emerald-50 text-[#006c4a]", angka: "text-[#006c4a]", label: "Di bawah" };
           const takDiramalkan = KOMODITAS_TANPA_RAMALAN.has(b.komoditas);
           return (
             <div
@@ -92,14 +104,12 @@ export function LanskapPanel({ provinsiAwal }: LanskapPanelProps) {
               <div className="flex items-start justify-between gap-1.5">
                 <span className="text-xs font-bold text-slate-700 leading-tight">{b.komoditas}</span>
                 <span
-                  className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide ${
-                    diAtas ? "bg-rose-50 text-rose-600" : "bg-emerald-50 text-[#006c4a]"
-                  }`}
+                  className={`shrink-0 rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide ${warna.badge}`}
                 >
-                  {diAtas ? "Di atas" : "Di bawah"}
+                  {warna.label}
                 </span>
               </div>
-              <p className={`text-sm font-black tabular-nums ${diAtas ? "text-rose-600" : "text-[#006c4a]"}`}>
+              <p className={`text-sm font-black tabular-nums ${warna.angka}`}>
                 {persen(b.relatifPersen)}
               </p>
               {/* Penanda "tidak diramalkan" tepat di sebelah angkanya sendiri,

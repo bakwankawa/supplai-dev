@@ -163,9 +163,9 @@ export const translations: Record<string, readonly [string, string]> = {
     "SupplAI Match",
     "SupplAI Match"
   ],
-  "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
-    "Menganalisis perubahan harga dan ketersediaan pasokan untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
-    "Analyzes price movements and supply availability to recommend allocations from surplus to deficit regions."
+  "Menganalisis perubahan harga untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.": [
+    "Menganalisis perubahan harga untuk menyusun rekomendasi alokasi dari wilayah surplus ke wilayah defisit.",
+    "Analyzes price movements to recommend allocations from surplus to deficit regions."
   ],
   "Optimasi Jalur Distribusi": [
     "Optimasi Jalur Distribusi",

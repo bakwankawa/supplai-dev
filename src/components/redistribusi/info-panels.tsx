@@ -2,6 +2,7 @@
 
 import type { RedistributionProvince } from "@/lib/types";
 import { formatNumber } from "@/lib/format";
+import { Penjelas } from "@/components/ui/narasi";
 
 interface SurplusPanelProps {
   provinces: RedistributionProvince[];
@@ -11,7 +12,16 @@ export function SurplusPanel({ provinces }: SurplusPanelProps) {
   const surplusData = provinces.filter(p => p.status === "surplus");
 
   return (
-    <div className="w-full">
+    <div className="w-full space-y-3">
+      {/* "Surplus" di sini bukan kelebihan produksi terukur -- data produksi
+       *  per provinsi tidak tersedia bagi kami (lihat Asal-usul Angka di
+       *  bawah). Wilayah ini masuk daftar karena harganya di bawah median
+       *  nasional dan tidak diprediksi melonjak, bukan karena stoknya
+       *  diketahui berlebih. */}
+      <Penjelas
+        judul="Apa arti 'surplus' di sini"
+        isi="Bukan kelebihan produksi yang terukur -- data produksi per provinsi tidak tersedia bagi kami. Wilayah ini dipilih pemecah rute sebagai kandidat asal karena harga komoditasnya di bawah median nasional dan tidak diprediksi melonjak, itu saja."
+      />
       {surplusData.length === 0 ? (
         <p className="text-xs text-slate-400 py-6 text-center italic">Tidak ada data wilayah surplus.</p>
       ) : (

@@ -249,8 +249,11 @@ const KOMODITAS_TANPA_RAMALAN = ["Daging Sapi", "Gula Pasir"]
 const SET_TANPA_RAMALAN = new Set(KOMODITAS_TANPA_RAMALAN)
 
 /** Bagian "Lanskap komoditas" pada kerangka pedagang: komoditas mana di
- *  provinsi yang diminta harganya di bawah median nasional dan mana di
- *  atas, dengan selisihnya.
+ *  provinsi yang diminta harganya di bawah median nasional, mana persis
+ *  setara, dan mana di atas, dengan selisihnya. Harga HET-anchored sering
+ *  jatuh persis di median, jadi "setara median" adalah kelompoknya sendiri,
+ *  bukan dilempar ke "di bawah" atau "di atas" -- selisih 0,00% tidak
+ *  membuktikan arah manapun.
  *
  *  Ini BACAAN HARGA, bukan bacaan pasokan, dan kalimat itu bagian dari
  *  kontrak fungsi ini, bukan komentar pinggir: harga di bawah median adalah
@@ -296,6 +299,16 @@ export function teksLanskap(baris: PosisiHarga[], provinsi: string): string[] {
   const atas = milikProvinsi
     .filter((b) => b.posisi === "di atas median")
     .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"))
+  // Jarang terisi -- kebanyakan provinsi tidak punya komoditas yang persis
+  // setara mediannya -- jadi klausanya HANYA muncul ketika ada isinya,
+  // bukan dipaksakan "tidak ada komoditas setara median" di tiap provinsi
+  // seperti dua kelompok di atas. Itu tetap jujur: kelompok "bawah"/"atas"
+  // selalu relevan menyatakan (kosong atau tidak) karena delapan komoditas
+  // selalu jatuh ke salah satu dari tiga kelompok, sedangkan absennya
+  // "setara" di sebagian besar provinsi bukan temuan, hanya kasus biasa.
+  const setara = milikProvinsi
+    .filter((b) => b.posisi === "setara median")
+    .sort((x, y) => x.komoditas.localeCompare(y.komoditas, "id"))
   const sebut = (list: PosisiHarga[]) =>
     daftarDan(
       list.map(
@@ -304,13 +317,19 @@ export function teksLanskap(baris: PosisiHarga[], provinsi: string): string[] {
       ),
     )
 
+  const segmen = [
+    bawah.length > 0 ? `di bawah median ${sebut(bawah)}` : "tidak ada komoditas di bawah median",
+    atas.length > 0 ? `di atas median ${sebut(atas)}` : "tidak ada komoditas di atas median",
+  ]
+  if (setara.length > 0) {
+    segmen.push(`setara median ${sebut(setara)}`)
+  }
+
   const klaim =
     milikProvinsi.length === 0
       ? `Lanskap harga tidak memuat baris untuk ${provinsi}, sehingga posisi komoditasnya ` +
         `terhadap median nasional tidak dapat dinyatakan di sini.`
-      : `Di ${provinsi}, terhadap median nasional: ` +
-        `${bawah.length > 0 ? `di bawah median ${sebut(bawah)}` : "tidak ada komoditas di bawah median"}; ` +
-        `${atas.length > 0 ? `di atas median ${sebut(atas)}` : "tidak ada komoditas di atas median"}.`
+      : `Di ${provinsi}, terhadap median nasional: ${segmen.join("; ")}.`
 
   const bacaanHarga =
     `Ini bacaan harga, bukan bacaan pasokan: harga di bawah median nasional adalah bukti ` +

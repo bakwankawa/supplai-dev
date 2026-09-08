@@ -187,5 +187,5 @@ export interface PosisiHarga {
   medianNasional: number
   /** Selisih terhadap median nasional, dalam persen. Negatif berarti di bawah. */
   relatifPersen: number
-  posisi: "di bawah median" | "di atas median"
+  posisi: "di bawah median" | "setara median" | "di atas median"
 }
