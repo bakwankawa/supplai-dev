@@ -6,6 +6,140 @@
   "kapasitasTahunan": 1888,
   "persenKapasitas": 67.7
  },
+ "setaraKegiatanPerKomoditas": {
+  "konservatif": {
+   "Beras Medium": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Daging Ayam": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Telur Ayam": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  },
+  "seimbang": {
+   "Beras Medium": {
+    "ton": 57.4,
+    "nilaiRp": 975916353,
+    "kegiatan": 37,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 2.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 88.3,
+    "nilaiRp": 3680012393,
+    "kegiatan": 140,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 7.4
+   },
+   "Daging Ayam": {
+    "ton": 268.2,
+    "nilaiRp": 10450534760,
+    "kegiatan": 397,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 21.0
+   },
+   "Telur Ayam": {
+    "ton": 611.8,
+    "nilaiRp": 18516258067,
+    "kegiatan": 704,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 37.3
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  },
+  "aman_pangan": {
+   "Beras Medium": {
+    "ton": 59.2,
+    "nilaiRp": 1005714047,
+    "kegiatan": 38,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 2.0
+   },
+   "Bawang Merah": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   },
+   "Bawang Putih": {
+    "ton": 113.0,
+    "nilaiRp": 4654137844,
+    "kegiatan": 177,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 9.4
+   },
+   "Daging Ayam": {
+    "ton": 425.8,
+    "nilaiRp": 16602565287,
+    "kegiatan": 631,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 33.4
+   },
+   "Telur Ayam": {
+    "ton": 652.0,
+    "nilaiRp": 19726099644,
+    "kegiatan": 750,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 39.7
+   },
+   "Minyak Goreng": {
+    "ton": 0.0,
+    "nilaiRp": 0,
+    "kegiatan": 0,
+    "kapasitasTahunan": 1888,
+    "persenKapasitas": 0.0
+   }
+  }
+ },
  "modal": [
   {
    "dari": "Kepulauan Riau",

@@ -7,7 +7,8 @@ import tingkatanData from "@/data/generated/tingkatan.json";
 import ujiOngkosData from "@/data/generated/uji_ongkos.json";
 import { formatNumber, formatRupiah } from "@/lib/format";
 import type {
-  MuatanBalikByPostur, PasarProvinsi, PosisiHarga, TingkatanProvinsi, Tindakan, UjiOngkos,
+  DegenerasiKomoditas, MuatanBalikByPostur, PasarProvinsi, PosisiHarga, TingkatanProvinsi, Tindakan,
+  UjiOngkos,
 } from "@/lib/types";
 import type { RedistribusiAnalysis } from "./analysis";
 import { persen, takaranLabel, ton } from "./format";
@@ -16,8 +17,9 @@ import { POSTUR_LABEL } from "./postur";
 import { BUKU_BESAR_STATUS_LABEL } from "./buku-besar";
 import {
   teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
-  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos,
+  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos, teksUjiOngkosKomoditas,
 } from "./teks";
+import { ruteBerubahKomoditas } from "./uji-ongkos";
 import { jendelaWaktu } from "./waktu";
 
 // Tingkatan IKP Bapanas 2025 per provinsi, dan provinsi yang punya skor IKP
@@ -54,15 +56,22 @@ const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
 const TINDAKAN = tindakanData as unknown as Tindakan;
 
 // Uji apakah jarak benar-benar menyetir rencana (lihat dokumentasi
-// teksUjiOngkos di ./teks, dan UjiOngkos di @/lib/types): tiga struktur
-// ongkos LP (jarak, ongkos datar, ongkos datar DI ATAS jarak), dijalankan
-// SEKALI untuk postur "seimbang" atas GABUNGAN enam komoditas yang kami
-// modelkan -- lihat bench_ongkos.py. Ini BUKAN dipecah per komoditas maupun
-// per postur pada data yang kami miliki: kalibrasi ongkos datarnya sendiri
-// mensyaratkan menyamakan belanja total lintas komoditas, dan uji
-// degenerasinya butuh sampel gabungan itu. `report.ts` menyatakan cakupan
-// ini secara eksplisit sebelum angka mana pun dicetak -- lihat pemanggilan
-// di bawah -- bukan caveat yang bisa dilewati begitu saja.
+// teksUjiOngkos/teksUjiOngkosKomoditas di ./teks, dan UjiOngkos di
+// @/lib/types): tiga struktur ongkos LP (jarak, ongkos datar, ongkos datar
+// DI ATAS jarak), dijalankan SEKALI untuk postur "seimbang" -- lihat
+// bench_ongkos.py -- tapi SEBAGAI ENAM SOLVE TERPISAH, satu per komoditas.
+// `struktur.jarak/tetap/tetapPlusJarak.rute` dan `degenerasiTetapDetail`
+// karena itu SUDAH per komoditas di sumbernya; `ruteBerubahKomoditas()`
+// (./uji-ongkos) menyaring dan membandingkan ulang dari situ per komoditas
+// laporan ini -- BUKAN mengambil pecahan dari `ruteBerubah` agregat, yang
+// terbukti menyesatkan per komoditas (agregat 22/36 = 61%, sedangkan Bawang
+// Putih sendirian 0/10 = 0%). Hanya `ongkosTetapTerkalibrasi` dan
+// `persenBawahJarak`/`persenBawahTetap` TETAP whole-of-program: kalibrasi
+// tarif datar dan pembagian ke sepertiga terbawah IKP dihitung atas
+// GABUNGAN flow, tidak ada pecahan per komoditas untuk keduanya. `postur`
+// TETAP "seimbang" selalu -- eksperimen ini tidak pernah dijalankan pada
+// postur lain -- jadi `report.ts` menyatakan itu secara eksplisit sebelum
+// angka per komoditas mana pun dicetak, terlepas dari postur laporan ini.
 const UJI_ONGKOS = ujiOngkosData as unknown as UjiOngkos;
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
@@ -250,47 +259,91 @@ export function createRedistribusiReport(
     paragraph(`Setiap masukan yang dipakai perhitungan ini, beserta asalnya. ${terukurLedger} dari ${bukuBesar.length} berasal dari sumber yang dapat diperiksa. ${diasumsikanLedger} kami tetapkan sendiri berdasarkan penilaian profesional. ${diturunkanLedger} dihitung dari masukan lain dan mewarisi tingkat kepercayaan mereka. Semua ditandai sesuai jenisnya.`, 9);
     table(LEDGER_HEAD, bukuBesar.map(ledgerRow), LEDGER_WIDTH);
 
-    // Bagian 08 dan 09 memakai dua sumber data yang SAMA-SAMA agregat lintas
-    // ENAM KOMODITAS pada postur "seimbang" SELALU -- setara_kegiatan() dan
-    // bench_ongkos.py, tidak seperti muatan_balik.json di atas, tidak
-    // menerima parameter komoditas MAUPUN postur (lihat dokumentasi
-    // teksInstrumen/teksUjiOngkos di ./teks). Cakupan itu dinyatakan di
-    // kalimat pembuka tiap bagian, dicetak (10, green) -- SEBELUM angka mana
-    // pun, bukan di catatan kaki abu-abu -- persis pelajaran dari Bagian 06
-    // kerangka pedagang yang pernah bocor lintas postur tanpa dikatakan.
-    const CAKUPAN_AGREGAT =
-      `Angka berikut adalah agregat SELURUH rencana postur Seimbang, gabungan enam komoditas yang ` +
-      `kami modelkan -- bukan khusus rute ${a.komoditas} maupun postur ${POSTUR_LABEL[a.postur].nama} ` +
-      `pada laporan ini. Angka ini tidak dipecah per komoditas maupun per postur pada data yang kami ` +
-      `miliki.`;
-
     heading("08  Kapasitas instrumen");
-    paragraph(CAKUPAN_AGREGAT, 10, green);
-    {
-      const [klaimInstrumen, sanggupInstrumen, takaranInstrumen] = teksInstrumen(TINDAKAN.setaraKegiatan);
-      paragraph(klaimInstrumen);
-      paragraph(sanggupInstrumen, 10, green);
-      paragraph(takaranInstrumen, 9, muted);
+    if (a.routes.length === 0) {
+      paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada setara kegiatan GPM yang dapat dinyatakan untuk komoditas dan postur ini.");
+    } else {
+      // Disaring per POSTUR dan KOMODITAS laporan ini
+      // (setaraKegiatanPerKomoditas), bukan agregat lintas enam komoditas
+      // pada postur "seimbang" saja (TINDAKAN.setaraKegiatan): ronde
+      // perbaikan ini menutup celah yang sama dengan modalPerKomoditas --
+      // laporan rencana Aman Pangan atau untuk satu komoditas tidak boleh
+      // menampilkan setara-kegiatan yang sebenarnya milik rencana Seimbang
+      // atau gabungan enam komoditas. `?? undefined` menutupi pasangan
+      // postur-komoditas yang genuinely tak diketahui (seharusnya tak
+      // terjadi, mengingat setiap postur/komoditas dienumerasi saat
+      // ekspor) tanpa jatuh balik diam-diam ke agregat.
+      const setaraKomoditas = TINDAKAN.setaraKegiatanPerKomoditas[a.postur]?.[a.komoditas];
+      if (!setaraKomoditas) {
+        paragraph("Data setara kegiatan GPM untuk komoditas dan postur ini tidak diketahui.");
+      } else {
+        const [klaimInstrumen, sanggupInstrumen, takaranInstrumen] = teksInstrumen(setaraKomoditas);
+        paragraph(klaimInstrumen);
+        paragraph(sanggupInstrumen, 10, green);
+        paragraph(takaranInstrumen, 9, muted);
+      }
     }
 
     heading("09  Uji ongkos: apakah jarak menyetir rencana");
-    paragraph(CAKUPAN_AGREGAT, 10, green);
     {
-      // UJI_ONGKOS.ruteBerubah TIDAK BOLEH dibaca sebagai hasil ekonomi
-      // begitu saja -- lihat dokumentasi teksUjiOngkos di ./teks.
-      // `keterbatasan` dicetak APA ADANYA dari uji_ongkos.json, bukan
-      // diparafrase ulang di sini, dan mendapat perlakuan sama seperti
-      // "Peringatan" Bagian 05: 10pt hijau, bukan 9pt abu-abu, karena ia
-      // menentukan seberapa jauh ruteBerubah boleh dipakai.
+      // BAGIAN PER KOMODITAS: ruteBerubah dan detail degenerasi, disaring
+      // ke a.komoditas -- lihat dokumentasi ruteBerubahKomoditas di
+      // ./uji-ongkos dan teksUjiOngkosKomoditas di ./teks untuk kenapa ini
+      // TIDAK BOLEH diambil sebagai pecahan dari angka agregat. Eksperimen
+      // ini hanya pernah dijalankan pada postur Seimbang -- BUKAN postur
+      // laporan ini -- jadi kalimat pembuka menyatakan itu eksplisit,
+      // apa pun postur laporan ini.
+      paragraph(
+        `Baris berikut, khusus ${a.komoditas}, dihitung dari rencana postur Seimbang` +
+        (a.postur === "seimbang"
+          ? ", postur laporan ini juga -- tapi itu kebetulan, bukan jaminan: "
+          : `, BUKAN postur ${POSTUR_LABEL[a.postur].nama} pada laporan ini. `) +
+        `Uji ongkos ini hanya pernah dijalankan pada postur Seimbang, sehingga angka di bawah ` +
+        `tidak berubah menurut postur laporan ini.`,
+        10, green,
+      );
+      const degKomoditas: DegenerasiKomoditas | undefined = UJI_ONGKOS.degenerasiTetapDetail[a.komoditas];
+      const tetap = ruteBerubahKomoditas(UJI_ONGKOS.struktur.jarak, UJI_ONGKOS.struktur.tetap, a.komoditas);
+      const tpj = ruteBerubahKomoditas(UJI_ONGKOS.struktur.jarak, UJI_ONGKOS.struktur.tetapPlusJarak, a.komoditas);
+      const ujiKomoditasInput =
+        !degKomoditas || !degKomoditas.diuji || !tetap
+          ? { komoditas: a.komoditas, diuji: false, alasan: degKomoditas?.alasan }
+          : {
+              komoditas: a.komoditas,
+              diuji: true,
+              ruteBerubah: tetap.ruteBerubah,
+              nRuteJarak: tetap.nRuteJarak,
+              ruteBerubahTetapPlusJarak: tpj?.ruteBerubah,
+              nUlang: degKomoditas.nUlang,
+              nHimpunanUnik: degKomoditas.nHimpunanUnik,
+              stabil: degKomoditas.stabil,
+            };
+      for (const t of teksUjiOngkosKomoditas(ujiKomoditasInput)) paragraph(t);
+
+      // BAGIAN WHOLE-OF-PROGRAM: kalibrasi ongkos datar dan siapa yang
+      // dilayani, keduanya genuinely tidak bisa dipecah per komoditas --
+      // lihat dokumentasi teksUjiOngkos di ./teks. Kalimat pembuka di sini
+      // hanya menyandang cakupan DUA angka ini, bukan seluruh bagian --
+      // satu kalimat cakupan yang menutupi angka per komoditas DAN angka
+      // whole-of-program sekaligus adalah menyesatkan dengan cara yang
+      // lebih halus, persis yang ronde perbaikan ini memperbaiki.
+      paragraph(
+        `Dua angka berikut TETAP agregat SELURUH rencana postur Seimbang, gabungan enam ` +
+        `komoditas -- kalibrasi ongkos datar dan porsi tonase ke sepertiga terbawah IKP tidak ` +
+        `bisa dipecah per komoditas pada data yang kami miliki.`,
+        10, green,
+      );
       const teksUji = teksUjiOngkos({
-        ruteBerubah: UJI_ONGKOS.ruteBerubah,
+        ongkosTetapTerkalibrasi: UJI_ONGKOS.ongkosTetapTerkalibrasi,
         persenBawahJarak: UJI_ONGKOS.persenBawahJarak,
         persenBawahTetap: UJI_ONGKOS.persenBawahTetap,
-        ruteBerubahTetapPlusJarak: UJI_ONGKOS.ruteBerubahTetapPlusJarak,
-        tetapDegenerate: UJI_ONGKOS.tetapDegenerate,
-        nRuteJarak: UJI_ONGKOS.struktur.jarak.nRute,
       });
       for (const t of teksUji) paragraph(t);
+
+      // `keterbatasan` dicetak APA ADANYA dari uji_ongkos.json, bukan
+      // diparafrase ulang di sini -- ia berlaku atas SELURUH eksperimen
+      // (baik angka per komoditas maupun whole-of-program di atas), jadi
+      // dicetak sekali sebagai penutup bagian, bukan diulang per subbagian.
       paragraph(UJI_ONGKOS.keterbatasan, 10, green);
     }
   } else {

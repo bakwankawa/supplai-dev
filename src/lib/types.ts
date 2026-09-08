@@ -361,9 +361,25 @@ export interface ModalRute {
  *  (`wfp_food_prices_idn.csv`), sama sekali tidak bergantung pada rencana
  *  redistribusi mana yang kami pilih -- `pasar_provinsi_komoditas()` bahkan
  *  tidak menerima parameter postur. Menambah dimensi postur di sini akan
- *  menyiratkan ketergantungan yang tidak ada pada datanya. */
+ *  menyiratkan ketergantungan yang tidak ada pada datanya.
+ *
+ *  `setaraKegiatanPerKomoditas` keyed DUA tingkat, postur lalu komoditas --
+ *  pola yang SAMA dengan `modalPerKomoditas`, ditambahkan pada ronde
+ *  perbaikan yang menutup celah yang sama untuk kapasitas instrumen: Bagian
+ *  08 kerangka pemerintah sebelumnya menampilkan `setaraKegiatan` agregat
+ *  (gabungan enam komoditas, postur "seimbang" selalu) di bawah judul
+ *  komoditas dan postur laporan yang berbeda. `setaraKegiatan()` menerima
+ *  parameter `komoditas` sejak ronde ini (lihat `supplai/tindakan.py`);
+ *  pasangan postur-komoditas yang rutenya nol memetakan ke nilai NOL apa
+ *  adanya (fakta terukur "tidak mengirim", bukan ketiadaan data) lewat
+ *  `.sum()` pandas atas seleksi kosong -- bukan dihilangkan, dan bukan
+ *  jatuh balik ke komoditas lain. `kapasitasTahunan` di setiap entri TETAP
+ *  1.888: itu konstanta program nasional, tidak ikut disaring per
+ *  komoditas -- hanya pembilangnya (`ton`/`nilaiRp`/`kegiatan`/
+ *  `persenKapasitas`) yang genuinely berbeda per komoditas. */
 export interface Tindakan {
   setaraKegiatan: SetaraKegiatan
+  setaraKegiatanPerKomoditas: Record<Postur, Record<string, SetaraKegiatan>>
   modal: ModalRute[]
   modalPerKomoditas: Record<Postur, Record<string, ModalRute[]>>
   pasar: Record<string, PasarProvinsi[]>

@@ -4,7 +4,7 @@ import { analyzeRedistribusi } from "./analysis"
 import type { SebaranKelompokResult } from "./kesenjangan"
 import {
   teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
-  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos,
+  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos, teksUjiOngkosKomoditas,
 } from "./teks"
 
 const contoh = () =>
@@ -326,9 +326,39 @@ describe("teksInstrumen", () => {
 })
 
 describe("teksUjiOngkos", () => {
-  it("melaporkan hasil uji ongkos apa adanya, termasuk bila rencananya tak bergeser", () => {
-    const teks = teksUjiOngkos({ ruteBerubah: 0, persenBawahJarak: 7.4,
-                                 persenBawahTetap: 7.4 }).join(" ")
-    expect(teks).toMatch(/tidak|nol/i)
+  it("menyatakan kalibrasi ongkos datar dan siapa yang dilayani sebagai angka whole-of-program", () => {
+    const teks = teksUjiOngkos({ ongkosTetapTerkalibrasi: 2186372.64,
+                                 persenBawahJarak: 8.36, persenBawahTetap: 8.36 }).join(" ")
+    expect(teks).toMatch(/gabungan|enam komoditas/i)
+    expect(teks).toContain("8,36%")
+  })
+})
+
+describe("teksUjiOngkosKomoditas", () => {
+  it("melaporkan hasil uji ongkos apa adanya untuk satu komoditas, termasuk bila rencananya tak bergeser", () => {
+    // Dipin ke frasa spesifik kasus nol ("nol rute berubah"), bukan regex
+    // longgar /tidak|nol/i: versi longgar juga lolos lewat cabang non-nol,
+    // karena kalimat lain di sekitarnya kebetulan memuat kata "tidak" --
+    // reviewer membuktikan ini dengan mematikan cabang khusus nol dan tes
+    // longgar tetap lolos.
+    const teks = teksUjiOngkosKomoditas({ komoditas: "Bawang Putih", diuji: true,
+                                          ruteBerubah: 0, nRuteJarak: 10 }).join(" ")
+    expect(teks).toContain("nol rute berubah")
+  })
+
+  it("melaporkan rute berubah non-nol tanpa memakai frasa kasus nol", () => {
+    const teks = teksUjiOngkosKomoditas({ komoditas: "Telur Ayam", diuji: true,
+                                          ruteBerubah: 6, nRuteJarak: 13 }).join(" ")
+    expect(teks).toContain("6 dari 13 rute berubah")
+    expect(teks).not.toContain("nol rute berubah")
+  })
+
+  it("menyatakan tidak diketahui untuk komoditas yang tidak diuji, bukan 0 dari 0 rute", () => {
+    // Bawang Merah dan Minyak Goreng tidak punya pasangan surplus-defisit --
+    // "tidak diuji" harus tetap terbaca beda dari "diuji, hasilnya nol".
+    const teks = teksUjiOngkosKomoditas({ komoditas: "Bawang Merah", diuji: false,
+                                          alasan: "tidak ada pasangan surplus-defisit" }).join(" ")
+    expect(teks).toMatch(/tidak diketahui/)
+    expect(teks).not.toMatch(/0 dari 0/)
   })
 })

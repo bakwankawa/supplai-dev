@@ -689,25 +689,36 @@ def build_tindakan() -> dict:
     (tanpa akhiran) tetap postur seimbang — laporan yang memakai angka ini
     menyatakan bulan sasarannya sendiri.
 
-    `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS, dipertahankan
-    karena sesuatu di tempat lain mungkin genuinely butuh pandangan lintas
-    komoditas itu (bandingkan diagnosis muatan balik, yang memang lintas
-    komoditas by design). `modalPerKomoditas`/`pasarPerKomoditas` adalah yang
-    dipakai kerangka pedagang: laporan untuk SATU komoditas tidak boleh
-    menyandingkan modal atau menyebut pasar milik komoditas lain sebagai
-    miliknya sendiri -- itu klaim yang datanya tidak dukung.
+    `modal`/`pasar`/`setaraKegiatan` (tanpa akhiran) adalah agregat LINTAS
+    SELURUH ENAM KOMODITAS, dipertahankan karena sesuatu di tempat lain
+    mungkin genuinely butuh pandangan lintas komoditas itu (bandingkan
+    diagnosis muatan balik, yang memang lintas komoditas by design).
+    `modalPerKomoditas`/`pasarPerKomoditas`/`setaraKegiatanPerKomoditas`
+    adalah yang WAJIB dipakai laporan per komoditas: sebuah laporan untuk
+    SATU komoditas tidak boleh menyandingkan modal, pasar, atau setara
+    kegiatan milik komoditas lain (atau milik gabungan enam komoditas)
+    sebagai miliknya sendiri -- itu klaim yang datanya tidak dukung. Ini
+    ronde perbaikan yang menutup celah yang persis sama untuk kapasitas
+    instrumen (Bagian 08 kerangka pemerintah): laporan sebelumnya
+    menampilkan `setaraKegiatan` agregat di bawah judul komoditas tunggal.
 
-    `modalPerKomoditas` keyed DUA tingkat, postur lalu komoditas: modal dan
-    marjin harapan berasal dari `flows.parquet`, yang genuinely berbeda per
-    postur (rute dan volumenya berbeda per postur) -- laporan rencana Aman
-    Pangan tidak boleh menampilkan imbal hasil yang sebenarnya milik rencana
-    Seimbang, persis defek yang sama dengan klaim pasar, hanya di dimensi
-    postur alih-alih komoditas. Postur yang tidak punya rute sama sekali
-    (konservatif, pada data saat ini) dan pasangan postur-komoditas yang
-    rutenya nol (Bawang Merah, Minyak Goreng, di kedua postur yang punya
-    rute) memetakan ke daftar kosong lewat jalur `s.empty` yang sudah ada di
-    `modal_imbal_hasil()` -- bukan dihilangkan, dan bukan jatuh balik ke
-    postur lain.
+    `modalPerKomoditas`/`setaraKegiatanPerKomoditas` keyed DUA tingkat,
+    postur lalu komoditas: modal, marjin harapan, dan setara kegiatan
+    berasal dari `flows.parquet`, yang genuinely berbeda per postur (rute
+    dan volumenya berbeda per postur) -- laporan rencana Aman Pangan tidak
+    boleh menampilkan imbal hasil atau setara kegiatan yang sebenarnya
+    milik rencana Seimbang, persis defek yang sama dengan klaim pasar,
+    hanya di dimensi postur alih-alih komoditas. Postur yang tidak punya
+    rute sama sekali (konservatif, pada data saat ini) dan pasangan
+    postur-komoditas yang rutenya nol (Bawang Merah, Minyak Goreng, di
+    kedua postur yang punya rute) memetakan ke daftar kosong / nilai NOL
+    lewat jalur `s.empty`/`.sum()` seri kosong yang sudah ada di
+    `modal_imbal_hasil()`/`setara_kegiatan()` -- bukan dihilangkan, dan
+    bukan jatuh balik ke postur atau komoditas lain. Nol di sini adalah
+    fakta terukur "tidak mengirim", bukan ketiadaan data -- kapasitas
+    tahunan GPM (1.888 kegiatan) itu sendiri TIDAK ikut disaring per
+    komoditas: ia konstanta program nasional, sama untuk laporan komoditas
+    manapun.
 
     `pasarPerKomoditas` SENGAJA TIDAK diberi dimensi postur: pasar bernama
     adalah tempat harga PERNAH DIAMATI secara historis
@@ -731,14 +742,16 @@ def build_tindakan() -> dict:
     flows = pd.read_parquet(DEFAULT_ARTIFACTS / "flows.parquet")
     postur = "seimbang"
 
-    s = td.setara_kegiatan(flows, postur)
-    setara_kegiatan = {
-        "ton": round(float(s["ton"]), 1),
-        "nilaiRp": round(float(s["nilai_rp"])),
-        "kegiatan": round(float(s["kegiatan"])),
-        "kapasitasTahunan": int(s["kapasitas_tahunan"]),
-        "persenKapasitas": round(float(s["persen_kapasitas"]), 1),
-    }
+    def _setara_kegiatan_row(s: dict) -> dict:
+        return {
+            "ton": round(float(s["ton"]), 1),
+            "nilaiRp": round(float(s["nilai_rp"])),
+            "kegiatan": round(float(s["kegiatan"])),
+            "kapasitasTahunan": int(s["kapasitas_tahunan"]),
+            "persenKapasitas": round(float(s["persen_kapasitas"]), 1),
+        }
+
+    setara_kegiatan = _setara_kegiatan_row(td.setara_kegiatan(flows, postur))
 
     def _modal_rows(m: pd.DataFrame) -> list:
         m = m.sort_values("imbal_hasil_persen", ascending=False)
@@ -765,6 +778,20 @@ def build_tindakan() -> dict:
         for p in posturs
     }
 
+    # Setara-kegiatan PER POSTUR dan PER KOMODITAS -- sama persis alasannya
+    # dengan modal_per_komoditas di atas: sebuah laporan untuk satu komoditas
+    # tidak boleh menyandingkan setara-kegiatan yang sebenarnya milik
+    # gabungan enam komoditas (`setara_kegiatan` tanpa akhiran, di atas)
+    # sebagai miliknya sendiri. Pasangan (postur, komoditas) yang tidak
+    # mengirim apa pun (mis. Bawang Merah/Minyak Goreng) memetakan ke nilai
+    # NOL lewat setara_kegiatan() sendiri (lihat dokumentasinya di
+    # supplai/tindakan.py) -- fakta terukur "tidak mengirim", bukan
+    # dihilangkan ataupun jatuh balik ke komoditas lain.
+    setara_kegiatan_per_komoditas = {
+        p: {kom: _setara_kegiatan_row(td.setara_kegiatan(flows, p, komoditas=kom)) for kom in COMMODITIES}
+        for p in posturs
+    }
+
     prov_model = sorted(
         pd.read_parquet(DEFAULT_ARTIFACTS / "centroids.parquet").provinsi.unique())
     pasar = {prov: td.pasar_provinsi(prov, DEFAULT_DATA) for prov in prov_model}
@@ -775,6 +802,7 @@ def build_tindakan() -> dict:
 
     return {
         "setaraKegiatan": setara_kegiatan,
+        "setaraKegiatanPerKomoditas": setara_kegiatan_per_komoditas,
         "modal": modal,
         "modalPerKomoditas": modal_per_komoditas,
         "pasar": pasar,
@@ -914,6 +942,24 @@ def main(argv=None) -> int:
         "a commodity with zero routes must map to an empty modal list, not fall back to another postur"
     assert tindakan["modalPerKomoditas"]["seimbang"] != tindakan["modalPerKomoditas"]["aman_pangan"], \
         "seimbang and aman_pangan must not carry identical modal figures"
+    assert set(tindakan["setaraKegiatanPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}, \
+        "setaraKegiatanPerKomoditas must have one entry per postur, not just seimbang"
+    for postur_key, per_kom in tindakan["setaraKegiatanPerKomoditas"].items():
+        assert set(per_kom) == komoditas_names, \
+            f"setaraKegiatanPerKomoditas[{postur_key!r}] must have one entry per modelled commodity"
+        for kom, row in per_kom.items():
+            assert row["kapasitasTahunan"] == 1888, \
+                f"setaraKegiatanPerKomoditas[{postur_key!r}][{kom!r}] kapasitasTahunan must stay the national constant"
+    # A commodity/postur pair with genuinely zero routes must map to zero
+    # values apa adanya (a measured fact, not missing data) -- not fall back
+    # to another commodity's figures.
+    assert tindakan["setaraKegiatanPerKomoditas"]["seimbang"]["Bawang Merah"]["kegiatan"] == 0, \
+        "a commodity with zero routes must map to zero kegiatan, not fall back to another commodity"
+    # A single commodity's slice must never exceed the combined six-commodity
+    # aggregate it was filtered out of.
+    for kom, row in tindakan["setaraKegiatanPerKomoditas"]["seimbang"].items():
+        assert row["kegiatan"] <= tindakan["setaraKegiatan"]["kegiatan"], \
+            f"setaraKegiatanPerKomoditas['seimbang'][{kom!r}] exceeds the six-commodity aggregate"
     assert set(tindakan["pasarPerKomoditas"]) == komoditas_names, \
         "pasarPerKomoditas must have one entry per modelled commodity"
     assert all(len(v) == 34 for v in tindakan["pasarPerKomoditas"].values()), \

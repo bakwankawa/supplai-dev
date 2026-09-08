@@ -538,13 +538,16 @@ export function teksModal(modal: ModalTeksInput[]): string[] {
  *  beberapa komoditas sekaligus sehingga mengonversinya memakai harga satu
  *  komoditas bersifat indikatif.
  *
- *  `s` di sini adalah agregat LINTAS ENAM KOMODITAS pada postur "seimbang"
- *  SELALU -- `setara_kegiatan()` tidak menerima parameter komoditas maupun
- *  postur (lihat dokumentasi `SetaraKegiatan`/`Tindakan` di `@/lib/types`).
- *  Fungsi ini sendiri tidak tahu komoditas atau postur laporan mana yang
- *  memanggilnya; `report.ts` bertanggung jawab menyatakan cakupan itu di
- *  kalimat pembuka bagian, SEBELUM angka mana pun dicetak -- bukan di
- *  catatan kaki. */
+ *  `s` di sini SUDAH DISARING per POSTUR dan KOMODITAS laporan ini (lihat
+ *  `TINDAKAN.setaraKegiatanPerKomoditas[a.postur][a.komoditas]` di
+ *  `report.ts`, dan dokumentasi `Tindakan` di `@/lib/types`) -- ronde
+ *  perbaikan yang menambahkan ini menutup celah yang sama dengan yang
+ *  sudah diperbaiki untuk modal/imbal hasil: `setara_kegiatan()` sekarang
+ *  menerima parameter `komoditas`, mengikuti pola `modal_imbal_hasil()`.
+ *  `kapasitasTahunan` di dalam `s` TETAP konstanta program nasional
+ *  (1.888) -- itu bukan sesuatu yang genuinely bisa disaring per komoditas,
+ *  ia YARDSTICK yang sama untuk laporan manapun -- hanya pembilangnya yang
+ *  berubah per komoditas dan postur. */
 export function teksInstrumen(s: SetaraKegiatan): string[] {
   const klaim =
     `Dinilai pada harga tujuan, rencana ini setara ${angka(s.kegiatan, 0)} kegiatan Gerakan ` +
@@ -576,79 +579,48 @@ export function teksInstrumen(s: SetaraKegiatan): string[] {
 }
 
 /** Bidang yang dipakai `teksUjiOngkos`, sebagian dipetik dari `UjiOngkos`
- *  (`@/lib/types`). Hanya tiga field yang wajib (`ruteBerubah`,
- *  `persenBawahJarak`, `persenBawahTetap`); sisanya opsional supaya
- *  kalimatnya tetap bisa dirangkai walau pemanggil hanya berikan yang ia
- *  punya.
+ *  (`@/lib/types`).
  *
- *  BATAS YANG DIWARISI DARI SUMBERNYA (lihat dokumentasi `UjiOngkos` di
- *  `@/lib/types` dan `bench_ongkos.py`): seluruh angka di sini adalah
- *  agregat LINTAS ENAM KOMODITAS pada postur "seimbang" SELALU -- fungsi
- *  ini sendiri tidak tahu komoditas atau postur laporan mana yang
- *  memanggilnya. `report.ts` bertanggung jawab menyatakan cakupan itu di
- *  kalimat pembuka bagian, SEBELUM angka mana pun dicetak -- bukan di
- *  catatan kaki -- dan mencetak `keterbatasan` dari `UjiOngkos` apa adanya,
- *  bukan diparafrase ulang di sini. */
+ *  HANYA DUA ANGKA YANG GENUINELY WHOLE-OF-PROGRAM, dan itulah satu-satunya
+ *  yang fungsi ini rangkai (lihat ronde perbaikan yang memisahkannya dari
+ *  `ruteBerubah`, di bawah): `ongkosTetapTerkalibrasi` adalah SATU tarif
+ *  datar yang dikalibrasi supaya belanja totalnya sepadan dengan struktur
+ *  jarak lintas GABUNGAN enam komoditas -- kalibrasi ini sendiri butuh
+ *  totalnya gabungan, jadi tidak ada versi "per komoditas" yang berarti.
+ *  `persenBawahJarak`/`persenBawahTetap` (porsi tonase ke sepertiga terbawah
+ *  IKP) dihitung `bench_ongkos.py` atas flow GABUNGAN, bukan per komoditas,
+ *  di `uji_ongkos.json` -- tidak ada pecahan per komoditas untuk diambil.
+ *  `report.ts` bertanggung jawab menyatakan cakupan whole-of-program ini di
+ *  kalimat pembuka, SEBELUM angka mana pun -- bukan di catatan kaki. */
 type UjiOngkosTeksInput = {
-  ruteBerubah: number
+  ongkosTetapTerkalibrasi: number
   persenBawahJarak: number | null
   persenBawahTetap: number | null
-  ruteBerubahTetapPlusJarak?: number
-  tetapDegenerate?: boolean
-  nRuteJarak?: number
 }
 
-/** Bagian "Uji ongkos" pada kerangka pemerintah: apakah rencana ini bergeser
- *  ketika jarak dihapus dari fungsi objektif LP dan diganti ongkos datar per
- *  ton (dan, sebagai kontrol, ketika ongkos datar itu DITAMBAHKAN di atas
- *  jarak, bukan menggantikannya).
- *
- *  `ruteBerubah` TIDAK BOLEH dibaca sebagai hasil ekonomi begitu saja: bila
- *  `tetapDegenerate` true, struktur ongkos datar terbukti (lewat perturbasi
- *  ~1 per sejuta yang dijalankan `bench_ongkos.py`) tidak punya preferensi
- *  sama sekali -- total tonase dipatok lantai kebutuhan, sehingga SETIAP
- *  penugasan layak sama optimalnya, dan himpunan rute yang dikembalikan
- *  solver adalah satu titik sembarang dari muka optimal yang datar, bukan
- *  preferensi ekonomi. Kalimatnya menyatakan ini di napas yang sama dengan
- *  angkanya, bukan di kalimat terpisah yang mudah dilewati.
- *
- *  Bila rencananya HAMPIR TIDAK BERGESER (`ruteBerubah` mendekati atau sama
- *  dengan nol), itu BUKAN eksperimen yang gagal -- itu tesis mentor yang
- *  terbukti pada data kita sendiri, dan kalimatnya menyatakan begitu apa
- *  adanya, bukan minta maaf atas hasil yang "kurang meyakinkan".
+/** Bagian "Uji ongkos" pada kerangka pemerintah, BAGIAN WHOLE-OF-PROGRAM:
+ *  bagaimana ongkos datar dikalibrasi, dan siapa yang dilayani di bawah
+ *  struktur ongkos yang berbeda.
  *
  *  `persenBawahJarak`/`persenBawahTetap` yang SETARA di kedua struktur
- *  menunjukkan sesuatu yang lebih tajam dari `ruteBerubah` semata: struktur
- *  ongkos tidak bisa mengubah SIAPA yang dilayani sama sekali, karena
- *  tonase ke tiap tujuan dipatok lantai kebutuhan -- ongkos hanya memilih
- *  SUMBER kiriman, bukan tujuannya. */
+ *  menunjukkan sesuatu yang tajam: struktur ongkos tidak bisa mengubah SIAPA
+ *  yang dilayani sama sekali, karena tonase ke tiap tujuan dipatok lantai
+ *  kebutuhan -- ongkos hanya memilih SUMBER kiriman, bukan tujuannya. Ini
+ *  TETAP whole-of-program (lihat dokumentasi `UjiOngkosTeksInput` di atas),
+ *  bukan sesuatu yang bisa disaring per komoditas.
+ *
+ *  Untuk ADA-TIDAKNYA rute bergeser per komoditas (`ruteBerubah`) dan
+ *  detail degenerasinya, lihat `teksUjiOngkosKomoditas` di bawah -- itu
+ *  ANGKA PER KOMODITAS, dipisah dari fungsi ini pada ronde perbaikan yang
+ *  menemukan agregat 22/36 (61%) menyesatkan untuk Bawang Putih (0/10,
+ *  0%) secara khusus. */
 export function teksUjiOngkos(u: UjiOngkosTeksInput): string[] {
-  const jumlahRute = u.nRuteJarak !== undefined ? ` dari ${angka(u.nRuteJarak, 0)} rute` : " rute"
-
-  const perubahan =
-    u.ruteBerubah === 0
-      ? `Ketika ongkos jarak diganti ongkos datar per ton, nol rute berubah: tidak satu pun rute ` +
-        `berpindah -- rencananya sama persis. Ini bukan eksperimen yang gagal: ia tesis mentor -- ` +
-        `bahwa jarak bukan kendala sesungguhnya -- terbukti langsung pada data kita sendiri.`
-      : `Ketika ongkos jarak diganti ongkos datar per ton, ${angka(u.ruteBerubah, 0)}${jumlahRute} ` +
-        `berubah.` +
-        (u.tetapDegenerate === true
-          ? ` Angka ini TIDAK dibaca sebagai hasil ekonomi: perturbasi kecil (~1 per sejuta) pada ` +
-            `ongkos datar menghasilkan himpunan rute yang berbeda-beda pada biaya yang persis sama -- ` +
-            `objektif ongkos datar terbukti degenerate, sehingga rute yang dipilih solver adalah satu ` +
-            `titik sembarang dari muka optimal yang datar, bukan preferensi ekonomi.`
-          : ` Perubahan ini tidak dengan sendirinya membuktikan preferensi ekonomi -- lihat batasan ` +
-            `eksperimen di bawah.`)
-
-  const kontrolInert =
-    u.ruteBerubahTetapPlusJarak === undefined
-      ? null
-      : u.ruteBerubahTetapPlusJarak === 0
-        ? `Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak (jarak tetap ada di ` +
-          `fungsi objektif) tidak menggeser rencana sedikit pun: nol rute berubah. Ongkos datar itu ` +
-          `inert secara ekonomi ketika jarak masih menjadi kriteria pembeda.`
-        : `Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak mengubah ` +
-          `${angka(u.ruteBerubahTetapPlusJarak, 0)}${jumlahRute}.`
+  const kalibrasi =
+    `Untuk menguji apakah jarak menyetir rencana, ongkos jarak diganti satu ongkos DATAR per ton ` +
+    `yang sama untuk seluruh rute, dikalibrasi ke ${formatRupiah(u.ongkosTetapTerkalibrasi)}/ton ` +
+    `supaya belanja totalnya sepadan dengan struktur jarak -- perbandingan ini menyoal BENTUK ` +
+    `ongkosnya, bukan seberapa mahal ongkos itu. Kalibrasi ini dihitung atas gabungan seluruh rute ` +
+    `enam komoditas, sehingga tidak ada versi per komoditas dari tarif ini.`
 
   const siapaDilayani =
     u.persenBawahJarak === null || u.persenBawahTetap === null
@@ -661,5 +633,98 @@ export function teksUjiOngkos(u: UjiOngkosTeksInput): string[] {
         : `Porsi tonase yang sampai ke sepertiga terbawah IKP adalah ${persen(u.persenBawahJarak)} ` +
           `pada struktur jarak dan ${persen(u.persenBawahTetap)} pada struktur ongkos datar.`
 
-  return kontrolInert === null ? [perubahan, siapaDilayani] : [perubahan, kontrolInert, siapaDilayani]
+  return [kalibrasi, siapaDilayani]
+}
+
+/** Bidang uji ongkos milik SATU KOMODITAS. `report.ts` menghitung
+ *  `ruteBerubah`/`nRuteJarak`/`ruteBerubahTetapPlusJarak` dengan
+ *  `ruteBerubahKomoditas()` (`./uji-ongkos`), yang menyaring
+ *  `struktur.jarak/tetap/tetapPlusJarak.rute` di `uji_ongkos.json` ke SATU
+ *  komoditas sebelum membandingkan -- BUKAN mengambil pecahan dari angka
+ *  agregat `UjiOngkos.ruteBerubah`, yang tidak berarti apa-apa per komoditas
+ *  (selisih simetris tidak terdistribusi linear atas gabungan himpunan).
+ *  `nUlang`/`nHimpunanUnik`/`stabil` diambil apa adanya dari
+ *  `UjiOngkos.degenerasiTetapDetail[komoditas]`, yang SUDAH per komoditas
+ *  di sumbernya.
+ *
+ *  `diuji: false` berarti komoditas ini tidak punya pasangan surplus-defisit
+ *  sama sekali pada struktur "jarak" (Bawang Merah, Minyak Goreng, pada
+ *  data saat ini) -- fungsi ini menyatakan "tidak diketahui" untuk
+ *  komoditas itu, TIDAK PERNAH jatuh balik ke angka agregat maupun ke
+ *  komoditas lain, dan tidak mencetak "0 dari 0 rute" yang terbaca seolah
+ *  komoditas ini diuji dan hasilnya nol. */
+export type UjiOngkosKomoditasTeksInput = {
+  komoditas: string
+  diuji: boolean
+  alasan?: string
+  ruteBerubah?: number
+  nRuteJarak?: number
+  ruteBerubahTetapPlusJarak?: number
+  nUlang?: number
+  nHimpunanUnik?: number
+  stabil?: boolean
+}
+
+/** Bagian "Uji ongkos" pada kerangka pemerintah, BAGIAN PER KOMODITAS:
+ *  apakah rute KOMODITAS INI bergeser ketika jarak diganti ongkos datar per
+ *  ton (dan, sebagai kontrol, ketika ongkos datar itu DITAMBAHKAN di atas
+ *  jarak, bukan menggantikannya) -- lihat `report.ts` untuk bagaimana `u`
+ *  dihitung dari data mentah `uji_ongkos.json`.
+ *
+ *  `ruteBerubah` TIDAK BOLEH dibaca sebagai hasil ekonomi begitu saja: bila
+ *  `stabil` false, objektif ongkos datar untuk KOMODITAS INI terbukti
+ *  (lewat perturbasi ~1 per sejuta yang dijalankan `bench_ongkos.py`) tidak
+ *  punya preferensi sama sekali -- rute yang dipilih solver adalah satu
+ *  titik sembarang dari muka optimal yang datar, bukan preferensi ekonomi.
+ *  Ini berlaku BAHKAN KETIKA `ruteBerubah` nol: nol rute berubah pada
+ *  objektif yang degenerate adalah kebetulan sebuah vertex sembarang jatuh
+ *  sama dengan jawaban jarak, bukan bukti bahwa jarak dan ongkos datar
+ *  "setuju" secara ekonomi.
+ *
+ *  Bila rute komoditas ini HAMPIR TIDAK BERGESER (`ruteBerubah` mendekati
+ *  atau sama dengan nol), itu BUKAN eksperimen yang gagal -- kalimatnya
+ *  menyatakan begitu apa adanya, bukan minta maaf atas hasil yang "kurang
+ *  meyakinkan". */
+export function teksUjiOngkosKomoditas(u: UjiOngkosKomoditasTeksInput): string[] {
+  if (!u.diuji) {
+    return [
+      `Untuk ${u.komoditas} secara khusus, hasil uji ongkos ini tidak diketahui: ` +
+      `${u.alasan ?? "komoditas ini tidak diuji"} pada rencana postur Seimbang, sehingga tidak ada ` +
+      `pasangan surplus-defisit untuk menjalankan LP-nya sama sekali.`,
+    ]
+  }
+
+  const jumlahRute = u.nRuteJarak !== undefined ? ` dari ${angka(u.nRuteJarak, 0)} rute` : " rute"
+
+  const perubahan =
+    u.ruteBerubah === 0
+      ? `Untuk ${u.komoditas} secara khusus, ketika ongkos jarak diganti ongkos datar per ton, nol ` +
+        `rute berubah: tidak satu pun rute komoditas ini berpindah.`
+      : `Untuk ${u.komoditas} secara khusus, ketika ongkos jarak diganti ongkos datar per ton, ` +
+        `${angka(u.ruteBerubah ?? 0, 0)}${jumlahRute} berubah.`
+
+  const degenerasi =
+    u.stabil === undefined
+      ? ""
+      : u.stabil
+        ? ` Objektif ongkos datar untuk ${u.komoditas} STABIL di bawah perturbasi ` +
+          `(${angka(u.nHimpunanUnik ?? 0, 0)} dari ${angka(u.nUlang ?? 0, 0)} ulangan menghasilkan ` +
+          `himpunan rute yang sama) -- angka rute berubah di atas boleh dibaca lebih dekat dengan ` +
+          `preferensi ekonomi yang sungguhan untuk komoditas ini.`
+        : ` Objektif ongkos datar untuk ${u.komoditas} TIDAK STABIL di bawah perturbasi ` +
+          `(${angka(u.nHimpunanUnik ?? 0, 0)} dari ${angka(u.nUlang ?? 0, 0)} ulangan menghasilkan ` +
+          `himpunan rute yang BERBEDA-BEDA pada biaya yang sama) -- angka rute berubah di atas, ` +
+          `TERMASUK BILA NOL, adalah artefak sembarang dari muka optimal yang datar, bukan ` +
+          `preferensi ekonomi komoditas ini.`
+
+  const kontrol =
+    u.ruteBerubahTetapPlusJarak === undefined
+      ? ""
+      : u.ruteBerubahTetapPlusJarak === 0
+        ? ` Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak (bukan menggantinya) ` +
+          `tidak menggeser rute ${u.komoditas} sedikit pun.`
+        : ` Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak mengubah ` +
+          `${angka(u.ruteBerubahTetapPlusJarak, 0)}${jumlahRute} milik ${u.komoditas}.`
+
+  return [perubahan + degenerasi + kontrol]
 }
