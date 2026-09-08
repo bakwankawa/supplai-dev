@@ -4,7 +4,7 @@ import { analyzeRedistribusi } from "./analysis"
 import type { SebaranKelompokResult } from "./kesenjangan"
 import {
   teksJendela, teksPenekananHarga, teksMarjin, teksKesenjangan, teksLanskap,
-  teksMuatanBalik, teksPasar, teksModal,
+  teksMuatanBalik, teksPasar, teksModal, teksInstrumen, teksUjiOngkos,
 } from "./teks"
 
 const contoh = () =>
@@ -304,5 +304,31 @@ describe("teksModal", () => {
     const teks = teksModal([{ dari: "Bengkulu", modalRp: 3.22e9, marjinRp: 6e6, imbalHasilPersen: 0.2 }]).join(" ")
     expect(teks).toMatch(/satu transaksi|sekali jalan/)
     expect(teks).not.toMatch(/per tahun|tahunan/)
+  })
+})
+
+describe("teksInstrumen", () => {
+  it("menyatakan bahwa instrumen yang dijadikan pembanding tidak akan sanggup", () => {
+    // Merekomendasikan volume di luar kapasitas instrumen yang kita sendiri
+    // jadikan pembanding, tanpa mengatakannya, adalah kelalaian yang bisa
+    // dihindari dengan satu paragraf.
+    const teks = teksInstrumen({ ton: 1025.7, nilaiRp: 37.16e9, kegiatan: 1413,
+                                 kapasitasTahunan: 1888, persenKapasitas: 74.8 }).join(" ")
+    expect(teks).toMatch(/tidak (akan )?(sanggup|cukup)/)
+    expect(teks).toContain("1.888")
+  })
+
+  it("menandai konversi kegiatan sebagai indikatif, bukan takaran", () => {
+    const teks = teksInstrumen({ ton: 1025.7, nilaiRp: 37.16e9, kegiatan: 1413,
+                                 kapasitasTahunan: 1888, persenKapasitas: 74.8 }).join(" ")
+    expect(teks).toMatch(/indikatif/)
+  })
+})
+
+describe("teksUjiOngkos", () => {
+  it("melaporkan hasil uji ongkos apa adanya, termasuk bila rencananya tak bergeser", () => {
+    const teks = teksUjiOngkos({ ruteBerubah: 0, persenBawahJarak: 7.4,
+                                 persenBawahTetap: 7.4 }).join(" ")
+    expect(teks).toMatch(/tidak|nol/i)
   })
 })

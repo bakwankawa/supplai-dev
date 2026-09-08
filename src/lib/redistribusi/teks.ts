@@ -1,6 +1,6 @@
 import tingkatanData from "@/data/generated/tingkatan.json"
 import { formatRupiah } from "@/lib/format"
-import type { ModalRute, PasarProvinsi, PosisiHarga, RantaiMuatan } from "@/lib/types"
+import type { ModalRute, PasarProvinsi, PosisiHarga, RantaiMuatan, SetaraKegiatan } from "@/lib/types"
 import type { RedistribusiAnalysis } from "./analysis"
 import { angka, persen, ton } from "./format"
 import type { Kelompok, SebaranKelompokResult } from "./kesenjangan"
@@ -512,4 +512,154 @@ export function teksModal(modal: ModalTeksInput[]): string[] {
   })
 
   return [caveat, ...baris]
+}
+
+/** Bagian "Kapasitas instrumen" pada kerangka pemerintah: tonase rencana ini,
+ *  diubah menjadi setara jumlah kegiatan Gerakan Pangan Murah (GPM), lalu
+ *  dibandingkan dengan kapasitas TAHUNAN NASIONAL instrumen itu (lihat
+ *  `setara_kegiatan()` di `supplai/tindakan.py`).
+ *
+ *  TEMUAN YANG LEBIH PENTING DARI KONVERSINYA SENDIRI, dan alasan fungsi ini
+ *  ada: rencana SATU BULAN sering setara sebagian besar kapasitas GPM
+ *  SETAHUN PENUH. Merekomendasikan volume ini tanpa menyatakan bahwa GPM
+ *  sendirian tidak akan sanggup menyerapnya sebagai tindakan berulang adalah
+ *  kelalaian yang bisa dihindari dengan satu paragraf -- merekomendasikan
+ *  volume di luar kapasitas instrumen yang kita sendiri jadikan pembanding,
+ *  tanpa mengatakannya. Ambang "tidak akan sanggup" di sini dites lewat fakta
+ *  aritmatika, bukan angka bulat yang dipilih sembarang: bila bulan ini
+ *  diulang genap 12 kali, `persenKapasitas * 12` akan lewat 100% kapasitas
+ *  tahunan -- itulah kondisi yang memicu kalimatnya, bukan ambang selera.
+ *
+ *  Konversinya INDIKATIF, bukan takaran, dan mewarisi tiga peringatan yang
+ *  sudah melekat pada Kecukupan GPM di bagian rute (lihat `report.ts`): GPM
+ *  satu instrumen di antara beberapa -- penyaluran Cadangan Pangan Pemerintah
+ *  jauh lebih besar dan tidak terhitung di sini -- anggaran per kegiatan
+ *  adalah rencana 2027 diterapkan pada realisasi 2026, dan GPM menjual
+ *  beberapa komoditas sekaligus sehingga mengonversinya memakai harga satu
+ *  komoditas bersifat indikatif.
+ *
+ *  `s` di sini adalah agregat LINTAS ENAM KOMODITAS pada postur "seimbang"
+ *  SELALU -- `setara_kegiatan()` tidak menerima parameter komoditas maupun
+ *  postur (lihat dokumentasi `SetaraKegiatan`/`Tindakan` di `@/lib/types`).
+ *  Fungsi ini sendiri tidak tahu komoditas atau postur laporan mana yang
+ *  memanggilnya; `report.ts` bertanggung jawab menyatakan cakupan itu di
+ *  kalimat pembuka bagian, SEBELUM angka mana pun dicetak -- bukan di
+ *  catatan kaki. */
+export function teksInstrumen(s: SetaraKegiatan): string[] {
+  const klaim =
+    `Dinilai pada harga tujuan, rencana ini setara ${angka(s.kegiatan, 0)} kegiatan Gerakan ` +
+    `Pangan Murah (GPM) -- konversi indikatif, bukan takaran, dari nilai ${formatRupiah(s.nilaiRp)} ` +
+    `atas ${ton(s.ton)}. Kapasitas GPM nasional adalah ${angka(s.kapasitasTahunan, 0)} kegiatan PER ` +
+    `TAHUN, sehingga rencana ini sendirian setara ${persen(s.persenKapasitas)} dari kapasitas ` +
+    `tahunan itu.`
+
+  const akanMelewatiTahunan = s.persenKapasitas * 12 > 100
+  const sanggup = akanMelewatiTahunan
+    ? `GPM sendirian tidak akan sanggup menyerap rencana seukuran ini sebagai tindakan yang ` +
+      `berulang: diulang genap 12 kali, rencana ini sendirian sudah melewati seluruh kapasitas ` +
+      `TAHUNAN instrumen yang kita jadikan pembanding. Merekomendasikan volume ini tanpa ` +
+      `menyatakan batas itu adalah kelalaian yang bisa dihindari dengan satu paragraf -- GPM perlu ` +
+      `didampingi instrumen lain, seperti penyaluran Cadangan Pangan Pemerintah, bukan dijadikan ` +
+      `satu-satunya jalur.`
+    : `Pada angka ini, kapasitas GPM tahunan masih cukup menampung rencana ini bila diulang tiap ` +
+      `bulan sepanjang tahun -- tetapi angka ini tidak menyatakan berapa banyak kapasitas itu ` +
+      `sudah dipakai instrumen lain atau bulan-bulan lain sepanjang tahun yang sama.`
+
+  const takaran =
+    `Angka ini mewarisi tiga peringatan yang sudah melekat pada Kecukupan GPM: GPM hanya satu dari ` +
+    `beberapa instrumen -- penyaluran Cadangan Pangan Pemerintah jauh lebih besar dan tidak ` +
+    `terhitung di sini; anggaran per kegiatan adalah rencana 2027 yang diterapkan pada realisasi ` +
+    `2026; dan GPM menjual beberapa komoditas sekaligus, sehingga mengonversinya memakai harga satu ` +
+    `komoditas bersifat indikatif, bukan takaran.`
+
+  return [klaim, sanggup, takaran]
+}
+
+/** Bidang yang dipakai `teksUjiOngkos`, sebagian dipetik dari `UjiOngkos`
+ *  (`@/lib/types`). Hanya tiga field yang wajib (`ruteBerubah`,
+ *  `persenBawahJarak`, `persenBawahTetap`); sisanya opsional supaya
+ *  kalimatnya tetap bisa dirangkai walau pemanggil hanya berikan yang ia
+ *  punya.
+ *
+ *  BATAS YANG DIWARISI DARI SUMBERNYA (lihat dokumentasi `UjiOngkos` di
+ *  `@/lib/types` dan `bench_ongkos.py`): seluruh angka di sini adalah
+ *  agregat LINTAS ENAM KOMODITAS pada postur "seimbang" SELALU -- fungsi
+ *  ini sendiri tidak tahu komoditas atau postur laporan mana yang
+ *  memanggilnya. `report.ts` bertanggung jawab menyatakan cakupan itu di
+ *  kalimat pembuka bagian, SEBELUM angka mana pun dicetak -- bukan di
+ *  catatan kaki -- dan mencetak `keterbatasan` dari `UjiOngkos` apa adanya,
+ *  bukan diparafrase ulang di sini. */
+type UjiOngkosTeksInput = {
+  ruteBerubah: number
+  persenBawahJarak: number | null
+  persenBawahTetap: number | null
+  ruteBerubahTetapPlusJarak?: number
+  tetapDegenerate?: boolean
+  nRuteJarak?: number
+}
+
+/** Bagian "Uji ongkos" pada kerangka pemerintah: apakah rencana ini bergeser
+ *  ketika jarak dihapus dari fungsi objektif LP dan diganti ongkos datar per
+ *  ton (dan, sebagai kontrol, ketika ongkos datar itu DITAMBAHKAN di atas
+ *  jarak, bukan menggantikannya).
+ *
+ *  `ruteBerubah` TIDAK BOLEH dibaca sebagai hasil ekonomi begitu saja: bila
+ *  `tetapDegenerate` true, struktur ongkos datar terbukti (lewat perturbasi
+ *  ~1 per sejuta yang dijalankan `bench_ongkos.py`) tidak punya preferensi
+ *  sama sekali -- total tonase dipatok lantai kebutuhan, sehingga SETIAP
+ *  penugasan layak sama optimalnya, dan himpunan rute yang dikembalikan
+ *  solver adalah satu titik sembarang dari muka optimal yang datar, bukan
+ *  preferensi ekonomi. Kalimatnya menyatakan ini di napas yang sama dengan
+ *  angkanya, bukan di kalimat terpisah yang mudah dilewati.
+ *
+ *  Bila rencananya HAMPIR TIDAK BERGESER (`ruteBerubah` mendekati atau sama
+ *  dengan nol), itu BUKAN eksperimen yang gagal -- itu tesis mentor yang
+ *  terbukti pada data kita sendiri, dan kalimatnya menyatakan begitu apa
+ *  adanya, bukan minta maaf atas hasil yang "kurang meyakinkan".
+ *
+ *  `persenBawahJarak`/`persenBawahTetap` yang SETARA di kedua struktur
+ *  menunjukkan sesuatu yang lebih tajam dari `ruteBerubah` semata: struktur
+ *  ongkos tidak bisa mengubah SIAPA yang dilayani sama sekali, karena
+ *  tonase ke tiap tujuan dipatok lantai kebutuhan -- ongkos hanya memilih
+ *  SUMBER kiriman, bukan tujuannya. */
+export function teksUjiOngkos(u: UjiOngkosTeksInput): string[] {
+  const jumlahRute = u.nRuteJarak !== undefined ? ` dari ${angka(u.nRuteJarak, 0)} rute` : " rute"
+
+  const perubahan =
+    u.ruteBerubah === 0
+      ? `Ketika ongkos jarak diganti ongkos datar per ton, nol rute berubah: tidak satu pun rute ` +
+        `berpindah -- rencananya sama persis. Ini bukan eksperimen yang gagal: ia tesis mentor -- ` +
+        `bahwa jarak bukan kendala sesungguhnya -- terbukti langsung pada data kita sendiri.`
+      : `Ketika ongkos jarak diganti ongkos datar per ton, ${angka(u.ruteBerubah, 0)}${jumlahRute} ` +
+        `berubah.` +
+        (u.tetapDegenerate === true
+          ? ` Angka ini TIDAK dibaca sebagai hasil ekonomi: perturbasi kecil (~1 per sejuta) pada ` +
+            `ongkos datar menghasilkan himpunan rute yang berbeda-beda pada biaya yang persis sama -- ` +
+            `objektif ongkos datar terbukti degenerate, sehingga rute yang dipilih solver adalah satu ` +
+            `titik sembarang dari muka optimal yang datar, bukan preferensi ekonomi.`
+          : ` Perubahan ini tidak dengan sendirinya membuktikan preferensi ekonomi -- lihat batasan ` +
+            `eksperimen di bawah.`)
+
+  const kontrolInert =
+    u.ruteBerubahTetapPlusJarak === undefined
+      ? null
+      : u.ruteBerubahTetapPlusJarak === 0
+        ? `Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak (jarak tetap ada di ` +
+          `fungsi objektif) tidak menggeser rencana sedikit pun: nol rute berubah. Ongkos datar itu ` +
+          `inert secara ekonomi ketika jarak masih menjadi kriteria pembeda.`
+        : `Sebagai kontrol, menambahkan ongkos datar per ton DI ATAS jarak mengubah ` +
+          `${angka(u.ruteBerubahTetapPlusJarak, 0)}${jumlahRute}.`
+
+  const siapaDilayani =
+    u.persenBawahJarak === null || u.persenBawahTetap === null
+      ? "Porsi tonase yang sampai ke sepertiga terbawah IKP di bawah struktur ongkos ini tidak diketahui."
+      : u.persenBawahJarak === u.persenBawahTetap
+        ? `Porsi tonase yang sampai ke sepertiga terbawah IKP tetap ${persen(u.persenBawahJarak)} pada ` +
+          `kedua struktur ongkos. Struktur ongkos tidak bisa mengubah SIAPA yang dilayani: tonase ke ` +
+          `tiap tujuan dipatok lantai kebutuhan, sehingga ongkos hanya memilih SUMBER kiriman, bukan ` +
+          `tujuannya.`
+        : `Porsi tonase yang sampai ke sepertiga terbawah IKP adalah ${persen(u.persenBawahJarak)} ` +
+          `pada struktur jarak dan ${persen(u.persenBawahTetap)} pada struktur ongkos datar.`
+
+  return kontrolInert === null ? [perubahan, siapaDilayani] : [perubahan, kontrolInert, siapaDilayani]
 }
