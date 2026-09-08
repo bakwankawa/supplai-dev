@@ -337,17 +337,35 @@ export interface ModalRute {
  *
  *  `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS pada postur
  *  "seimbang" -- dipertahankan untuk pemakai yang genuinely butuh pandangan
- *  lintas komoditas itu. `modalPerKomoditas`/`pasarPerKomoditas`, keyed oleh
- *  nama komoditas ("Telur Ayam", dst.), adalah yang WAJIB dipakai kerangka
- *  pedagang: laporan untuk satu komoditas tidak boleh menyandingkan modal
- *  atau menyebut pasar milik komoditas lain sebagai miliknya sendiri --
- *  itulah persis klaim ("harga KOMODITAS INI diamati di sini") yang
- *  definisi `pasar` (registri pasar, tanpa kolom komoditas) tidak dukung.
- *  Lihat dokumentasi `pasar_provinsi_komoditas()` di `supplai/tindakan.py`. */
+ *  lintas komoditas itu. `modalPerKomoditas`/`pasarPerKomoditas` adalah yang
+ *  WAJIB dipakai kerangka pedagang: laporan untuk satu komoditas tidak boleh
+ *  menyandingkan modal atau menyebut pasar milik komoditas lain sebagai
+ *  miliknya sendiri -- itulah persis klaim ("harga KOMODITAS INI diamati di
+ *  sini") yang definisi `pasar` (registri pasar, tanpa kolom komoditas)
+ *  tidak dukung.
+ *
+ *  `modalPerKomoditas` keyed DUA tingkat, postur lalu komoditas
+ *  (`modalPerKomoditas["aman_pangan"]["Telur Ayam"]`): modal dan marjin
+ *  harapan berasal dari `flows.parquet`, yang genuinely berbeda per postur
+ *  (rute dan volumenya berbeda) -- menyamakan seluruh postur ke angka
+ *  "seimbang" adalah persis defek yang sama dengan klaim pasar di atas,
+ *  hanya dalam dimensi berbeda: sebuah rencana Aman Pangan menampilkan
+ *  imbal hasil yang sebenarnya milik rencana Seimbang. Postur/komoditas yang
+ *  rutenya nol (mis. Bawang Merah dan Minyak Goreng, di kedua postur yang
+ *  punya rute sama sekali) memetakan ke array kosong, bukan dihilangkan
+ *  ataupun jatuh balik ke postur lain -- lihat dokumentasi
+ *  `modal_imbal_hasil()` di `supplai/tindakan.py`.
+ *
+ *  `pasarPerKomoditas` keyed SATU tingkat, komoditas saja (TANPA postur):
+ *  pasar bernama adalah tempat harga PERNAH DIAMATI secara historis
+ *  (`wfp_food_prices_idn.csv`), sama sekali tidak bergantung pada rencana
+ *  redistribusi mana yang kami pilih -- `pasar_provinsi_komoditas()` bahkan
+ *  tidak menerima parameter postur. Menambah dimensi postur di sini akan
+ *  menyiratkan ketergantungan yang tidak ada pada datanya. */
 export interface Tindakan {
   setaraKegiatan: SetaraKegiatan
   modal: ModalRute[]
-  modalPerKomoditas: Record<string, ModalRute[]>
+  modalPerKomoditas: Record<Postur, Record<string, ModalRute[]>>
   pasar: Record<string, PasarProvinsi[]>
   pasarPerKomoditas: Record<string, Record<string, PasarProvinsi[]>>
 }

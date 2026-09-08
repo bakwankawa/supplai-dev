@@ -685,8 +685,9 @@ def build_uji_ongkos(uo: dict) -> dict:
 
 def build_tindakan() -> dict:
     """Jalur tindakan pembaca setelah membaca rencana: kapasitas instrumen,
-    pasar bernama, dan modal-imbal hasil. Postur seimbang — laporan yang
-    memakai angka ini menyatakan bulan sasarannya sendiri.
+    pasar bernama, dan modal-imbal hasil. `setaraKegiatan`/`modal`/`pasar`
+    (tanpa akhiran) tetap postur seimbang — laporan yang memakai angka ini
+    menyatakan bulan sasarannya sendiri.
 
     `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS, dipertahankan
     karena sesuatu di tempat lain mungkin genuinely butuh pandangan lintas
@@ -695,6 +696,25 @@ def build_tindakan() -> dict:
     dipakai kerangka pedagang: laporan untuk SATU komoditas tidak boleh
     menyandingkan modal atau menyebut pasar milik komoditas lain sebagai
     miliknya sendiri -- itu klaim yang datanya tidak dukung.
+
+    `modalPerKomoditas` keyed DUA tingkat, postur lalu komoditas: modal dan
+    marjin harapan berasal dari `flows.parquet`, yang genuinely berbeda per
+    postur (rute dan volumenya berbeda per postur) -- laporan rencana Aman
+    Pangan tidak boleh menampilkan imbal hasil yang sebenarnya milik rencana
+    Seimbang, persis defek yang sama dengan klaim pasar, hanya di dimensi
+    postur alih-alih komoditas. Postur yang tidak punya rute sama sekali
+    (konservatif, pada data saat ini) dan pasangan postur-komoditas yang
+    rutenya nol (Bawang Merah, Minyak Goreng, di kedua postur yang punya
+    rute) memetakan ke daftar kosong lewat jalur `s.empty` yang sudah ada di
+    `modal_imbal_hasil()` -- bukan dihilangkan, dan bukan jatuh balik ke
+    postur lain.
+
+    `pasarPerKomoditas` SENGAJA TIDAK diberi dimensi postur: pasar bernama
+    adalah tempat harga PERNAH DIAMATI secara historis
+    (`wfp_food_prices_idn.csv`), sama sekali tidak bergantung pada rencana
+    redistribusi mana yang kami pilih. `pasar_provinsi_komoditas()` bahkan
+    tidak menerima parameter postur -- menambah dimensi itu di sini akan
+    menyiratkan ketergantungan yang tidak ada pada datanya.
 
     `modal`/setiap daftar di `modalPerKomoditas` diurutkan menurun menurut
     `imbalHasilPersen`, BUKAN menurut modal: pembaca yang memutuskan
@@ -731,9 +751,18 @@ def build_tindakan() -> dict:
         ]
 
     modal = _modal_rows(td.modal_imbal_hasil(flows, postur))
+
+    # Postur yang benar-benar dijalankan solvernya (lihat meta.json,
+    # ditulis oleh pipeline prediksi) -- konservatif dianggap juga, sama
+    # seperti build_muatan_balik() di atas, walau flows.parquet-nya nol
+    # baris untuk postur itu pada data saat ini: modal_imbal_hasil() sudah
+    # menangani itu lewat jalur s.empty, mengembalikan daftar kosong, bukan
+    # error atau jatuh balik ke postur lain.
+    meta = json.loads((DEFAULT_ARTIFACTS / "meta.json").read_text())
+    posturs = meta.get("postur_tersedia", ["seimbang"])
     modal_per_komoditas = {
-        kom: _modal_rows(td.modal_imbal_hasil(flows, postur, komoditas=kom))
-        for kom in COMMODITIES
+        p: {kom: _modal_rows(td.modal_imbal_hasil(flows, p, komoditas=kom)) for kom in COMMODITIES}
+        for p in posturs
     }
 
     prov_model = sorted(
@@ -869,12 +898,22 @@ def main(argv=None) -> int:
         "modal must be sorted by return, descending, not by capital"
     assert len(tindakan["pasar"]) == 34, "tindakan pasar must cover all 34 model provinces"
     komoditas_names = {c["name"] for c in commodities}
-    assert set(tindakan["modalPerKomoditas"]) == komoditas_names, \
-        "modalPerKomoditas must have one entry per modelled commodity"
-    for kom, rows in tindakan["modalPerKomoditas"].items():
-        vals = [r["imbalHasilPersen"] for r in rows if r["imbalHasilPersen"] is not None]
-        assert vals == sorted(vals, reverse=True), \
-            f"modalPerKomoditas[{kom!r}] must be sorted by return, descending"
+    assert set(tindakan["modalPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}, \
+        "modalPerKomoditas must have one entry per postur, not just seimbang"
+    for postur_key, per_kom in tindakan["modalPerKomoditas"].items():
+        assert set(per_kom) == komoditas_names, \
+            f"modalPerKomoditas[{postur_key!r}] must have one entry per modelled commodity"
+        for kom, rows in per_kom.items():
+            vals = [r["imbalHasilPersen"] for r in rows if r["imbalHasilPersen"] is not None]
+            assert vals == sorted(vals, reverse=True), \
+                f"modalPerKomoditas[{postur_key!r}][{kom!r}] must be sorted by return, descending"
+    # A commodity/postur pair with genuinely zero routes (e.g. Bawang Merah,
+    # which has no routes on any postur in the current data) must map to an
+    # empty list, not silently borrow another postur's rows.
+    assert tindakan["modalPerKomoditas"]["seimbang"]["Bawang Merah"] == [], \
+        "a commodity with zero routes must map to an empty modal list, not fall back to another postur"
+    assert tindakan["modalPerKomoditas"]["seimbang"] != tindakan["modalPerKomoditas"]["aman_pangan"], \
+        "seimbang and aman_pangan must not carry identical modal figures"
     assert set(tindakan["pasarPerKomoditas"]) == komoditas_names, \
         "pasarPerKomoditas must have one entry per modelled commodity"
     assert all(len(v) == 34 for v in tindakan["pasarPerKomoditas"].values()), \

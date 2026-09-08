@@ -72,93 +72,192 @@
   }
  ],
  "modalPerKomoditas": {
-  "Beras Medium": [
-   {
-    "dari": "Sulawesi Barat",
-    "ton": 57.41,
-    "modalRp": 846750953,
-    "marjinRp": 48734180,
-    "imbalHasilPersen": 5.76
-   }
-  ],
-  "Bawang Merah": [],
-  "Bawang Putih": [
-   {
-    "dari": "Kepulauan Riau",
-    "ton": 35.6,
-    "modalRp": 1068070066,
-    "marjinRp": 426567993,
-    "imbalHasilPersen": 39.94
-   },
-   {
-    "dari": "Kalimantan Barat",
-    "ton": 52.75,
-    "modalRp": 1846159952,
-    "marjinRp": 295865548,
-    "imbalHasilPersen": 16.03
-   }
-  ],
-  "Daging Ayam": [
-   {
-    "dari": "Gorontalo",
-    "ton": 39.53,
-    "modalRp": 1205673144,
-    "marjinRp": 325684358,
-    "imbalHasilPersen": 27.01
-   },
-   {
-    "dari": "Sulawesi Barat",
-    "ton": 38.98,
-    "modalRp": 1149931638,
-    "marjinRp": 294299549,
-    "imbalHasilPersen": 25.59
-   },
-   {
-    "dari": "Kalimantan Barat",
-    "ton": 39.5,
-    "modalRp": 1441670505,
-    "marjinRp": 155660775,
-    "imbalHasilPersen": 10.8
-   },
-   {
-    "dari": "Lampung",
-    "ton": 93.71,
-    "modalRp": 3256440534,
-    "marjinRp": 335658768,
-    "imbalHasilPersen": 10.31
-   },
-   {
-    "dari": "Sulawesi Tenggara",
-    "ton": 56.47,
-    "modalRp": 1983684009,
-    "marjinRp": 163118614,
-    "imbalHasilPersen": 8.22
-   }
-  ],
-  "Telur Ayam": [
-   {
-    "dari": "Bali",
-    "ton": 5.32,
-    "modalRp": 155874134,
-    "marjinRp": 20205910,
-    "imbalHasilPersen": 12.96
-   },
-   {
-    "dari": "Sumatera Selatan",
-    "ton": 494.75,
-    "modalRp": 13358360060,
-    "marjinRp": 898092722,
-    "imbalHasilPersen": 6.72
-   },
-   {
-    "dari": "Bengkulu",
-    "ton": 111.72,
-    "modalRp": 3217497477,
-    "marjinRp": 5836699,
-    "imbalHasilPersen": 0.18
-   }
-  ],
-  "Minyak Goreng": []
+  "konservatif": {
+   "Beras Medium": [],
+   "Bawang Merah": [],
+   "Bawang Putih": [],
+   "Daging Ayam": [],
+   "Telur Ayam": [],
+   "Minyak Goreng": []
+  },
+  "seimbang": {
+   "Beras Medium": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 57.41,
+     "modalRp": 846750953,
+     "marjinRp": 48734180,
+     "imbalHasilPersen": 5.76
+    }
+   ],
+   "Bawang Merah": [],
+   "Bawang Putih": [
+    {
+     "dari": "Kepulauan Riau",
+     "ton": 35.6,
+     "modalRp": 1068070066,
+     "marjinRp": 426567993,
+     "imbalHasilPersen": 39.94
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 52.75,
+     "modalRp": 1846159952,
+     "marjinRp": 295865548,
+     "imbalHasilPersen": 16.03
+    }
+   ],
+   "Daging Ayam": [
+    {
+     "dari": "Gorontalo",
+     "ton": 39.53,
+     "modalRp": 1205673144,
+     "marjinRp": 325684358,
+     "imbalHasilPersen": 27.01
+    },
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 38.98,
+     "modalRp": 1149931638,
+     "marjinRp": 294299549,
+     "imbalHasilPersen": 25.59
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 39.5,
+     "modalRp": 1441670505,
+     "marjinRp": 155660775,
+     "imbalHasilPersen": 10.8
+    },
+    {
+     "dari": "Lampung",
+     "ton": 93.71,
+     "modalRp": 3256440534,
+     "marjinRp": 335658768,
+     "imbalHasilPersen": 10.31
+    },
+    {
+     "dari": "Sulawesi Tenggara",
+     "ton": 56.47,
+     "modalRp": 1983684009,
+     "marjinRp": 163118614,
+     "imbalHasilPersen": 8.22
+    }
+   ],
+   "Telur Ayam": [
+    {
+     "dari": "Bali",
+     "ton": 5.32,
+     "modalRp": 155874134,
+     "marjinRp": 20205910,
+     "imbalHasilPersen": 12.96
+    },
+    {
+     "dari": "Sumatera Selatan",
+     "ton": 494.75,
+     "modalRp": 13358360060,
+     "marjinRp": 898092722,
+     "imbalHasilPersen": 6.72
+    },
+    {
+     "dari": "Bengkulu",
+     "ton": 111.72,
+     "modalRp": 3217497477,
+     "marjinRp": 5836699,
+     "imbalHasilPersen": 0.18
+    }
+   ],
+   "Minyak Goreng": []
+  },
+  "aman_pangan": {
+   "Beras Medium": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 59.16,
+     "modalRp": 872604834,
+     "marjinRp": 88479125,
+     "imbalHasilPersen": 10.14
+    }
+   ],
+   "Bawang Merah": [],
+   "Bawang Putih": [
+    {
+     "dari": "Kepulauan Riau",
+     "ton": 35.6,
+     "modalRp": 1068070066,
+     "marjinRp": 473037794,
+     "imbalHasilPersen": 44.29
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 77.35,
+     "modalRp": 2707233056,
+     "marjinRp": 428631118,
+     "imbalHasilPersen": 15.83
+    }
+   ],
+   "Daging Ayam": [
+    {
+     "dari": "Sulawesi Barat",
+     "ton": 38.98,
+     "modalRp": 1149931638,
+     "marjinRp": 601434914,
+     "imbalHasilPersen": 52.3
+    },
+    {
+     "dari": "Gorontalo",
+     "ton": 39.53,
+     "modalRp": 1205673144,
+     "marjinRp": 511186422,
+     "imbalHasilPersen": 42.4
+    },
+    {
+     "dari": "Lampung",
+     "ton": 204.59,
+     "modalRp": 7109346336,
+     "marjinRp": 1668142318,
+     "imbalHasilPersen": 23.46
+    },
+    {
+     "dari": "Sulawesi Tenggara",
+     "ton": 56.47,
+     "modalRp": 1983684009,
+     "marjinRp": 465164686,
+     "imbalHasilPersen": 23.45
+    },
+    {
+     "dari": "Kalimantan Barat",
+     "ton": 86.23,
+     "modalRp": 3147404294,
+     "marjinRp": 689654871,
+     "imbalHasilPersen": 21.91
+    }
+   ],
+   "Telur Ayam": [
+    {
+     "dari": "Bali",
+     "ton": 10.03,
+     "modalRp": 293884490,
+     "marjinRp": 63856117,
+     "imbalHasilPersen": 21.73
+    },
+    {
+     "dari": "Sumatera Selatan",
+     "ton": 524.54,
+     "modalRp": 14162460363,
+     "marjinRp": 2046965614,
+     "imbalHasilPersen": 14.45
+    },
+    {
+     "dari": "Bengkulu",
+     "ton": 117.46,
+     "modalRp": 3382794051,
+     "marjinRp": 263168403,
+     "imbalHasilPersen": 7.78
+    }
+   ],
+   "Minyak Goreng": []
+  }
  },
  "pasar": {
   "Aceh": [

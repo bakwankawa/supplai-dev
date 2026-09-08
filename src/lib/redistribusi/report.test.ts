@@ -148,4 +148,36 @@ describe("createRedistribusiReport", () => {
     expect(text).toMatch(/harga komoditas ini diamati di/)
     expect(text).not.toContain("Pasar Jodoh")
   })
+
+  /** Fix round 2: modalPerKomoditas was pinned to "seimbang" regardless of
+   *  a.postur -- the identical defect just fixed for commodity, in the one
+   *  dimension the routes.length===0 gate cannot see, because aman_pangan
+   *  has real routes for 4 of 6 commodities. modal_imbal_hasil() already
+   *  accepts a postur argument, so the fix is filtering (keying
+   *  modalPerKomoditas by postur too), not another caveat. This renders
+   *  both postures for the same commodity and checks each shows ITS OWN
+   *  pipeline-computed figures, not the other's. */
+  it("shows aman_pangan's own modal figures for a commodity, not seimbang's", () => {
+    const seimbang = analisis("telur-ayam", "seimbang")
+    const amanPangan = analisis("telur-ayam", "aman_pangan")
+    expect(seimbang.routes.length).toBeGreaterThan(0)
+    expect(amanPangan.routes.length).toBeGreaterThan(0)
+
+    const textSeimbang = extractPdfText(createRedistribusiReport(seimbang, "pedagang"))
+    const textAmanPangan = extractPdfText(createRedistribusiReport(amanPangan, "pedagang"))
+
+    // Bengkulu appears in Section 06 under both postures but locks a
+    // different amount of capital for a different return in each -- these
+    // are the pipeline's real, independently computed figures per postur
+    // (src/data/generated/tindakan.json), not test fixtures.
+    expect(textSeimbang).toContain("Rp 3.217.497.477")
+    expect(textSeimbang).toMatch(/imbal hasil 0,18%/)
+    expect(textAmanPangan).toContain("Rp 3.382.794.051")
+    expect(textAmanPangan).toMatch(/imbal hasil 7,78%/)
+
+    // The bug this pins: seimbang's figures must not leak into the Aman
+    // Pangan report, and vice versa.
+    expect(textAmanPangan).not.toContain("Rp 3.217.497.477")
+    expect(textSeimbang).not.toContain("Rp 3.382.794.051")
+  })
 })

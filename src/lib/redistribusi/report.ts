@@ -38,13 +38,16 @@ const MUATAN_BALIK = muatanBalikData as unknown as MuatanBalikByPostur;
 
 // Jalur tindakan pembaca (lihat dokumentasi teksPasar/teksModal di ./teks):
 // pasar bernama per provinsi dan modal-imbal hasil per provinsi asal.
-// Dibangun SEKALI untuk postur "seimbang" -- lihat build_tindakan() di
-// scripts/export_web.py -- bukan per postur laporan ini, sehingga teksnya
-// menyatakan itu secara eksplisit. `pasarPerKomoditas`/`modalPerKomoditas`
-// SUDAH disaring per komoditas laporan ini (lihat dokumentasi Tindakan di
-// @/lib/types) -- kerangka pedagang di bawah memakai keduanya, bukan
-// `pasar`/`modal` mentah, karena yang mentah adalah agregat lintas enam
-// komoditas dan tidak boleh dibaca seakan milik satu komoditas saja.
+// `pasar`/`modal` (tanpa akhiran) tetap agregat lintas enam komoditas pada
+// postur "seimbang" saja -- lihat build_tindakan() di scripts/export_web.py
+// -- dan TIDAK dipakai kerangka pedagang di bawah untuk itu.
+// `modalPerKomoditas` SUDAH disaring per POSTUR dan KOMODITAS laporan ini
+// (lihat dokumentasi Tindakan di @/lib/types): modal dan imbal hasil
+// genuinely berbeda per postur, jadi laporan Aman Pangan tidak boleh
+// menampilkan angka milik rencana Seimbang. `pasarPerKomoditas` SUDAH
+// disaring per komoditas TAPI SENGAJA TIDAK per postur -- pasar bernama
+// adalah tempat harga pernah diamati secara historis, tidak bergantung pada
+// rencana redistribusi mana yang kami pilih.
 const TINDAKAN = tindakanData as unknown as Tindakan;
 
 export const PEMBACA = ["pemerintah", "pedagang"] as const;
@@ -331,17 +334,18 @@ export function createRedistribusiReport(
     if (a.routes.length === 0) {
       paragraph("Rencana ini tidak memuat satu pun rute, sehingga tidak ada modal atau imbal hasil yang relevan untuk ditampilkan di sini.");
     } else {
-      paragraph(
-        `Modal dan imbal hasil berikut untuk ${a.komoditas} dihitung atas rencana postur ` +
-        `"Seimbang" -- postur referensi kami untuk bagian ini, terlepas dari postur yang ` +
-        `sedang dibaca laporan ini.`,
-        9, muted,
+      // Disaring per POSTUR dan KOMODITAS laporan ini (modalPerKomoditas),
+      // bukan agregat lintas enam komoditas pada postur "seimbang" saja
+      // (TINDAKAN.modal): modal dan marjin harapan berasal dari
+      // flows.parquet, yang genuinely berbeda per postur (rute dan
+      // volumenya berbeda) -- laporan rencana Aman Pangan tidak boleh
+      // menampilkan imbal hasil yang sebenarnya milik rencana Seimbang.
+      // `?? []` (bukan jatuh balik ke postur/komoditas lain) menutupi baik
+      // postur tanpa rute sama sekali maupun pasangan postur-komoditas yang
+      // rutenya nol -- lihat dokumentasi Tindakan di @/lib/types.
+      const [caveatModal, ...barisModal] = teksModal(
+        TINDAKAN.modalPerKomoditas[a.postur]?.[a.komoditas] ?? [],
       );
-      // Disaring per komoditas laporan ini (modalPerKomoditas), bukan agregat
-      // lintas enam komoditas (TINDAKAN.modal): modal dan marjin yang
-      // sebenarnya terkunci untuk komoditas lain di provinsi asal yang sama
-      // bukan milik laporan ${a.komoditas} ini.
-      const [caveatModal, ...barisModal] = teksModal(TINDAKAN.modalPerKomoditas[a.komoditas] ?? []);
       // caveatModal menyatakan batas yang menentukan seberapa jauh angka ini
       // boleh dipakai (satu transaksi, bersandar pada prediksi yang belum
       // tentu terjadi) -- bukan catatan kaki, jadi ia mendapat perlakuan

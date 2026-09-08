@@ -507,6 +507,51 @@ def test_tindakan_export_ranks_routes_by_return_not_by_capital():
     assert imbal == sorted(imbal, reverse=True)
 
 
+def test_tindakan_modal_per_komoditas_is_keyed_by_postur_too():
+    """The trader report for one commodity is read at a specific posture
+    (konservatif/seimbang/aman_pangan); modal and marjin_harapan come from
+    flows.parquet, which genuinely differs per posture (different routes,
+    different volumes). Keying modalPerKomoditas by commodity alone -- as it
+    was before this test existed -- meant every posture's report showed the
+    same (in practice, "seimbang"-only) figures under its own heading."""
+    out = ew.build_tindakan()
+    assert set(out["modalPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}
+    seimbang = out["modalPerKomoditas"]["seimbang"]["Telur Ayam"]
+    aman_pangan = out["modalPerKomoditas"]["aman_pangan"]["Telur Ayam"]
+    assert seimbang and aman_pangan
+    assert seimbang != aman_pangan, \
+        "seimbang and aman_pangan must carry their own figures, not a shared/borrowed set"
+
+    bengkulu_seimbang = next(r for r in seimbang if r["dari"] == "Bengkulu")
+    bengkulu_aman_pangan = next(r for r in aman_pangan if r["dari"] == "Bengkulu")
+    assert bengkulu_seimbang["modalRp"] != bengkulu_aman_pangan["modalRp"]
+    assert bengkulu_seimbang["imbalHasilPersen"] != bengkulu_aman_pangan["imbalHasilPersen"]
+
+
+def test_tindakan_modal_per_komoditas_zero_route_pair_is_empty_not_borrowed():
+    """Bawang Merah has zero routes on every posture in the current data.
+    That pairing must map to an empty list -- not be omitted (a bare
+    heading over nothing) and not silently fall back to another posture's
+    or another commodity's rows."""
+    out = ew.build_tindakan()
+    assert out["modalPerKomoditas"]["seimbang"]["Bawang Merah"] == []
+    assert out["modalPerKomoditas"]["aman_pangan"]["Bawang Merah"] == []
+    assert out["modalPerKomoditas"]["konservatif"]["Telur Ayam"] == []
+
+
+def test_tindakan_pasar_per_komoditas_has_no_postur_dimension():
+    """Pasar bernama is where a commodity's price was historically observed
+    (wfp_food_prices_idn.csv); it has nothing to do with which redistribution
+    plan we picked. pasarPerKomoditas is keyed by commodity ONLY -- adding a
+    postur dimension here would imply a dependency the data does not have."""
+    out = ew.build_tindakan()
+    assert set(out["pasarPerKomoditas"]) == {c["name"] for c in ew.build_commodities()}
+    for markets_by_province in out["pasarPerKomoditas"].values():
+        assert isinstance(markets_by_province, dict)
+        first = next(iter(markets_by_province.values()))
+        assert isinstance(first, list)
+
+
 def test_missing_pipeline_package_raises_actionable_error(tmp_path, monkeypatch):
     """supplai-dev and the pipeline (bakwankawa/supplai-pipeline) are separate
     repos; the sibling layout export_web.py guesses at is only true on some
