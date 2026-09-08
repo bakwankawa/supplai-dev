@@ -107,7 +107,7 @@
  {
   "input": "Ambang imbal hasil layak modal pedagang",
   "nilai": "5,0%",
-  "sumber": "Angka yang kami pilih, bukan yang kami ukur. Ia menentukan rute mana di bagian 'Modal dan imbal hasil' kerangka pedagang yang kami tandai tidak layak diambil -- modal terkunci untuk imbal hasil satu transaksi yang terlalu kecil untuk sepadan dengan risiko prediksi kenaikan harga tidak terjadi. Ditulis sebagai konstanta bernama AMBANG_IMBAL_HASIL_LAYAK_PERSEN di supplai-dev/src/lib/redistribusi/teks.ts, bukan angka telanjang di tengah kalimat. Pada rencana seimbang saat ini, ambang ini memisahkan Bengkulu (0,18%) dari delapan rute lain (>= 6,72%) -- pemisah yang jelas pada data ini, bukan kalibrasi selera risiko pedagang sungguhan, yang tidak kami ukur.",
+  "sumber": "Angka yang kami pilih, bukan yang kami ukur. Ia menentukan rute mana di bagian 'Modal dan imbal hasil' kerangka pedagang yang kami tandai tidak layak diambil -- modal terkunci untuk imbal hasil satu transaksi yang terlalu kecil untuk sepadan dengan risiko prediksi kenaikan harga tidak terjadi. Ditulis sebagai konstanta bernama AMBANG_IMBAL_HASIL_LAYAK_PERSEN di supplai-dev/src/lib/redistribusi/teks.ts, bukan angka telanjang di tengah kalimat. Pada rencana seimbang saat ini, ambang ini memisahkan Bengkulu (0,18%) dari dua rute lain (>= 6,72%) -- pemisah yang jelas pada data ini, bukan kalibrasi selera risiko pedagang sungguhan, yang tidak kami ukur.",
   "tahun": "—",
   "status": "diasumsikan"
  }

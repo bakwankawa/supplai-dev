@@ -629,14 +629,24 @@ def _struktur_ongkos_out(s: dict) -> dict:
 def build_uji_ongkos(uo: dict) -> dict:
     """Reshape bench_ongkos.py's uji_ongkos.json into camelCase for the FE.
 
-    Every honesty field the source script carries is carried across, not
-    dropped: `tetapDegenerate` and `keterbatasan` are the whole point of the
-    experiment — the flat-cost objective is degenerate (total tonnage is
+    Every honesty field the source script carries that a current surface
+    actually reads is carried across: `keterbatasan` is the whole point of
+    the experiment — the flat-cost objective is degenerate (total tonnage is
     pinned by the demand floor, so a uniform per-ton cost makes every
     feasible assignment equally optimal and the solver returns an arbitrary
     vertex of the tied face), so `ruteBerubah` on its own is not an economic
     result. `keterbatasan` records that this experiment cannot distinguish
-    "distance doesn't matter economically" from "we only modelled distance".
+    "distance doesn't matter economically" from "we only modelled distance",
+    and it does reach the reader (report.ts prints it verbatim).
+
+    `postur`, `ruteBerubahTetapPlusJarak`, `tetapDegenerate`, and
+    `statusPerKomoditas` (the whole-of-plan aggregate fields, as opposed to
+    their per-commodity counterparts) are deliberately NOT carried across:
+    nothing in either repo reads them from this export -- the per-commodity
+    finding they each summarize is what a reader actually sees instead
+    (`degenerasiTetapDetail[komoditas].stabil` for the degeneracy question,
+    and `ruteBerubahKomoditas()`/`teksUjiOngkosKomoditas` in
+    `./redistribusi/teks.ts` for the route-change question).
 
     `persenBawahJarak`/`persenBawahTetap` are a deliberate flattening (not in
     the source JSON) of `struktur.jarak`/`struktur.tetap`'s
@@ -662,21 +672,12 @@ def build_uji_ongkos(uo: dict) -> dict:
             row["alasan"] = str(d["alasan"])
         degenerasi_detail[kom] = row
 
-    status = uo["status_per_komoditas"]
     return {
-        "postur": str(uo["postur"]),
         "komoditas": list(uo["komoditas"]),
         "struktur": struktur,
         "ruteBerubah": int(uo["rute_berubah"]),
-        "ruteBerubahTetapPlusJarak": int(uo["rute_berubah_tetap_plus_jarak"]),
         "ongkosTetapTerkalibrasi": round(float(uo["ongkos_tetap_terkalibrasi"]), 2),
-        "tetapDegenerate": bool(uo["tetap_degenerate"]),
         "degenerasiTetapDetail": degenerasi_detail,
-        "statusPerKomoditas": {
-            "jarak": dict(status["jarak"]),
-            "tetap": dict(status["tetap"]),
-            "tetapPlusJarak": dict(status["tetap_plus_jarak"]),
-        },
         "keterbatasan": str(uo["keterbatasan"]),
         "persenBawahJarak": struktur["jarak"]["persenKeSepertigaBawah"],
         "persenBawahTetap": struktur["tetap"]["persenKeSepertigaBawah"],
@@ -685,14 +686,20 @@ def build_uji_ongkos(uo: dict) -> dict:
 
 def build_tindakan() -> dict:
     """Jalur tindakan pembaca setelah membaca rencana: kapasitas instrumen,
-    pasar bernama, dan modal-imbal hasil. `setaraKegiatan`/`modal`/`pasar`
-    (tanpa akhiran) tetap postur seimbang — laporan yang memakai angka ini
+    pasar bernama, dan modal-imbal hasil. `setaraKegiatan`/`modal` (tanpa
+    akhiran) tetap postur seimbang — laporan yang memakai angka ini
     menyatakan bulan sasarannya sendiri.
 
-    `modal`/`pasar`/`setaraKegiatan` (tanpa akhiran) adalah agregat LINTAS
-    SELURUH ENAM KOMODITAS, dipertahankan karena sesuatu di tempat lain
-    mungkin genuinely butuh pandangan lintas komoditas itu (bandingkan
-    diagnosis muatan balik, yang memang lintas komoditas by design).
+    `modal`/`setaraKegiatan` (tanpa akhiran) adalah agregat LINTAS SELURUH
+    ENAM KOMODITAS. Tidak ada permukaan produk yang membacanya (laporan
+    kerangka pedagang/pemerintah membaca `modalPerKomoditas`/
+    `setaraKegiatanPerKomoditas`); keduanya dipertahankan hanya karena
+    `scripts/tests/test_export_web.py` mengujinya langsung. `pasar` (tanpa
+    akhiran) TIDAK dipertahankan lagi -- `pasar_provinsi()` tetap ada
+    (dipakai `pasarPerKomoditas` di bawah dan diuji langsung di
+    `tests/test_tindakan.py`), tapi registri lintas-komoditas mentahnya
+    tidak pernah dibaca satu permukaan pun; kunci `pasar` yang dulu
+    membawanya dihapus dari ekspor ini.
     `modalPerKomoditas`/`pasarPerKomoditas`/`setaraKegiatanPerKomoditas`
     adalah yang WAJIB dipakai laporan per komoditas: sebuah laporan untuk
     SATU komoditas tidak boleh menyandingkan modal, pasar, atau setara
@@ -730,9 +737,9 @@ def build_tindakan() -> dict:
     `modal`/setiap daftar di `modalPerKomoditas` diurutkan menurun menurut
     `imbalHasilPersen`, BUKAN menurut modal: pembaca yang memutuskan
     memindahkan barang ingin tahu rute mana yang paling menghasilkan per
-    rupiah yang dikunci, bukan rute mana yang mengunci paling banyak. `pasar`/
-    setiap peta di `pasarPerKomoditas` mencakup ke-34 provinsi model (bukan
-    hanya provinsi asal di `modal`), karena tabel rute kerangka pedagang
+    rupiah yang dikunci, bukan rute mana yang mengunci paling banyak. Setiap
+    peta di `pasarPerKomoditas` mencakup ke-34 provinsi model (bukan hanya
+    provinsi asal di `modal`), karena tabel rute kerangka pedagang
     menampilkannya untuk provinsi asal MAUPUN tujuan.
     """
     _ensure_supplai_importable()
@@ -794,7 +801,6 @@ def build_tindakan() -> dict:
 
     prov_model = sorted(
         pd.read_parquet(DEFAULT_ARTIFACTS / "centroids.parquet").provinsi.unique())
-    pasar = {prov: td.pasar_provinsi(prov, DEFAULT_DATA) for prov in prov_model}
     pasar_per_komoditas = {
         kom: {prov: td.pasar_provinsi_komoditas(prov, kom, DEFAULT_DATA) for prov in prov_model}
         for kom in COMMODITIES
@@ -805,7 +811,6 @@ def build_tindakan() -> dict:
         "setaraKegiatanPerKomoditas": setara_kegiatan_per_komoditas,
         "modal": modal,
         "modalPerKomoditas": modal_per_komoditas,
-        "pasar": pasar,
         "pasarPerKomoditas": pasar_per_komoditas,
     }
 
@@ -915,8 +920,10 @@ def main(argv=None) -> int:
         "muatan_balik seimbang must show 36 routes and zero round trips"
     assert "default" in muatan_balik, "muatan_balik missing the default posture"
     assert uji_ongkos["keterbatasan"], \
-        "uji_ongkos must carry keterbatasan — the caveat that makes ruteBerubah honest"
-    assert "tetapDegenerate" in uji_ongkos, "uji_ongkos missing tetapDegenerate"
+        "uji_ongkos must carry keterbatasan — printed verbatim in report.ts as the " \
+        "experiment's caveat. The aggregate ruteBerubah itself never reaches any " \
+        "report; only the per-commodity recomputation via ruteBerubahKomoditas() does, " \
+        "each with its own inline caveat."
     assert uji_ongkos["persenBawahJarak"] is not None and \
         uji_ongkos["persenBawahTetap"] is not None, \
         "uji_ongkos missing the flattened persenBawah* keys Task 8 reads"
@@ -924,7 +931,6 @@ def main(argv=None) -> int:
     imbal = [r["imbalHasilPersen"] for r in tindakan["modal"]]
     assert imbal == sorted(imbal, reverse=True), \
         "modal must be sorted by return, descending, not by capital"
-    assert len(tindakan["pasar"]) == 34, "tindakan pasar must cover all 34 model provinces"
     komoditas_names = {c["name"] for c in commodities}
     assert set(tindakan["modalPerKomoditas"]) == {"konservatif", "seimbang", "aman_pangan"}, \
         "modalPerKomoditas must have one entry per postur, not just seimbang"

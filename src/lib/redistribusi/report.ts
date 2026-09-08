@@ -422,9 +422,11 @@ export function createRedistribusiReport(
       const provinsiTerlibat = [...new Set(a.routes.flatMap((r) => [r.from, r.to]))]
         .sort((x, y) => x.localeCompare(y, "id"));
       // Disaring per KOMODITAS laporan ini (pasarPerKomoditas), bukan
-      // registri pasar mentah (TINDAKAN.pasar): teksPasar mencetak "harga
-      // komoditas ini diamati di ..." dan klaim itu hanya benar bila daftar
-      // yang diberikan sudah disaring ke komoditas ini -- lihat dokumentasi
+      // registri pasar mentah (pasar_provinsi(), tidak lagi diekspor di
+      // tingkat atas -- lihat dokumentasi build_tindakan() di
+      // scripts/export_web.py): teksPasar mencetak "harga komoditas ini
+      // diamati di ..." dan klaim itu hanya benar bila daftar yang diberikan
+      // sudah disaring ke komoditas ini -- lihat dokumentasi
       // pasar_provinsi_komoditas() di supplai/tindakan.py.
       const pasarKomoditas = TINDAKAN.pasarPerKomoditas[a.komoditas] ?? {};
       // teksPasar menjamin urutan [klaim per-provinsi, kalimat batas umum --

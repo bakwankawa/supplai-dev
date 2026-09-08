@@ -180,4 +180,30 @@ describe("createRedistribusiReport", () => {
     expect(textAmanPangan).not.toContain("Rp 3.217.497.477")
     expect(textSeimbang).not.toContain("Rp 3.382.794.051")
   })
+
+  /** Review akhir, Important #2: Section 08 reads
+   *  TINDAKAN.setaraKegiatanPerKomoditas[a.postur]?.[a.komoditas], the same
+   *  postur+komoditas-filtered pattern Sections 05 and 06 already pin above
+   *  -- but unlike them, it had no dedicated regression test. Swapping it
+   *  back to the whole-of-plan aggregate TINDAKAN.setaraKegiatan (summed
+   *  across all six commodities, computed only for postur "seimbang") left
+   *  every other test green. This renders the actual PDF and checks the
+   *  commodity-and-postur-filtered figures for Telur Ayam / seimbang
+   *  appear, while the six-commodity aggregate's figures -- which read as
+   *  plausible GPM numbers, not as an obvious bug -- do not. */
+  it("prints telur-ayam's own setara-kegiatan figures in Section 08, not the six-commodity aggregate", () => {
+    const a = analisis("telur-ayam", "seimbang")
+    expect(a.routes.length).toBeGreaterThan(0)
+    const text = extractPdfText(createRedistribusiReport(a, "pemerintah"))
+    expect(text).toContain("08  Kapasitas instrumen")
+    // Telur Ayam / seimbang's own figures (src/data/generated/tindakan.json,
+    // setaraKegiatanPerKomoditas.seimbang["Telur Ayam"]): 704 kegiatan,
+    // 37,30% of annual capacity.
+    expect(text).toMatch(/setara 704 kegiatan Gerakan Pangan Murah/)
+    expect(text).toMatch(/37,30% dari kapasitas/)
+    // The six-commodity aggregate (setaraKegiatan: 1.278 kegiatan, 67,70%)
+    // must not leak into a single-commodity report.
+    expect(text).not.toMatch(/1\.278 kegiatan/)
+    expect(text).not.toMatch(/67,70% dari kapasitas/)
+  })
 })

@@ -1,5 +1,4 @@
 {
- "postur": "seimbang",
  "komoditas": [
   "Bawang Merah",
   "Bawang Putih",
@@ -581,9 +580,7 @@
   }
  },
  "ruteBerubah": 22,
- "ruteBerubahTetapPlusJarak": 0,
  "ongkosTetapTerkalibrasi": 2186372.64,
- "tetapDegenerate": true,
  "degenerasiTetapDetail": {
   "Bawang Merah": {
    "diuji": false,
@@ -616,32 +613,6 @@
    "nUlang": 6,
    "nHimpunanUnik": 5,
    "stabil": false
-  }
- },
- "statusPerKomoditas": {
-  "jarak": {
-   "Bawang Merah": "tidak ada pasangan surplus-defisit",
-   "Bawang Putih": "ok",
-   "Beras Medium": "ok",
-   "Daging Ayam": "ok",
-   "Minyak Goreng": "tidak ada pasangan surplus-defisit",
-   "Telur Ayam": "ok"
-  },
-  "tetap": {
-   "Bawang Merah": "tidak ada pasangan surplus-defisit",
-   "Bawang Putih": "ok",
-   "Beras Medium": "ok",
-   "Daging Ayam": "ok",
-   "Minyak Goreng": "tidak ada pasangan surplus-defisit",
-   "Telur Ayam": "ok"
-  },
-  "tetapPlusJarak": {
-   "Bawang Merah": "tidak ada pasangan surplus-defisit",
-   "Bawang Putih": "ok",
-   "Beras Medium": "ok",
-   "Daging Ayam": "ok",
-   "Minyak Goreng": "tidak ada pasangan surplus-defisit",
-   "Telur Ayam": "ok"
   }
  },
  "keterbatasan": "Eksperimen ini hanya bisa mengatakan sesuatu tentang MODEL ini, bukan tentang logistik pangan Indonesia: di dalam LP ini, jarak per km adalah satu-satunya hal yang membedakan satu rute dari rute lain, karena ia satu-satunya suku ongkos yang berubah per rute. Menghapusnya menghapus satu-satunya kriteria yang pernah dimiliki solver untuk memilih; menambahkan ongkos tetap per ton DI ATAS jarak tidak menggeser rencananya sama sekali. Eksperimen ini TIDAK BISA membedakan antara 'jarak memang tidak penting secara ekonomi' dan 'yang kami modelkan cuma jarak' -- tidak ada suku ongkos bongkar-muat, kemacetan pelabuhan, birokrasi, atau nilai-waktu-kesegaran di dalam vektor ongkos untuk dimatikan dan dibandingkan. Mengklaim yang pertama atas bukti ini adalah persis jenis klaim berlebih yang ingin dihindari produk ini.",

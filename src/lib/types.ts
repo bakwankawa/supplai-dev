@@ -265,12 +265,19 @@ export interface DegenerasiKomoditas {
  *  ini, bukan logistik pangan Indonesia sungguhan — jarak per km adalah
  *  satu-satunya suku ongkos yang berubah per rute di LP ini, sehingga
  *  eksperimen ini tidak bisa membedakan "jarak tidak penting secara ekonomi"
- *  dari "kami hanya memodelkan jarak". Ketika `tetapDegenerate` true, objektif
- *  ongkos-datar tidak punya preferensi sama sekali — himpunan rute yang
- *  dikembalikan solver pada pasangan itu adalah artefak pemecah LP, bukan
- *  preferensi ekonomi. */
+ *  dari "kami hanya memodelkan jarak". Ketika `degenerasiTetapDetail[komoditas]`
+ *  membawa `stabil: false`, objektif ongkos-datar untuk komoditas itu tidak
+ *  punya preferensi sama sekali — himpunan rute yang dikembalikan solver
+ *  pada pasangan itu adalah artefak pemecah LP, bukan preferensi ekonomi.
+ *
+ *  `postur`, `ruteBerubahTetapPlusJarak`, `tetapDegenerate`, dan
+ *  `statusPerKomoditas` -- semuanya versi agregat lintas enam komoditas dari
+ *  bench_ongkos.py -- SENGAJA tidak dibawa oleh tipe ini: tidak ada satu
+ *  permukaan pun yang membacanya (lihat dokumentasi `build_uji_ongkos()` di
+ *  `scripts/export_web.py`); yang dibaca adalah hitungan ulang per komoditas
+ *  lewat `ruteBerubahKomoditas()` (`./redistribusi/uji-ongkos.ts`) dan
+ *  `degenerasiTetapDetail[komoditas].stabil` di bawah. */
 export interface UjiOngkos {
-  postur: string
   komoditas: string[]
   struktur: {
     jarak: StrukturOngkos
@@ -278,15 +285,8 @@ export interface UjiOngkos {
     tetapPlusJarak: StrukturOngkos
   }
   ruteBerubah: number
-  ruteBerubahTetapPlusJarak: number
   ongkosTetapTerkalibrasi: number
-  tetapDegenerate: boolean
   degenerasiTetapDetail: Record<string, DegenerasiKomoditas>
-  statusPerKomoditas: {
-    jarak: Record<string, string>
-    tetap: Record<string, string>
-    tetapPlusJarak: Record<string, string>
-  }
   keterbatasan: string
   /** Persen tonase yang mengalir ke provinsi IKP sepertiga terbawah di bawah
    *  struktur jarak/tetap — diratakan dari `struktur.jarak`/`struktur.tetap`
@@ -335,14 +335,18 @@ export interface ModalRute {
  *  menurut modal — karena pembaca yang memutuskan memindahkan barang ingin
  *  tahu rute mana yang paling menghasilkan per rupiah yang dikunci.
  *
- *  `modal`/`pasar` adalah agregat LINTAS SELURUH ENAM KOMODITAS pada postur
- *  "seimbang" -- dipertahankan untuk pemakai yang genuinely butuh pandangan
- *  lintas komoditas itu. `modalPerKomoditas`/`pasarPerKomoditas` adalah yang
- *  WAJIB dipakai kerangka pedagang: laporan untuk satu komoditas tidak boleh
- *  menyandingkan modal atau menyebut pasar milik komoditas lain sebagai
- *  miliknya sendiri -- itulah persis klaim ("harga KOMODITAS INI diamati di
- *  sini") yang definisi `pasar` (registri pasar, tanpa kolom komoditas)
- *  tidak dukung.
+ *  `modal` adalah agregat LINTAS SELURUH ENAM KOMODITAS pada postur
+ *  "seimbang". Tidak ada permukaan produk yang membacanya -- kerangka
+ *  pedagang membaca `modalPerKomoditas`, yang WAJIB dipakai laporan satu
+ *  komoditas: menyandingkan modal milik komoditas lain sebagai miliknya
+ *  sendiri adalah klaim yang datanya tidak dukung. `modal` dipertahankan
+ *  hanya karena `scripts/tests/test_export_web.py` mengujinya langsung.
+ *  Registri pasar mentah lintas-komoditas ("pasar", tanpa kolom komoditas)
+ *  TIDAK muncul di sini -- kunci itu dihapus dari ekspor karena tidak ada
+ *  satu permukaan pun yang membacanya; `pasarPerKomoditas` (di bawah) adalah
+ *  satu-satunya jalur pasar, dan WAJIB dipakai: itulah persis klaim ("harga
+ *  KOMODITAS INI diamati di sini") yang registri mentah tanpa kolom
+ *  komoditas tidak dukung.
  *
  *  `modalPerKomoditas` keyed DUA tingkat, postur lalu komoditas
  *  (`modalPerKomoditas["aman_pangan"]["Telur Ayam"]`): modal dan marjin
@@ -382,6 +386,5 @@ export interface Tindakan {
   setaraKegiatanPerKomoditas: Record<Postur, Record<string, SetaraKegiatan>>
   modal: ModalRute[]
   modalPerKomoditas: Record<Postur, Record<string, ModalRute[]>>
-  pasar: Record<string, PasarProvinsi[]>
   pasarPerKomoditas: Record<string, Record<string, PasarProvinsi[]>>
 }
