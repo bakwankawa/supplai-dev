@@ -76,7 +76,14 @@ export function AlertCard({ alert, onDismiss }: AlertCardProps) {
         <div className="text-left sm:text-right pr-2">
           <span className="text-[9px] text-slate-400 font-bold font-mono block uppercase leading-none mb-0.5">Price Delta</span>
           <span
-            className={`text-base font-black font-mono leading-none ${isCritical ? "text-rose-600" : isWarning ? "text-amber-600" : "text-emerald-600"
+            // Sebuah alert selalu berarti harga NAIK: agent.classify() hanya
+            // mengembalikan Info/Warning/Kritis saat perubahan >= p70, dan p70
+            // tiap komoditas positif. Jadi delta di sini tidak pernah negatif,
+            // dan hijau membacanya terbalik -- seolah harga aman. Warna angka
+            // ini menyatakan ARAH (naik), bukan tingkat keparahan; keparahan
+            // sudah dibawa badge dan ikon di sisi kiri. Sama dengan halaman
+            // detail alert, yang memakai rose-600 untuk tiap kenaikan.
+            className={`text-base font-black font-mono leading-none ${isCritical ? "text-rose-600" : isWarning ? "text-amber-600" : "text-rose-600"
               }`}
           >
             {alert.delta}
