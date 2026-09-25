@@ -55,8 +55,10 @@ const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
 type MapPoint = {
   region: string;
   price: number;
-  status: "CRITICAL" | "STABLE" | "SURPLUS";
+  status: "CRITICAL" | "EXPENSIVE" | "WATCH" | "SURPLUS";
   change: number;
+  premium: number;
+  heat: number;
   coord: { x: number; y: number };
 };
 
@@ -73,18 +75,49 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
   // derived from the monthly series (current month vs last forecast month).
   const provinceData = useMemo<MapPoint[]>(() => {
     const series = generatedTimeSeriesMaster[selectedCommodity] || {};
-    const out: MapPoint[] = [];
+    const raw: { prov: string; price: number; change: number; coord: { x: number; y: number } }[] = [];
     for (const [prov, coord] of Object.entries(PROVINCE_COORDINATES)) {
       const arr = series[prov];
       if (!arr || arr.length === 0) continue;
       const today = arr.find(p => p.isToday) ?? arr[0];
       const last = arr[arr.length - 1];
       const change = today.price ? ((last.price - today.price) / today.price) * 100 : 0;
-      const status: MapPoint["status"] =
-        change > 3 ? "CRITICAL" : change < -3 ? "SURPLUS" : "STABLE";
-      out.push({ region: prov, price: today.price, status, change, coord });
+      raw.push({ prov, price: today.price, change, coord });
     }
-    return out;
+    if (raw.length === 0) return [];
+
+    // Warna menyatakan TINGKAT harga terhadap median nasional komoditas ini,
+    // bukan laju perubahannya. Aturan lama (`change > 3 ? CRITICAL : ...`)
+    // mengabaikan harga sepenuhnya, sehingga provinsi termahal di Indonesia
+    // tampil biru selama bulan itu kebetulan datar -- daging ayam Papua Barat
+    // Rp52.000, termahal nasional, terbaca "aman". Ambang median adalah aturan
+    // yang sama yang sudah dipakai mesin redistribusi (match.py) untuk memilih
+    // provinsi defisit, jadi peta dan rekomendasi kini bicara satu bahasa.
+    const urut = raw.map(r => r.price).sort((a, b) => a - b);
+    const median = urut.length % 2
+      ? urut[(urut.length - 1) / 2]
+      : (urut[urut.length / 2 - 1] + urut[urut.length / 2]) / 2;
+
+    // Intensitas memakai persentil sebaran premium yang benar-benar ada pada
+    // komoditas ini, bukan konstanta -- sama seperti ambang severity peringatan.
+    const positif = raw
+      .map(r => ((r.price - median) / median) * 100)
+      .filter(x => x > 0)
+      .sort((a, b) => a - b);
+    const pada = (q: number) =>
+      positif.length ? positif[Math.min(Math.floor(positif.length * q), positif.length - 1)] : 0;
+    const p70 = pada(0.7);
+    const p90 = pada(0.9);
+
+    return raw.map(r => {
+      const premium = ((r.price - median) / median) * 100;
+      const status: MapPoint["status"] =
+        premium >= 0
+          ? (r.change >= 0 ? "CRITICAL" : "EXPENSIVE")
+          : (r.change > 3 ? "WATCH" : "SURPLUS");
+      const heat = premium <= 0 ? 0 : premium >= p90 ? 1 : premium >= p70 ? 0.7 : 0.4;
+      return { region: r.prov, price: r.price, status, change: r.change, premium, heat, coord: r.coord };
+    });
   }, [selectedCommodity]);
 
   const visibleProvinceData = useMemo(
@@ -93,7 +126,7 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
   );
 
   const criticalCount = useMemo(
-    () => visibleProvinceData.filter(p => p.status === "CRITICAL").length,
+    () => visibleProvinceData.filter(p => p.status === "CRITICAL" || p.status === "EXPENSIVE").length,
     [visibleProvinceData]
   );
 
@@ -154,18 +187,21 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
         const radius = 48;
         const gradient = ctx.createRadialGradient(coord.x, coord.y, 2, coord.x, coord.y, radius);
 
-        if (item.status === "CRITICAL") {
-          gradient.addColorStop(0, "rgba(239, 68, 68, 0.85)");
-          gradient.addColorStop(0.3, "rgba(249, 115, 22, 0.55)");
-          gradient.addColorStop(0.6, "rgba(234, 179, 8, 0.25)");
-          gradient.addColorStop(1, "rgba(59, 130, 246, 0.0)");
-        } else if (item.status === "SURPLUS") {
-          gradient.addColorStop(0, "rgba(16, 185, 129, 0.75)");
-          gradient.addColorStop(0.4, "rgba(52, 211, 153, 0.35)");
+        if (item.status === "CRITICAL" || item.status === "EXPENSIVE") {
+          // Pekat mengikuti seberapa jauh di atas median, bukan seberapa cepat
+          // naik: turun dari mahal tetap mahal.
+          const a = 0.35 + 0.5 * item.heat;
+          gradient.addColorStop(0, `rgba(239, 68, 68, ${a.toFixed(2)})`);
+          gradient.addColorStop(0.3, `rgba(249, 115, 22, ${(a * 0.65).toFixed(2)})`);
+          gradient.addColorStop(0.6, `rgba(234, 179, 8, ${(a * 0.3).toFixed(2)})`);
+          gradient.addColorStop(1, "rgba(239, 68, 68, 0.0)");
+        } else if (item.status === "WATCH") {
+          gradient.addColorStop(0, "rgba(245, 158, 11, 0.55)");
+          gradient.addColorStop(0.5, "rgba(252, 211, 77, 0.25)");
           gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
         } else {
-          gradient.addColorStop(0, "rgba(59, 130, 246, 0.55)");
-          gradient.addColorStop(0.5, "rgba(147, 197, 253, 0.25)");
+          gradient.addColorStop(0, "rgba(16, 185, 129, 0.60)");
+          gradient.addColorStop(0.4, "rgba(52, 211, 153, 0.28)");
           gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
         }
 
@@ -179,7 +215,8 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
     visibleProvinceData.forEach((item) => {
         const coord = item.coord;
 
-        ctx.fillStyle = item.status === "CRITICAL" ? "#ef4444" : "#1e293b";
+        ctx.fillStyle =
+          item.status === "CRITICAL" || item.status === "EXPENSIVE" ? "#ef4444" : "#1e293b";
         ctx.beginPath();
         ctx.arc(coord.x, coord.y, 3.5, 0, Math.PI * 2);
         ctx.fill();
@@ -217,9 +254,9 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
         <div className="flex items-center gap-3">
           {/* Legend Indikator Status */}
           <div className="hidden md:flex items-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-bold text-slate-500 shadow-3xs h-10">
-            <span>Surplus</span>
+            <span>Di bawah median</span>
             <div className="w-20 h-2 bg-gradient-to-r from-emerald-500 via-yellow-400 to-rose-500 rounded-md" />
-            <span>Defisit</span>
+            <span>Di atas median</span>
           </div>
 
         </div>
@@ -257,7 +294,7 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
               aria-hidden="true"
             >
               <g className="motion-safe:animate-pulse" style={{ animationPlayState: isInView ? "running" : "paused" }}>
-                {visibleProvinceData.filter((point) => point.status === "CRITICAL").map((point) => (
+                {visibleProvinceData.filter((point) => point.status === "CRITICAL" || point.status === "EXPENSIVE").map((point) => (
                   <circle
                     key={point.region}
                     cx={point.coord.x}
@@ -287,13 +324,18 @@ export function NationalHeatmap({ selectedCommodity, selectedRegions }: { select
                       <MapPin className="w-3.5 h-3.5 text-emerald-400" />
                       {hoveredCity.region}
                     </span>
-                    <span className={`text-[9px] font-mono font-black px-1.5 py-0.5 rounded ${hoveredCity.status === 'CRITICAL' ? 'bg-rose-600' : 'bg-emerald-600'
+                    <span className={`text-[9px] font-mono font-black px-1.5 py-0.5 rounded ${hoveredCity.status === 'CRITICAL' || hoveredCity.status === 'EXPENSIVE'
+                      ? 'bg-rose-600'
+                      : hoveredCity.status === 'WATCH'
+                        ? 'bg-amber-600'
+                        : 'bg-emerald-600'
                       }`}>
                       {hoveredCity.status}
                     </span>
                   </div>
                   <div className="space-y-0.5 font-mono text-[10px]">
                     <div className="flex justify-between"><span className="text-slate-400">Harga Kini:</span><span className="font-bold text-emerald-300">Rp{hoveredCity.price.toLocaleString()}</span></div>
+                    <div className="flex justify-between"><span className="text-slate-400">vs Median Nas:</span><span className={`font-bold ${hoveredCity.premium >= 0 ? "text-rose-300" : "text-emerald-300"}`}>{hoveredCity.premium >= 0 ? "+" : ""}{hoveredCity.premium.toFixed(1)}%</span></div>
                     <div className="flex justify-between"><span className="text-slate-400">Proyeksi 3 Bln:</span><span className={`font-bold ${hoveredCity.change >= 0 ? "text-rose-300" : "text-emerald-300"}`}>{hoveredCity.change >= 0 ? "+" : ""}{hoveredCity.change.toFixed(1)}%</span></div>
                   </div>
                 </motion.div>
