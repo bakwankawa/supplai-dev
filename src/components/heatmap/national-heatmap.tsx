@@ -9,6 +9,11 @@ import { AlertTriangle, Eye, MapPin } from "lucide-react";
 // in /indonesia.svg (largest-landmass centroid, mapped through the same
 // drawImage transform: rect 40,40 → 920×420 over a 792.5×316.7 image).
 // Regenerate if the base map changes.
+//
+// Setiap titik diuji dengan membaca piksel /indonesia.svg di bawahnya: harus
+// mendarat di daratan, bukan laut. Dua meleset dan digeser ke piksel daratan
+// terdekat -- Nusa Tenggara Barat 1 px, Sulawesi Tengah 3 px. Centroid sebuah
+// provinsi kepulauan memang bisa jatuh di air, jadi centroid saja tidak cukup.
 const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
   // Sumatera
   "Aceh": { x: 75, y: 111 },
@@ -30,7 +35,7 @@ const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
   "Jawa Timur": { x: 390, y: 387 },
   // Bali & Nusa Tenggara
   "Bali": { x: 440, y: 400 },
-  "Nusa Tenggara Barat": { x: 495, y: 406 },
+  "Nusa Tenggara Barat": { x: 494, y: 407 },
   "Nusa Tenggara Timur": { x: 561, y: 405 },
   // Kalimantan
   "Kalimantan Barat": { x: 360, y: 210 },
@@ -41,7 +46,7 @@ const PROVINCE_COORDINATES: Record<string, { x: number; y: number }> = {
   // Sulawesi
   "Sulawesi Utara": { x: 623, y: 189 },
   "Gorontalo": { x: 586, y: 193 },
-  "Sulawesi Tengah": { x: 560, y: 231 },
+  "Sulawesi Tengah": { x: 563, y: 234 },
   "Sulawesi Barat": { x: 525, y: 265 },
   "Sulawesi Selatan": { x: 541, y: 292 },
   "Sulawesi Tenggara": { x: 574, y: 295 },
