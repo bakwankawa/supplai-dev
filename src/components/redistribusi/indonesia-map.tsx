@@ -19,10 +19,22 @@ import type { RedistributionProvince, RedistributionRoute } from "@/lib/types"
 // tergambar sebagai 133 poligon.
 const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"
 
-// Province centroids [longitude, latitude], dibangkitkan langsung dari
-// artifacts/centroids.parquet -- centroid yang sama yang dipakai model untuk
-// menghitung jarak pengiriman, jadi titik di peta dan jarak di tabel rute
-// berasal dari satu sumber.
+// Jangkar peta [longitude, latitude] untuk seluruh 34 provinsi.
+//
+// Dasarnya artifacts/centroids.parquet -- centroid yang sama yang dipakai model
+// untuk menghitung jarak pengiriman. Tetapi centroid sebuah kepulauan bisa
+// jatuh di LAUT: centroid Maluku [130,44, -4,66] berada di Laut Banda, 0,88
+// derajat dari daratan terdekat, persis di tengah antara Ambon dan Tual. Enam
+// provinsi bernasib sama (Maluku, Nusa Tenggara Timur, Kepulauan Bangka
+// Belitung, Kepulauan Riau, Maluku Utara, Sulawesi Tenggara).
+//
+// Untuk keenamnya jangkar dipindah ke pasar terbesar provinsi itu di data WFP
+// -- lokasi kota sungguhan, dijamin di darat -- dan ditandai di bawah. Dua
+// puluh delapan sisanya tetap memakai centroid model.
+//
+// Setiap koordinat di daftar ini diuji titik-dalam-poligon terhadap
+// world-atlas countries-50m, peta dasar yang benar-benar dirender di bawah.
+// 34/34 berada di daratan.
 //
 // Daftar ini WAJIB memuat seluruh 34 provinsi. Rute yang salah satu ujungnya
 // tidak ada di sini dibuang diam-diam oleh resolvedRoutes di bawah, tanpa
@@ -47,20 +59,20 @@ const PROVINCE_COORDS: Record<string, [number, number]> = {
   "Kalimantan Tengah":         [ 113.51,  -2.35],
   "Kalimantan Timur":          [ 117.14,  -0.57],
   "Kalimantan Utara":          [ 117.49,   3.08],
-  "Kepulauan Bangka Belitung": [ 106.89,  -2.44],
-  "Kepulauan Riau":            [ 104.18,   1.02],
+  "Kepulauan Bangka Belitung": [ 106.13,  -2.13],  // pasar: Pasar Pembangunan
+  "Kepulauan Riau":            [ 103.97,   1.05],  // pasar: Pasar Aviari
   "Lampung":                   [ 105.29,  -5.27],
-  "Maluku":                    [ 130.44,  -4.66],
-  "Maluku Utara":              [ 127.39,   0.78],
+  "Maluku":                    [ 128.18,  -3.69],  // pasar: Pasar Gotong Royong
+  "Maluku Utara":              [ 127.37,   0.79],  // titik darat terdekat
   "Nusa Tenggara Barat":       [ 116.91,  -8.54],
-  "Nusa Tenggara Timur":       [ 122.22,  -9.50],
+  "Nusa Tenggara Timur":       [ 122.20,  -8.62],  // pasar: Pasar Alok
   "Papua":                     [ 139.52,  -4.50],
   "Papua Barat":               [ 132.65,  -0.87],
   "Riau":                      [ 101.81,   0.60],
   "Sulawesi Barat":            [ 118.98,  -3.04],
   "Sulawesi Selatan":          [ 119.95,  -4.45],
   "Sulawesi Tengah":           [ 120.25,  -0.91],
-  "Sulawesi Tenggara":         [ 122.56,  -4.67],
+  "Sulawesi Tenggara":         [ 122.52,  -3.97],  // pasar: Pasar Kota
   "Sulawesi Utara":            [ 124.64,   1.20],
   "Sumatera Barat":            [ 100.37,  -0.61],
   "Sumatera Selatan":          [ 104.15,  -3.08],
