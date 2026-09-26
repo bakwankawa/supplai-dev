@@ -11,43 +11,60 @@ import {
 import { Skeleton } from "@/components/ui/skeleton"
 import type { RedistributionProvince, RedistributionRoute } from "@/lib/types"
 
-// World atlas TopoJSON — we filter to Indonesia (numeric 360)
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json"
+// World atlas TopoJSON — we filter to Indonesia (numeric 360).
+// Resolusi 50m, bukan 110m: pada 110m Indonesia hanya tergambar sebagai 13
+// poligon, sehingga pulau kecil seperti Bali, Lombok dan Bangka tidak ada
+// sama sekali dan penandanya tampak mengambang di laut atau menempel ke
+// pulau tetangga -- Bali terlihat seolah bagian dari Jawa. Pada 50m Indonesia
+// tergambar sebagai 133 poligon.
+const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json"
 
-// Province centroids [longitude, latitude], sourced from artifacts/centroids.parquet
-// (the same centroids the model uses to compute shipping distances)
+// Province centroids [longitude, latitude], dibangkitkan langsung dari
+// artifacts/centroids.parquet -- centroid yang sama yang dipakai model untuk
+// menghitung jarak pengiriman, jadi titik di peta dan jarak di tabel rute
+// berasal dari satu sumber.
+//
+// Daftar ini WAJIB memuat seluruh 34 provinsi. Rute yang salah satu ujungnya
+// tidak ada di sini dibuang diam-diam oleh resolvedRoutes di bawah, tanpa
+// pesan apa pun. Sebelum ini hanya ada 31 entri: Aceh, Banten, Jambi dan
+// Kepulauan Bangka Belitung hilang, sehingga peta telur ayam hanya
+// menggambar 3-4 dari 13 rute -- sisanya lenyap tanpa jejak. "Papua Selatan"
+// juga terdaftar padahal tidak ada di data 34 provinsi, jadi dihapus.
 const PROVINCE_COORDS: Record<string, [number, number]> = {
-  "Sumatera Utara":     [98.74,   2.54],
-  "Sumatera Barat":     [100.37, -0.61],
-  "Riau":               [101.79,  0.61],
-  "Kepulauan Riau":     [104.18,  1.02],
-  "Bengkulu":           [102.29, -3.81],
-  "Jawa Timur":        [112.75,  -7.5],
-  "Jawa Barat":        [107.6,   -6.9],
-  "Jawa Tengah":       [110.0,   -7.15],
-  "DKI Jakarta":        [106.86, -6.26],
-  "DI Yogyakarta":      [110.37, -7.8],
-  "Sulawesi Selatan":  [119.9,   -3.8],
-  "Sulawesi Barat":     [118.98, -3.04],
-  "Sulawesi Tenggara":  [122.56, -4.67],
-  "Sumatera Selatan":  [104.5,   -3.5],
-  "Lampung":           [105.3,   -4.6],
-  "Kalimantan Selatan":[115.4,   -3.0],
-  "Kalimantan Tengah":  [113.51, -2.35],
-  "Kalimantan Timur":   [117.14, -0.56],
-  "Kalimantan Utara":   [117.49,  3.09],
-  "Bali":              [115.2,   -8.4],
-  "Papua":             [138.0,   -4.5],
-  "Papua Barat":       [134.0,   -1.3],
-  "Maluku":            [128.5,   -3.5],
-  "Nusa Tenggara Timur": [122.23, -9.52],
-  "Sulawesi Tengah":   [119.9,   -1.4],
-  "Kalimantan Barat":  [110.2,    0.0],
-  "Papua Selatan":     [140.2,   -8.0],
-  "Maluku Utara":      [127.5,    1.5],
-  "Nusa Tenggara Barat": [116.92, -8.54],
-  "Sulawesi Utara":    [124.8,    1.3],
-  "Gorontalo":          [123.05,   0.56],
+  "Aceh":                      [  96.21,   4.96],
+  "Bali":                      [ 115.15,  -8.38],
+  "Banten":                    [ 106.30,  -6.11],
+  "Bengkulu":                  [ 102.29,  -3.81],
+  "DI Yogyakarta":             [ 110.37,  -7.79],
+  "DKI Jakarta":               [ 106.86,  -6.26],
+  "Gorontalo":                 [ 123.05,   0.56],
+  "Jambi":                     [ 102.87,  -1.54],
+  "Jawa Barat":                [ 107.62,  -6.79],
+  "Jawa Tengah":               [ 110.35,  -7.41],
+  "Jawa Timur":                [ 112.94,  -7.80],
+  "Kalimantan Barat":          [ 109.71,   0.24],
+  "Kalimantan Selatan":        [ 115.14,  -3.01],
+  "Kalimantan Tengah":         [ 113.51,  -2.35],
+  "Kalimantan Timur":          [ 117.14,  -0.57],
+  "Kalimantan Utara":          [ 117.49,   3.08],
+  "Kepulauan Bangka Belitung": [ 106.89,  -2.44],
+  "Kepulauan Riau":            [ 104.18,   1.02],
+  "Lampung":                   [ 105.29,  -5.27],
+  "Maluku":                    [ 130.44,  -4.66],
+  "Maluku Utara":              [ 127.39,   0.78],
+  "Nusa Tenggara Barat":       [ 116.91,  -8.54],
+  "Nusa Tenggara Timur":       [ 122.22,  -9.50],
+  "Papua":                     [ 139.52,  -4.50],
+  "Papua Barat":               [ 132.65,  -0.87],
+  "Riau":                      [ 101.81,   0.60],
+  "Sulawesi Barat":            [ 118.98,  -3.04],
+  "Sulawesi Selatan":          [ 119.95,  -4.45],
+  "Sulawesi Tengah":           [ 120.25,  -0.91],
+  "Sulawesi Tenggara":         [ 122.56,  -4.67],
+  "Sulawesi Utara":            [ 124.64,   1.20],
+  "Sumatera Barat":            [ 100.37,  -0.61],
+  "Sumatera Selatan":          [ 104.15,  -3.08],
+  "Sumatera Utara":            [  98.73,   2.53],
 }
 
 interface TooltipState {
